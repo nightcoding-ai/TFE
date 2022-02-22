@@ -8,6 +8,7 @@ import { TournamentsModule } from './tournaments/tournaments.module';
 import { PlayersController } from './players/controllers/players.controller';
 import { PlayersService } from './players/providers/players.service';
 import { PlayersModule } from './players/players.module';
+import { NestFactory } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PlayersModule } from './players/players.module';
       database: process.env.POSTGRES_DATABASE,
       autoLoadEntities: true,
       synchronize: true,  // ! can't be used in production.
+      
 
     }),
     PlayersModule,
@@ -30,6 +32,9 @@ import { PlayersModule } from './players/players.module';
   ],
   controllers: [AppController],
   providers: [AppService],
+  
 })
 export class AppModule {
+
+  
 }

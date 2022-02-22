@@ -1,0 +1,18 @@
+<button (click)="getTeams()"class="btn btn-primary">Test API</button>
+
+<table class="table">
+    <thead>
+        <th>id</th>
+        <th>Nom</th>
+        <th>Abreviation</th>
+        <th>logo</th>
+    </thead>
+    <tbody>
+        <tr *ngFor= "let team of teams">
+            <td >{{ team.id }}</td>
+            <td >{{ team.teamName }}</td>
+            <td >{{ team.abbreviation }}</td>
+            <td >{{ team.logo }}</td>
+        </tr>
+    </tbody>
+</table>

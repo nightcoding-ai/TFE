@@ -21,9 +21,9 @@ export class TeamsController {
         this.TeamService.createTeam(team)
     }
 
-    @Get('names')
-    getAllTeamsName(): Promise<TeamInterface[]> {
-        return
+    @Get()
+    getAllTeamsName(): Promise<Team[]> {
+        return this.TeamService.getAllTeamsNames()    
     }
 
 
