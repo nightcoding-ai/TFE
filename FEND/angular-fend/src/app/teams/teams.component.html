@@ -1,18 +1,64 @@
-<button (click)="getTeams()"class="btn btn-primary">Test API</button>
+<div class="container " *ngFor="let team of teamsWithPlayers">
+    <div class="container teamInfo">
+        
+        <span class="abb"> {{ team.abbreviation }}</span>
+        <span class="teamname"> {{ team.teamName }}</span>
+        
+        <a href="#" class="joinTeam"><i class="pi pi-sign-in" id=""></i>
+           Rejoindre l'équipe </a>
 
-<table class="table">
-    <thead>
-        <th>id</th>
-        <th>Nom</th>
-        <th>Abreviation</th>
-        <th>logo</th>
-    </thead>
-    <tbody>
-        <tr *ngFor= "let team of teams">
-            <td >{{ team.id }}</td>
-            <td >{{ team.teamName }}</td>
-            <td >{{ team.abbreviation }}</td>
-            <td >{{ team.logo }}</td>
-        </tr>
-    </tbody>
-</table>
+    </div>
+
+    <table >
+        <thead>
+            <th *ngFor="let player of team.players; let i = index "> Joueur {{i + 1}}</th>
+            
+        </thead>
+        <tbody>
+            <tr>
+                <td *ngFor="let player of team.players"> <span class="infoTitle">Nom</span>  {{ player.name }} </td>
+                
+            </tr>
+            <tr >
+                <td *ngFor="let player of team.players">
+                    <div *ngIf="player.playerInfo.role === roleEnum.Toplane">
+                    <span class="infoTitle">Role</span> <img src="https://raw.githubusercontent.com/davidherasp/lol_images/master/role_lane_icons/TOP.png" alt="roleIcon" class="roleIcon">{{player.playerInfo.role}}
+                    </div>
+                    <div *ngIf="player.playerInfo.role === roleEnum.Jungle">
+                    <span class="infoTitle">Role</span> <img src="https://raw.githubusercontent.com/davidherasp/lol_images/master/role_lane_icons/JUNGLE.png" alt="roleIcon" class="roleIcon">{{player.playerInfo.role}}
+                    </div>
+                    <div *ngIf="player.playerInfo.role === roleEnum.Midlane">
+                    <span class="infoTitle">Role</span> <img src="https://raw.githubusercontent.com/davidherasp/lol_images/master/role_lane_icons/MIDDLE.png" alt="roleIcon" class="roleIcon">{{player.playerInfo.role}}
+                    </div>
+                    <div *ngIf="player.playerInfo.role === roleEnum.ADC">
+                    <span class="infoTitle">Role</span> <img src="https://raw.githubusercontent.com/esports-bits/lol_images/master/role_lane_icons/ADC.png" alt="roleIcon" class="roleIcon">{{player.playerInfo.role}}
+                    </div>
+                    <div *ngIf="player.playerInfo.role === roleEnum.Support">
+                    <span class="infoTitle">Role</span> <img src="https://raw.githubusercontent.com/esports-bits/lol_images/master/role_lane_icons/SUPPORT.png" alt="roleIcon" class="roleIcon">{{player.playerInfo.role}}
+                    </div>
+                
+                
+                
+                </td>
+            </tr>
+            <tr>
+                <td *ngFor="let player of team.players" > <span class="infoTitle">Rang</span> {{ player.playerInfo.rank }} </td>
+            </tr>
+            <tr>
+                <td *ngFor="let player of team.players" > <span class="infoTitle">Discord</span>  {{ player.playerInfo.discord }} </td>
+            </tr>
+            <tr>
+                <td *ngFor="let player of team.players" > <span class="infoTitle">IG name</span>  {{ player.playerInfo.igName }} </td>
+            </tr>
+        </tbody>
+
+
+       
+
+    </table>
+
+    
+
+
+</div>
+

@@ -7,6 +7,7 @@ import { Player } from "src/players/models/players.entity";
 import { Connection, ConnectionManager, DeleteQueryBuilder, DeleteResult, Repository, UpdateEvent, UpdateResult } from "typeorm";
 import { Team } from "../models/teams.entity";
 import { TeamInterface } from "../models/teams.interface";
+import { getTeamsWithPlayers } from "../repository/teams.repository";
 
 @Injectable()
 export class TeamsService {
@@ -37,6 +38,19 @@ export class TeamsService {
             const teams = await this.TeamRepository.find();
             
             return teams;
+        }
+        catch(err) {
+            
+            throw err;
+        }
+    }
+
+    async getAllPlayersWithTeam(): Promise<Team[]> {
+        try {
+
+            const playersWithTeam = await getTeamsWithPlayers();
+
+            return playersWithTeam;
         }
         catch(err) {
             

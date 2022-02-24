@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PrimeNGConfig} from 'primeng/api';
+import { PrimeIcons } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +17,12 @@ import { Observable } from 'rxjs';
 export class AppComponent {
 
   
-  
-  constructor(private http: HttpClient) { }
+  constructor(private primengConfig: PrimeNGConfig) { }
 
   ngOnInit(): void {
     
-    
+    this.primengConfig.ripple = true;
+
   }
 
     

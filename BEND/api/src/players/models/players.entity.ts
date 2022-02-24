@@ -10,7 +10,7 @@ export class Player {
     @Column({unique: true})
     name: string;
 
-    @OneToOne(() => PlayerInfo, {onDelete: 'CASCADE'})
+    @OneToOne(() => PlayerInfo, {onDelete: 'CASCADE', cascade: true})
     @JoinColumn()
     playerInfo:  PlayerInfo;
 
