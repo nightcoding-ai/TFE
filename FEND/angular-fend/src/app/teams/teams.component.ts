@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TeamsService } from './teams.service';
-import { Team } from './teams.interface';
+import { Team, TeamWithPlayers } from './teams.interface';
+import { RoleEnum } from '../roles.enum';
+
 
 @Component({
   selector: 'app-teams',
@@ -14,22 +16,44 @@ export class TeamsComponent implements OnInit {
 
   teams?: Team[] = [];
 
+  teamsWithPlayers?: TeamWithPlayers[] = [];
+
+  roleEnum = RoleEnum;
+
+  
+
+
+
   
 
   constructor(private teamService: TeamsService){ }
 
 
-  ngOnInit(): void{
+  ngOnInit(): void {
+
+      this.getTeamsWithPlayersInfo();
+
       
   }
   
-  getTeams(){
-   this.teamService.getTeamsList().subscribe((res) => {
-     this.teams = res;
-     console.log(this.teams);
-     
-   });
+  getTeams() {
+
+    this.teamService.getTeamsList().subscribe((res) => {
+
+      this.teams = res;
+
+      
+      
+    });
   }
 
+  getTeamsWithPlayersInfo() {
+
+    this.teamService.getTeamsWithPlayers().subscribe((res) => {
+
+      this.teamsWithPlayers = res;
+
+    })
+  }
 
 }

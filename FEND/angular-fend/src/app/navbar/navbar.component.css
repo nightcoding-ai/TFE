@@ -1,0 +1,19 @@
+.bg-navbar{
+    background: #332525;
+}
+
+nav.color-navbar a{
+    color: #fff;
+    text-transform: uppercase;
+    justify-content: baseline;
+}
+
+nav.color-navbar a:hover{
+    color:blueviolet
+}
+
+.dropdownBasic1{
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+}

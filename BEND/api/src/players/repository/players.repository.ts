@@ -6,7 +6,7 @@ import { PlayerInfoInterface } from "../models/playerinfos.interface";
 
 
 
-export function readAllPlayersInfos(){
+export function readAllPlayersInfos() {
 
         const playerRepo = getRepository(Player);
     
@@ -18,7 +18,7 @@ export function readAllPlayersInfos(){
         return players;
         }
 
-export function  readOnePlayerInfos(idPlayer: number){
+export function  readOnePlayerInfos(idPlayer: number) {
 
         const playerRepo = getRepository(Player);
 
