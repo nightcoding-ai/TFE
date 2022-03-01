@@ -20,9 +20,11 @@ export class Team {
     @OneToMany(() => Player, player => player.team, {cascade: true})
     players: Player[];
 
-    @ManyToMany(() => Tournament, tournament => tournament.teams)
-    @JoinTable()
-    tournaments: Tournament[];
+    @ManyToOne(() => Tournament, tournament => tournament.teams)
+    tournament: Tournament;
+
+  
+
 
     
 

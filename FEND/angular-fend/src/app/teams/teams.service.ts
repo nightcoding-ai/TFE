@@ -12,6 +12,7 @@ export class TeamsService {
   readonly baseAPIUrl = "http://localhost:3000/api";
 
 
+
   
   constructor(private http: HttpClient) { }
 
@@ -20,20 +21,26 @@ export class TeamsService {
   }
 
   getTeamsWithPlayers(){
-    return this.http.get<any>(this.baseAPIUrl + "/teams/players").pipe(
+    return this.http.get<any>(this.baseAPIUrl + "/teams/getall/players").pipe(
       map((res: TeamWithPlayers[]) => {
-        let missingPlayersCount = 5 - res.length;
-        for(let i = missingPlayersCount; i > 0; i--){
-          res.push({} as TeamWithPlayers);
+        for(let i = 0; i < res.length; i++){
+          let missingPlayers = 5 - res[i].players.length;
+          for(let j = missingPlayers; j > 0; j--){
+            res[i].players.push(null as Player);
+          }
         }
-
-        return res
+        console.log(res);
+        return res;
       })
     );
   }
 
+  getTeamByID(idTeam: number){
+    return this.http.get<any>(this.baseAPIUrl + `/teams/profil_team/${idTeam}`);
 
-  
+
+  }
+
 }
 
 

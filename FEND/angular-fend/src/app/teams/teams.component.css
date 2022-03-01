@@ -1,102 +1,101 @@
-div.container:first-child{
-    padding-top: 20px;
+img.missingPlayer{
+    height: 3em;
+    width: 3em;
+    margin-bottom: 3px;
 }
 
-div.container{
-    padding-bottom:20px;
+#missingBlock{
+    font-style: italic;
+    color: var(--orangeWarning);
 }
 
-div.container.teamInfo{
-    
-    
-    background-color: #e9e9e9;
-    color: black;
-    padding-bottom: 5px;
-    padding-top: 3px;
-    border-bottom:  solid 1px white;
-    border-radius: 5px 5px 0px 0px;
-    justify-content:baseline;
-   
-   
+.ranksIcon{
+    justify-content: center;
+    width: 4em;
+    height: 4em;
 }
 
-.teamInfo span{
-    display: flex;
-    flex-direction:row;
-    text-align: right;
-
-}
-
-div.container.teamInfo a.joinTeam{
-    text-align: right;
-    text-decoration: none;
-    color:#151515;
-    font-size: 0.65em;
-    padding-bottom: 10px;
-    
-}
-
-
-
-.teamInfo span.teamname{
-    font-weight: bold;
-
-}
-
-table {
+div.teamContainer{
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
+    width: 700px;
+   
+}
+
+div.playersContainer{
+    background-color: var(--navColor);
+    display: flex;
+    flex-direction: row;
+    
+    font-size: 0.7em;
+    font-weight: 500;
+    text-transform: uppercase;
+    height: 100px;
+ 
+}
+
+
+
+div.teamInfo{
+    margin-bottom: 10px;
+    background-color: var(--navColorDarker);
     width: 100%;
-    background-color: #332525;
-    color: white;
-    border-radius: 0px 0px 5px 5px;
-}
 
-tbody {
-    font-size: 0.6em;
-    align-items: center;
+    
+
+   
 
 }
 
+#profilTeam{
+    margin-left: 6px;
+}
 
+div.teamInfo:hover{
+    cursor: pointer;
+}
 
-
-
-thead th{
-    border-right: #4e3939 solid 3px;
+div.teamPlayers{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
+    border-right: solid 3px var(--bodyColor);
+    width: 140px;
+
+
 }
 
-thead th:last-child{
-    border-right:none
-}
-tr td{
-    width:20%;
-    text-align: left;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-right: #4e3939 solid 3px;
-}
-
-tr td:last-child{
+div.teamPlayers:last-child{
     border-right: none;
+    padding-right: 4px;
 }
 
-
-
-
-span.infoTitle{
-    font-weight: bold;
-    margin-left: 5%;
-    margin-right: 5px;
+div.teamInfo{
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+    justify-content: baseline;
 }
 
-.roleIcon{
-    height: 1.6em;
-    width: 1.6em;
-    margin-right: 3px;
+div.teamInfo a{
+    align-self: flex-end;
+    text-decoration: none;
+    color: white;
+    
 }
 
+div.teamInfo a:hover{
+    cursor: pointer;
+}
 
+div.teamInfo a img{
+    width: 0.5em;
+    height: 0.5em;
+    margin-right: 7px;
+}
 
-
+div.teamInfo{
+    border: 1px solid white;
+}

@@ -12,7 +12,8 @@ export class Tournament {
     @Column()
     isFinished: boolean;
 
-    @ManyToMany(() => Team, team => team.tournaments)
+    @OneToMany(() => Team, team => team.tournament)
     teams: Team[];
 
+  
 }

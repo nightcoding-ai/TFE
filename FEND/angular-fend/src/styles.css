@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Roboto:wght@400;500&display=swap');
+
+
+:root{
+    --bodyColor : #1b1313;
+    --navColor : #2b2727;
+    --navColorDarker: #1d1a1a;
+    --orangeWarning : #c09e4d;
+    --orangeAttention : #e4c17067;
+    --redWarning: #8b2828;
+    --redWarningHover: #701f1f;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+}
+
+body{
+    background-color: var(--bodyColor);
+    color: white;
+}
+
+.icons{
+    width: 1em;
+    height: 1em;
+}

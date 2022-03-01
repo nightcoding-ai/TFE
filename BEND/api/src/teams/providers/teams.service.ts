@@ -4,21 +4,21 @@ import { captureRejections } from "events";
 import { from, Observable } from "rxjs";
 import { PlayerInterface } from "src/players/models/player.interface";
 import { Player } from "src/players/models/players.entity";
-import { Connection, ConnectionManager, DeleteQueryBuilder, DeleteResult, Repository, UpdateEvent, UpdateResult } from "typeorm";
+import { DeleteResult, Repository, UpdateResult} from "typeorm";
 import { Team } from "../models/teams.entity";
 import { TeamInterface } from "../models/teams.interface";
-import { getTeamsWithPlayers } from "../repository/teams.repository";
+import { TeamRepository } from "../repository/teams.repository";
 
 @Injectable()
 export class TeamsService {
     constructor(
-        @InjectRepository(Team)
-        private readonly TeamRepository : Repository<Team>,
-        @InjectRepository(Player)
-        private readonly PlayerRepository : Repository<Player>,
+        
+        private readonly TeamRepository: TeamRepository,
+        
+
     ){}
     
-    async createTeam(team : TeamInterface){
+    async createTeam(team : Team): Promise<Team> {
         try {
             
             const newTeam = await this.TeamRepository.save(team);
@@ -32,7 +32,7 @@ export class TeamsService {
          }
     }
 
-    async getAllTeamsNames(): Promise<Team[]> {
+    async getAllTeams(): Promise<Team[]> {
         try {
 
             const teams = await this.TeamRepository.find();
@@ -48,12 +48,51 @@ export class TeamsService {
     async getAllPlayersWithTeam(): Promise<Team[]> {
         try {
 
-            const playersWithTeam = await getTeamsWithPlayers();
+            const playersWithTeam = await this.TeamRepository.getTeamsWithPlayers();
 
             return playersWithTeam;
         }
         catch(err) {
             
+            throw err;
+        }
+    }
+    
+    async getTeamByID(idTeam: number): Promise<Team> {
+        try {
+
+            const team = await this.TeamRepository.getTeamByID(idTeam);
+
+            return team;
+        }
+        catch(err) {
+
+            throw err;
+        }
+    }
+
+    async updateTeam(idTeam: number, team: Team): Promise<UpdateResult> {
+        try {
+
+            const teamModified = await this.TeamRepository.updateTeam(idTeam, team);
+
+            return teamModified;
+        }
+        catch(err) {
+
+            throw err;
+        }
+    }
+
+    async deleteTeam(idTeam: number): Promise<DeleteResult> {
+        try {
+            
+            const teamDeleted = await this.TeamRepository.deleteTeam(idTeam);
+
+            return teamDeleted;
+        }
+        catch(err) {
+
             throw err;
         }
     }
