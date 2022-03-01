@@ -6,6 +6,7 @@ import { Tournament } from 'src/tournaments/models/tournaments.entity';
 import { TeamsController } from './controllers/teams.controller';
 import { Team } from './models/teams.entity';
 import { TeamsService } from './providers/teams.service';
+import { TeamRepository } from './repository/teams.repository';
 
 @Module({
     imports: [
@@ -16,7 +17,9 @@ import { TeamsService } from './providers/teams.service';
         
     ],
     providers: [
-        TeamsService
+        TeamsService,
+        TeamRepository
+
         
     ],
     exports: [

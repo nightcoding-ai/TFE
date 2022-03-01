@@ -16,6 +16,9 @@ import {MenuItem} from 'primeng/api';
 
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
+import { TeamComponent } from './teams/team/team.component';
+import { NewsComponent } from './news/news.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 
 
@@ -24,7 +27,10 @@ import {TableModule} from 'primeng/table';
   declarations: [
     AppComponent,
     TeamsComponent,
-    NavbarComponent
+    NavbarComponent,
+    TeamComponent,
+    NewsComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,

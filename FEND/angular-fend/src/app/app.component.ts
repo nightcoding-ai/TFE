@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PrimeNGConfig} from 'primeng/api';
 import { PrimeIcons } from 'primeng/api';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ export class AppComponent {
 
   }
 
+  faUsers = faUser;
     
   
 

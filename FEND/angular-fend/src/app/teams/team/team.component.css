@@ -1,0 +1,109 @@
+.container{
+
+    background-color: var(--navColor);
+}
+
+
+
+.player{
+
+    height: 150px;
+    padding: 2rem;
+    border-bottom: solid 3px var(--bodyColor);
+}
+
+
+
+.profilPicture{
+
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 0.88em;
+
+
+}
+
+.ranksIcon{
+
+    height: 75px;
+    width: 75px;
+}
+
+.socials {
+    font-size: 0.70em;
+    flex-direction: column;
+
+}
+
+.ban{
+    color:var(--redWarning);
+}
+
+
+#crown{
+    color: yellow;
+}
+
+#userIcon{
+    color: #fff;
+
+}
+
+#userIcon:hover{
+    cursor: pointer;
+}
+
+
+div.col.name{
+    font-size: 0.68em;
+    width: 150px;
+    padding: 0;
+}
+
+span#name{
+    margin-top: 0.3rem ;
+}
+
+div.col.role{
+    width: 32px;
+}
+
+
+
+
+.teamInformations{
+    height: 100px;
+    background-color: var(--navColorDarker);
+    border: solid 1px white;
+    padding: 15px;
+
+}
+
+#teamLogo{
+    padding: 0;
+    width: 90px;
+    width: 90px;
+}
+
+div.row.missing.player{
+    background-color: var(--orangeAttention);
+}
+
+#warningTriangle{
+    color: var(--orangeWarning);
+    font-size: 3em;
+}
+
+.leaveTeamLink a{
+    font-weight: 600;
+    color: var(--redWarning);
+}
+
+.leaveTeamLink a span{
+    margin-left: 4px;
+}
+
+.leaveTeamLink a:hover{
+    color: var(--redWarningHover);
+}

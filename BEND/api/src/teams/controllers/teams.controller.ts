@@ -16,22 +16,41 @@ export class TeamsController {
         private TeamService : TeamsService
     ){}
 
-    @Post()
+    @Post('/post')
     addTeam(
-        @Body()team : TeamInterface) {
-        this.TeamService.createTeam(team)
+        @Body()team : Team) {
+        this.TeamService.createTeam(team);
     }
 
-    @Get()
+    @Get('/getall')
     getAllTeamsName(): Promise<Team[]> {
-        return this.TeamService.getAllTeamsNames()    
+        return this.TeamService.getAllTeams();
     }
 
-    @Get('players')
-    getAllPlayersWithTeamInclude(): Promise<Team[]>{
+    @Get('/profil_team/:id')
+    getTeamByIdWithPlayers(
+        @Param('id')idTeam: number): Promise<Team> {
+        return this.TeamService.getTeamByID(idTeam);
+        }
+
+    @Get('/getall/players')
+    getAllPlayersWithTeamInclude(): Promise<Team[]> {
         return this.TeamService.getAllPlayersWithTeam();
         
     }
+
+    @Put('/modify/:id')
+    putTeam(
+        @Param('id')idTeam: number,
+        @Body()team: Team): Promise<UpdateResult> {
+        return this.TeamService.updateTeam(idTeam, team);
+    }
+
+    @Delete('/delete/:id')
+    deleteTeam(
+        @Param('id')idTeam: number): Promise<DeleteResult> {
+        return this.TeamService.deleteTeam(idTeam);
+        }
 
 
 

@@ -1,0 +1,132 @@
+<div class="container teamInformations mt-4">
+    <div class="row align-items-center">
+        <div class="col">
+            <img src="{{ team.logo }}" alt="logo" id="teamLogo">
+        </div>
+
+        <div class="col-8">
+            {{team.abbreviation}}<br>
+
+            {{team.teamName | uppercase}}
+        </div>
+
+        <div class="col leaveTeamLink">
+            <a href="" id="leaveTeam"><fa-icon [icon]="faArrowRight"></fa-icon><span>QUITTER</span></a>
+        </div>
+    </div>
+
+</div>
+
+<div class="container mt-3">
+
+    <div *ngFor="let role of roles" >
+
+        <div class="row player" *ngIf="this.getPlayerByRole(role)">
+
+            <div  class="col">
+
+                <div *ngIf="this.getPlayerByRole(role).playerInfo.isCaptain === true" >
+
+                    <fa-icon [icon]="faCrown" id="crown"></fa-icon>
+
+                </div>
+
+                <div *ngIf="this.getPlayerByRole(role).playerInfo.isCaptain === false" >
+
+                    <fa-icon [icon]="faUser" id="userIcon" (click)="makeCaptain(this.getPlayerByRole(role).id, team.id)"></fa-icon>
+
+                </div>
+
+            </div>
+
+            <div class="col role" [ngSwitch]="this.getPlayerByRole(role).playerInfo.role">
+
+                <img src="../../../assets/Top_icon.png" alt="role" *ngSwitchCase="roleEnum.Toplane" class="rolesIcon">
+
+                <img src="../../../assets/Jungle_icon.png" alt="role" *ngSwitchCase="roleEnum.Jungle" class="rolesIcon">
+
+                <img src="../../../assets/Middle_icon.png" alt="role" *ngSwitchCase="roleEnum.Midlane" class="rolesIcon">
+
+                <img src="../../../assets/Bottom_icon.png" alt="role" *ngSwitchCase="roleEnum.ADC" class="rolesIcon">
+
+                <img src="../../../assets/Support_icon.png" alt="role" *ngSwitchCase="roleEnum.Support" class="rolesIcon">
+
+                <fa-icon [icon]="faTrianglExclamation" *ngSwitchDefault></fa-icon>
+
+
+
+            </div>
+
+            <div class="col name" *ngIf="this.getPlayerByRole(role).playerInfo.profilPicture">
+
+                <img src="{{this.getPlayerByRole(role).playerInfo.profilPicture}}" alt="profilPicture" class="profilPicture">
+
+            
+
+                <span id="name"> {{ this.getPlayerByRole(role).name }}</span>
+            
+            </div>
+
+            <div class="col name" *ngIf="!this.getPlayerByRole(role).playerInfo.profilPicture">
+
+                <span id="name"> {{ this.getPlayerByRole(role).name }}</span>
+
+
+            </div>
+
+           
+
+
+            <div class="col" [ngSwitch]="this.getPlayerByRole(role).playerInfo.rank">
+
+                <img src="../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">
+
+                <img src="../../../assets/grandmaster.png" alt="rank" *ngSwitchCase="rankEnum.GrandMaitre" class="ranksIcon">
+
+                <img src="../../../assets/master.png" alt="rank" *ngSwitchCase="rankEnum.Maitre" class="ranksIcon">
+
+                <img src="../../../assets/diamond.png" alt="rank" *ngSwitchCase="rankEnum.Diamant" class="ranksIcon">
+
+                <img src="../../../assets/platine.png" alt="rank" *ngSwitchCase="rankEnum.Platine" class="ranksIcon">
+
+                <img src="../../../assets/gold.png" alt="rank" *ngSwitchCase="rankEnum.Or" class="ranksIcon">
+
+                <img src="../../../assets/silver.png" alt="rank" *ngSwitchCase="rankEnum.Argent" class="ranksIcon">
+
+                <img src="../../../assets/bronze.png" alt="rank" *ngSwitchCase="rankEnum.Bronze" class="ranksIcon">
+
+                <img src="../../../assets/iron.png" alt="rank" *ngSwitchCase="rankEnum.Fer" class="ranksIcon">
+
+                <img src="../../../assets/unranked.png" alt="rank" *ngSwitchDefault>
+
+            </div>
+
+            <div class="col socials">
+
+                <fa-icon [icon]="faDiscord" id="discordIcon"></fa-icon> {{ this.getPlayerByRole(role).playerInfo.discord | uppercase }}<br>
+
+                <img src="../../../assets/lol.png" alt="lolIG" class="icons" id="lolIcon"> {{ this.getPlayerByRole(role).playerInfo.igName | uppercase }}
+            
+            </div>
+
+            <div class="col ban" *ngIf="this.getPlayerByRole(role).playerInfo.isCaptain === false">
+
+                <fa-icon [icon]="faBan" class="ban"> exclure</fa-icon><a href="#" class="ban">exclure</a>
+
+            </div>
+
+        </div>
+
+        <div class="row player missing align-items-center d-flex" *ngIf="!this.getPlayerByRole(role)" (click)="joinTeamRequest(team.id);">
+
+            <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
+
+            <span class> PLACE LIBRE </span>
+
+        </div>
+    
+    </div>
+    
+</div>
+
+

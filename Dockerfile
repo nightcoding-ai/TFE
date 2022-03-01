@@ -1,30 +1,11 @@
 FROM node:12.19.0-alpine3.9 AS development
 
-WORKDIR /usr/src/app
+WORKDIR /BEND/api/
 
-COPY package*.json ./
 
-RUN npm install glob rimraf
+RUN npm install 
 
-RUN npm install --only=development
+RUN npm run start:dev
 
-COPY . .
 
-RUN npm run start
 
-FROM node:12.19.0-alpine3.9 as production
-
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install --only=production
-
-COPY . .
-
-COPY --from=development /usr/src/app/dist ./dist
-
-CMD ["node", "dist/main"]
