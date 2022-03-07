@@ -2,11 +2,9 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { captureRejections } from "events";
 import { from, Observable } from "rxjs";
-import { PlayerInterface } from "src/players/models/player.interface";
-import { Player } from "src/players/models/players.entity";
 import { DeleteResult, Repository, UpdateResult} from "typeorm";
+import { TeamDTO } from "../DTO/teamDTO";
 import { Team } from "../models/teams.entity";
-import { TeamInterface } from "../models/teams.interface";
 import { TeamRepository } from "../repository/teams.repository";
 
 @Injectable()
@@ -18,12 +16,12 @@ export class TeamsService {
 
     ){}
     
-    async createTeam(team : Team): Promise<Team> {
+    async create(teamDTO : TeamDTO): Promise<void> {
         try {
             
-            const newTeam = await this.TeamRepository.save(team);
+            await this.TeamRepository.addTeam(teamDTO);
             
-            return newTeam;
+            
 
         }
         catch(err) {
@@ -32,70 +30,61 @@ export class TeamsService {
          }
     }
 
-    async getAllTeams(): Promise<Team[]> {
-        try {
+    async getAll(): Promise<TeamDTO[]> {
+        try{
 
-            const teams = await this.TeamRepository.find();
-            
+            const teams = await this.TeamRepository.getAll();
+
             return teams;
         }
         catch(err) {
-            
+
             throw err;
         }
     }
 
-    async getAllPlayersWithTeam(): Promise<Team[]> {
-        try {
+    async getTeam(idTeam: number): Promise<TeamDTO> {
+        try{
 
-            const playersWithTeam = await this.TeamRepository.getTeamsWithPlayers();
-
-            return playersWithTeam;
-        }
-        catch(err) {
+            const team = await this.TeamRepository.getTeam(idTeam);
             
-            throw err;
-        }
-    }
-    
-    async getTeamByID(idTeam: number): Promise<Team> {
-        try {
-
-            const team = await this.TeamRepository.getTeamByID(idTeam);
 
             return team;
         }
         catch(err) {
-
+            
             throw err;
         }
     }
 
-    async updateTeam(idTeam: number, team: Team): Promise<UpdateResult> {
-        try {
+    async updateTeam(idTeam: number, teamDTO: TeamDTO): Promise<UpdateResult> {
+        try{
 
-            const teamModified = await this.TeamRepository.updateTeam(idTeam, team);
+            const modify = await this.TeamRepository.updateTeam(idTeam, teamDTO);
 
-            return teamModified;
+            return modify;
         }
         catch(err) {
-
+            
             throw err;
         }
     }
 
     async deleteTeam(idTeam: number): Promise<DeleteResult> {
-        try {
-            
-            const teamDeleted = await this.TeamRepository.deleteTeam(idTeam);
+        try{
 
-            return teamDeleted;
+            const deleted = await this.TeamRepository.deleteTeam(idTeam);
+
+            return deleted;
         }
         catch(err) {
-
+            
             throw err;
         }
     }
+
+    
+    
 
     
 

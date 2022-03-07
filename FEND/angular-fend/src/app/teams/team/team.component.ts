@@ -18,9 +18,9 @@ export class TeamComponent implements OnInit {
 
 
   roles = [
-    RoleEnum.Toplane, 
-    RoleEnum.Jungle, 
-    RoleEnum.Midlane, 
+    RoleEnum.Toplaner, 
+    RoleEnum.Jungler, 
+    RoleEnum.Midlaner, 
     RoleEnum.ADC, 
     RoleEnum.Support
   ];
@@ -68,6 +68,7 @@ export class TeamComponent implements OnInit {
 
     })
 
+
     this.getTeam(this.idTeam);
 
     
@@ -83,7 +84,7 @@ export class TeamComponent implements OnInit {
 
       this.team = res;
 
-
+      console.log("Equipe chargée",this.team);
 
 
 
@@ -96,7 +97,7 @@ export class TeamComponent implements OnInit {
 
   getPlayerByRole(role: RoleEnum){
     
-    return this.team.players.find((player) => player.playerInfo.role === role)
+    return this.team.players.find((player) => player.profile.role === role)
     
   
   }

@@ -4,14 +4,17 @@
 
 
 :root{
-    --bodyColor : #1b1313;
-    --navColor : #2b2727;
-    --navColorDarker: #1d1a1a;
+    --bodyColor : #E9E9E9;
+    --navColor : #1d1a1a;
+    --teamHover : #c4a55f;
+    --navColorDarker: #0e0c0c;
     --orangeWarning : #c09e4d;
+    --orangeWarningHover : #e9345b;
     --orangeAttention : #e4c17067;
     --redWarning: #8b2828;
     --redWarningHover: #701f1f;
 }
+
 * {
     padding: 0;
     margin: 0;

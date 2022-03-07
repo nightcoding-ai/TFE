@@ -3,7 +3,7 @@
         <div class=" teamInfo" (click)="onSelect(team.id)">
         
         <span class="abb"> {{ team.abbreviation }}</span>
-        <span class="teamname"> {{ team.teamName }}</span>
+        <span class="teamname"> {{ team.name | uppercase }}</span>
         
         <a (click)="onSelect(team.id)" class="joinTeam"><fa-icon [icon]="faUsers"></fa-icon>
             <span id="profilTeam">PROFIL  EQUIPE</span></a>
@@ -26,7 +26,7 @@
              <ng-template #elseBlock>
 
                 
-                <div [ngSwitch]="player.playerInfo.rank ">
+                <div [ngSwitch]="player.profile.rank ">
 
                     <img src="../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">
     
@@ -46,7 +46,7 @@
     
                     <img src="../../../assets/iron.png" alt="rank" *ngSwitchCase="rankEnum.Fer" class="ranksIcon">
     
-                    <img src="../../../assets/unranked.png" alt="rank" *ngSwitchDefault>
+                    <img src="../../../assets/unranked.png" alt="rank" *ngSwitchDefault class="ranksIcon">
     
     
                 </div>

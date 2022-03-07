@@ -19,19 +19,18 @@ div.teamContainer{
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    width: 700px;
+    width: 850px;
    
 }
 
 div.playersContainer{
-    background-color: var(--navColor);
     display: flex;
-    flex-direction: row;
-    
+    justify-content: space-between;
     font-size: 0.7em;
     font-weight: 500;
     text-transform: uppercase;
     height: 100px;
+
  
 }
 
@@ -48,8 +47,16 @@ div.teamInfo{
 
 }
 
+div.teamInfo:hover{
+    background-color: var(--teamHover);
+    border: 1px solid black;
+    color: black;
+
+}
+
 #profilTeam{
     margin-left: 6px;
+    align-items: center;
 }
 
 div.teamInfo:hover{
@@ -61,16 +68,14 @@ div.teamPlayers{
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    border-right: solid 3px var(--bodyColor);
-    width: 140px;
+    background-color: var(--navColor);
+
+    width: 165px;
 
 
 }
 
-div.teamPlayers:last-child{
-    border-right: none;
-    padding-right: 4px;
-}
+
 
 div.teamInfo{
     display: flex;

@@ -7,7 +7,7 @@
 
 .player{
 
-    height: 150px;
+    height: max-content;
     padding: 2rem;
     border-bottom: solid 3px var(--bodyColor);
 }
@@ -19,7 +19,8 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    margin-right: 0.88em;
+    margin-left: auto;
+    margin-right: auto;
 
 
 }
@@ -30,23 +31,43 @@
     width: 75px;
 }
 
+.rolesIcon{
+
+    height: 50px;
+    width: 50px;
+}
+
 .socials {
-    font-size: 0.70em;
+    font-size: 1em;
     flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
 
 }
 
 .ban{
     color:var(--redWarning);
+    font-size: 1.23em;
+    align-items: baseline;
+    margin-top: auto;
+    margin-bottom: auto;
+
 }
 
+a.ban:hover{
+
+    color: var(--orangeWarning);
+
+}
 
 #crown{
     color: yellow;
+    font-size: 1.9em;
 }
 
 #userIcon{
     color: #fff;
+    font-size: 1.9em;
 
 }
 
@@ -56,9 +77,10 @@
 
 
 div.col.name{
-    font-size: 0.68em;
-    width: 150px;
+    width: max-content;
     padding: 0;
+    display: grid;
+    text-align: center;
 }
 
 span#name{
@@ -66,28 +88,40 @@ span#name{
 }
 
 div.col.role{
-    width: 32px;
+    width: fit-content;
 }
 
 
 
 
 .teamInformations{
-    height: 100px;
+    height: max-content;
     background-color: var(--navColorDarker);
     border: solid 1px white;
     padding: 15px;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
 
 }
 
 #teamLogo{
     padding: 0;
-    width: 90px;
-    width: 90px;
+    width: 75%;
+    width: 75%;
+    background-color: var(--bodyColor);
+    border-radius: 50%;
+    border: 3px solid var(--orangeWarning);
 }
 
 div.row.missing.player{
     background-color: var(--orangeAttention);
+    text-align: center;
+    justify-items: center;
+}
+
+div.row.missing.player:hover{
+    background-color: rgb(133, 2, 2);
 }
 
 #warningTriangle{
@@ -106,4 +140,39 @@ div.row.missing.player{
 
 .leaveTeamLink a:hover{
     color: var(--redWarningHover);
+}
+
+div.col-8{
+    text-align: left;
+    font-size: 1.9em;
+}
+
+span#name {
+    text-transform: uppercase;
+    font-size: 1.2em;
+}
+
+
+#banIcon{
+    margin-right: 5px;
+}
+
+div.row.player:first-child{
+    margin: auto;
+}
+
+div.row.player div.col.role{
+    margin: auto;
+}
+
+div.col.userRole{
+    margin: auto;
+}
+
+div.col.rank{
+    margin: auto;
+}
+
+div.col.role{
+    margin: auto;
 }

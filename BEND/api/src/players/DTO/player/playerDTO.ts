@@ -1,0 +1,15 @@
+import { IsString } from "class-validator";
+import { Profile } from "src/players/models/profile/profil.entity";
+import { Team } from "src/teams/models/teams.entity";
+import { ProfileDTO } from "../profil/profileDTO";
+
+export class PlayerDTO {
+
+    
+    @IsString()
+    name: string;
+
+    profile: ProfileDTO;
+
+    team: Team;
+}

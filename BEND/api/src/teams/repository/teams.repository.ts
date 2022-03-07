@@ -1,60 +1,55 @@
 import { Team } from "../models/teams.entity";
-import { getConnection, getRepository, Repository } from "typeorm";
-import { TeamInterface } from "../models/teams.interface";
+import { DeleteResult, getConnection, getRepository, Repository, UpdateResult } from "typeorm";
+import { TeamDTO } from "../DTO/teamDTO";
 
 
 export class TeamRepository extends Repository<Team>{
 
-
-
-    async getTeamsWithPlayers(){
+    async addTeam(teamDTO: TeamDTO): Promise<void> {
 
         const teamRepo = getRepository(Team);
-    
-        const teamWithPlayers =  await teamRepo.find({
 
-            relations: ["players", "players.playerInfo"]
-            
-        })
-    
-         return teamWithPlayers;
+        await teamRepo.save(teamDTO);
     }
-    
-    async getTeamByID(idTeam: number){
-    
+
+    async getAll(): Promise<TeamDTO[]> {
+
         const teamRepo = getRepository(Team);
-    
-        const team =  await teamRepo.findOne({
-           relations: ["players", "players.playerInfo"],
-           where: { id: idTeam}
-        })
-    
-        
+
+        const teams = await teamRepo.find();
+
+        return teams;
+    }
+
+    async getTeam(idTeam: number): Promise<TeamDTO> {
+
+        const teamRepo = getRepository(Team);
+
+        const team = await teamRepo.findOne(idTeam);
+
         return team;
     }
 
-    async updateTeam(idTeam: number, team: Team){
+    async updateTeam(idTeam: number, teamDTO: TeamDTO): Promise<UpdateResult> {
 
-        const teamModified = await getConnection()
-                                .createQueryBuilder()
-                                .update(Team)
-                                .set(team)
-                                .where("id = :id", { id: idTeam})
-                                .execute();
-
-        return teamModified;
-    }
-
-    async deleteTeam(idTeam: number){
-        
-        
         const teamRepo = getRepository(Team);
 
-        const teamDeleted = teamRepo.delete(idTeam);
+        const modify = await teamRepo.update(idTeam, teamDTO);
 
-        return teamDeleted;
+        return modify;
+        
     }
 
+    async deleteTeam(idTeam: number): Promise<DeleteResult> {
+
+        const teamRepo = getRepository(Team);
+
+        const deleted = await teamRepo.delete(idTeam);
+
+        return deleted;
+
+    }
+    
 }
 
 

@@ -1,4 +1,4 @@
-import { Player } from "src/players/models/players.entity";
+import { Player } from "src/players/models/player/player.entity";
 import { Tournament } from "src/tournaments/models/tournaments.entity";
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -8,16 +8,16 @@ export class Team {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({unique:true})
-    teamName: string;
+    @Column({ unique:true })
+    name: string;
 
-    @Column({length: 3})
+    @Column({ length: 3 })
     abbreviation: string;
 
     @Column({nullable: true})
     logo: string;
 
-    @OneToMany(() => Player, player => player.team, {cascade: true})
+    @OneToMany(() => Player, player => player.team, {cascade: true, onDelete: "SET NULL", eager: true})
     players: Player[];
 
     @ManyToOne(() => Tournament, tournament => tournament.teams)

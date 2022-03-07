@@ -1,6 +1,6 @@
 export interface Team{
     id: number,
-    teamName: string,
+    name: string,
     abbreviation: string,
     logo: string
 }
@@ -8,7 +8,7 @@ export interface Team{
 
 export interface TeamWithPlayers{
     id: number,
-    teamName: string,
+    name: string,
     abbreviation: string,
     logo: string,
     players: Player[],
@@ -18,15 +18,15 @@ export interface TeamWithPlayers{
 export interface Player{
     id:number,
     name: number,
-    playerInfo: PlayerInfos;
+    userType: string,
+    profile: Profile;
 }
 
-export interface PlayerInfos{
+export interface Profile{
     id:number,
-    password: string,
     profilPicture: string,
     discord: string,
-    igName: string,
+    inGameName: string,
     role: string,
     rank: string,
     isCaptain: boolean;

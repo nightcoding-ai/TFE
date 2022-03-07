@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PlayerInfo } from 'src/players/models/playerinfos.entity';
-import { Player } from 'src/players/models/players.entity';
+import { Player } from 'src/players/models/player/player.entity';
+import { Profile } from 'src/players/models/profile/profil.entity';
 import { Tournament } from 'src/tournaments/models/tournaments.entity';
 import { TeamsController } from './controllers/teams.controller';
 import { Team } from './models/teams.entity';
@@ -10,7 +10,7 @@ import { TeamRepository } from './repository/teams.repository';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Team, Player, Tournament,PlayerInfo]),
+        TypeOrmModule.forFeature([Team, Tournament,Player, Profile]),
     ],
     controllers: [
         TeamsController

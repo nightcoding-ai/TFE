@@ -1,4 +1,4 @@
-<div class="container teamInformations mt-4">
+<div class="container teamInformations mt-4" *ngIf="team">
     <div class="row align-items-center">
         <div class="col">
             <img src="{{ team.logo }}" alt="logo" id="teamLogo">
@@ -7,31 +7,31 @@
         <div class="col-8">
             {{team.abbreviation}}<br>
 
-            {{team.teamName | uppercase}}
+            {{team.name | uppercase}}
         </div>
 
         <div class="col leaveTeamLink">
-            <a href="" id="leaveTeam"><fa-icon [icon]="faArrowRight"></fa-icon><span>QUITTER</span></a>
+            <a href="" id="leaveTeam" (click)="leaveTeam(team.id)"><fa-icon [icon]="faArrowRight"></fa-icon><span>QUITTER</span></a>
         </div>
     </div>
 
 </div>
 
-<div class="container mt-3">
+<div class="container mt-3" *ngIf="team && team.players">
 
     <div *ngFor="let role of roles" >
 
         <div class="row player" *ngIf="this.getPlayerByRole(role)">
 
-            <div  class="col">
+            <div  class="col userRole">
 
-                <div *ngIf="this.getPlayerByRole(role).playerInfo.isCaptain === true" >
+                <div *ngIf="this.getPlayerByRole(role).profile.isCaptain === true" id="userRole">
 
                     <fa-icon [icon]="faCrown" id="crown"></fa-icon>
 
                 </div>
 
-                <div *ngIf="this.getPlayerByRole(role).playerInfo.isCaptain === false" >
+                <div *ngIf="this.getPlayerByRole(role).profile.isCaptain === false" id="userRole">
 
                     <fa-icon [icon]="faUser" id="userIcon" (click)="makeCaptain(this.getPlayerByRole(role).id, team.id)"></fa-icon>
 
@@ -39,13 +39,13 @@
 
             </div>
 
-            <div class="col role" [ngSwitch]="this.getPlayerByRole(role).playerInfo.role">
+            <div class="col role" [ngSwitch]="this.getPlayerByRole(role).profile.role">
 
-                <img src="../../../assets/Top_icon.png" alt="role" *ngSwitchCase="roleEnum.Toplane" class="rolesIcon">
+                <img src="../../../assets/Top_icon.png" alt="role" *ngSwitchCase="roleEnum.Toplaner" class="rolesIcon">
 
-                <img src="../../../assets/Jungle_icon.png" alt="role" *ngSwitchCase="roleEnum.Jungle" class="rolesIcon">
+                <img src="../../../assets/Jungle_icon.png" alt="role" *ngSwitchCase="roleEnum.Jungler" class="rolesIcon">
 
-                <img src="../../../assets/Middle_icon.png" alt="role" *ngSwitchCase="roleEnum.Midlane" class="rolesIcon">
+                <img src="../../../assets/Middle_icon.png" alt="role" *ngSwitchCase="roleEnum.Midlaner" class="rolesIcon">
 
                 <img src="../../../assets/Bottom_icon.png" alt="role" *ngSwitchCase="roleEnum.ADC" class="rolesIcon">
 
@@ -57,27 +57,7 @@
 
             </div>
 
-            <div class="col name" *ngIf="this.getPlayerByRole(role).playerInfo.profilPicture">
-
-                <img src="{{this.getPlayerByRole(role).playerInfo.profilPicture}}" alt="profilPicture" class="profilPicture">
-
-            
-
-                <span id="name"> {{ this.getPlayerByRole(role).name }}</span>
-            
-            </div>
-
-            <div class="col name" *ngIf="!this.getPlayerByRole(role).playerInfo.profilPicture">
-
-                <span id="name"> {{ this.getPlayerByRole(role).name }}</span>
-
-
-            </div>
-
-           
-
-
-            <div class="col" [ngSwitch]="this.getPlayerByRole(role).playerInfo.rank">
+            <div class="col rank" [ngSwitch]="this.getPlayerByRole(role).profile.rank">
 
                 <img src="../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">
 
@@ -97,21 +77,48 @@
 
                 <img src="../../../assets/iron.png" alt="rank" *ngSwitchCase="rankEnum.Fer" class="ranksIcon">
 
-                <img src="../../../assets/unranked.png" alt="rank" *ngSwitchDefault>
+                <img src="../../../assets/unranked.png" alt="rank" *ngSwitchDefault class="ranksIcon">
 
             </div>
 
-            <div class="col socials">
+            <div class="col name" *ngIf="this.getPlayerByRole(role).profile.profilPicture">
 
-                <fa-icon [icon]="faDiscord" id="discordIcon"></fa-icon> {{ this.getPlayerByRole(role).playerInfo.discord | uppercase }}<br>
+                <img src="{{this.getPlayerByRole(role).profile.profilPicture}}" alt="profilPicture" class="profilPicture">
 
-                <img src="../../../assets/lol.png" alt="lolIG" class="icons" id="lolIcon"> {{ this.getPlayerByRole(role).playerInfo.igName | uppercase }}
+            
+
+                <span id="name"> {{ this.getPlayerByRole(role).name }}</span>
             
             </div>
 
-            <div class="col ban" *ngIf="this.getPlayerByRole(role).playerInfo.isCaptain === false">
+            <div class="col name" *ngIf="!this.getPlayerByRole(role).profile.profilPicture">
 
-                <fa-icon [icon]="faBan" class="ban"> exclure</fa-icon><a href="#" class="ban">exclure</a>
+                <span id="name"> {{ this.getPlayerByRole(role).name }}</span>
+
+
+            </div>
+
+           
+
+
+            
+
+            <div class="col socials">
+
+                <fa-icon [icon]="faDiscord" id="discordIcon"></fa-icon> {{ this.getPlayerByRole(role).profile.discord | uppercase }}<br>
+
+                <img src="../../../assets/lol.png" alt="lolIG" class="icons" id="lolIcon"> {{ this.getPlayerByRole(role).profile.inGameName | uppercase }}
+            
+            </div>
+
+            <div class="col ban align-items-center" *ngIf="this.getPlayerByRole(role).profile.isCaptain === false">
+
+                <a href="#" class="ban"><fa-icon [icon]="faBan" class="ban" id="banIcon"> exclure</fa-icon>exclure</a>
+
+            </div>
+
+            <div class="col ban align-items-center" *ngIf="this.getPlayerByRole(role).profile.isCaptain === true">
+
 
             </div>
 
@@ -121,7 +128,7 @@
 
             <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
 
-            <span class> PLACE LIBRE </span>
+            <span class> PLACE LIBRE | CLIQUEZ POUR REJOINDRE L'EQUIPE </span>
 
         </div>
     

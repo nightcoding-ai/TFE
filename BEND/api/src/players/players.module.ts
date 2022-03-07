@@ -1,24 +1,34 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Team } from 'src/teams/models/teams.entity';
-import { PlayersController } from './controllers/players.controller';
-import { PlayerInfo } from './models/playerinfos.entity';
-import { Player } from './models/players.entity';
-import { PlayersService } from './providers/players.service';
+import { PlayersController } from './controllers/player/player.controller';
+import { Player } from './models/player/player.entity';
+import { Profile } from './models/profile/profil.entity';
+import { PlayersService } from './providers/player/player.service';
+import { PlayerRepository } from './repository/player/player.repository';
+
+
+
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Player, Team, PlayerInfo]),
+        TypeOrmModule.forFeature([
+            Player, 
+            Team, 
+            Profile]),
     ],
     controllers: [
         PlayersController
     ],
     providers: [
-        PlayersService
+        PlayersService,
+        PlayerRepository,
+        
     ],
-    exports: [
-        PlayersService
-    ]
+    exports: [PlayersService]
+    
 
 })
-export class PlayersModule {}
+export class PlayersModule {
+
+}

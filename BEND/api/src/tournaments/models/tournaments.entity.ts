@@ -6,13 +6,19 @@ export class Tournament {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: false })
     tournamentName: string;
 
     @Column()
     isFinished: boolean;
 
-    @OneToMany(() => Team, team => team.tournament)
+    @Column({ default: new Date(), nullable: true },)
+    startDate: Date;
+
+    @Column({ nullable: true})
+    endDate: Date;
+
+    @OneToMany(() => Team, team => team.tournament, { eager: true, cascade: true})
     teams: Team[];
 
   

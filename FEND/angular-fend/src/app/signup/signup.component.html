@@ -1,0 +1,46 @@
+<div class="formContainer">
+<form (ngSubmit)="onSubmit(f)" novalidate #f="ngForm" >
+        <label for="name">Pseudonyme</label>
+        <input type="text" name="name" ngModel #name="ngModel" required>
+        <label for="email">Email</label>
+        <input type="email" name="email" ngModel #email="ngModel" required>
+        <label for="password1">Mot de passe</label>
+        <input type="password" name="password1" id="password1" ngModel #password1="ngModel" required>
+
+        <label for="password2">Confirmation du mot de passe</label>
+        <input type="password" name="password2" id="password2" required ngModel #password2="ngModel">
+        <label for="profilPicture">Image de profil</label>
+        <input type="file" name="profilPicture" ngModel #profilPicture="ngModel">
+
+        <label for="discord">Discord</label>
+        <input type="text" name="discordname" required ngModel #discordname="ngModel">#
+        <input type="number"name="discordtag" min="0000" max="9999" required ngModel #discordtag="ngModel">
+
+        <label for="ign">Pseudonyme League of Legends</label>
+        <input type="text" name="inGameName" required ngModel #inGameName="ngModel">
+
+    <div class="roles ranks">
+        <select name="roles" id="roles" required>
+            <option  value="Toplaner">Toplaner</option>
+            <option  value="Jungler">Jungler</option>
+            <option  value="Midlaner">Midlaner</option>
+            <option  value="ADC">ADC</option>
+            <option  value="Support">Support</option>
+        </select>
+        <select name="ranks" id="ranks">
+            <option value="Unranked" selected="selected">Non Classé</option>
+            <option value="Fer">Fer</option>
+            <option value="Bronze">Bronze</option>
+            <option value="Argent">Argent</option>
+            <option value="Or">Or</option>
+            <option value="Platine">Platine</option>
+            <option value="Diamant">Diamant</option>
+            <option value="Maître">Maître</option>
+            <option value="Grand Maître">Grand Maître</option>
+            <option value="Challenger">Challenger</option>
+        </select>
+    </div>
+
+    <button clas="btn btn-primary">S'inscrire</button>
+  </form>
+</div>

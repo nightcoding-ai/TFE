@@ -16,17 +16,16 @@ export class TeamsService {
   
   constructor(private http: HttpClient) { }
 
-  getTeamsList(){
-    return this.http.get<any>(this.baseAPIUrl + '/teams');
-  }
+  
 
   getTeamsWithPlayers(){
-    return this.http.get<any>(this.baseAPIUrl + "/teams/getall/players").pipe(
+    return this.http.get<any>(this.baseAPIUrl + "/teams/all").pipe(
       map((res: TeamWithPlayers[]) => {
         for(let i = 0; i < res.length; i++){
           let missingPlayers = 5 - res[i].players.length;
           for(let j = missingPlayers; j > 0; j--){
             res[i].players.push(null as Player);
+            console.log(res[i]);
           }
         }
         console.log(res);
@@ -36,7 +35,7 @@ export class TeamsService {
   }
 
   getTeamByID(idTeam: number){
-    return this.http.get<any>(this.baseAPIUrl + `/teams/profil_team/${idTeam}`);
+    return this.http.get<any>(this.baseAPIUrl + `/teams/single/${idTeam}`);
 
 
   }

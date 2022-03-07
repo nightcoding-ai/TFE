@@ -45,16 +45,7 @@ export class TeamsComponent implements OnInit {
       
   }
   
-  getTeams() {
-
-    this.teamService.getTeamsList().subscribe((res) => {
-
-      this.teams = res;
-
-      
-      
-    });
-  }
+  
 
   getTeamsWithPlayersInfo() {
 

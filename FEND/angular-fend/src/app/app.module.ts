@@ -12,13 +12,20 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SidebarModule} from 'primeng/sidebar';
 import {MenubarModule} from 'primeng/menubar';
-import {MenuItem} from 'primeng/api';
+import {AuthModule} from '@auth0/auth0-angular';
+import { environment as env } from 'src/environments/environment';
 
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
 import { TeamComponent } from './teams/team/team.component';
 import { NewsComponent } from './news/news.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProfilePlayerComponent } from './profile-player/profile-player.component';
+import { MyTeamProfileComponent } from './teams/my-team-profile/my-team-profile.component';
+
 
 
 
@@ -30,7 +37,12 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     NavbarComponent,
     TeamComponent,
     NewsComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    SignupComponent,
+    LoginComponent,
+    ProfilePlayerComponent,
+    MyTeamProfileComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -43,7 +55,10 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     MenubarModule,
     ButtonModule,
     TableModule,
-    NgbModule
+    NgbModule,
+    AuthModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

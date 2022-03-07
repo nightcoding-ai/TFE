@@ -1,5 +1,6 @@
 nav{
     width: 100%;
+    margin-bottom: 20px;
 }
 .bg-navbar{
     background: var(--navColor);
@@ -42,4 +43,12 @@ div.col{
 padding-top: 8px;
 margin-left: 8px;
 margin-right: 8px;
+}
+
+#navMenuIcon{
+    color: white;
+}
+
+.auth{
+    justify-content: flex-end;
 }
