@@ -4,6 +4,8 @@ import { Player } from "src/players/models/player/player.entity";
 
 export class CreateProfileDTO {
 
+    id: number;
+
     email: string;
 
     password: string;

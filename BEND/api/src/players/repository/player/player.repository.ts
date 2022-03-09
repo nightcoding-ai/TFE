@@ -10,11 +10,11 @@ export class PlayerRepository extends Repository<Player> {
 
     
 
-    async addPlayer(playerDTO: PlayerDTO): Promise<void> {
+    async addPlayer(player: Player): Promise<void> {
 
         const playerRepo = getRepository(Player);
 
-        await playerRepo.save(playerDTO);
+        await playerRepo.save(player);
 
         
     }
@@ -67,11 +67,13 @@ export class PlayerRepository extends Repository<Player> {
 
    
 
-    async updatePlayer(idPlayer: number, playerDTO: PlayerDTO): Promise<UpdateResult> {
+    async updatePlayer(idPlayer: number, playername: PlayerDTO): Promise<UpdateResult> {
 
         const playerRepo = getRepository(Player);
         
-        const update = playerRepo.update(idPlayer, playerDTO);
+        
+        const update = playerRepo.update(idPlayer, playername);
+
         
         return update;
     

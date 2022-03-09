@@ -5,6 +5,7 @@ import { ProfileDTO } from "../profil/profileDTO";
 
 export class PlayerDTO {
 
+    id: number;
     
     @IsString()
     name: string;

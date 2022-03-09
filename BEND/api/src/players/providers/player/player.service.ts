@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { error } from 'console';
 import { type } from 'os';
 import { CreatePlayerDTO } from 'src/players/DTO/player/CreatePlayerDTO';
 import { PlayerDTO } from 'src/players/DTO/player/playerDTO';
+import { ProfileDTO } from 'src/players/DTO/profil/profileDTO';
 import { Player } from 'src/players/models/player/player.entity';
+import { Profile } from 'src/players/models/profile/profil.entity';
 import { PlayerRepository } from 'src/players/repository/player/player.repository';
 import { ProfileRepository } from 'src/players/repository/profil/profil.repository';
 import { DeleteResult, UpdateResult } from 'typeorm';
@@ -17,6 +20,8 @@ export class PlayersService {
     constructor(
 
         private readonly PlayerRepo : PlayerRepository,
+
+        private readonly ProfileRepo : ProfileRepository
     ){ }
 
 
@@ -62,7 +67,11 @@ export class PlayersService {
     }
 
 
-    async update(idPlayer: number, playerDTO: PlayerDTO) {
-        return await this.PlayerRepo.updatePlayer(idPlayer, playerDTO);
+    async update(idPlayer: number, playername: PlayerDTO ) {
+        return await this.PlayerRepo.updatePlayer(idPlayer, playername);
+    }
+
+    async updateProfile(idProfile: number, profileDTO: ProfileDTO) {
+        return await this.ProfileRepo.updateProfile(idProfile, profileDTO);
     }
 }

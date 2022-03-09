@@ -1,5 +1,6 @@
 
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreatePlayerDTO } from 'src/players/DTO/player/CreatePlayerDTO';
 import { PlayerDTO } from 'src/players/DTO/player/playerDTO';
 import { PlayersService } from 'src/players/providers/player/player.service';
@@ -37,12 +38,17 @@ export class PlayersController {
     }
 
     
-    
-    @Put('modify/:id')
+    @UseGuards(JwtAuthGuard)
+    @Put('modify_name')
     update(
-        @Param() idPlayer: number,
-        @Body() playerDTO: PlayerDTO) {
-            return this.PlayersService.update(idPlayer, playerDTO);
+        @Req() req: any) {
+            return this.PlayersService.update(req.user.player.idPlayer, req.body);
         }
 
+    @UseGuards(JwtAuthGuard)
+    @Put('modify_profile')
+    updateProfil(
+        @Req() req:any) {
+            return this.PlayersService.updateProfile(req.user.player.profile.id, req.body);
+        }
 }

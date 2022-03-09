@@ -6,11 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TeamsModule } from './teams/teams.module';
 import { TournamentsModule } from './tournaments/tournaments.module';
 import { PlayersModule } from './players/players.module';
-import { Player } from './players/models/player/player.entity';
 import { AuthModule } from './auth/auth.module';
 import { LocalStrategy } from './auth/strategy/local.strategy';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Module({
   imports: [
