@@ -6,9 +6,9 @@ import { CreatePlayerDTO } from 'src/players/DTO/player/CreatePlayerDTO';
 import { PlayerDTO } from 'src/players/DTO/player/playerDTO';
 import { ProfileDTO } from 'src/players/DTO/profil/profileDTO';
 import { Player } from 'src/players/models/player/player.entity';
-import { Profile } from 'src/players/models/profile/profil.entity';
+import { Profile } from 'src/players/models/profile/profile.entity';
 import { PlayerRepository } from 'src/players/repository/player/player.repository';
-import { ProfileRepository } from 'src/players/repository/profil/profil.repository';
+import { ProfileRepository } from 'src/players/repository/profil/profile.repository';
 import { DeleteResult, UpdateResult } from 'typeorm';
 
 const argon2 = import('argon2');
@@ -67,8 +67,8 @@ export class PlayersService {
     }
 
 
-    async update(idPlayer: number, playername: PlayerDTO ) {
-        return await this.PlayerRepo.updatePlayer(idPlayer, playername);
+    async update(idPlayer: number, playerDTO: PlayerDTO ) {
+        return await this.PlayerRepo.updatePlayer(idPlayer, playerDTO);
     }
 
     async updateProfile(idProfile: number, profileDTO: ProfileDTO) {

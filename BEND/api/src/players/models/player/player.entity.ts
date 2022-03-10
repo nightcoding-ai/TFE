@@ -1,7 +1,7 @@
 import { UserType } from "src/players/enum/userType.enum";
 import { Team } from "src/teams/models/teams.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Profile } from "../profile/profil.entity";
+import { Profile } from "../profile/profile.entity";
 
 
 @Entity()
@@ -16,7 +16,7 @@ export class Player {
     @Column({enum: UserType, default: UserType.USER})
     userType: UserType;
 
-    @OneToOne(() => Profile, profile => profile.player, { onDelete: 'CASCADE', onUpdate: 'CASCADE' , eager:true, cascade: true})
+    @OneToOne(() => Profile, profile => profile.player, { onDelete: 'CASCADE', eager:true, cascade: true})
     @JoinColumn()
     profile: Profile;
 

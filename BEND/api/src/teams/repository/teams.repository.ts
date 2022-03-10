@@ -5,12 +5,15 @@ import { TeamDTO } from "../DTO/teamDTO";
 
 export class TeamRepository extends Repository<Team>{
 
-    async addTeam(teamDTO: TeamDTO): Promise<void> {
+    async addTeam(teamDTO: TeamDTO): Promise<Team> {
 
         const teamRepo = getRepository(Team);
 
-        await teamRepo.save(teamDTO);
+        return  await teamRepo.save(teamDTO);
+
+        
     }
+    
 
     async getAll(): Promise<TeamDTO[]> {
 

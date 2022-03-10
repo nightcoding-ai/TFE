@@ -1,9 +1,9 @@
 import { ModuleCompiler } from "@nestjs/core/injector/compiler";
 import { PlayerDTO } from "src/players/DTO/player/playerDTO";
 import { Player } from "src/players/models/player/player.entity";
-import { Profile } from "src/players/models/profile/profil.entity";
+import { Profile } from "src/players/models/profile/profile.entity";
+import { TeamDTO } from "src/teams/DTO/teamDTO";
 import { DeleteResult, getConnection, getRepository, Repository, UpdateEvent, UpdateResult } from "typeorm";
-import { ProfileRepository } from "../profil/profil.repository";
 
 
 export class PlayerRepository extends Repository<Player> {
@@ -12,11 +12,29 @@ export class PlayerRepository extends Repository<Player> {
 
     async addPlayer(player: Player): Promise<void> {
 
+
         const playerRepo = getRepository(Player);
 
         await playerRepo.save(player);
+        
+
+
 
         
+    }
+
+    async savePlayer(player: any): Promise<any> {
+
+        const playerRepo = getRepository(Player);
+
+       
+        const saved = await playerRepo.save(player);
+        
+        console.log("SavePlayer",saved);
+
+        return saved;
+        
+
     }
 
     async delPlayer(idPlayer: number): Promise <DeleteResult> {
@@ -67,12 +85,13 @@ export class PlayerRepository extends Repository<Player> {
 
    
 
-    async updatePlayer(idPlayer: number, playername: PlayerDTO): Promise<UpdateResult> {
+    async updatePlayer(idPlayer: number, playerDTO: PlayerDTO): Promise<UpdateResult> {
 
         const playerRepo = getRepository(Player);
         
+        console.log(playerDTO);
         
-        const update = playerRepo.update(idPlayer, playername);
+        const update = playerRepo.update(idPlayer, playerDTO);
 
         
         return update;

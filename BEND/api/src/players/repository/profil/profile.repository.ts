@@ -1,5 +1,5 @@
 import { ProfileDTO } from "src/players/DTO/profil/profileDTO";
-import { Profile } from "src/players/models/profile/profil.entity";
+import { Profile } from "src/players/models/profile/profile.entity";
 import { getRepository, Repository, UpdateResult } from "typeorm";
 
 

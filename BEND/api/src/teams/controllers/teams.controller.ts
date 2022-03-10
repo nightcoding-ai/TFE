@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards } from "@nestjs/common";
 import { userInfo } from "os";
 import { Observable } from "rxjs";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
@@ -20,10 +20,11 @@ export class TeamsController {
     ){}
 
     @UseGuards(JwtAuthGuard)
-
+    @Post('')
     async addTeam(
-        @Body() teamDTO: TeamDTO): Promise<void> {
-            
+        @Req() req: any): Promise<void> {
+        return this.TeamService.create(req);
+         
         
     }
 
@@ -47,7 +48,6 @@ export class TeamsController {
         }
 
 
-    @UseGuards(JwtAuthGuard) 
     @Delete('delete/:id')
     deleteTeam(
         @Param() idTeam: number): Promise<DeleteResult> {

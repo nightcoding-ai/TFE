@@ -1,7 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { captureRejections } from "events";
 import { from, Observable } from "rxjs";
+import { PlayerRepository } from "src/players/repository/player/player.repository";
+import { ProfileRepository } from "src/players/repository/profil/profile.repository";
 import { DeleteResult, Repository, UpdateResult} from "typeorm";
 import { TeamDTO } from "../DTO/teamDTO";
 import { Team } from "../models/teams.entity";
@@ -12,16 +14,41 @@ export class TeamsService {
     constructor(
         
         private readonly TeamRepository: TeamRepository,
+
+        private readonly PlayerRepository: PlayerRepository,
+
+        private readonly ProfileRepository: ProfileRepository
         
 
     ){}
     
-    async create(teamDTO : TeamDTO): Promise<void> {
+    async create(req: any): Promise<any> {
         try {
             
-            await this.TeamRepository.addTeam(teamDTO);
+
+            const team = req.body;
+
+
+            const player = req.user;
+
+
+            if(player.team || player.team === null || player.profile.isCaptain === true){
+                throw new UnauthorizedException();
+            }
+            else {
+
+            const newTeam = await this.TeamRepository.addTeam(team);
+
+
+            player.team = newTeam;
+
+            player.profile.isCaptain = true;
+
+            console.log(player);
+
+            return await this.PlayerRepository.savePlayer(player);
             
-            
+            }
 
         }
         catch(err) {

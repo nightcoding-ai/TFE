@@ -1,3 +1,4 @@
+import { IsEmail } from "class-validator";
 import { RankEnum } from "src/players/enum/rank.enum";
 import { RoleEnum } from "src/players/enum/role.enum";
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -10,6 +11,7 @@ export class Profile {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @IsEmail()
     @Column({ unique: true, nullable: false})
     email: string;
 

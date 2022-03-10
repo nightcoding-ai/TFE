@@ -42,13 +42,13 @@ export class PlayersController {
     @Put('modify_name')
     update(
         @Req() req: any) {
-            return this.PlayersService.update(req.user.player.idPlayer, req.body);
-        }
+        return this.PlayersService.update(req.user.id, req.user);
+    }
 
     @UseGuards(JwtAuthGuard)
     @Put('modify_profile')
     updateProfil(
         @Req() req:any) {
             return this.PlayersService.updateProfile(req.user.player.profile.id, req.body);
-        }
+    }
 }

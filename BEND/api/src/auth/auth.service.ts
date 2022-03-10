@@ -35,25 +35,19 @@ export class AuthService {
             throw new UnauthorizedException();
         }
 
+        console.log(player);
+
         const payload = {
-            idPlayer: player.id, name: player.name, profile: player.profile, team: player.team
+            id: player.id, name: player.name, profile: player.profile, team: player.team
         };
 
-        console.log("login-----------------------------", payload);
 
         return {
             acces_token: this.jwtService.sign(payload)
         };
     }
 
-    async getProfile(req: any){
-      if(req.user){
-          const profilePlayer = await this.playersService.getOneByName(req.user.name);
-
-          return profilePlayer;
-      }
-      return null;
-    }
+    
     
  
 

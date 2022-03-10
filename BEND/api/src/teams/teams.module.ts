@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Player } from 'src/players/models/player/player.entity';
-import { Profile } from 'src/players/models/profile/profil.entity';
+import { Profile } from 'src/players/models/profile/profile.entity';
+import { PlayerRepository } from 'src/players/repository/player/player.repository';
+import { ProfileRepository } from 'src/players/repository/profil/profile.repository';
 import { Tournament } from 'src/tournaments/models/tournaments.entity';
 import { TeamsController } from './controllers/teams.controller';
 import { Team } from './models/teams.entity';
@@ -18,7 +20,9 @@ import { TeamRepository } from './repository/teams.repository';
     ],
     providers: [
         TeamsService,
-        TeamRepository
+        TeamRepository,
+        PlayerRepository,
+        ProfileRepository
 
         
     ],

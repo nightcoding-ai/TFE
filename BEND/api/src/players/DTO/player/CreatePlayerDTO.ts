@@ -1,6 +1,6 @@
 import { IsString } from "class-validator";
 import { UserType } from "src/players/enum/userType.enum";
-import { Profile } from "src/players/models/profile/profil.entity";
+import { Profile } from "src/players/models/profile/profile.entity";
 import { Team } from "src/teams/models/teams.entity";
 import { CreateProfileDTO } from "../profil/CreateProfileDTO";
 import { ProfileDTO } from "../profil/profileDTO";

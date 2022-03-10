@@ -1,5 +1,5 @@
 import { IsString } from "class-validator";
-import { Profile } from "src/players/models/profile/profil.entity";
+import { Profile } from "src/players/models/profile/profile.entity";
 import { Team } from "src/teams/models/teams.entity";
 import { ProfileDTO } from "../profil/profileDTO";
 

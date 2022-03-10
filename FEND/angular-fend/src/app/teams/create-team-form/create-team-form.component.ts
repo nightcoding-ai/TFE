@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/auth.service';
+import { CreateTeamFormService } from './create-team-form.service';
 
 @Component({
   selector: 'app-create-team-form',
@@ -14,7 +15,7 @@ export class CreateTeamFormComponent implements OnInit {
   teamForm: FormGroup;
 
 
-  constructor(private authService: AuthenticationService,private router: Router) { }
+  constructor(private authService: AuthenticationService,private router: Router, private createTeamService: CreateTeamFormService) { }
 
   ngOnInit(): void {
     this.teamForm = new FormGroup({
@@ -35,7 +36,7 @@ export class CreateTeamFormComponent implements OnInit {
       console.log("Form is invalid.");
       return;
     }
-    console.log(this.teamForm.value);
+    this.createTeamService.createTeam(this.teamForm.value);
 
   }
 

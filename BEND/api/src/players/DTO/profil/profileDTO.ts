@@ -18,5 +18,4 @@ export class ProfileDTO {
 
     isCaptain: boolean;
 
-    player: Player;
 }
