@@ -2,7 +2,7 @@
     <div class="teamContainer" *ngFor="let team of teamsWithPlayers">
         <div class=" teamInfo" (click)="onSelect(team.id)">
         
-        <span class="abb"> {{ team.abbreviation }}</span>
+        <span class="abb"> {{ team.abbreviation | uppercase }}</span>
         <span class="teamname"> {{ team.name | uppercase }}</span>
         
         <a (click)="onSelect(team.id)" class="joinTeam"><fa-icon [icon]="faUsers"></fa-icon>

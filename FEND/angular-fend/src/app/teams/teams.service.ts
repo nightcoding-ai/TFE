@@ -25,10 +25,8 @@ export class TeamsService {
           let missingPlayers = 5 - res[i].players.length;
           for(let j = missingPlayers; j > 0; j--){
             res[i].players.push(null as Player);
-            console.log(res[i]);
           }
         }
-        console.log(res);
         return res;
       })
     );

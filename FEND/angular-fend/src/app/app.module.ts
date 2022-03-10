@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TeamsComponent } from './teams/teams.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -25,10 +25,12 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfilePlayerComponent } from './profile-player/profile-player.component';
 import { MyTeamProfileComponent } from './teams/my-team-profile/my-team-profile.component';
+import { JwtModule} from '@auth0/angular-jwt';
+import { CreateTeamFormComponent } from './teams/create-team-form/create-team-form.component';
 
-
-
-
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { MyTeamProfileComponent } from './teams/my-team-profile/my-team-profile.
     LoginComponent,
     ProfilePlayerComponent,
     MyTeamProfileComponent,
+    CreateTeamFormComponent,
 
   ],
   imports: [
@@ -49,6 +52,13 @@ import { MyTeamProfileComponent } from './teams/my-team-profile/my-team-profile.
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:3000"],
+        disallowedRoutes: []
+      }
+    }),
     NgbModule,
     FontAwesomeModule,
     SidebarModule,

@@ -1,18 +1,21 @@
 <div class="container teamInformations mt-4" *ngIf="team">
     <div class="row align-items-center">
-        <div class="col">
+        <div class="col" id="logo" *ngIf="team.logo">
             <img src="{{ team.logo }}" alt="logo" id="teamLogo">
         </div>
 
+        <div class="col" id="logo" *ngIf="!team.logo">
+
+            <img src="../../../assets/Logo_v5.png" alt="teamTaverne" id="teamLogo" class="noTeamLogo" style="background: var(--navColorDarker);">
+        </div >
+
         <div class="col-8">
-            {{team.abbreviation}}<br>
+            {{team.abbreviation | uppercase}}<br>
 
             {{team.name | uppercase}}
         </div>
 
-        <div class="col leaveTeamLink">
-            <a href="" id="leaveTeam" (click)="leaveTeam(team.id)"><fa-icon [icon]="faArrowRight"></fa-icon><span>QUITTER</span></a>
-        </div>
+        
     </div>
 
 </div>
@@ -111,16 +114,8 @@
             
             </div>
 
-            <div class="col ban align-items-center" *ngIf="this.getPlayerByRole(role).profile.isCaptain === false">
+            
 
-                <a href="#" class="ban"><fa-icon [icon]="faBan" class="ban" id="banIcon"> exclure</fa-icon>exclure</a>
-
-            </div>
-
-            <div class="col ban align-items-center" *ngIf="this.getPlayerByRole(role).profile.isCaptain === true">
-
-
-            </div>
 
         </div>
 

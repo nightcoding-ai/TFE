@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, NgForm } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { map } from 'rxjs';
+import { AuthenticationService } from '../auth/auth.service';
 import { LoginService } from './login.service';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -9,20 +13,31 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent implements OnInit {
 
-  f: FormBuilder;
+  loginForm: FormGroup;
 
-  constructor(private loginService: LoginService) { }
+  user : any;
+
+  constructor(private authService: AuthenticationService,private router: Router) { }
 
   ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      name: new FormControl(null, [
+        Validators.required,
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(4)
+      ])
+    })
   }
 
-  onSubmit(f: NgForm){
-    if(f.valid){
-      this.loginService.login(f);
-
+  onSubmit(){
+    if(this.loginForm.invalid){
+      console.log("Form is invalid.");
+      return;
     }
-    
+    this.authService.login(this.loginForm.value);
 
   }
-
 }
+

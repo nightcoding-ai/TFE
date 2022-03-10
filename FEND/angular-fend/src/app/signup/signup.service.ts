@@ -13,24 +13,35 @@ export class SignupService {
 
     readonly baseAPIUrl = "http://localhost:3000/api";
 
-    lolplayer : any;
 
     constructor(private http: HttpClient) { }
 
+
+
     addPlayer(f: any){
-      console.log(f);
+
+
       const disc: string = `${f.discordname}#${f.discordtag}`;
-      
-      this.dto.name = f.name;
+
+      this.dto = new SignUpDTO;
+
+      this.dto.name = f.username;
+
+
       this.dto.profile = {
         "email": f.email,
         "password": f.password1,
-        "profilPicture": f.profilPicture,
+        "profilPicture": f.profilPicture || null,
         "discord": disc,
         "inGameName": f.inGameName,
-        "role": f.role,
-        "rank": f.rank
+        "role": f.roles,
+        "rank": f.ranks
       }
+
+      console.log(this.dto);
+
+
+
       this.http.post<any>(this.baseAPIUrl + "/players", this.dto).subscribe(
         (res) => {
           console.log(res);

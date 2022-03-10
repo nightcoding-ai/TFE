@@ -15,5 +15,7 @@ export enum RankEnum{
 
     Bronze = "Bronze",
 
-    Fer = "Fer"
+    Fer = "Fer",
+
+    NonClassé = "Non classé",
 }

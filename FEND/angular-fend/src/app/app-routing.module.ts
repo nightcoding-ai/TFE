@@ -7,6 +7,7 @@ import { NewsComponent } from './news/news.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { ProfilePlayerComponent } from './profile-player/profile-player.component';
 import { SignupComponent } from './signup/signup.component';
+import { CreateTeamFormComponent } from './teams/create-team-form/create-team-form.component';
 import { TeamComponent } from './teams/team/team.component';
 import { TeamsComponent } from './teams/teams.component';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
   { path: 'profile', component: ProfilePlayerComponent},
+  { path: 'new_team', component: CreateTeamFormComponent},
 
 
 

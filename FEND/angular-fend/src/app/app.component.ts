@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PrimeNGConfig} from 'primeng/api';
 import { PrimeIcons } from 'primeng/api';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -18,11 +19,10 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 export class AppComponent {
 
   
-  constructor(private primengConfig: PrimeNGConfig) { }
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit(): void {
     
-    this.primengConfig.ripple = true;
 
   }
 

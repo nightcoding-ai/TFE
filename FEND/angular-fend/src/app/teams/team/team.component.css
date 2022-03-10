@@ -95,7 +95,7 @@ div.col.role{
 
 
 .teamInformations{
-    height: max-content;
+    height: min-content;
     background-color: var(--navColorDarker);
     border: solid 1px white;
     padding: 15px;
@@ -107,8 +107,8 @@ div.col.role{
 
 #teamLogo{
     padding: 0;
-    width: 75%;
-    width: 75%;
+    width: 110px;
+    width: 110px;
     background-color: var(--bodyColor);
     border-radius: 50%;
     border: 3px solid var(--orangeWarning);
@@ -176,3 +176,8 @@ div.col.rank{
 div.col.role{
     margin: auto;
 }
+
+div.col#logo{
+    width: max-content;
+}
+

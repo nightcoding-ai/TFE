@@ -33,9 +33,13 @@
 
                 <a ngbDropdownItem routerLink="/teams">Equipes</a>
 
-                <a ngbDropdownItem>Mon équipe</a>
+                <ng-container  *ngIf="authService.getToken()">
 
-                <a ngbDropdownItem>Créer une équipe</a>
+                <a ngbDropdownItem *ngIf="tokenDecoded.team">Mon équipe</a>
+
+                <a ngbDropdownItem routerLink="/new_team" >Créer une équipe</a>
+
+              </ng-container>
 
               </div>
 
@@ -69,7 +73,7 @@
         
         </div>
 
-        <li class="nav-item">
+        <li class="nav-item" >
 
           <a class="nav-link" href="https://www.twitch.tv/latavernedelaleague" target="_blank">Stream</a>
 
@@ -87,24 +91,34 @@
   
       </ul>
 
-      <ul class="navbar-nav  ms-auto">
-        
-        
+      
+      
+      <ul class="navbar-nav  ms-auto" *ngIf="authService.getToken(); else loggedOut">
+
         <li class="nav-item">
-  
-          <a class="nav-link " routerLink="/login">Connexion</a>
-  
-  
+          <a routerLink="/" (click)="authService.logout()" class="nav-link" >Déconnexion</a>
         </li>
-
-        <li class="nav-item ">
-  
-          <a class="nav-link" routerLink="/signup">Inscription</a>
-        </li>
-
-
+        
       </ul>
 
+      <ng-template #loggedOut>
+
+        <ul class="navbar-nav  ms-auto">
+          
+          <li class="nav-item">
+    
+            <a class="nav-link " routerLink="/login">Connexion</a>
+    
+          </li>
+
+          <li class="nav-item">
+    
+            <a class="nav-link" routerLink="/signup">Inscription</a>
+          </li>
+
+        </ul>
+
+    </ng-template>
 
 
 

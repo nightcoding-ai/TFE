@@ -1,0 +1,15 @@
+<h1>Créer mon équipe</h1>
+
+<div class="formContainer">
+<form [formGroup]="teamForm" (ngSubmit)="onSubmit()" class="teamForm">
+    <div class="container">
+        <input placeholder="Nom d'équipe..." formControlName="teamname" type="text">
+
+        <input placeholder="Abbreviation..." formControlName="abbreviation" type="text">
+
+        <input  formControlName="logo" type="file" >
+
+        <button [disabled]="!teamForm.valid" type="submit">Créer l'équipe</button>
+    </div>
+</form>
+</div>

@@ -1,7 +1,7 @@
 <div class="formContainer">
 <form (ngSubmit)="onSubmit(f)" novalidate #f="ngForm" >
-        <label for="name">Pseudonyme</label>
-        <input type="text" name="name" ngModel #name="ngModel" required>
+        <label for="username">Pseudonyme</label>
+        <input type="text" name="username" ngModel #username="ngModel" required>
         <label for="email">Email</label>
         <input type="email" name="email" ngModel #email="ngModel" required>
         <label for="password1">Mot de passe</label>
@@ -18,28 +18,16 @@
 
         <label for="ign">Pseudonyme League of Legends</label>
         <input type="text" name="inGameName" required ngModel #inGameName="ngModel">
-
-    <div class="roles ranks">
-        <select name="roles" id="roles" required>
-            <option  value="Toplaner">Toplaner</option>
-            <option  value="Jungler">Jungler</option>
-            <option  value="Midlaner">Midlaner</option>
-            <option  value="ADC">ADC</option>
-            <option  value="Support">Support</option>
+        <select formControlName="ranks">
+            <option [ngValue]="rank" *ngFor="let rank of ranks">
+                {{ rank.name | uppercase }}
+            </option>
         </select>
-        <select name="ranks" id="ranks">
-            <option value="Unranked" selected="selected">Non Classé</option>
-            <option value="Fer">Fer</option>
-            <option value="Bronze">Bronze</option>
-            <option value="Argent">Argent</option>
-            <option value="Or">Or</option>
-            <option value="Platine">Platine</option>
-            <option value="Diamant">Diamant</option>
-            <option value="Maître">Maître</option>
-            <option value="Grand Maître">Grand Maître</option>
-            <option value="Challenger">Challenger</option>
+        <select formControlName="roles">
+            <option [ngValue]="role" *ngFor="let role of roles">
+                {{ role.name | uppercase }}
+            </option>
         </select>
-    </div>
 
     <button clas="btn btn-primary">S'inscrire</button>
   </form>

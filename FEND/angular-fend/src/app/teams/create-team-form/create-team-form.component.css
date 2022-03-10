@@ -1,0 +1,57 @@
+h1{
+    text-align: center;
+}
+.formContainer{
+    background-color: var(--navColor);
+
+    width: 850px;
+
+    padding: 10px;
+
+    border-radius: 5px;
+
+    margin: auto;
+
+    width: 300px;
+
+    margin-top: auto;
+
+    margin-bottom: auto;
+
+}
+
+input::placeholder{
+    font-size: 0.74em;
+    padding-left: 4px;
+}
+
+form button{
+    background-color: var(--orangeWarning);
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 25px;
+
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form button:hover{
+    background-color: var(--orangeWarningHover);
+}
+
+form button{
+    background-color: var(--orangeWarning);
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 25px;
+
+}
