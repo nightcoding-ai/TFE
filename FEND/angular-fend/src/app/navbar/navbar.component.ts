@@ -42,8 +42,10 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  goToTeam(teamId: number){
-    this.router.navigate(['/teams',teamId]);
+ 
+
+  myTeamSelect(teamId: number){
+    this.router.navigate(['/teams',teamId])
   }
   
 }

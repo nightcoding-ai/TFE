@@ -17,7 +17,6 @@ export class AuthService {
 
         const player = await this.playersService.getOneByName(name);
 
-        console.log("validatePlayer -------------------------", player);
 
         if (player && (await argon2.verify(player.profile.password,pass))) {
 
@@ -35,7 +34,6 @@ export class AuthService {
             throw new UnauthorizedException();
         }
 
-        console.log(player);
 
         const payload = {
             id: player.id, name: player.name, profile: player.profile, team: player.team

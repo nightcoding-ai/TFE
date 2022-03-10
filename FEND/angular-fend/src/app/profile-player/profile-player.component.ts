@@ -22,14 +22,12 @@ export class ProfilePlayerComponent implements OnInit {
   ngOnInit(): void {
     let token = this.authService.getToken();
     this.getDecodedAccesToken(token);
-    console.log(this.tokenDecoded);
   }
   
   
   getDecodedAccesToken(tokenToDecode: string): any {
     try {
       this.tokenDecoded = this.helper.decodeToken(tokenToDecode);
-      console.log("Fonction de décodage de Token :", this.tokenDecoded);
       return this.tokenDecoded;
       
     } catch(err) {

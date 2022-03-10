@@ -44,7 +44,6 @@ export class TeamsService {
 
             player.profile.isCaptain = true;
 
-            console.log(player);
 
             return await this.PlayerRepository.savePlayer(player);
             
