@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 import { AuthenticationService } from '../auth/auth.service';
 import { JwtHelperService} from '@auth0/angular-jwt';
+import { ProfilePlayerService } from './profile-player.service';
+import { Player } from '../teams/teams.interface';
+import { PLayerDTO } from './DTO/playerDTO';
 
 @Component({
   selector: 'app-profile-player',
@@ -11,17 +14,24 @@ import { JwtHelperService} from '@auth0/angular-jwt';
 })
 export class ProfilePlayerComponent implements OnInit {
 
-  message = '';
 
   helper = new JwtHelperService();
 
   tokenDecoded : any;
 
-  constructor(private http: HttpClient, private authService: AuthenticationService) { }
+  player: PLayerDTO;
+
+  constructor(private http: HttpClient, private authService: AuthenticationService, private profilePlayerService: ProfilePlayerService) { }
 
   ngOnInit(): void {
     let token = this.authService.getToken();
     this.getDecodedAccesToken(token);
+    this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
+      (res) => {
+        this.player = res;
+        console.log(this.player);
+      }
+    )
   }
   
   

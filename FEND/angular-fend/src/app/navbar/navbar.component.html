@@ -35,9 +35,9 @@
 
                 <ng-container  *ngIf="authService.getToken()">
 
-                <a ngbDropdownItem *ngIf="tokenDecoded.team" routerLink="/teams/{{tokenDecoded.team.id}}">Mon équipe</a>
+                <a ngbDropdownItem *ngIf="player.team" routerLink="/teams/{{player.team.id}}">Mon équipe</a>
 
-                <a ngbDropdownItem routerLink="/new_team" >Créer une équipe</a>
+                <a ngbDropdownItem *ngIf="!player.team" routerLink="/new_team" >Créer une équipe</a>
 
               </ng-container>
 

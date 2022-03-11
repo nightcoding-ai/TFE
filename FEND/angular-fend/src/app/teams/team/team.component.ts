@@ -1,7 +1,11 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faArrowRightFromBracket, faBan, faCrown, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBan, faCrown, faPen, faPencilRuler, faPenClip, faPenToSquare, faTrashCan, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from 'src/app/auth/auth.service';
+import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
+import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
 import { RankEnum } from 'src/app/ranks.enum';
 import { RoleEnum } from 'src/app/roles.enum';
 import { Player, Team, TeamWithPlayers } from '../teams.interface';
@@ -46,8 +50,17 @@ export class TeamComponent implements OnInit {
 
   faArrowRight = faArrowRightFromBracket;
 
+  faPenLine = faPenToSquare;
 
-  constructor(private route : ActivatedRoute, private teamService:TeamsService) {
+  faTrashCan = faTrashCan;
+
+  helper = new JwtHelperService();
+
+  tokenDecoded : any;
+
+  player: PLayerDTO;
+
+  constructor(private route : ActivatedRoute, private teamService:TeamsService, private authService: AuthenticationService,private profilePlayerService: ProfilePlayerService) {
 
 
 
@@ -71,6 +84,15 @@ export class TeamComponent implements OnInit {
 
     this.getTeam(this.idTeam);
 
+    let token = this.authService.getToken();
+
+    if(token){
+      this.getDecodedAccesToken(token);
+
+      this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
+        (res) => this.player = res
+      )
+    }
     
   }
 
@@ -112,6 +134,17 @@ export class TeamComponent implements OnInit {
 
   leaveTeam(idTeam:number){
     console.log(idTeam);
+  }
+
+  getDecodedAccesToken(tokenToDecode: string): any {
+    try {
+      this.tokenDecoded = this.helper.decodeToken(tokenToDecode);
+      return this.tokenDecoded;
+      
+    } catch(err) {
+      return null;
+    }
+
   }
 
 

@@ -9,9 +9,9 @@ async function bootstrap() {
       origin: "*",
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
       preflightContinue: false,
-      optionsSuccessStatus: 204,
-      allowedHeaders: ["Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"],
-      exposedHeaders: ['Content-Disposition'],  
+      allowedHeaders: ["Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization"],
+      exposedHeaders: ['Content-Disposition'],
+        
     }
   );
   await app.listen(3000);

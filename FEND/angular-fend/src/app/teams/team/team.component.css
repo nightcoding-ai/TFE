@@ -9,7 +9,7 @@
 
     height: max-content;
     padding: 2rem;
-    border-bottom: solid 3px var(--bodyColor);
+    margin-bottom: 3px;
 }
 
 
@@ -157,9 +157,7 @@ span#name {
     margin-right: 5px;
 }
 
-div.row.player:first-child{
-    margin: auto;
-}
+
 
 div.row.player div.col.role{
     margin: auto;
@@ -170,7 +168,8 @@ div.col.userRole{
 }
 
 div.col.rank{
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 div.col.role{

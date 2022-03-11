@@ -1,6 +1,7 @@
 import { Team } from "../models/teams.entity";
 import { DeleteResult, getConnection, getRepository, Repository, UpdateResult } from "typeorm";
 import { TeamDTO } from "../DTO/teamDTO";
+import { Player } from "src/players/models/player/player.entity";
 
 
 export class TeamRepository extends Repository<Team>{
@@ -46,6 +47,17 @@ export class TeamRepository extends Repository<Team>{
     async deleteTeam(idTeam: number): Promise<DeleteResult> {
 
         const teamRepo = getRepository(Team);
+        const playerRepo = getRepository(Player);
+
+
+        const teamToDeleted = await teamRepo.findOne(idTeam);
+
+        for (const player of teamToDeleted.players) {
+            player.team = null;
+
+            await playerRepo.save(player);
+            
+        }
 
         const deleted = await teamRepo.delete(idTeam);
 

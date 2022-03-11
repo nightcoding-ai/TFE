@@ -17,7 +17,7 @@ export class Team {
     @Column({nullable: true})
     logo: string;
 
-    @OneToMany(() => Player, player => player.team, {cascade: true, onDelete: "SET NULL", eager: true})
+    @OneToMany(() => Player, player => player.team, {cascade: true, eager: true})
     players: Player[];
 
     @ManyToOne(() => Tournament, tournament => tournament.teams)

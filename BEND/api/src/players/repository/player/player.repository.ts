@@ -60,7 +60,8 @@ export class PlayerRepository extends Repository<Player> {
         
         const playerRepo = getRepository(Player);
 
-        const player = await playerRepo.findOneOrFail(idPlayer);
+        const player = await playerRepo.findOneOrFail(idPlayer,
+            { relations: ["team"]});
 
         return player;
     }
@@ -73,7 +74,6 @@ export class PlayerRepository extends Repository<Player> {
         const foundPlayer = await playerRepo.findOne({name : playerName},
             { relations: ["team"]});
 
-        console.log("Joueur trouvé ", foundPlayer);
 
         return foundPlayer;
         

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthenticationService } from 'src/app/auth/auth.service';
+import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
+import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
 import { CreateTeamFormService } from './create-team-form.service';
 
 @Component({
@@ -14,12 +17,11 @@ export class CreateTeamFormComponent implements OnInit {
   
   teamForm: FormGroup;
 
-
-  constructor(private authService: AuthenticationService,private router: Router, private createTeamService: CreateTeamFormService) { }
+  constructor(private createTeamService: CreateTeamFormService, private playerService: ProfilePlayerService) { }
 
   ngOnInit(): void {
     this.teamForm = new FormGroup({
-      teamname: new FormControl(null, [
+      name: new FormControl(null, [
         Validators.required,
         Validators.maxLength(40)
       ]),
@@ -38,6 +40,8 @@ export class CreateTeamFormComponent implements OnInit {
     }
     this.createTeamService.createTeam(this.teamForm.value);
 
-  }
+  };
+
+ 
 
 }

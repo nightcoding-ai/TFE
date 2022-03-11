@@ -23,7 +23,7 @@ export class TeamsController {
     @Post('')
     async addTeam(
         @Req() req: any): Promise<void> {
-        return this.TeamService.create(req);
+        return this.TeamService.create(req.user.playerID, req.body);
          
         
     }
@@ -47,11 +47,11 @@ export class TeamsController {
         return this.TeamService.updateTeam(idTeam, teamDTO);
         }
 
-
-    @Delete('delete/:id')
+    @UseGuards(JwtAuthGuard)
+    @Delete('delete')
     deleteTeam(
-        @Param() idTeam: number): Promise<DeleteResult> {
-        return this.TeamService.deleteTeam(idTeam);
+        @Req() req:any): Promise<DeleteResult> {
+        return this.TeamService.deleteTeam(req.user.playerID);
         }
 
 

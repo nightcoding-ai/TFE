@@ -3,7 +3,6 @@ import { PlayersService } from 'src/players/providers/player/player.service';
 import { JwtService } from '@nestjs/jwt';
 import { PlayerDTO } from 'src/players/DTO/player/playerDTO';
 import { AuthDTO } from './DTO/authDTO';
-import { SignUpDTO } from './DTO/signUpDTO';
 const argon2 = require('argon2');
 
 
@@ -35,9 +34,7 @@ export class AuthService {
         }
 
 
-        const payload = {
-            id: player.id, name: player.name, profile: player.profile, team: player.team
-        };
+        const payload = { id: player.id };
 
 
         return {

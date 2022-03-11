@@ -20,7 +20,7 @@ export class Player {
     @JoinColumn()
     profile: Profile;
 
-    @ManyToOne(() => Team, team => team.players , { nullable: true, onDelete: 'CASCADE' })
+    @ManyToOne(() => Team, team => team.players , { nullable: true })
     team : Team;
 
 

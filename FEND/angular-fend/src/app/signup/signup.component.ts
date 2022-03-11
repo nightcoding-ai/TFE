@@ -43,20 +43,13 @@ export class SignupComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.myForm = this.fb.group({
-      
-    })
+    
   
     
   }
 
   onSubmit(f: NgForm){
-    if(f.valid){
-      if(f.value.password1 === f.value.password2){
-      this.signupService.addPlayer(f.value);
-      }
-
-    }
+    console.log("bjr");
   }
  
   

@@ -22,23 +22,17 @@ export class TeamsService {
 
     ){}
     
-    async create(req: any): Promise<any> {
+    async create(idPlayer: number, teamDTO: TeamDTO): Promise<any> {
         try {
-            
+        
+            const player = await this.PlayerRepository.getOne(idPlayer);
 
-            const team = req.body;
-
-
-            const player = req.user;
-
-
-            if(player.team || player.team === null || player.profile.isCaptain === true){
+            if(player.team || player.team !== null || player.profile.isCaptain === true){
                 throw new UnauthorizedException();
             }
             else {
 
-            const newTeam = await this.TeamRepository.addTeam(team);
-
+            const newTeam = await this.TeamRepository.addTeam(teamDTO);
 
             player.team = newTeam;
 
@@ -46,6 +40,8 @@ export class TeamsService {
 
 
             return await this.PlayerRepository.savePlayer(player);
+
+             
             
             }
 
@@ -96,12 +92,33 @@ export class TeamsService {
         }
     }
 
-    async deleteTeam(idTeam: number): Promise<DeleteResult> {
+    async deleteTeam(idPlayer: number): Promise<DeleteResult> {
         try{
 
-            const deleted = await this.TeamRepository.deleteTeam(idTeam);
+            const player = await this.PlayerRepository.getOne(idPlayer);
 
-            return deleted;
+            if(player.profile.isCaptain !== true || player.team === null || player.team === undefined){
+                throw new UnauthorizedException();
+            }
+            else{
+
+                console.log("EQUIPE DU JOUEUR", player.team.id);
+
+                const teamID = player.team.id;
+
+                player.team = null;
+                player.profile.isCaptain = false;
+
+
+                await this.PlayerRepository.savePlayer(player);
+
+                const deleted = await this.TeamRepository.deleteTeam(teamID);
+
+
+                 return deleted;
+
+
+            }
         }
         catch(err) {
             
