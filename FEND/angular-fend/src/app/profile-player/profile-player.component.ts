@@ -29,7 +29,6 @@ export class ProfilePlayerComponent implements OnInit {
     this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
       (res) => {
         this.player = res;
-        console.log(this.player);
       }
     )
   }

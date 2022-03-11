@@ -122,6 +122,7 @@ div.row.missing.player{
 
 div.row.missing.player:hover{
     background-color: rgb(133, 2, 2);
+    cursor: pointer;
 }
 
 #warningTriangle{

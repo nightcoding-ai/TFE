@@ -14,28 +14,31 @@
 
             {{team.name | uppercase}}
         </div>
-
         <ng-container *ngIf="player">
-        
-            <ng-container *ngIf="player.profile.isCaptain && player.team.id === team.id" >
+            <ng-container *ngIf="player.team">
+                <ng-container *ngIf="player.team.id === team.id">
+                
+                    <ng-container *ngIf="player.profile.isCaptain === true" >
 
-            <button class="btn btn-info " style="width:fit-content"><fa-icon [icon]="faPenLine"></fa-icon>Modifier</button>
+                    <button class="btn btn-info " style="width:fit-content" (click)="onOpenDialogUpdateTeamInfo()"><fa-icon [icon]="faPenLine"></fa-icon>Modifier</button>
 
-            </ng-container>
+                    </ng-container>
 
-            <ng-container *ngIf="player.team.id === team.id">
+                    <ng-container *ngIf="team.players.length > 1">
 
-                <button class="btn btn-danger" style="width:fit-content"><fa-icon [icon]="faArrowRight"></fa-icon>Quitter</button>
+                        <button class="btn btn-danger" style="width:fit-content" (click)="onOpenDialogLeaveTeam()"><fa-icon [icon]="faArrowRight" ></fa-icon>Quitter</button>
 
-            </ng-container>
+                    </ng-container>
 
-            <ng-container *ngIf="player.team.id === team.id && player.profile.isCaptain === true">
+                    <ng-container *ngIf="player.profile.isCaptain === true">
 
-                <button class="btn btn-danger" style="width:fit-content"><fa-icon [icon]="faTrashCan"></fa-icon>Supprimer l'équipe</button>
+                        <button class="btn btn-danger" style="width:fit-content" (click)="onOpenDialogDeleteTeam()"><fa-icon [icon]="faTrashCan" ></fa-icon>Supprimer l'équipe</button>
 
+                    </ng-container>
+
+                </ng-container>
             </ng-container>
         </ng-container>
-        
     </div>
 
 </div>
@@ -134,42 +137,57 @@
             
             </div>
 
+            <ng-container *ngIf="player">
+                <div class="col banPlayer" *ngIf="this.getPlayerByRole(role).profile.isCaptain === false && player.profile.isCaptain === true">
+
+                    <button class="btn btn-danger"><fa-icon [icon]="faBan"></fa-icon>EXPULSER</button>
+
+                </div>
+            </ng-container>
             
 
 
         </div>
 
         <ng-container *ngIf="player">
+
             <ng-container *ngIf="!player.team">
-            <div class="row player missing align-items-center d-flex" *ngIf="!this.getPlayerByRole(role)" (click)="joinTeamRequest(team.id);">
+                <div class="row player missing align-items-center d-flex" *ngIf="!this.getPlayerByRole(role)" (click)="joinTeamRequest(team.id);">
 
-                <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
+                    <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
 
-                <span class> PLACE LIBRE | CLIQUEZ POUR REJOINDRE L'EQUIPE </span>
+                    <span class> PLACE LIBRE | CLIQUEZ POUR REJOINDRE L'EQUIPE </span>
 
-            </div>
+                </div>
             </ng-container>
             
-            <ng-container *ngIf="player.team && player.team.id !== team.id">
-            <div class="row player  align-items-center d-flex" *ngIf="!this.getPlayerByRole(role)">
-
-                <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
-
-                <span class> PLACE LIBRE</span>
-
-            </div>
-            </ng-container>
+            
 
            
 
             <ng-container *ngIf="player.profile.isCaptain && player.team.id === team.id">
-            <div class="row player missing align-items-center d-flex" *ngIf="!this.getPlayerByRole(role)" (click)="joinTeamRequest(team.id);">
+                <div class="row player missing align-items-center d-flex" *ngIf="!this.getPlayerByRole(role)" (click)="onOpenDialogSearchPlayer(role);">
 
-                <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
+                    <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
 
-                <span class> AJOUTER UN JOUEUR </span>
+                    <span class> AJOUTER UN JOUEUR </span>
 
-            </div>
+                </div>
+            </ng-container>
+    
+
+           
+            <ng-container *ngIf="player.team">
+                <ng-container *ngIf="player.team.id === team.id && player.profile.isCaptain === false">
+                            <div class="row player  align-items-center d-flex" *ngIf="!this.getPlayerByRole(role)">
+
+                                <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
+
+                                <span class> PLACE LIBRE</span>
+
+                        </div>
+
+                </ng-container>
             </ng-container>
         </ng-container>
 
@@ -178,14 +196,16 @@
 
                 <fa-icon [icon]="faTrianglExclamation" id="warningTriangle"></fa-icon>
 
-                <span class> PLACE LIBRE</span>
+                <span > PLACE LIBRE</span>
 
             </div>
-
         </ng-container>
+        
     
     </div>
     
 </div>
+
+
 
 

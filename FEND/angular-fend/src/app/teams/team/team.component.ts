@@ -2,14 +2,22 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faArrowRightFromBracket, faBan, faCrown, faPen, faPencilRuler, faPenClip, faPenToSquare, faTrashCan, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBan, faCrown, faDigitalTachograph, faPen, faPencilRuler, faPenClip, faPenToSquare, faTrashCan, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
 import { RankEnum } from 'src/app/ranks.enum';
 import { RoleEnum } from 'src/app/roles.enum';
+import { CreateTeamFormComponent } from '../create-team-form/create-team-form.component';
+import { DeleteteamformComponent } from '../deleteteamform/deleteteamform.component';
 import { Player, Team, TeamWithPlayers } from '../teams.interface';
 import { TeamsService } from '../teams.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LeaveteamComponent } from '../leaveteam/leaveteam.component';
+import { UpdateteamComponent } from '../updateteam/updateteam.component';
+import { SearchplayerformComponent } from '../searchplayerform/searchplayerform.component';
+
+
 
 @Component({
   selector: 'app-team',
@@ -31,9 +39,6 @@ export class TeamComponent implements OnInit {
 
   rankEnum = RankEnum;
   
-  
- 
-
   idTeam: number;
 
   roleEnum = RoleEnum;
@@ -60,7 +65,9 @@ export class TeamComponent implements OnInit {
 
   player: PLayerDTO;
 
-  constructor(private route : ActivatedRoute, private teamService:TeamsService, private authService: AuthenticationService,private profilePlayerService: ProfilePlayerService) {
+ 
+
+  constructor(private route : ActivatedRoute, private teamService:TeamsService, private authService: AuthenticationService,private profilePlayerService: ProfilePlayerService, private dialog : MatDialog) {
 
 
 
@@ -69,18 +76,11 @@ export class TeamComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.route.params.subscribe((data:any) => {
 
-
-
-
-       this.idTeam = data.id;
-
-
+    this.idTeam = data.id;
 
     })
-
 
     this.getTeam(this.idTeam);
 
@@ -101,18 +101,7 @@ export class TeamComponent implements OnInit {
 
     this.teamService.getTeamByID(id).subscribe((res) => {
 
-
-
-
       this.team = res;
-
-      console.log("Equipe chargée",this.team);
-
-
-
-
-
-
 
     }) 
   }
@@ -147,6 +136,22 @@ export class TeamComponent implements OnInit {
 
   }
 
+  onOpenDialogDeleteTeam(){
+    this.dialog.open(DeleteteamformComponent);
+    
+  }
+
+  onOpenDialogLeaveTeam(){
+    this.dialog.open(LeaveteamComponent);
+  }
+
+  onOpenDialogUpdateTeamInfo(){
+    this.dialog.open(UpdateteamComponent);
+  }
+
+  onOpenDialogSearchPlayer(role: any){
+    this.dialog.open(SearchplayerformComponent, { data: role});
+  }
 
  
 
