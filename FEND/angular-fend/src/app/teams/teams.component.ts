@@ -6,7 +6,7 @@ import { Team, TeamWithPlayers } from './teams.interface';
 import { RoleEnum } from '../roles.enum';
 import { Router } from '@angular/router';
 import { RankEnum } from '../ranks.enum';
-import { faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -30,6 +30,8 @@ export class TeamsComponent implements OnInit {
   faUser = faUser;
 
   faUsers = faUsers;
+
+  faAngleDown = faAngleDown;
 
   
 

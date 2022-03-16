@@ -34,6 +34,7 @@ import { UpdateteamComponent } from './teams/updateteam/updateteam.component';
 import { SearchplayerformComponent } from './teams/searchplayerform/searchplayerform.component';
 import { DeleteteamformComponent } from './teams/deleteteamform/deleteteamform.component';
 import { BanplayerComponent } from './teams/banplayer/banplayer.component';
+import { JoinTeamFormComponent } from './teams/join-team-form/join-team-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -56,6 +57,7 @@ export function tokenGetter() {
     UpdateteamComponent,
     SearchplayerformComponent,
     BanplayerComponent,
+    JoinTeamFormComponent,
 
   ],
   entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent],

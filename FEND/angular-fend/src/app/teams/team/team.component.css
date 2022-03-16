@@ -204,3 +204,21 @@ div.logo{
     padding: 10px;
     border-collapse: collapse;
 }
+
+#join{
+    margin-top: 25px;
+}
+
+#join:hover{
+    background-color: red;
+}
+
+#free{
+    background-color: var(--firstColor);
+    padding: 10px;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-weight: 500;
+}

@@ -164,11 +164,12 @@
                     </div>
                 </div>
                 <div *ngIf="!this.getPlayerByRole(role)">
-                    <div *ngIf="!player">
+                    <div *ngIf="!player || !player.team" id="free">
                         POSTE VACANT
                     </div>
+                    
                     <div *ngIf="player">
-                        <button class="btn btn-primary" *ngIf="!player.team && player.profile.role === role">REJOINDRE</button>
+                        <button class="btn btn-primary" *ngIf="!player.team && player.profile.role === role" id="join" (click)="onOpenDialogJoinRequest(player.id, player.name)">REJOINDRE</button>
                                            
                     </div>
                 

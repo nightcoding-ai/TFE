@@ -17,6 +17,7 @@ import { LeaveteamComponent } from '../leaveteam/leaveteam.component';
 import { UpdateteamComponent } from '../updateteam/updateteam.component';
 import { SearchplayerformComponent } from '../searchplayerform/searchplayerform.component';
 import { BanplayerComponent } from '../banplayer/banplayer.component';
+import { JoinTeamFormComponent } from '../join-team-form/join-team-form.component';
 
 
 
@@ -161,6 +162,13 @@ export class TeamComponent implements OnInit {
 
   onOpenDialogDeletePlayer(idPlayer: any, playerName: any){
     this.dialog.open(BanplayerComponent, { data : {
+      id: idPlayer,
+      name: playerName
+    }});
+  }
+
+  onOpenDialogJoinRequest(idPlayer: any, playerName: any){
+    this.dialog.open(JoinTeamFormComponent, { data : {
       id: idPlayer,
       name: playerName
     }});

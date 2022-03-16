@@ -1,15 +1,16 @@
-<div *ngIf="teamsWithPlayers">
+<div *ngIf="teamsWithPlayers" class="listOfTeams">
     <div class="teamContainer" *ngFor="let team of teamsWithPlayers">
         <div class=" teamInfo" (click)="onSelect(team.id)">
         
-        <span class="abb"> {{ team.abbreviation | uppercase }}</span>
-        <span class="teamname"> {{ team.name | uppercase }}</span>
+
+        <img src="{{ team.logo }}" alt="logo" id="teamLogo">
+
+        {{ team.name | uppercase }}
+
         
-        <a (click)="onSelect(team.id)" class="joinTeam"><fa-icon [icon]="faUsers"></fa-icon>
-            <span id="profilTeam">PROFIL  EQUIPE</span></a>
         </div>
     
-        <div class="playersContainer">    
+ <!--       <div class="playersContainer">    
             <div class="teamPlayers" *ngFor="let player of team.players">
                 
                 <div *ngIf="player === null; else elseBlock" id="missingBlock">
@@ -58,6 +59,6 @@
         </div>
     </div>
 </div>
-
+-->
 
 </div>

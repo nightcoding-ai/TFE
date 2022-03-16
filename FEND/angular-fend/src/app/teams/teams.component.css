@@ -15,45 +15,51 @@ img.missingPlayer{
     height: 4em;
 }
 
-div.teamContainer{
-    margin-top: 20px;
+
+
+.listOfTeams{
+    max-width: 1150px;
+    width: 1150px;
     margin-left: auto;
     margin-right: auto;
-    width: 850px;
-   
-}
-
-div.playersContainer{
     display: flex;
-    border: solid 1px 1px 1px black;
-    justify-content: space-between;
-    font-size: 0.7em;
-    font-weight: 500;
-    text-transform: uppercase;
-    height: 100px;
-
- 
+    flex-wrap: wrap;
+    justify-content: center;
+    
 }
 
-
-
+.teamContainer{
+    margin: 0 13px
+}
 
 div.teamInfo{
-    margin-bottom: 5px;
-    background-color: var(--secondColorDarker);
-    width: 100%;
-    border-radius: 5px 5px 0px 0px;
-
-    
-
-   
+    display: flex;
+    color: var(--firstColorDarker);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 26px;
+    width: 258px;
+    height: 258px;
+    border: 1px solid var(--secondColor);
+    background-color: #dddddd;
+    transition: all 0.2s;
+    font-weight: 500;
 
 }
 
+div.teamInfo{
+    margin-top: auto;
+}
+
+
+
+
+
 div.teamInfo:hover{
-    background-color: var(--teamHover);
+    background-color: white;
     border: 1px solid black;
-    color: black;
+    color: var(--secondColorDarker);
 
 }
 
@@ -88,19 +94,9 @@ div.teamPlayers:last-child{
 
 
 
-div.teamInfo{
-    display: flex;
-    flex-direction: column;
-    padding: 7px;
-    justify-content: baseline;
-}
 
-div.teamInfo a{
-    align-self: flex-end;
-    text-decoration: none;
-    color: white;
-    
-}
+
+
 
 div.teamInfo a:hover{
     cursor: pointer;
@@ -112,6 +108,36 @@ div.teamInfo a img{
     margin-right: 7px;
 }
 
-div.teamInfo{
-    border: 1px solid white;
+
+
+#teamLogo{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px
+}
+
+
+
+@media  screen and (max-width: 1150px ) {
+    .listOfTeams{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+    }
+
+    .teamInfos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 26px;
+        border: 1px solid transparent;
+        height: 258px;
+        width: 258px;
+        border: 1px solid black;
+        background-color: #dddddd;
+        position: relative;
+        transition: all 0.2s;
+    }
 }
