@@ -33,13 +33,13 @@
 
                 <a ngbDropdownItem routerLink="/teams">Equipes</a>
 
-                <ng-container  *ngIf="authService.getToken()">
+                <ng-container  *ngIf="getAuthUser();">
 
                   <ng-container *ngIf="player">
 
-                    <a ngbDropdownItem *ngIf="player.team" routerLink="/teams/{{player.team.id}}">Mon équipe</a>
+                    <a ngbDropdownItem *ngIf="player.team " routerLink="/teams/{{player.team.id}}">Mon équipe</a>
 
-                    <a ngbDropdownItem *ngIf="!player.team" routerLink="/new_team" >Créer une équipe</a>
+                    <a ngbDropdownItem *ngIf="!player.team " routerLink="/new_team" >Créer une équipe</a>
 
                   </ng-container>
 
@@ -91,18 +91,31 @@
 
       
         
-        
   
       </ul>
 
       
-      
-      <ul class="navbar-nav  ms-auto" *ngIf="authService.getToken(); else loggedOut">
+      <ul class="navbar-nav  ms-auto" *ngIf="getAuthUser(); else loggedOut">
+        <div ngbDropdown class="profile" *ngIf="player">
+
+          <a class="dropdownBasic1" ngbDropdownToggle *ngIf="player">
+            <img src="../../../assets/missing_player.png" class="profilePicture" alt="profilePicture" *ngIf="!player.profile.profilPicture" style="width: 35px; height: 35px;"> 
+            <img src="{{player.profile.profilPicture}}" style="width: 35px; height: 35px;" *ngIf="player.profile.profilPicture">{{ player.name }}
+
+            
+          </a>
+
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu">
+
+            <a ngbDropdownItem routerLink="/profile"><fa-icon [icon]="faGear" style="margin-right: 5px;" ></fa-icon>profil</a>
+
+          </div>
+
+        </div>
 
         <li class="nav-item">
-          <a routerLink="/" (click)="authService.logout()" class="nav-link" >Déconnexion</a>
+          <a routerLink="/"  *ngIf="authService.getToken()"(click)="authService.logout()" class="nav-link deco" >Déconnexion</a>
         </li>
-        
       </ul>
 
       <ng-template #loggedOut>
@@ -111,13 +124,13 @@
           
           <li class="nav-item">
     
-            <a class="nav-link " routerLink="/login">Connexion</a>
+            <a class="nav-link connect " routerLink="/login">Connexion</a>
     
           </li>
 
           <li class="nav-item">
     
-            <a class="nav-link" routerLink="/signup">Inscription</a>
+            <a class="nav-link inscr" routerLink="/signup">Inscription</a>
           </li>
 
         </ul>

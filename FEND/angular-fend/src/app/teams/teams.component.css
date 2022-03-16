@@ -25,6 +25,7 @@ div.teamContainer{
 
 div.playersContainer{
     display: flex;
+    border: solid 1px 1px 1px black;
     justify-content: space-between;
     font-size: 0.7em;
     font-weight: 500;
@@ -36,10 +37,12 @@ div.playersContainer{
 
 
 
+
 div.teamInfo{
-    margin-bottom: 10px;
-    background-color: var(--navColorDarker);
+    margin-bottom: 5px;
+    background-color: var(--secondColorDarker);
     width: 100%;
+    border-radius: 5px 5px 0px 0px;
 
     
 
@@ -68,11 +71,19 @@ div.teamPlayers{
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    background-color: var(--navColor);
+    background-color: var(--firstColorDarker);
 
     width: 165px;
 
 
+}
+
+div.teamPlayers:first-child{
+    border-radius: 0px 0px 0px 5px;
+}
+
+div.teamPlayers:last-child{
+    border-radius: 0px 0px 5px 0px;
 }
 
 

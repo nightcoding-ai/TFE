@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
+import { TeamService } from '../team/team.service';
 
 @Component({
   selector: 'app-leaveteam',
@@ -21,8 +23,15 @@ export class LeaveteamComponent implements OnInit {
 
   setAsCaptain: FormGroup;
 
+  playersWithoutCaptain : any;
+
   
-  constructor(public authService: AuthenticationService, private router: Router, private profilePlayerService: ProfilePlayerService) { }
+  constructor(public authService: AuthenticationService,
+    private router: Router,
+    private profilePlayerService: ProfilePlayerService,
+    private teamService: TeamService,
+    private dialogRef: MatDialogRef<LeaveteamComponent>
+    ) { }
 
   ngOnInit(): void {
     let token = this.authService.getToken();
@@ -31,7 +40,13 @@ export class LeaveteamComponent implements OnInit {
       this.getDecodedAccesToken(token);
 
       this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
-        (res) => this.user = res
+        (res) => {
+          this.user = res
+
+          if(this.user.team.players){
+          this.playersWithoutCaptain = this.user.team.players.filter(player => player.profile.isCaptain === false);
+          }
+        }
       )
     }
 
@@ -41,8 +56,15 @@ export class LeaveteamComponent implements OnInit {
       ])
       
     })
+
+
+    
   }
   
+  close(){
+    this.dialogRef.close();
+    
+  }
   
   getDecodedAccesToken(tokenToDecode: string): any {
     try {
@@ -60,13 +82,14 @@ export class LeaveteamComponent implements OnInit {
 
 
   leaveTeam(){
-    console.log("Envoie du formulaire")
+    return this.teamService.leaveTeam();
   }
 
   onSubmit(){
     if(this.setAsCaptain.invalid){
       console.log("Mauvais form");
     }
+    this.close();
     console.log(this.setAsCaptain.value);
 
   }

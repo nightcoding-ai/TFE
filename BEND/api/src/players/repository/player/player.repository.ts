@@ -1,5 +1,6 @@
 import { ModuleCompiler } from "@nestjs/core/injector/compiler";
 import { PlayerDTO } from "src/players/DTO/player/playerDTO";
+import { RoleEnum } from "src/players/enum/role.enum";
 import { Player } from "src/players/models/player/player.entity";
 import { Profile } from "src/players/models/profile/profile.entity";
 import { TeamDTO } from "src/teams/DTO/teamDTO";
@@ -87,6 +88,23 @@ export class PlayerRepository extends Repository<Player> {
         const playerRepo = getRepository(Player);
 
         const players = playerRepo.find();
+
+        return players;
+    }
+
+    async getAllByRole(roleOfPlayer: RoleEnum): Promise<PlayerDTO[]>{
+
+        const playerRepo = getRepository(Player);
+
+        const players = playerRepo.find({
+            where: {
+                profile :{
+                role: roleOfPlayer,
+                },
+                team: null
+            },
+            relations: ["profile"]
+        })
 
         return players;
     }

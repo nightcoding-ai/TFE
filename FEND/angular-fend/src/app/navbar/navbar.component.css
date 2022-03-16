@@ -1,9 +1,10 @@
 nav{
     width: 100%;
     margin-bottom: 20px;
+    border-bottom: 5px solid var(--secondColor);
 }
 .bg-navbar{
-    background: var(--navColor);
+    background: var(--firstColorDarker);
 }
 
 nav.color-navbar a{
@@ -13,7 +14,8 @@ nav.color-navbar a{
 }
 
 nav.color-navbar a:hover{
-    color: rgb(214, 212, 212);
+    color: rgb(255, 255, 255);
+
 }
 
 
@@ -26,16 +28,16 @@ nav.color-navbar a:hover{
 
 div.col div div.dropdownmenu{
     background-color:#e9e9e9;
-    border: solid 2px #332525;
+    border: solid 2px var(--secondColor);
 }
 
 a.dropdown-item:hover{
-    background-color: #332525;
+    background-color: var(--firstColor);
     color:#fff !important;
 }
 
 a.dropdown-item{
-    color:#332525 !important;
+    color:var(--secondColor) !important;
 
 }
 
@@ -51,4 +53,50 @@ margin-right: 8px;
 
 .auth{
     justify-content: flex-end;
+}
+
+a.inscr{
+    background-color: var(--secondColor);
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+a.connect, a.deco{
+    border-radius: 5px;
+    margin-right: 5px;
+    border: 2px solid var(--secondColor);
+
+}
+
+a.inscr:hover{
+    background-color: var(--secondColorLighter);
+    
+}
+
+.profile{
+
+    margin-right: 130px;
+
+    padding: 5px;
+
+    text-align: center;
+
+
+}
+
+.profile img{
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 1px solid var(--secondColor);
+}
+
+div.profile div.dropdownmenu{
+    background-color:#e9e9e9;
+    border: solid 2px var(--secondColor);
+    height: fit-content;
+}
+
+div.profile div.dropdownmenu  a.dropdown-item:hover{
+    background-color: var(--firstColor);
+    color:#fff !important;
 }

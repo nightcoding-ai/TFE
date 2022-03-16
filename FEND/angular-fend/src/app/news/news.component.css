@@ -1,0 +1,8 @@
+.firstColor{
+    background-color: var(--firstColor);
+
+}
+
+.secondColor{
+    background-color: var(--secondColor);
+}

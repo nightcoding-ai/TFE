@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { error } from 'console';
 import { type } from 'os';
 import { CreatePlayerDTO } from 'src/players/DTO/player/CreatePlayerDTO';
 import { PlayerDTO } from 'src/players/DTO/player/playerDTO';
 import { ProfileDTO } from 'src/players/DTO/profil/profileDTO';
+import { RoleEnum } from 'src/players/enum/role.enum';
 import { Player } from 'src/players/models/player/player.entity';
 import { Profile } from 'src/players/models/profile/profile.entity';
 import { PlayerRepository } from 'src/players/repository/player/player.repository';
@@ -66,6 +67,10 @@ export class PlayersService {
         return await this.PlayerRepo.getAll();
     }
 
+    async getAllByRole(roleOfPlayer: RoleEnum): Promise<PlayerDTO[]> {
+        return await this.PlayerRepo.getAllByRole(roleOfPlayer);
+    }
+
 
     async update(idPlayer: number, playerDTO: PlayerDTO ) {
         return await this.PlayerRepo.updatePlayer(idPlayer, playerDTO);
@@ -73,5 +78,28 @@ export class PlayersService {
 
     async updateProfile(idProfile: number, profileDTO: ProfileDTO) {
         return await this.ProfileRepo.updateProfile(idProfile, profileDTO);
+    }
+
+    async leaveTeam(idPlayer: number) {
+        try {
+
+            const player = await this.PlayerRepo.getOne(idPlayer);
+
+            if(!player || player.team === null || player.team === undefined){
+                return new UnauthorizedException();
+            }
+
+            if(player.profile.isCaptain === true){
+                player.team = null;
+                player.profile.isCaptain = false;
+                await this.PlayerRepo.savePlayer(player);
+            }
+            player.team = null;
+            await this.PlayerRepo.savePlayer(player);
+
+        }catch(err) {
+
+            throw err;
+        }
     }
 }

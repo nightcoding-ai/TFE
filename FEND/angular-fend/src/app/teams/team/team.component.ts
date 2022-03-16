@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faArrowRightFromBracket, faBan, faCrown, faDigitalTachograph, faPen, faPencilRuler, faPenClip, faPenToSquare, faTrashCan, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleRight, faArrowRightFromBracket, faBan, faCrown, faDigitalTachograph, faPen, faPencilRuler, faPenClip, faPenToSquare, faPlus, faQuestion, faTrashCan, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LeaveteamComponent } from '../leaveteam/leaveteam.component';
 import { UpdateteamComponent } from '../updateteam/updateteam.component';
 import { SearchplayerformComponent } from '../searchplayerform/searchplayerform.component';
+import { BanplayerComponent } from '../banplayer/banplayer.component';
 
 
 
@@ -59,6 +60,12 @@ export class TeamComponent implements OnInit {
 
   faTrashCan = faTrashCan;
 
+  faQuestion = faQuestion;
+
+  faAngles = faAngleDoubleRight;
+
+  faPlus = faPlus;
+
   helper = new JwtHelperService();
 
   tokenDecoded : any;
@@ -67,11 +74,11 @@ export class TeamComponent implements OnInit {
 
  
 
-  constructor(private route : ActivatedRoute, private teamService:TeamsService, private authService: AuthenticationService,private profilePlayerService: ProfilePlayerService, private dialog : MatDialog) {
-
-
-
-     
+  constructor(private route : ActivatedRoute,
+      private teamService:TeamsService,
+      private authService: AuthenticationService,
+      private profilePlayerService: ProfilePlayerService,
+      private dialog : MatDialog) {
   }
 
   ngOnInit(): void {
@@ -93,6 +100,7 @@ export class TeamComponent implements OnInit {
         (res) => this.player = res
       )
     }
+
     
   }
 
@@ -121,9 +129,7 @@ export class TeamComponent implements OnInit {
     console.log(idTeam);
   }
 
-  leaveTeam(idTeam:number){
-    console.log(idTeam);
-  }
+  
 
   getDecodedAccesToken(tokenToDecode: string): any {
     try {
@@ -150,7 +156,14 @@ export class TeamComponent implements OnInit {
   }
 
   onOpenDialogSearchPlayer(role: any){
-    this.dialog.open(SearchplayerformComponent, { data: role});
+    this.dialog.open(SearchplayerformComponent, { data: role, width: '600px', height: '600px'});
+  }
+
+  onOpenDialogDeletePlayer(idPlayer: any, playerName: any){
+    this.dialog.open(BanplayerComponent, { data : {
+      id: idPlayer,
+      name: playerName
+    }});
   }
 
  

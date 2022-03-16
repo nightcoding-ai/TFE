@@ -2,16 +2,18 @@
     <label for="name">Nouveau nom d'équipe</label>
     <input type="text" formControlName="name">
 
-    <label for="abbreviation">Nouvelle abrévation</label>
+    <label for="abbreviation">Nouvelle abréviation</label>
     <input type="text" formControlName="abbreviation">
 
     <label for="logo">Nouveau logo</label>
     <input type="file" class="form-control" formControlName="logo">
 
-    <button class="btn btn-primary" type="submit">
-        Modifier
-    </button>
-    <button class="btn btn-danger">
-        Annuler
-    </button>
+    <ng-container class="btns">
+        <button class="btn btn-primary" type="submit">
+            Modifier
+        </button>
+        <button class="btn btn-danger" (clik)="close()">
+            Annuler
+        </button>
+    </ng-container>
 </form>

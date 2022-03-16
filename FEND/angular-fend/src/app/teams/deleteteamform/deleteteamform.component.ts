@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
@@ -18,7 +19,7 @@ export class DeleteteamformComponent implements OnInit {
 
   player: PLayerDTO;
 
-  constructor(private authService: AuthenticationService, private profilePlayerService: ProfilePlayerService, private teamService : TeamService) { }
+  constructor(private dialogRef: MatDialogRef<DeleteteamformComponent>,  private authService: AuthenticationService, private profilePlayerService: ProfilePlayerService, private teamService : TeamService) { }
 
   ngOnInit(): void {
 
@@ -33,6 +34,10 @@ export class DeleteteamformComponent implements OnInit {
     }
   }
 
+  close(): void {
+    this.dialogRef.close();
+  }
+
   getDecodedAccesToken(tokenToDecode: string): any {
     try {
       this.tokenDecoded = this.helper.decodeToken(tokenToDecode);
@@ -45,6 +50,7 @@ export class DeleteteamformComponent implements OnInit {
   }
 
   onDeleteTeam(): any {
+    this.close();
     return this.teamService.deleteTeam();
   }
 

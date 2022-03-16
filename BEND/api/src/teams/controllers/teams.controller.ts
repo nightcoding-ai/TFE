@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
 import { userInfo } from "os";
 import { Observable } from "rxjs";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
@@ -40,11 +41,10 @@ export class TeamsController {
         }
 
     @UseGuards(JwtAuthGuard)
-    @Put('modify/:id')
+    @Put('modify')
     updateTeam(
-        @Param() idTeam: number,
-        @Body() teamDTO: TeamDTO): Promise<UpdateResult> {
-        return this.TeamService.updateTeam(idTeam, teamDTO);
+        @Req() req :any ){
+        return this.TeamService.updateTeam(req.user.playerID, req.body);
         }
 
     @UseGuards(JwtAuthGuard)

@@ -7,5 +7,9 @@ RUN npm install
 
 RUN npm run start:dev
 
+WORKDIR /FEND/angular-fend
+
+RUN ng serve -o
+
 
 

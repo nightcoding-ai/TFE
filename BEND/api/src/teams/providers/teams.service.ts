@@ -79,12 +79,26 @@ export class TeamsService {
         }
     }
 
-    async updateTeam(idTeam: number, teamDTO: TeamDTO): Promise<UpdateResult> {
+    async updateTeam(idPlayer: number, teamDTO: TeamDTO): Promise<UpdateResult> {
         try{
 
-            const modify = await this.TeamRepository.updateTeam(idTeam, teamDTO);
+            const player = await this.PlayerRepository.getOne(idPlayer);
 
-            return modify;
+            if(!player.team || player.team === null || player.profile.isCaptain === false){
+                throw new UnauthorizedException();
+            }
+            else {
+
+                if(teamDTO.logo === '' || teamDTO.logo === null){
+                    teamDTO.logo = player.team.logo;
+                    const updatedTeam = await this.TeamRepository.updateTeam(player.team.id, teamDTO);
+                    return updatedTeam;
+                }
+            const updatedTeam = await this.TeamRepository.updateTeam(player.team.id, teamDTO);
+
+            return updatedTeam;
+            }
+            
         }
         catch(err) {
             

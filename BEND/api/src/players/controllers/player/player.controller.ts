@@ -37,18 +37,37 @@ export class PlayersController {
         return this.PlayersService.getAll();
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Post('all_by_role')
+    getAllByRole(
+    @Req() req: any): Promise<PlayerDTO[]> {
+        return this.PlayersService.getAllByRole(req.body.role);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete('leave_team')
+    leaveTeam(
+    @Req() req:any) {
+        return this.PlayersService.leaveTeam(req.user.playerID);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('leave_team_as_captain')
+    
+    
+
     
     @UseGuards(JwtAuthGuard)
     @Put('modify_name')
     update(
         @Req() req: any) {
-        return this.PlayersService.update(req.user.id, req.user);
+        return this.PlayersService.update(req.user.playerID, req.body);
     }
 
     @UseGuards(JwtAuthGuard)
     @Put('modify_profile')
     updateProfil(
         @Req() req:any) {
-            return this.PlayersService.updateProfile(req.user.player.profile.id, req.body);
+        return this.PlayersService.updateProfile(req.user.playerID, req.body);
     }
 }

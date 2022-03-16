@@ -28,9 +28,12 @@ import { MyTeamProfileComponent } from './teams/my-team-profile/my-team-profile.
 import { JwtModule} from '@auth0/angular-jwt';
 import { CreateTeamFormComponent } from './teams/create-team-form/create-team-form.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
 import { LeaveteamComponent } from './teams/leaveteam/leaveteam.component';
 import { UpdateteamComponent } from './teams/updateteam/updateteam.component';
 import { SearchplayerformComponent } from './teams/searchplayerform/searchplayerform.component';
+import { DeleteteamformComponent } from './teams/deleteteamform/deleteteamform.component';
+import { BanplayerComponent } from './teams/banplayer/banplayer.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -52,9 +55,10 @@ export function tokenGetter() {
     LeaveteamComponent,
     UpdateteamComponent,
     SearchplayerformComponent,
+    BanplayerComponent,
 
   ],
-  entryComponents: [SearchplayerformComponent],
+  entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -78,6 +82,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

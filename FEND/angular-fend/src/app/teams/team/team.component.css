@@ -1,28 +1,116 @@
-.container{
-
-    background-color: var(--navColor);
+.teamInformations{
+    color: var(--firstColorDarker);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
+.teamName{
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    display: flex;
+    flex-direction: column;
+}
 
+#teamLogo{
+    width: 125px;
+    height: 125px;
+    margin: 20px;
+    
+}
 
-.player{
+.teamButtons a {
+    margin-left: 10px;
+    font-size: 1em;
+}
 
+.teamButtons a:hover{
+    cursor: pointer;
+}
+
+.Informations{
+    color: var(--firstColor);
+}
+
+span#roster{
+    margin-left: 7px;
+}
+
+div.roster{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 200px;
+}
+
+div.infos{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     height: max-content;
-    padding: 2rem;
-    margin-bottom: 3px;
+}
+
+div.playerInfos{
+    width: 20%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--firstColorDarker);
+    font-weight: 600;
+}
+
+div.player{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--firstColorDarker);
+    text-transform: uppercase;
+    width: 20%;
+    align-items: center;
+    justify-content: center;
+}
+
+span#name{
+    margin-top: auto;
+    padding: 5px;
+}
+
+fa-icon.missing{
+    font-size: 100px;
+}
+
+div.playerOfRosterMissing{
+    display: flex;
+    flex-direction: column;
+
 }
 
 
+span{
+    font-weight: 600;
+}
 
-.profilPicture{
 
-    height: 50px;
-    width: 50px;
+.missing:hover{
+    cursor: pointer;
+}
+
+.profilePicture{
+
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
-    margin-left: auto;
-    margin-right: auto;
 
 
+}
+
+.isCaptain{
+    border: solid 5px var(--secondColor);
 }
 
 .ranksIcon{
@@ -31,153 +119,88 @@
     width: 75px;
 }
 
-.rolesIcon{
-
-    height: 50px;
-    width: 50px;
+.rolesIcon {
+    height: 25px;
+    width: 25px;
 }
 
-.socials {
-    font-size: 1em;
-    flex-direction: column;
-    margin-top: auto;
-    margin-bottom: auto;
-
-}
-
-.ban{
-    color:var(--redWarning);
-    font-size: 1.23em;
-    align-items: baseline;
-    margin-top: auto;
-    margin-bottom: auto;
-
-}
-
-a.ban:hover{
-
-    color: var(--orangeWarning);
-
-}
-
-#crown{
-    color: yellow;
-    font-size: 1.9em;
-}
-
-#userIcon{
-    color: #fff;
-    font-size: 1.9em;
-
-}
-
-#userIcon:hover{
-    cursor: pointer;
-}
-
-
-div.col.name{
-    width: max-content;
-    padding: 0;
-    display: grid;
-    text-align: center;
-}
-
-span#name{
-    margin-top: 0.3rem ;
-}
-
-div.col.role{
-    width: fit-content;
-}
-
-
-
-
-.teamInformations{
-    height: min-content;
-    background-color: var(--navColorDarker);
-    border: solid 1px white;
-    padding: 15px;
-    text-align: center;
-    justify-content: center;
-    justify-items: center;
-
-}
-
-#teamLogo{
-    padding: 0;
-    width: 110px;
-    width: 110px;
-    background-color: var(--bodyColor);
-    border-radius: 50%;
-    border: 3px solid var(--orangeWarning);
-}
-
-div.row.missing.player{
-    background-color: var(--orangeAttention);
-    text-align: center;
-    justify-items: center;
-}
-
-div.row.missing.player:hover{
-    background-color: rgb(133, 2, 2);
-    cursor: pointer;
-}
-
-#warningTriangle{
-    color: var(--orangeWarning);
-    font-size: 3em;
-}
-
-.leaveTeamLink a{
-    font-weight: 600;
-    color: var(--redWarning);
-}
-
-.leaveTeamLink a span{
-    margin-left: 4px;
-}
-
-.leaveTeamLink a:hover{
-    color: var(--redWarningHover);
-}
-
-div.col-8{
-    text-align: left;
-    font-size: 1.9em;
-}
-
-span#name {
-    text-transform: uppercase;
+.rosterTag{
     font-size: 1.2em;
+    color: var(--secondColorDarker);
+}
+
+.faUser {
+    size: 50px;
+}
+
+img.rolesIcon{
+    margin-top: 15px;
+}
+
+button#banBtn{
+    border: solid 1px var(--secondColorDarker);
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
+    background-color: var(--redWarning);
+}
+
+button#inviteBtn{
+    border: solid 1px var(--secondColorDarker);
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
+    background-color: rgb(75, 182, 75);
+
 }
 
 
-#banIcon{
-    margin-right: 5px;
+
+div.buttons{
+    display: flex;
+    align-items: baseline;
+    margin-top: 10px;
+
+}
+
+.teamLinks{
+    color: var(--firstColor);
+    margin: 7px;
 }
 
 
 
-div.row.player div.col.role{
-    margin: auto;
+
+fa-icon.captain{
+   color: var(--secondColor);
+   font-size: 1.2em;
 }
 
-div.col.userRole{
-    margin: auto;
+div.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 9px;
 }
 
-div.col.rank{
-    margin-left: auto;
-    margin-right: auto;
+#discord{
+    font-size: 1.5em;
+    margin-right: 7px;
+
 }
 
-div.col.role{
-    margin: auto;
+#lolIcon{
+    width: 1.5em;
+    height: 1.5em;
+    filter: invert(14%) sepia(7%) saturate(6980%) hue-rotate(207deg) brightness(93%) contrast(116%);
+    margin-right: 7px;
+
+
 }
 
-div.col#logo{
-    width: max-content;
+.info{
+    margin-top: 10px;
+    display: flex;
+    padding: 10px;
+    border-collapse: collapse;
 }
-

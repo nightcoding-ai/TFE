@@ -1,0 +1,19 @@
+ul.ul{
+    list-style: none;
+
+}
+
+h1{
+    text-align: center;
+}
+
+li{
+    height: 120px;
+    background-color: whitesmoke;
+
+}
+
+.noPlayerFound{
+    display: flex;
+
+}

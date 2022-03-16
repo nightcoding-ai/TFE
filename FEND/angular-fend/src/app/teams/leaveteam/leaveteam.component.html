@@ -2,8 +2,8 @@
 
     <div *ngIf="user.profile.isCaptain === false">
         <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
-        <button class="btn btn-primary" (click)="leaveTeam()">Confirmer</button>
-        <button class="btn btn-danger">Annuler</button>
+        <button class="btn btn-primary" (click)="leaveTeam(); close();">Confirmer</button>
+        <button class="btn btn-danger" (click)="close()">Annuler</button>
     </div>
 
     <div *ngIf="user.profile.isCaptain === true">
@@ -14,7 +14,7 @@
 
                 <select formControlName="newCaptain">
 
-                <option  *ngFor="let player of user.team.players"  value="{{ player.id }}">{{ player.profile.role }} {{ player.name }}</option>
+                <option  *ngFor="let player of playersWithoutCaptain"  value="{{ player.id }}">{{ player.profile.role }} {{ player.name }}</option>
 
                 </select>
                 <br>
@@ -23,7 +23,7 @@
             </form>
 
             <button form="ngForm" class="btn btn-primary" type="submit">Confirmer</button>
-            <button class="btn btn-danger">Annuler</button>
+            <button class="btn btn-danger" mat-button mat-dialog-close>Annuler</button>
 
             
         

@@ -8,7 +8,7 @@ export class Team {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ unique:true })
+    @Column({ unique:true})
     name: string;
 
     @Column({ length: 3 })
