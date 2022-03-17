@@ -16,6 +16,9 @@
                 <img src="../../../assets/Logo_v5.png" alt="logo" id="teamLogo">
 
                 <div class="teamName">
+                    {{ team.abbreviation | uppercase }}<br>
+
+
                     {{team.name | uppercase}}
                 </div>
 
@@ -34,15 +37,17 @@
 
                     <ng-container *ngIf="team.players.length > 1">
 
-                    <a   (click)="onOpenDialogLeaveTeam()" class="teamLinks"><fa-icon [icon]="faArrowRight" ></fa-icon>Quitter</a>
+                    <a   (click)="onOpenDialogLeaveTeam()" class="teamLinks redWarn"><fa-icon [icon]="faArrowRight" ></fa-icon>Quitter</a>
 
                     </ng-container>
 
                     <ng-container *ngIf="player.profile.isCaptain === true">
 
-                    <a   (click)="onOpenDialogDeleteTeam()" class="teamLinks"><fa-icon [icon]="faTrashCan" ></fa-icon>Supprimer l'équipe</a>
+                    <a   (click)="onOpenDialogDeleteTeam()" class="teamLinks redWarn" ><fa-icon [icon]="faTrashCan" ></fa-icon>Supprimer l'équipe</a>
 
                     </ng-container>
+
+                    
 
                 </ng-container>
             </div>
@@ -122,6 +127,16 @@
                     (click)="onOpenDialogSearchPlayer(role);">
                     <fa-icon [icon]="faPlus"></fa-icon>  Inviter</button>
 
+                    <div *ngIf=" 
+                    player 
+                    && team 
+                    && player.team.id === team.id 
+                    && player.profile.isCaptain === true
+                    && this.getPlayerByRole(role)
+                    && this.getPlayerByRole(role).profile.isCaptain === player.profile.isCaptain" class="captain" >
+                        CAPITAINE
+                    </div>
+
                 </div>
             </div>
         </ng-container>
@@ -154,12 +169,12 @@
                     </div>
 
                     <div class="ign info">
-                    <img src="../../../assets/lol_icon_svg.svg" alt="lolIcon" id="lolIcon">{{ this.getPlayerByRole(role).profile.inGameName | uppercase}}
+                    <img src="../../../assets/lol_icon_svg.svg" alt="lolIcon" id="lolIcon"><span>{{ this.getPlayerByRole(role).profile.inGameName | uppercase}}</span>
                     </div>
 
                     <div class="discord info ">
                     
-                    <fa-icon [icon]="faDiscord" id="discord"></fa-icon>{{ this.getPlayerByRole(role).profile.discord | uppercase}}
+                    <fa-icon [icon]="faDiscord" id="discord"></fa-icon><span>{{ this.getPlayerByRole(role).profile.discord | uppercase}}</span>
 
                     </div>
                 </div>

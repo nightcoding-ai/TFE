@@ -222,3 +222,20 @@ div.logo{
     color: white;
     font-weight: 500;
 }
+
+.captain{
+    background-color: var(--firstColor);
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px var(--firstColorDarker);
+    color: white;
+
+}
+
+div.info span{
+    text-align: center;
+}
+
+.redWarn{
+    color: var(--redWarning)
+}

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TeamInvitation } from 'src/team-invitation/models/teamInvitation';
 import { Team } from 'src/teams/models/teams.entity';
 import { PlayersController } from './controllers/player/player.controller';
 import { Player } from './models/player/player.entity';
@@ -16,7 +17,8 @@ import { ProfileRepository } from './repository/profil/profile.repository';
         TypeOrmModule.forFeature([
             Player, 
             Team, 
-            Profile]),
+            Profile,
+            TeamInvitation]),
     ],
     controllers: [
         PlayersController

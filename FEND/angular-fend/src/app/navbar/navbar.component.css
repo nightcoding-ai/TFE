@@ -11,13 +11,18 @@ nav.color-navbar a{
     color: #fff;
     text-transform: uppercase;
     justify-content: baseline;
+
 }
 
 nav.color-navbar a:hover{
     color: rgb(255, 255, 255);
-
+    cursor: pointer;
 }
 
+.navbar.navbar-expand-lg.bg-navbar.color-navbar:hover{
+    cursor: pointer;
+
+}
 
 
 .dropdownBasic1{
@@ -75,9 +80,8 @@ a.inscr:hover{
 
 .profile{
 
-    margin-right: 130px;
+    margin-right: 15px;
 
-    padding: 5px;
 
     text-align: center;
 
@@ -99,4 +103,66 @@ div.profile div.dropdownmenu{
 div.profile div.dropdownmenu  a.dropdown-item:hover{
     background-color: var(--firstColor);
     color:#fff !important;
+}
+
+
+div.profile.dropdown{
+    display: flex;
+    align-items: center;
+    margin-right: 25px;
+}
+
+div.notifications.dropdown{
+    display: flex;
+    margin-right: 10px;
+    align-items: center;
+}
+
+a#bell{
+    margin-right: 10px;
+}
+
+#bellIcon{
+    font-size: 1.3em;
+}
+ div.dropdownmenu.dropdownmenu-left.dropdown-menu.show{
+     width: 500px;
+ }
+
+ div.dropdownmenu.dropdownmenu-left.dropdown-menu.show ul{
+     list-style: none;
+ }
+
+ div.dropdownmenu.dropdownmenu-left.dropdown-menu.show ul li{
+     margin-bottom: 8px;
+     border-bottom: 1px solid var(--secondColor);
+ }
+
+ 
+
+ div.dropdownmenu.dropdownmenu-left.dropdown-menu.show ul li a.linkTeamProfileNotif{
+     color: var(--firstColorDarker);
+     font-size: 0.88em;
+     text-transform: lowercase;
+     
+ }
+
+ div.dropdownmenu.dropdownmenu-left.dropdown-menu.show ul li a.linkTeamProfileNotif:hover{
+     cursor: pointer;
+     color:white;
+     transition: all 0.2s;
+     
+ }
+
+ div.dropdownmenu.dropdownmenu-left.dropdown-menu.show ul li div.buttons{
+     margin-bottom: 8px;
+     margin-top: 8px;
+ }
+
+ div.dropdownmenu.dropdownmenu-left.dropdown-menu.show ul li div.buttons button.btn-primary{
+    margin-right: 5px;
+}
+
+li.nav-item a.nav-link:hover{
+    cursor: pointer;
 }

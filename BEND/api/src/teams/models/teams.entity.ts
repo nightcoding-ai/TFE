@@ -1,4 +1,5 @@
 import { Player } from "src/players/models/player/player.entity";
+import { TeamInvitation } from "src/team-invitation/models/teamInvitation";
 import { Tournament } from "src/tournaments/models/tournaments.entity";
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -23,6 +24,8 @@ export class Team {
     @ManyToOne(() => Tournament, tournament => tournament.teams)
     tournament: Tournament;
 
+    @OneToMany( () => TeamInvitation, teamInvitation => teamInvitation.team, {nullable: true})
+    invitationToPlayer: TeamInvitation[];
   
 
 

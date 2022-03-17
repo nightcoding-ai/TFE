@@ -1,8 +1,19 @@
 <ng-container *ngIf="player">
     <div class="profile">
-    {{player.name}}
+        
+        <span>{{player.name}}</span>
     
-    {{player.profile.discord}}
-</div>
+
+        <img src="{{player.profile.profilPicture}}" style="width: 100px; height: 100px">
+
+        <span>{{player.profile.inGameName}}</span>
+
+        <span>{{player.profile.discord}}</span>
+
+        <span>{{player.profile.role}}</span>
+
+        <span>{{player.profile.rank}}</span>
+    
+    </div>
 
 </ng-container>

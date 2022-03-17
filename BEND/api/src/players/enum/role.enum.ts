@@ -1,9 +1,9 @@
 export enum RoleEnum {
-    TOPLANE = "Toplaner",
+    TOPLANER = "Toplaner",
 
-    JUNGLE = "Jungler",
+    JUNGLER = "Jungler",
 
-    MIDLANE = "Midlaner",
+    MIDLANER = "Midlaner",
 
     ADC = "ADC",
 

@@ -43,5 +43,13 @@ export class TeamService {
 
   }
 
+  getNotifications(){
+    return this.http.get<any>("http://localhost:3000/api/invitations/mine", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
+  }
+
+  deleteNotif(idNotif: number){
+    return this.http.delete<any>(`http://localhost:3000/api/invitations/delete/${idNotif}`,{ headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
+  }
+
   
 }

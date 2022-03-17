@@ -1,0 +1,9 @@
+.profile{
+    width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+}

@@ -15,25 +15,39 @@ export class SearchplayerformComponent implements OnInit {
 
   freePlayers: any;
 
+  invitedPlayers: PLayerDTO[] ;
+
   faFaceFrown = faFaceFrown;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private role: any, private searchPlayerService: SearchplayerformService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private searchPlayerService: SearchplayerformService) { }
 
   ngOnInit(): void {
 
-    this.data = this.role;
-
-
-
-
-    
-    this.freePlayers = this.searchPlayerService.searchFreePlayersByRole(this.data).subscribe(
-      (res) => {
-            if(res){
+    this.data = this.givenData;
+  
+    this.freePlayers = this.searchPlayerService.searchFreePlayersByRole(this.data.role).subscribe(
+    (res) => {
+          if(res){
             this.freePlayers = res
-            }else
+          }else
             return
-            })
+    })
+
+    console.log(this.invitedPlayers);
+    
+    
   }
 
+  OnInvitePlayer(idPlayer: number, idTeam: number){
+    return this.searchPlayerService.invitePlayer(idPlayer, idTeam).subscribe(
+      (res) => {
+        if(res){
+          this.invitedPlayers.push(res);
+        }
+        console.log(this.invitedPlayers);
+
+    })
+  }
+
+  
 }

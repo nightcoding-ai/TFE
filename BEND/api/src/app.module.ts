@@ -8,6 +8,7 @@ import { TournamentsModule } from './tournaments/tournaments.module';
 import { PlayersModule } from './players/players.module';
 import { AuthModule } from './auth/auth.module';
 import { LocalStrategy } from './auth/strategy/local.strategy';
+import { TeamInvitationModule } from './team-invitation/team-invitation.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { LocalStrategy } from './auth/strategy/local.strategy';
         'players/models/player/player.entity.ts',
         'players/models/profile/profile.entity.ts',
         'teams/models/teams.entity.ts',
+        'team-invitation/models/teamInvitation.entity.ts',
         'tournaments/models/tournaments.entity.ts',
       ],
       autoLoadEntities: true,
@@ -33,7 +35,8 @@ import { LocalStrategy } from './auth/strategy/local.strategy';
     PlayersModule,
     TeamsModule,
     TournamentsModule,
-    AuthModule
+    AuthModule,
+    TeamInvitationModule
 
   ],
   controllers: [AppController],

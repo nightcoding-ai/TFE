@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
@@ -18,6 +18,7 @@ import { UpdateteamComponent } from '../updateteam/updateteam.component';
 import { SearchplayerformComponent } from '../searchplayerform/searchplayerform.component';
 import { BanplayerComponent } from '../banplayer/banplayer.component';
 import { JoinTeamFormComponent } from '../join-team-form/join-team-form.component';
+import { NavbarComponent } from 'src/app/navbar/navbar.component';
 
 
 
@@ -79,8 +80,8 @@ export class TeamComponent implements OnInit {
       private teamService:TeamsService,
       private authService: AuthenticationService,
       private profilePlayerService: ProfilePlayerService,
-      private dialog : MatDialog) {
-  }
+      private dialog : MatDialog,
+  ) { }
 
   ngOnInit(): void {
 
@@ -90,7 +91,6 @@ export class TeamComponent implements OnInit {
 
     })
 
-    this.getTeam(this.idTeam);
 
     let token = this.authService.getToken();
 
@@ -100,8 +100,12 @@ export class TeamComponent implements OnInit {
       this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
         (res) => this.player = res
       )
+      this.getTeam(this.idTeam);
+      
+
     }
 
+    this.getTeam(this.idTeam);
     
   }
 
@@ -157,7 +161,10 @@ export class TeamComponent implements OnInit {
   }
 
   onOpenDialogSearchPlayer(role: any){
-    this.dialog.open(SearchplayerformComponent, { data: role, width: '600px', height: '600px'});
+    this.dialog.open(SearchplayerformComponent, { data: {
+      role: role,
+      teamID: this.team.id
+    }, width: '600px', height: '600px'});
   }
 
   onOpenDialogDeletePlayer(idPlayer: any, playerName: any){
@@ -173,6 +180,7 @@ export class TeamComponent implements OnInit {
       name: playerName
     }});
   }
+
 
  
 

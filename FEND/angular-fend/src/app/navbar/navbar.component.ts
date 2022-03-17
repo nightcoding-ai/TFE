@@ -2,14 +2,15 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
-import { faBars, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faGear } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../auth/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { PLayerDTO } from '../profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from '../profile-player/profile-player.service';
 import { Subject, Subscription } from 'rxjs';
-
+import { MatBadgeModule } from '@angular/material/badge';
+import { TeamService } from '../teams/team/team.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,9 +19,15 @@ import { Subject, Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
 
+  MaterialComponents = [
+    MatBadgeModule
+  ]
+
   faBars = faBars;
 
   faGear = faGear;
+
+  faBell = faBell;
 
   helper = new JwtHelperService();
 
@@ -30,12 +37,15 @@ export class NavbarComponent implements OnInit {
 
   updatePlayerSubject: Subscription;
 
+  notifications : any;
+
+
 
 
   
 
   
-  constructor(public authService: AuthenticationService, private router: Router, private profilePlayerService: ProfilePlayerService) { }
+  constructor(public authService: AuthenticationService, private router: Router, private profilePlayerService: ProfilePlayerService, private teamService: TeamService) { }
 
   ngOnInit(): void {
     let token = this.authService.getToken();
@@ -46,7 +56,17 @@ export class NavbarComponent implements OnInit {
       this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
         (res) => this.player = res
       )
+      
+
+      this.teamService.getNotifications().subscribe(
+        (res) => this.notifications = res
+      )
     }
+
+
+
+    
+
   }
 
   
@@ -87,5 +107,13 @@ export class NavbarComponent implements OnInit {
   myTeamSelect(teamId: number){
     this.router.navigate(['/teams',teamId])
   }
+
+  OnDeclineOffer(notifId: number){
+    console.log(notifId);
+    this.teamService.deleteNotif(notifId).subscribe(
+      () => console.log("Notification supprimée")
+    );
+  }
+
   
 }
