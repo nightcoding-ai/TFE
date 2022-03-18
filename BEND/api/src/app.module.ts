@@ -26,6 +26,8 @@ import { TeamInvitationModule } from './team-invitation/team-invitation.module';
         'teams/models/teams.entity.ts',
         'team-invitation/models/teamInvitation.entity.ts',
         'tournaments/models/tournaments.entity.ts',
+        'tournaments/models/tournamentMatch.entity.ts',
+
       ],
       autoLoadEntities: true,
       synchronize: true,  // ! can't be used in production.

@@ -19,6 +19,7 @@ import { SearchplayerformComponent } from '../searchplayerform/searchplayerform.
 import { BanplayerComponent } from '../banplayer/banplayer.component';
 import { JoinTeamFormComponent } from '../join-team-form/join-team-form.component';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
+import { TeamService } from './team.service';
 
 
 
@@ -30,6 +31,8 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 export class TeamComponent implements OnInit {
 
   team: TeamWithPlayers;
+
+  invitations: any;
 
 
   roles = [
@@ -78,6 +81,7 @@ export class TeamComponent implements OnInit {
 
   constructor(private route : ActivatedRoute,
       private teamService:TeamsService,
+      private myTeamservice: TeamService,
       private authService: AuthenticationService,
       private profilePlayerService: ProfilePlayerService,
       private dialog : MatDialog,
@@ -106,6 +110,14 @@ export class TeamComponent implements OnInit {
     }
 
     this.getTeam(this.idTeam);
+
+    this.myTeamservice.getListofInvitedPlayers().subscribe(
+      (res) => {
+        console.log(res);
+        this.invitations = res;
+      }
+    );
+
     
   }
 

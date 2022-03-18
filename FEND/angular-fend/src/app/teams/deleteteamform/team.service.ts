@@ -52,7 +52,7 @@ export class TeamService {
   }
 
   getListofInvitedPlayers(){
-    return this.http.get<any>("http://localhost:3000/api/invitations/my_team", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
+    return this.http.get<any>("http://localhost:3000/api/invitations/my-team", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
   }
 
   

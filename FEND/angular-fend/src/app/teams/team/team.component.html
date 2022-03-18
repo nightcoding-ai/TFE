@@ -194,6 +194,16 @@
         
     </div>
 
+    <div>
+        <ul *ngIf="invitations">
+            JOUEURS INVITES 
+            <li *ngFor="let invitation of invitations">
+                {{ invitation.player.name }} a été invité, son invitation expira le {{ invitation.expiredAt | date}}
+                
+            </li>
+        </ul>
+    </div>
+
     
         
 
