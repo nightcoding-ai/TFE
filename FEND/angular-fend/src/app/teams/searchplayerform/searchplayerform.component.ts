@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { faFaceFrown } from '@fortawesome/free-solid-svg-icons';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
+import { TeamService } from '../team/team.service';
 import { SearchplayerformService } from './searchplayerform.service';
 
 @Component({
@@ -15,11 +16,14 @@ export class SearchplayerformComponent implements OnInit {
 
   freePlayers: any;
 
-  invitedPlayers: PLayerDTO[] ;
+  invitations: any ;
 
   faFaceFrown = faFaceFrown;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private searchPlayerService: SearchplayerformService) { }
+  clicked = false;
+
+
+  constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private searchPlayerService: SearchplayerformService, private teamService: TeamService) { }
 
   ngOnInit(): void {
 
@@ -33,21 +37,30 @@ export class SearchplayerformComponent implements OnInit {
             return
     })
 
-    console.log(this.invitedPlayers);
+    this.teamService.getListofInvitedPlayers().subscribe(
+      (res) => {
+        this.invitations = res
+      }
+    )
+
     
     
   }
 
   OnInvitePlayer(idPlayer: number, idTeam: number){
-    return this.searchPlayerService.invitePlayer(idPlayer, idTeam).subscribe(
-      (res) => {
-        if(res){
-          this.invitedPlayers.push(res);
-        }
-        console.log(this.invitedPlayers);
-
-    })
+    return this.searchPlayerService.invitePlayer(idPlayer, idTeam).subscribe((res) => console.log(res))
+  
+  
   }
 
+  alreadyInvited(name: string){
+    let allNames = [];
+
+    for(let inv of this.invitations){
+      allNames.push(inv.player.name);
+    }
+
+    return allNames.find(playerName => playerName === name)
+  }
   
 }

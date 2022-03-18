@@ -1,6 +1,6 @@
 import { Player } from "src/players/models/player/player.entity";
 import { Team } from "src/teams/models/teams.entity";
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 const currentDate : Date = new Date();
 
@@ -12,9 +12,11 @@ export class TeamInvitation {
     id: number;
 
     @ManyToOne(() => Player, player => player.invitations, {eager: true})
+    @JoinColumn()
     player: Player;
 
     @ManyToOne(() => Team, team => team.invitationToPlayer, {eager: true})
+    @JoinColumn()
     team: Team;
 
     @Column({ nullable: false, default: false})

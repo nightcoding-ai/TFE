@@ -17,3 +17,12 @@ li{
     display: flex;
 
 }
+
+#alreadyInvited{
+    background-color: var(--firstColor);
+    border-radius: 5px;
+    color: white;
+    padding: 6px;
+    margin-left: 6px;
+
+}
