@@ -37,6 +37,8 @@ import { DeleteteamformComponent } from './teams/deleteteamform/deleteteamform.c
 import { BanplayerComponent } from './teams/banplayer/banplayer.component';
 import { JoinTeamFormComponent } from './teams/join-team-form/join-team-form.component';
 import { InvitedPlayersComponent } from './teams/invited-players/invited-players.component';
+import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -88,9 +90,10 @@ export function tokenGetter() {
     FormsModule,
     MatDialogModule,
     MatTableModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatFormFieldModule
   ],
-  providers: [],
+  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

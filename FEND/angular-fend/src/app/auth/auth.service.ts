@@ -20,15 +20,7 @@ export class AuthenticationService {
     constructor(private http: HttpClient, private router: Router) {}
 
     login(loginDTO: LoginDTO) {
-        return this.http.post<any>("http://localhost:3000/api/auth/login", { name: loginDTO.name, password: loginDTO.password}).subscribe(
-            (res) => {
-                localStorage.setItem('player-auth', res.acces_token);
-                this._isLoggedIn$.next(true);
-                this.router.navigate(['/profile']);
-
-
-            }
-        )
+        return this.http.post<any>("http://localhost:3000/api/auth/login", { name: loginDTO.name, password: loginDTO.password});
     }
 
     public getToken() {

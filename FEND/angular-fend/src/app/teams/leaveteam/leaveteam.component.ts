@@ -44,7 +44,8 @@ export class LeaveteamComponent implements OnInit {
           this.user = res
 
           if(this.user.team.players){
-          this.playersWithoutCaptain = this.user.team.players.filter(player => player.profile.isCaptain === false);
+          this.playersWithoutCaptain = this.user.team.players.filter(player => player.profile.isCaptain === false)
+          console.log(this.playersWithoutCaptain);
           }
         }
       )
@@ -82,16 +83,41 @@ export class LeaveteamComponent implements OnInit {
 
 
   leaveTeam(){
-    return this.teamService.leaveTeam();
+    this.teamService.leaveTeam();
+    
   }
 
+
   onSubmit(){
+    console.log("Submission")
     if(this.setAsCaptain.invalid){
-      console.log("Mauvais form");
+      console.log("invalid form");
+    }
+    console.log("valeur du form", this.setAsCaptain.value.newCaptain);
+    if(this.user.profile.isCaptain === true){
+      console.log("Le capitaine va être nommé");
+      this.teamService.setAsCaptain(this.setAsCaptain.value.newCaptain).subscribe(
+      
+      () =>  {
+        console.log('Joueur a été nommé capitaine, réponse du service.')
+        this.teamService.leaveTeam();
+      }
+      )
     }
     this.close();
-    console.log(this.setAsCaptain.value);
 
+  }
+
+  leaveTeamWithOnlyOneOtherPlayer(idPlayer :number){
+    console.log(idPlayer);
+    console.log(this.user.id);
+
+    console.log(this.user.profile.isCaptain)
+    this.teamService.setAsCaptain(idPlayer).subscribe(
+      () => this.leaveTeam()
+    )
+    
+    this.close();
   }
 
 

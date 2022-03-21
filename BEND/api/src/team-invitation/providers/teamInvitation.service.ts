@@ -22,11 +22,12 @@ export class TeamInvitationService {
 
            const capitaine = await this.PlayerRepo.getOne(idPlayer);
 
-           console.log(capitaine);
 
            const invititationsOfPlayer = await this.TeamInvitationRepo.getAllOfOnePlayer(invitation.player);
 
-           if(capitaine.profile.isCaptain === false || !capitaine || !capitaine.team || capitaine.team.players.length >= 5 || capitaine.team.id !== invitation.team){
+           const playerToInvite = await this.PlayerRepo.getOne(invitation.player);
+
+           if(capitaine.profile.isCaptain === false || !capitaine || !capitaine.team || capitaine.team.players.length >= 5 || capitaine.team.id !== invitation.team || capitaine.team.players.find((player) => player.profile.role === invitation.role)){
 
                 throw new UnauthorizedException();
            }
@@ -37,8 +38,6 @@ export class TeamInvitationService {
 
            }
 
-           
-
            return await this.TeamInvitationRepo.createNewInvitation(invitation);
        }
        catch(err){
@@ -46,6 +45,34 @@ export class TeamInvitationService {
             throw err;
        }
 
+   }
+
+   async acceptedInvitation(playerId: number,idNotif: number){
+       try{
+
+            const notif = await this.TeamInvitationRepo.getOne(idNotif);
+            const player = await this.PlayerRepo.getOne(playerId);
+            const playerFromNotif = await this.PlayerRepo.getOne(notif.player.id);
+
+
+            if(!player || player.id !== playerFromNotif.id || player.team || notif.team.players.length >= 5 || notif.team.players.find((compo) => compo.profile.role === player.profile.role) || !notif.team){
+                throw new UnauthorizedException();
+            }
+            else{
+
+                player.team = notif.team;
+                await this.PlayerRepo.savePlayer(player);
+                await this.TeamInvitationRepo.deleteAllOfTeamByPlayerRole(player.profile.role, notif.team.id);
+                await this.TeamInvitationRepo.deleteAllOfPlayer(notif.player.id);
+
+                
+            }
+
+       }
+       catch(err){
+
+            throw err;
+       }
    }
 
    async getAll(){
@@ -90,6 +117,29 @@ export class TeamInvitationService {
     }
    }
 
+   async deleteAllOfAPlayer(idPlayer:number){
+    try{
+
+        const invitations = await this.TeamInvitationRepo.deleteAllOfPlayer(idPlayer);
+
+        return invitations;
+   }
+   catch(err){
+
+        throw err;
+    }
+
+   }
+
+   async deleteAllOfATeam(idTeam: number){
+    try{
+
+    }
+    catch(err){
+        throw err;
+
+    }
+   }
    async deleteOne(idPlayer: number, idNotif: number){
        try{
 

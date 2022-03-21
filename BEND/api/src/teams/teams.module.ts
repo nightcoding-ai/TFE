@@ -6,6 +6,7 @@ import { PlayerRepository } from 'src/players/repository/player/player.repositor
 import { ProfileRepository } from 'src/players/repository/profil/profile.repository';
 import { TeamInvitation } from 'src/team-invitation/models/teamInvitation';
 import { TournamentMatch } from 'src/tournaments/models/tournamentMatch.entity';
+import { TournamentParticipation } from 'src/tournaments/models/tournamentParticipation.entity';
 import { Tournament } from 'src/tournaments/models/tournaments.entity';
 import { TeamsController } from './controllers/teams.controller';
 import { Team } from './models/teams.entity';
@@ -14,7 +15,7 @@ import { TeamRepository } from './repository/teams.repository';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Team, Tournament,Player, Profile, TeamInvitation, TournamentMatch]),
+        TypeOrmModule.forFeature([Team, Tournament,Player, Profile, TeamInvitation, TournamentMatch, TournamentParticipation]),
     ],
     controllers: [
         TeamsController

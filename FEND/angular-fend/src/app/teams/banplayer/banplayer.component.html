@@ -1,4 +1,9 @@
-Etes-vous sûr(e) de vouloir expulser {{ player.name | uppercase }} de votre équipe ?
+<div class="banPlayer">    
+    Etes-vous sûr(e) de vouloir expulser {{ player.name | uppercase }} de votre équipe ?
+    <div class="buttons">
+        
+        <button class="btn btn-primary" (click)="banPlayer(player.id)">Confirmer</button>
+        <button class="btn btn-danger" (click)="close()">Annuler</button>
 
-<button class="btn btn-primary">Confirmer</button>
-<button class="btn btn-danger" (click)="close()">Annuler</button>
+    </div>
+</div>

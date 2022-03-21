@@ -1,19 +1,21 @@
 export enum RankEnum {
-    CHALLENGER = "Challenger",
-    
-    GRANDMASTER = "Grand Maître",
+    Challenger = "Challenger",
 
-    MASTER = "Maître",
+    GrandMaitre = "Grand Maître",
 
-    DIAMOND = "Diamant",
+    Maitre = "Maître",
 
-    PLATINUM = "Platine",
+    Diamant = "Diamant",
 
-    GOLD = "Or",
+    Platine = "Platine",
 
-    SILVER = "Argent",
+    Or = "Or",
 
-    BRONZE = "Bronze",
+    Argent = "Argent",
 
-    IRON = "Fer",
+    Bronze = "Bronze",
+
+    Fer = "Fer",
+
+    NonClassé = "Non classé",
 }

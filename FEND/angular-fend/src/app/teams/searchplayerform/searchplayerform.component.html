@@ -10,8 +10,7 @@
             {{ player.profile.rank }}
             {{ player.profile.discord }}
             {{ player.profile.inGameName}}
-            <button class="btn btn-primary" (click)="OnInvitePlayer(player.id, data.teamID);" *ngIf="!alreadyInvited(player.name)"  >Inviter</button>
-            <span id="alreadyInvited" *ngIf="alreadyInvited(player.name)">En attente de la réponse</span>
+            <button class="btn btn-primary" (click)="OnInvitePlayer(player.id, data.teamID, data.role);"   >Inviter</button>
         </li>
 
         

@@ -14,10 +14,15 @@ export class TeamInvitationController{
     @Post()
     create(
         @Req() req:  any) {
-        console.log("ID du jouer connecté ", req.user.playerID, req.body);
         return this.TeamInvitationService.createOne(req.user.playerID, req.body);
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Post('/accept')
+    accepteInvitation(
+        @Req() req:any) {
+        return this.TeamInvitationService.acceptedInvitation(req.user.playerID,req.body.idNotif);
+        }
     @Get()
     getAll() {
         return this.TeamInvitationService.getAll();
@@ -43,6 +48,13 @@ export class TeamInvitationController{
         @Param() idNotif: number,
         @Req() req: any) {
         return this.TeamInvitationService.deleteOne(req.user.playerID, idNotif);
+        }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete('remove_all')
+    deleteAllOfPlayer(
+        @Req() req:any) {
+        return this.TeamInvitationService.deleteAllOfAPlayer(req.user.playerID);
         }
 
 

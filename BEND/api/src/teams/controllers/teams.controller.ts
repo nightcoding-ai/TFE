@@ -22,12 +22,27 @@ export class TeamsController {
 
     @UseGuards(JwtAuthGuard)
     @Post('')
-    async addTeam(
+    addTeam(
         @Req() req: any): Promise<void> {
         return this.TeamService.create(req.user.playerID, req.body);
          
         
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('ban')
+    banPlayer(
+        @Req() req:any): Promise<void> {
+        return this.TeamService.banPlayer(req.user.playerID, req.body.idPlayer);
+        }
+    
+    @UseGuards(JwtAuthGuard)
+    @Post('setas_captain')
+    setAsCaptain(
+        @Req() req:any): Promise<void> {
+        return this.TeamService.setAsCaptain(req.user.playerID, req.body.idPlayer);
+        }
+    
 
     @Get('all')
     getAll(): Promise<TeamDTO[]> {

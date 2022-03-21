@@ -70,6 +70,7 @@ export class PlayersService {
     async getAllByRole(roleOfPlayer: RoleEnum): Promise<PlayerDTO[]> {
         return await this.PlayerRepo.getAllByRole(roleOfPlayer);
     }
+    
 
 
     async update(idPlayer: number, playerDTO: PlayerDTO ) {

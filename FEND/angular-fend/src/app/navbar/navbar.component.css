@@ -138,6 +138,9 @@ a#bell{
      border-bottom: 1px solid var(--secondColor);
  }
 
+ div.dropdownmenu.dropdownmenu-left.dropdown-menu.show ul li:last-child{
+     border-bottom: none;
+ }
  
 
  div.dropdownmenu.dropdownmenu-left.dropdown-menu.show ul li a.linkTeamProfileNotif{
@@ -165,4 +168,11 @@ a#bell{
 
 li.nav-item a.nav-link:hover{
     cursor: pointer;
+}
+
+
+div.cross{
+    margin-bottom: 9px;
+    padding-left: 70%;
+    border-bottom: 1px solid black;
 }

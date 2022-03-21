@@ -1,6 +1,7 @@
 import { Player } from "src/players/models/player/player.entity";
 import { TeamInvitation } from "src/team-invitation/models/teamInvitation";
 import { TournamentMatch } from "src/tournaments/models/tournamentMatch.entity";
+import { TournamentParticipation } from "src/tournaments/models/tournamentParticipation.entity";
 import { Tournament } from "src/tournaments/models/tournaments.entity";
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -22,9 +23,8 @@ export class Team {
     @OneToMany(() => Player, player => player.team, {cascade: true, eager: true})
     players: Player[];
 
-    @ManyToOne(() => Tournament, tournament => tournament.teams)
-    @JoinColumn()
-    tournament: Tournament;
+    @OneToMany(() => TournamentParticipation, tournamentParticipation => tournamentParticipation.team)
+    tournamentParticipations : TournamentParticipation[];
 
     @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.teamA)
     sideA: TournamentMatch[];

@@ -1,3 +1,4 @@
+import { RoleEnum } from "src/players/enum/role.enum";
 import { Player } from "src/players/models/player/player.entity";
 import { Team } from "src/teams/models/teams.entity";
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
@@ -18,6 +19,9 @@ export class TeamInvitation {
     @ManyToOne(() => Team, team => team.invitationToPlayer, {eager: true})
     @JoinColumn()
     team: Team;
+
+    @Column({ enum: RoleEnum, nullable: false})
+    role: RoleEnum;
 
     @Column({ nullable: false, default: false})
     isApproved: boolean;

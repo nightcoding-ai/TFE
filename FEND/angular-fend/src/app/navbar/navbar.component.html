@@ -114,39 +114,42 @@
           </div>
 
         </div>
+        <ng-container *ngIf="notifications">
+          <div ngbDropdown class=" dropdownmenu dropleft profile " *ngIf="getAuthUser()" placement="bottom-right" display="dynamic" >
 
-        <div ngbDropdown class=" dropdownmenu dropleft profile " *ngIf="getAuthUser()" placement="bottom-right" display="dynamic">
+            <a class="dropdownBasic1" ngbDropdownToggle *ngIf="getAuthUser()" id="bell" > 
+            <fa-icon [icon]="faBell" id="bellIcon"  ></fa-icon>
+            <span *ngIf="notifications && notifications.length > 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"></span>
+            <span *ngIf="!notifications || notifications.length < 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false" hidden="true"></span>
+            </a>
 
-          <a class="dropdownBasic1" ngbDropdownToggle *ngIf="getAuthUser()" id="bell" > 
-           
-           <fa-icon [icon]="faBell" id="bellIcon"  ></fa-icon>
-           <span *ngIf=" notifications && notifications.length > 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"></span>
-           <span *ngIf="!notifications || notifications.length < 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false" hidden="true"></span>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu dropdownmenu-left" *ngIf="notifications">
+              <div class="cross" (click)="deleteAllNotifs()" *ngIf="notifications.length > 0" >
 
-          </a>
+                Décliner tout <fa-icon [icon]="faXmark" id="clearNotifs"></fa-icon>
+              </div>
+              <ul id="listOfNotifications">
+                <ng-container *ngIf="player && notifications"> 
+                <li class="notifElement" *ngFor="let notification of notifications"> 
+                  L'équipe {{ notification.team.name | uppercase }} voudrait vous recruter pour le rôle de  {{ player.profile.role | uppercase }}
+                  <div class="buttons">
+                    <button class="btn btn-primary" (click)="OnAcceptOffer(notification)">Accepter</button>
+                    <button class="btn btn-danger" (click)="OnDeclineOffer(notification.id)">Décliner</button><br>
+                    
+                  </div>
+                  <a (click)="myTeamSelect(notification.team.id)" class="linkTeamProfileNotif">voir profil de l'équipe...</a>
+                </li>
+                </ng-container>
+              </ul >
 
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu dropdownmenu-left" *ngIf="notifications">
+              <span style="margin-left: 20px;" *ngIf="!notifications ||  notifications.length === 0">  Aucune notification pour le moment.</span>
+              
+            </div>
 
-            <ul id="listOfNotifications"  >
-              <li class="notifElement" *ngFor="let notification of notifications" > 
-                L'équipe {{ notification.team.name | uppercase }} voudrait vous recruter pour le rôle de  {{ player.profile.role | uppercase }}
-                <div class="buttons">
-                  <button class="btn btn-primary">Accepter</button>
-                  <button class="btn btn-danger" (click)="OnDeclineOffer(notification.id)">Décliner</button><br>
-                  
-                </div>
-                <a (click)="myTeamSelect(notification.team.id)" class="linkTeamProfileNotif">voir profil de l'équipe...</a>
-              </li>
-            </ul >
-
-            <span style="margin-left: 20px;" *ngIf="notifications.length === 0">  Aucune notification pour le moment.</span>
-            
           </div>
-
-        </div>
-
+        </ng-container>
         <li class="nav-item">
-          <a routerLink="/"  *ngIf="authService.getToken()"(click)="authService.logout()" class="nav-link deco" >Déconnexion</a>
+          <a routerLink="/"  *ngIf="this.authService.isLoggedIn$"(click)="onLogOut()" class="nav-link deco" >Déconnexion</a>
         </li>
       </ul>
 
@@ -187,7 +190,6 @@
 
 
   </nav>
-  <router-outlet></router-outlet>
 
 
   

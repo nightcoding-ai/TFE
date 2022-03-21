@@ -239,3 +239,10 @@ div.info span{
 .redWarn{
     color: var(--redWarning)
 }
+
+button.joinBtn{
+    background-color: rgb(75, 182, 75);
+
+    width: max-content;
+    color: white;
+}

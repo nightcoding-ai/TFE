@@ -1,5 +1,6 @@
 <div class="container  mt-4" *ngIf="team">
     <div class="teamInformations" >
+        <ng-container>
             <div class="logo mt-6" *ngIf="team.logo">
                 <img src="{{ team.logo }}" alt="logo" id="teamLogo">
 
@@ -8,7 +9,7 @@
 
                     {{ team.name | uppercase }}
                 </div>
-
+            
 
             </div>
             <div  class="logo" *ngIf="!team.logo">
@@ -22,8 +23,9 @@
                     {{team.name | uppercase}}
                 </div>
 
-            </div >
+            </div>
 
+        </ng-container>
             
         <ng-container *ngIf="player">
             <div *ngIf="player.team" class="teamButtons">
@@ -184,7 +186,7 @@
                     </div>
                     
                     <div *ngIf="player">
-                        <button class="btn btn-primary" *ngIf="!player.team && player.profile.role === role" id="join" (click)="onOpenDialogJoinRequest(player.id, player.name)">REJOINDRE</button>
+                        <button class="btn joinBtn" *ngIf="!player.team && player.profile.role === role" id="join" (click)="onOpenDialogJoinRequest(player.id, player.name)">REJOINDRE</button>
                                            
                     </div>
                 
@@ -194,15 +196,7 @@
         
     </div>
 
-    <div>
-        <ul *ngIf="invitations">
-            JOUEURS INVITES 
-            <li *ngFor="let invitation of invitations">
-                {{ invitation.player.name }} a été invité, son invitation expira le {{ invitation.expiredAt | date}}
-                
-            </li>
-        </ul>
-    </div>
+   
 
     
         

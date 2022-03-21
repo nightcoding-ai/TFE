@@ -31,7 +31,6 @@ export class PlayerRepository extends Repository<Player> {
        
         const saved = await playerRepo.save(player);
         
-        console.log("SavePlayer",saved);
 
         return saved;
         
@@ -115,7 +114,6 @@ export class PlayerRepository extends Repository<Player> {
 
         const playerRepo = getRepository(Player);
         
-        console.log(playerDTO);
         
         const update = playerRepo.update(idPlayer, playerDTO);
 

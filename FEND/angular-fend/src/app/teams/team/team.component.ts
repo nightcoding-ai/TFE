@@ -111,12 +111,14 @@ export class TeamComponent implements OnInit {
 
     this.getTeam(this.idTeam);
 
-    this.myTeamservice.getListofInvitedPlayers().subscribe(
-      (res) => {
-        console.log(res);
-        this.invitations = res;
-      }
-    );
+    if(this.team && this.player.team !== undefined&& this.player.team.id === this.team.id){
+
+      this.myTeamservice.getListofInvitedPlayers().subscribe(
+        (res) => {
+          this.invitations = res;
+        }
+      );
+    }
 
     
   }
@@ -127,6 +129,8 @@ export class TeamComponent implements OnInit {
     this.teamService.getTeamByID(id).subscribe((res) => {
 
       this.team = res;
+      console.log(this.team);
+
 
     }) 
   }

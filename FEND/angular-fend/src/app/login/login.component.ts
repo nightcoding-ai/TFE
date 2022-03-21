@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { AuthenticationService } from '../auth/auth.service';
 import { LoginService } from './login.service';
 import jwtDecode from 'jwt-decode';
+import { NotificationsService } from '../temp/notifications.service';
+import { Player, Team } from '../teams/teams.interface';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   user : any;
 
-  constructor(private authService: AuthenticationService,private router: Router) { }
+  constructor(private authService: AuthenticationService,private router: Router, private notificationService: NotificationsService) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -36,7 +38,26 @@ export class LoginComponent implements OnInit {
       console.log("Form is invalid.");
       return;
     }
-    this.authService.login(this.loginForm.value);
+    this.authService.login(this.loginForm.value).pipe(
+        switchMap(
+          (res) => {
+            console.log("switchmap (login component)",res);
+            localStorage.setItem('player-auth', res.acces_token);
+            this.authService._isLoggedIn$.next(true);
+            return this.notificationService.getNotifications();
+        }))
+        .subscribe(
+          (res) => {
+            console.log("Réponse du subscribe", res);
+            this.notificationService.notifications$.next(res);
+            this.router.navigate(['/profile']);
+
+            
+          }
+        )
+  
+
+    
 
   }
 }

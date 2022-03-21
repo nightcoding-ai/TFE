@@ -34,6 +34,15 @@ export class TeamService {
     );
   }
 
+  banPlayer(idPlayer: number){
+    return this.http.post<any>("http://localhost:3000/api/teams/ban", {idPlayer : idPlayer}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} });
+  }
+
+  setAsCaptain(idPlayer: number){
+    console.log("Service appelé",idPlayer);
+    return this.http.post<any>("http://localhost:3000/api/teams/setas_captain", { idPlayer : idPlayer}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} });
+  }
+
   updateTeam(teamDTO: TeamDTO){
     return this.http.put<any>("http://localhost:3000/api/teams/modify",teamDTO, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} }).subscribe(
       () => {
@@ -42,15 +51,6 @@ export class TeamService {
     )
 
   }
-
-  getNotifications(){
-    return this.http.get<any>("http://localhost:3000/api/invitations/mine", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
-  }
-
-  deleteNotif(idNotif: number){
-    return this.http.delete<any>(`http://localhost:3000/api/invitations/delete/${idNotif}`,{ headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
-  }
-
   getListofInvitedPlayers(){
     return this.http.get<any>("http://localhost:3000/api/invitations/my_team", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
   }
