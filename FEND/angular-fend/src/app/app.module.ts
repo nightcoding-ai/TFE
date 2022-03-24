@@ -38,6 +38,7 @@ import { BanplayerComponent } from './teams/banplayer/banplayer.component';
 import { JoinTeamFormComponent } from './teams/join-team-form/join-team-form.component';
 import { InvitedPlayersComponent } from './teams/invited-players/invited-players.component';
 import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { SetascaptainComponent } from './teams/setascaptain/setascaptain.component';
 
 
 export function tokenGetter() {
@@ -63,9 +64,10 @@ export function tokenGetter() {
     BanplayerComponent,
     JoinTeamFormComponent,
     InvitedPlayersComponent,
+    SetascaptainComponent,
 
   ],
-  entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent],
+  entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent, SetascaptainComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

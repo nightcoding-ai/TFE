@@ -138,20 +138,27 @@ img.rolesIcon{
 }
 
 button#banBtn{
-    border: solid 1px var(--secondColorDarker);
     border-radius: 5px;
-    padding: 3px;
+    padding: 5px;
     color: white;
     background-color: var(--redWarning);
+    border: none;
+
 }
 
+button#banBtn:hover{
+    font-weight: 500;
+}
 button#inviteBtn{
-    border: solid 1px var(--secondColorDarker);
     border-radius: 5px;
-    padding: 3px;
+    padding: 5px;
     color: white;
     background-color: rgb(75, 182, 75);
+    border:none;
 
+}
+button#inviteBtn:hover{
+    font-weight: 500;
 }
 
 
@@ -246,3 +253,16 @@ button.joinBtn{
     width: max-content;
     color: white;
 }
+
+.isPlayer:hover{
+    cursor: pointer;
+    border: 2px solid var(--orangeWarning);
+    transition: all 0.1s;
+}
+
+.joinDemands{
+   margin-left: 10px;
+   padding: 3px;
+   color: var(--firstColor);
+}
+

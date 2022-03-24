@@ -2,7 +2,7 @@
 
     <a class="navbar-brand" href="#">
 
-        <img src="../../assets/Logo_v5.png" alt="logoLTL" height="60px" width="60px">
+        <img src="../../assets/ndls_white.png" alt="logoNDLS" height="60px" width="70">
     </a>
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,11 +114,11 @@
           </div>
 
         </div>
-        <ng-container *ngIf="notifications">
+        <ng-container *ngIf="player && !player.team && notifications">
           <div ngbDropdown class=" dropdownmenu dropleft profile " *ngIf="getAuthUser()" placement="bottom-right" display="dynamic" >
 
             <a class="dropdownBasic1" ngbDropdownToggle *ngIf="getAuthUser()" id="bell" > 
-            <fa-icon [icon]="faBell" id="bellIcon"  ></fa-icon>
+            <fa-icon [icon]="faEnveloppe" id="bellIcon"  ></fa-icon>
             <span *ngIf="notifications && notifications.length > 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"></span>
             <span *ngIf="!notifications || notifications.length < 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false" hidden="true"></span>
             </a>
@@ -142,7 +142,8 @@
                 </ng-container>
               </ul >
 
-              <span style="margin-left: 20px;" *ngIf="!notifications ||  notifications.length === 0">  Aucune notification pour le moment.</span>
+              <span style="margin-left: 20px;" *ngIf="(!notifications ||  notifications.length === 0) && player && !player.team">  Aucune invitation pour le moment.</span>
+              <span style="margin-left: 20px;" *ngIf="player && player.team">Vous faites déjà parti d'une équipe, vous ne pouvez donc pas être invité</span>
               
             </div>
 

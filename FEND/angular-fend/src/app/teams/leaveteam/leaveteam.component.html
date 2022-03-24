@@ -14,7 +14,7 @@
 
                 <select formControlName="newCaptain">
 
-                <option  *ngFor="let player of playersWithoutCaptain"  value="{{ player.id }}">{{ player.profile.role }} {{ player.name }}</option>
+                <option  *ngFor="let player of playersWithoutCaptain"  value="{{ player.id }}" [selected]="player">{{ player.profile.role }} {{ player.name }}</option>
 
                 </select>
                 <br>
@@ -22,8 +22,10 @@
 
             </form>
 
+            <div class="buttons">
             <button form="ngForm" class="btn btn-primary" type="submit">Confirmer</button>
             <button class="btn btn-danger" mat-button mat-dialog-close>Annuler</button>
+            </div>
   
     </div>
     <div *ngIf="user.profile.isCaptain === true && user.team.players.length === 2 && playersWithoutCaptain.length === 1">

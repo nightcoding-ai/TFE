@@ -6,7 +6,7 @@ import { TeamDTO } from "src/teams/DTO/teamDTO";
 import { Team } from "src/teams/models/teams.entity";
 import { getRepository, Repository } from "typeorm";
 import { TeamInvitationDTO } from "../DTO/teamInvitationDTO";
-import { TeamInvitation } from "../models/teamInvitation";
+import { TeamInvitation } from "../models/teamInvitation.entity";
 
 
 
@@ -113,7 +113,6 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
         });
             
 
-        console.log("Invitations à supprimer ----------------------\n",allInvOfTeamByRole);
 
         return await teamInvRepo.delete(allInvOfTeamByRole);
 

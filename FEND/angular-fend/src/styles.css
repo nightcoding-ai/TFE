@@ -40,9 +40,16 @@ a {
     text-decoration: none;
 }
 
+a:hover{
+    cursor: pointer;
+}
+
 body{
-    background-color: var(--bodyColor);
     color: white;
+    background-image: url(./assets/Background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .icons{

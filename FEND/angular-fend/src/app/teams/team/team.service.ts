@@ -39,7 +39,6 @@ export class TeamService {
   }
 
   setAsCaptain(idPlayer: number){
-    console.log("Service appelé",idPlayer);
     return this.http.post<any>("http://localhost:3000/api/teams/setas_captain", { idPlayer : idPlayer}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} });
   }
 

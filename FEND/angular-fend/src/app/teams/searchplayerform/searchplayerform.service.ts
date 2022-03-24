@@ -25,3 +25,4 @@ export class SearchplayerformService {
     return this.http.post<any>("http://localhost:3000/api/invitations", { "team" : idTeam, "player": idPlayer, "role": role}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
   }
 }
+  

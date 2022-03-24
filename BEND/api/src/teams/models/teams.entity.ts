@@ -1,5 +1,6 @@
 import { Player } from "src/players/models/player/player.entity";
-import { TeamInvitation } from "src/team-invitation/models/teamInvitation";
+import { JoinRequest } from "src/join-request/models/joinRequest.entity";
+import { TeamInvitation } from "src/team-invitation/models/teamInvitation.entity";
 import { TournamentMatch } from "src/tournaments/models/tournamentMatch.entity";
 import { TournamentParticipation } from "src/tournaments/models/tournamentParticipation.entity";
 import { Tournament } from "src/tournaments/models/tournaments.entity";
@@ -43,6 +44,9 @@ export class Team {
 
     @OneToMany( () => TeamInvitation, teamInvitation => teamInvitation.team, {nullable: true})
     invitationToPlayer: TeamInvitation[];
+
+    @OneToMany( () => JoinRequest, joinRequest => joinRequest.team, {nullable: true})
+    joinRequestsReceived: JoinRequest[];
   
 
 

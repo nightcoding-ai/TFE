@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/co
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faAngleDoubleRight, faArrowRightFromBracket, faBan, faCrown, faDigitalTachograph, faPen, faPencilRuler, faPenClip, faPenToSquare, faPlus, faQuestion, faTrashCan, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleRight, faArrowRightFromBracket, faBan, faCrown, faDigitalTachograph, faPen, faPencilRuler, faPenClip, faPenToSquare, faPlus, faQuestion, faTrashCan, faTriangleExclamation, faUser, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
@@ -20,6 +20,8 @@ import { BanplayerComponent } from '../banplayer/banplayer.component';
 import { JoinTeamFormComponent } from '../join-team-form/join-team-form.component';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { TeamService } from './team.service';
+import { SetascaptainComponent } from '../setascaptain/setascaptain.component';
+import { InvitedPlayersComponent } from '../invited-players/invited-players.component';
 
 
 
@@ -70,6 +72,8 @@ export class TeamComponent implements OnInit {
   faAngles = faAngleDoubleRight;
 
   faPlus = faPlus;
+
+  faUserCheck= faUserCheck;
 
   helper = new JwtHelperService();
 
@@ -188,6 +192,7 @@ export class TeamComponent implements OnInit {
       id: idPlayer,
       name: playerName
     }});
+    
   }
 
   onOpenDialogJoinRequest(idPlayer: any, playerName: any){
@@ -195,6 +200,22 @@ export class TeamComponent implements OnInit {
       id: idPlayer,
       name: playerName
     }});
+  }
+
+  onOpenDialogSetAsCaptain(idPlayer: any, playerName: any){
+    if(this.player.profile.isCaptain && idPlayer !== this.player.id){
+      this.dialog.open(SetascaptainComponent, { data: {
+      id: idPlayer,
+      name: playerName
+    }})
+    };
+    return;
+  }
+
+  onOpenDialogPlayersWantingToJoin(idTeam: number){
+    this.dialog.open(InvitedPlayersComponent, { data: {
+      id: idTeam
+    }})
   }
 
 

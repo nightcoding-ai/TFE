@@ -46,7 +46,7 @@ export class NotificationsService {
   }
 
   acceptNotif(idNotif: number){
-    return this.http.post<any>(`http://localhost:3000/api/invitations/delete/${idNotif}`,{ idNotif: idNotif}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`}});
+    return this.http.post<any>(`http://localhost:3000/api/invitations/accept`,{ idNotif: idNotif}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`}});
   }
 
  

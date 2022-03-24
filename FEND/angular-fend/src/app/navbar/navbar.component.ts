@@ -2,7 +2,7 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
-import { faBars, faBell, faGear, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faEnvelope, faGear, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../auth/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
@@ -35,6 +35,8 @@ export class NavbarComponent implements OnInit {
   tokenDecoded : any;
 
   player: PLayerDTO;
+
+  faEnveloppe = faEnvelope;
 
   updatePlayerSubject: Subscription;
 
@@ -108,8 +110,9 @@ export class NavbarComponent implements OnInit {
   }
 
   OnAcceptOffer(notifId: number){
+    console.log("acceptance");
 
-    this.notificationService.acceptNotif(notifId);
+    this.notificationService.acceptNotif(notifId).subscribe((res) => console.log(res))
   }
 
   deleteAllNotifs(){

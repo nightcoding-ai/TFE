@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { JoinRequest } from 'src/join-request/models/joinRequest.entity';
 import { Player } from 'src/players/models/player/player.entity';
 import { Profile } from 'src/players/models/profile/profile.entity';
 import { PlayerRepository } from 'src/players/repository/player/player.repository';
 import { ProfileRepository } from 'src/players/repository/profil/profile.repository';
-import { TeamInvitation } from 'src/team-invitation/models/teamInvitation';
+import { TeamInvitation } from 'src/team-invitation/models/teamInvitation.entity';
 import { TournamentMatch } from 'src/tournaments/models/tournamentMatch.entity';
 import { TournamentParticipation } from 'src/tournaments/models/tournamentParticipation.entity';
 import { Tournament } from 'src/tournaments/models/tournaments.entity';
@@ -15,7 +16,7 @@ import { TeamRepository } from './repository/teams.repository';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Team, Tournament,Player, Profile, TeamInvitation, TournamentMatch, TournamentParticipation]),
+        TypeOrmModule.forFeature([Team, Tournament,Player, Profile, TeamInvitation, TournamentMatch, TournamentParticipation, JoinRequest]),
     ],
     controllers: [
         TeamsController

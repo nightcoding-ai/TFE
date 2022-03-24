@@ -3,8 +3,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { PlayerRepository } from "src/players/repository/player/player.repository";
 import { Team } from "src/teams/models/teams.entity";
 import { TeamInvitationDTO } from "../DTO/teamInvitationDTO";
-import { TeamInvitation } from "../models/teamInvitation";
 import { TeamInvitationRepository } from "../repositories/teamInvitation.repository";
+
 
 
 
@@ -61,6 +61,7 @@ export class TeamInvitationService {
             else{
 
                 player.team = notif.team;
+                console.log(player);
                 await this.PlayerRepo.savePlayer(player);
                 await this.TeamInvitationRepo.deleteAllOfTeamByPlayerRole(player.profile.role, notif.team.id);
                 await this.TeamInvitationRepo.deleteAllOfPlayer(notif.player.id);

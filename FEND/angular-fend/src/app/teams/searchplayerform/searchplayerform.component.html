@@ -1,21 +1,18 @@
 <ng-container *ngIf="freePlayers && freePlayers.length > 0">
     <h1 *ngIf="freePlayers.length > 0; else elseBlock">JOUEURS DISPONIBLES POUR LE POSTE DE {{ data.role | uppercase }} </h1>
     <ng-template #elseBlock><h1> JOUEUR DISPONIBLE  POUR LE POSTE DE {{ data.role | uppercase }}</h1></ng-template>
-
-    <ul class="ul">
-        
-        <li *ngFor="let player of freePlayers" class="playerFree">
-            <img src="{{ player.profile.profilPicture }} " alt="pp" style="width: 80px; height: 80px">
-            {{ player.name }} 
-            {{ player.profile.rank }}
-            {{ player.profile.discord }}
-            {{ player.profile.inGameName}}
-            <button class="btn btn-primary" (click)="OnInvitePlayer(player.id, data.teamID, data.role);"   >Inviter</button>
-        </li>
-
-        
-    </ul>
-
+    <div class="playersList">
+        <ul class="ul">
+            <li *ngFor="let player of freePlayers" class="playerFree">
+                <img src="{{ player.profile.profilPicture }} " alt="pp" style="width: 80px; height: 80px">
+                {{ player.name }} 
+                {{ player.profile.rank }}
+                {{ player.profile.discord }}
+                {{ player.profile.inGameName}}
+                <button class="btn btn-primary" (click)="OnInvitePlayer(player.id, data.teamID, data.role);"   >Inviter</button>
+            </li>
+        </ul>
+    </div>
     
 </ng-container>
 
