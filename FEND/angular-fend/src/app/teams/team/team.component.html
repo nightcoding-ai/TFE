@@ -63,7 +63,7 @@
     <div  *ngIf="team && team.players" class="container">
 
 
-<a class="joinDemands" *ngIf="player && player.team && player.team.id === team.id && player.profile.isCaptain" (click)="onOpenDialogPlayersWantingToJoin(team.id)"><fa-icon [icon]="faUserCheck"></fa-icon>Demandes d'adhésion </a>
+<a class="joinDemands" *ngIf="player && player.team && player.team.id === team.id && player.profile.isCaptain" (click)="onOpenDialogPlayersWantingToJoin()"><fa-icon [icon]="faUserCheck"></fa-icon>Demandes d'adhésion </a>
         <h1 class="rosterTag">
             <fa-icon [icon]="faAngles"></fa-icon><span id="roster">ROSTER</span>
          </h1>
@@ -198,7 +198,7 @@
                     </div>
                     
                     <div *ngIf="player">
-                        <button class="btn joinBtn" *ngIf="!player.team && player.profile.role === role" id="join" (click)="onOpenDialogJoinRequest(player.id, player.name)">REJOINDRE</button>
+                        <button class="btn joinBtn" *ngIf="!player.team && player.profile.role === role" id="join" (click)="onOpenDialogJoinRequest()">REJOINDRE</button>
                                            
                     </div>
                 

@@ -1,10 +1,10 @@
 <div class="joinTeam">
 
-    Voulez-vous proposer votre candidature pour cette équipe ?
+    Voulez-vous proposer votre candidature pour cette équipe ? {{ data.team.name }}
     <small>Vous pouvez poser votre candidature à plusieurs équipes simultanément...</small>
 
     <div class="buttons">
-        <button class="btn btn-primary">Proposer</button>
-        <button class="btn btn-danger">Annuler</button>
+        <button class="btn btn-primary" (click)="joinTeamRequest(data.player.id, data.team.id, data.player.profile.role)">Proposer</button>
+        <button class="btn btn-danger" (click)="close()">Annuler</button>
     </div>
 </div>

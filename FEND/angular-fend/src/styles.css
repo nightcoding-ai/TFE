@@ -10,6 +10,8 @@
     --orangeAttention : #e4c17067;
     --redWarning: #8b2828;
     --redWarningHover: #701f1f;
+    --greenColor: #65c957;
+    --redColor: #e04b4b;
 
     --firstColor: #191970;
     --secondColor: #884DA7;
@@ -69,4 +71,15 @@ body {
 
 fa-icon{
     margin-right: 4px;
+}
+
+.mat-dialog-container{
+    padding: 0px !important;
+
+}
+
+
+
+.mat-dialog-container::-webkit-scrollbar-thumb{
+    border-radius: 5px !important;
 }

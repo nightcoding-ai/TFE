@@ -33,9 +33,9 @@ export class JoinRequestService {
             const player = await this.PlayerRepository.getOne(idPlayer);
             const teamToJoin = await this.TeamRepository.getTeam(joinRequest.team);
 
+            const allRequestsofPlayer = await this.JoinRequestRepository.getAllOfAPlayer(player.id);
 
-
-            if(player.id !== joinRequest.player || player.team || player.profile.isCaptain || !teamToJoin || teamToJoin.players.length > 4 || teamToJoin.players.find((player) => player.profile.role === player.profile.role)){
+            if(player.id !== joinRequest.player || player.team || player.profile.isCaptain || !teamToJoin || teamToJoin.players.length >= 5 || teamToJoin.players.find((plr) => plr.profile.role === player.profile.role) || allRequestsofPlayer.length > 0){
                 throw new UnauthorizedException();
             }
             else {
@@ -105,9 +105,11 @@ export class JoinRequestService {
         try{
             const captain = await this.PlayerRepository.getOne(idCaptain);
 
+
             if(!captain || !captain.profile.isCaptain || !captain.team || captain.team.id !== idTeam){
-                throw new UnauthorizedException("This request can't be reached, possible reasons : Player does not exist, Player is not a team captain, Player's team does not match with team request.");
+                throw new UnauthorizedException("This request can't be reached, possible reasons : Player does not exist, Player is not a team captain, Player's team does not match with team request.")
             }
+            
             return await this.JoinRequestRepository.getAllOfATeam(idTeam);
         }
         catch(err){
@@ -115,8 +117,15 @@ export class JoinRequestService {
         }
     }
 
-    async deleteOne(idJoinRequest: number): Promise<DeleteResult>{
+    async deleteOne(idPlayer: number, idJoinRequest: number): Promise<DeleteResult>{
         try{
+
+            const captain = await this.PlayerRepository.getOne(idPlayer);
+            const req = await this.JoinRequestRepository.getOne(idJoinRequest);
+
+            if(!captain.profile.isCaptain || !req || req.team.id !== captain.team.id){
+                throw new UnauthorizedException();
+            }
             return await this.JoinRequestRepository.deleteOne(idJoinRequest);
         }
         catch(err){

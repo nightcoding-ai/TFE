@@ -39,6 +39,7 @@ import { JoinTeamFormComponent } from './teams/join-team-form/join-team-form.com
 import { InvitedPlayersComponent } from './teams/invited-players/invited-players.component';
 import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { SetascaptainComponent } from './teams/setascaptain/setascaptain.component';
+import { JoinrequestlistComponent } from './teams/joinrequestlist/joinrequestlist.component';
 
 
 export function tokenGetter() {
@@ -65,9 +66,10 @@ export function tokenGetter() {
     JoinTeamFormComponent,
     InvitedPlayersComponent,
     SetascaptainComponent,
+    JoinrequestlistComponent,
 
   ],
-  entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent, SetascaptainComponent],
+  entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent, SetascaptainComponent, JoinrequestlistComponent, JoinTeamFormComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

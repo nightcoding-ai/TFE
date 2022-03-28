@@ -1,0 +1,129 @@
+
+div.joinRequestList{
+    display: flex;
+    text-align: center;
+    align-items: baseline;
+    width: 1500px;
+    height: 600px;
+}
+
+
+
+div.role{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+}
+
+
+
+
+
+ul{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+li{
+    margin-top: 15px;
+    border: 2px solid var(--secondColor);
+    border-radius: 5px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 4px;
+    height: max-content;
+
+}
+
+
+
+div.roleTitle{
+    font-weight: 550;
+    background-color: var(--firstColorDarker);
+    border-bottom: 9px solid var(--secondColor);
+    color: white;
+    padding: 10px;
+}
+
+.profilPicture{
+    border-radius: 50%;
+    border: solid 2px var(--secondColor);
+}
+
+.buttons{
+    margin-top: 7px;
+    font-size: 1.6em;
+    padding: 5px 0 5px 0;
+    background-color: var(--secondColor);
+}
+
+.buttons fa-icon:hover{
+    cursor: pointer;
+}
+
+#accept{
+    color: white;
+}
+
+#decline{
+    color: white;
+}
+
+.buttons fa-icon{
+    margin: 4px;
+}
+
+.ranksIcon{
+    width: 75px;
+    height: 75px;
+}
+
+#lolIcon{
+    width: 1.66em;
+    height: 1.66em;
+    filter: invert(38%) sepia(11%) saturate(6579%) hue-rotate(249deg) brightness(80%) contrast(74%);
+}
+
+#discord{
+    width: 1.66em;
+    height: 1.66em;
+}
+
+div.socials{
+    display: flex;
+    color: var(--secondColor);
+    font-weight: 500;
+    margin-left: 15px;
+    
+}
+
+
+#lolIcon, #discord{
+    margin-right: 5px;
+}
+
+div.buttons{
+    display: flex;
+    justify-content: space-around
+}
+
+div.pseudo{
+    font-weight: 600;
+    color: var(--secondColor);
+}
+
+#accept:hover{
+    color: var(--greenColor);  
+    transition: all ease-in-out .3s;
+}
+
+#decline:hover{
+    color: var(--redColor);
+    transition: all ease-in-out .3s;
+
+}

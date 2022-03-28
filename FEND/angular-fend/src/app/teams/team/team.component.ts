@@ -22,6 +22,7 @@ import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { TeamService } from './team.service';
 import { SetascaptainComponent } from '../setascaptain/setascaptain.component';
 import { InvitedPlayersComponent } from '../invited-players/invited-players.component';
+import { JoinrequestlistComponent } from '../joinrequestlist/joinrequestlist.component';
 
 
 
@@ -81,6 +82,8 @@ export class TeamComponent implements OnInit {
 
   player: PLayerDTO;
 
+  joinRequests: any;
+
  
 
   constructor(private route : ActivatedRoute,
@@ -95,7 +98,9 @@ export class TeamComponent implements OnInit {
 
     this.route.params.subscribe((data:any) => {
 
-    this.idTeam = data.id;
+    this.idTeam = parseInt(data.id);
+    console.log(typeof(this.idTeam));
+
 
     })
 
@@ -121,9 +126,18 @@ export class TeamComponent implements OnInit {
         (res) => {
           this.invitations = res;
         }
-      );
+      )
+      
     }
 
+    
+      this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
+        (res) => {
+          console.log(res);
+          this.joinRequests = res;
+        }
+      );
+    
     
   }
 
@@ -133,7 +147,6 @@ export class TeamComponent implements OnInit {
     this.teamService.getTeamByID(id).subscribe((res) => {
 
       this.team = res;
-      console.log(this.team);
 
 
     }) 
@@ -150,9 +163,7 @@ export class TeamComponent implements OnInit {
     console.log(idPlayer, idTeam);
   }
   
-  joinTeamRequest(idTeam: number){
-    console.log(idTeam);
-  }
+  
 
   
 
@@ -195,10 +206,10 @@ export class TeamComponent implements OnInit {
     
   }
 
-  onOpenDialogJoinRequest(idPlayer: any, playerName: any){
+  onOpenDialogJoinRequest(){
     this.dialog.open(JoinTeamFormComponent, { data : {
-      id: idPlayer,
-      name: playerName
+      team: this.team,
+      player: this.player
     }});
   }
 
@@ -212,9 +223,12 @@ export class TeamComponent implements OnInit {
     return;
   }
 
-  onOpenDialogPlayersWantingToJoin(idTeam: number){
-    this.dialog.open(InvitedPlayersComponent, { data: {
-      id: idTeam
+  onOpenDialogPlayersWantingToJoin(){
+    this.dialog.open(JoinrequestlistComponent, { data: {
+      team: this.team,
+      roles: this.roles,
+      joinRequests: this.joinRequests
+
     }})
   }
 

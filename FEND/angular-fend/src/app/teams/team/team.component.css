@@ -216,9 +216,7 @@ div.logo{
     margin-top: 25px;
 }
 
-#join:hover{
-    background-color: red;
-}
+
 
 #free{
     background-color: var(--firstColor);

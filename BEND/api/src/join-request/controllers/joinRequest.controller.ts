@@ -39,13 +39,19 @@ export class JoinRequestController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get('team')
+    @Post('team')
     getAllOfATeam(
         @Req() req:any): Promise<JoinRequest[]>{
         return this.JoinRequestService.getAllOfTeam(req.user.playerID, req.body.teamId); 
     }
 
-    
+    @UseGuards(JwtAuthGuard)
+    @Delete('refuse/:id')
+    refuseRequest(
+        @Param() id: number,
+        @Req() req: any): Promise<DeleteResult>{
+        return this.JoinRequestService.deleteOne(req.user.playerID, id);
+    }
     
     
     
