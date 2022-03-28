@@ -106,11 +106,10 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
         const teamInvRepo = getRepository(TeamInvitation);
 
   
-        const allInvOfTeamByRole: any  = await teamInvRepo.find({ where:[
-            {role: roleToDelete},
-            {team: {id: idTeam}}]
-        
-        });
+        const allInvOfTeamByRole: any  = await teamInvRepo.find({ where:
+            {role: roleToDelete,
+            team: {id: idTeam}}
+            });
             
 
 

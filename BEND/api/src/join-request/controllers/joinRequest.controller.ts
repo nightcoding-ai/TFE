@@ -1,5 +1,8 @@
-import { Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
+import { Controller, Delete, Get, Param, Post, Req, UseGuards } from "@nestjs/common";
+import { identitytoolkit } from "googleapis/build/src/apis/identitytoolkit";
+import { jwtConstants } from "src/auth/constants";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { DeleteResult } from "typeorm";
 import { JoinRequest } from "../models/joinRequest.entity";
 import { JoinRequestService } from "../providers/joinRequest.service";
 
@@ -17,14 +20,33 @@ export class JoinRequestController {
     @Post()
     create(
         @Req() req:any): Promise<JoinRequest>{
-        console.log(req.body);
         return this.JoinRequestService.createOne(req.user.playerID, req.body);
     }
-    
-    @Get()
-    getAll(): Promise<JoinRequest[]>{
-        return this.JoinRequestService.getAll();
+
+    @UseGuards(JwtAuthGuard)
+    @Post('accept')
+    acceptRequest(
+        @Req() req:any): Promise<any>{
+        return this.JoinRequestService.acceptRequest(req.user.playerID, req.body.joinRequestId);
     }
+    
+
+    @UseGuards(JwtAuthGuard)
+    @Get('mine')
+    getAllOfAPlayer(
+        @Req() req:any): Promise<JoinRequest[]>{
+        return this.JoinRequestService.getAllOfAPlayer(req.user.playerID);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('team')
+    getAllOfATeam(
+        @Req() req:any): Promise<JoinRequest[]>{
+        return this.JoinRequestService.getAllOfTeam(req.user.playerID, req.body.teamId); 
+    }
+
+    
+    
     
     
 }

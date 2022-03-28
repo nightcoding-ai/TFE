@@ -1,4 +1,5 @@
 import { RoleEnum } from "src/players/enum/role.enum";
+import { Team } from "src/teams/models/teams.entity";
 import { DeleteResult, getRepository, Repository } from "typeorm";
 import { CreateJoinRequestDTO } from "../DTO/createJoinRequestDTO";
 import { JoinRequestDTO } from "../DTO/joinRequestDTO";
@@ -30,7 +31,7 @@ export class JoinRequestRepository extends Repository<JoinRequest>{
         const reqRepo = getRepository(JoinRequest);
 
 
-        return await reqRepo.findOne(joinRequestId);   
+        return await reqRepo.findOneOrFail(joinRequestId);   
     }
 
     async getAll(): Promise<JoinRequest[]>{
@@ -84,19 +85,18 @@ export class JoinRequestRepository extends Repository<JoinRequest>{
         return await reqRepo.delete({team : { id: teamId}});
     }
 
-    async deleteAllOfATeamByRole(roleToDelete: RoleEnum, idTeam: number): Promise<DeleteResult>{
+    async deleteAllOfATeamByRole(roleToDelete: RoleEnum, team: Team): Promise<any>{
         const reqRepo = getRepository(JoinRequest);
 
-
-        const allReqOfTeamByRole: any  = await reqRepo.find({ where:[
-            {role: roleToDelete},
-            {team: {id: idTeam}}]
+        const allReqOfTeamByRole: any  = await reqRepo.find({ where:
+            {role: roleToDelete,
+            team: team}
+            
         
         });
-            
-
 
         return await reqRepo.delete(allReqOfTeamByRole);
+
 
     }
 }
