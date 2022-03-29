@@ -1,13 +1,78 @@
+.title{
+    background-color: var(--firstColorDarker);
+    border-bottom: 5px solid var(--secondColor);
+    color:white;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    padding: 5px;
+}
+
+div.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .buttons{
-    padding: 4px;
+    padding: 10px;
     margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 button{
     margin-right: 10px;
 }
 
+span{
+    margin-left: 10px;
+    margin-right: 10px;
+    
+}
 
 select{
+    outline: none;
     margin-top: 10px;
+    background-color: transparent;
+    color: var(--firstColorDarker);
+    border: solid 1px var(--secondColor);
+    border-radius: 0px;
+    width: fit-content;
+    padding: 5px;
+    -webkit-border-radius: 0;
+}
+
+
+option{
+    padding: 5px;
+    border-radius: 0px;
+}
+
+select:hover, option:hover{
+    cursor:pointer;
+}
+
+
+
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.confirm{
+    background-color: var(--secondColor);
+    color: white;
+    width: max-content;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    margin-bottom: 5px;
+
 }

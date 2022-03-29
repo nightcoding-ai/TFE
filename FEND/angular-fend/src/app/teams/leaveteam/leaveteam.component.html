@@ -1,40 +1,46 @@
-<ng-container *ngIf="user">
-
-    <div *ngIf="user.profile.isCaptain === false">
-        <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
-        <button class="btn btn-primary" (click)="leaveTeam();">Confirmer</button>
-        <button class="btn btn-danger" (click)="close()">Annuler</button>
+<div *ngIf="user">
+    <div class="title">
+        <span>Quitter l'équipe</span>
     </div>
-
-    <div *ngIf="user.profile.isCaptain === true && user.team.players.length > 2">
-        <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
-
-            <form [formGroup]="setAsCaptain" (ngSubmit)="onSubmit()" id="ngForm">
-                Vous devez nommer un autre capitaine avant de quitter l'équipe.<br>
-
-                <select formControlName="newCaptain">
-
-                <option  *ngFor="let player of playersWithoutCaptain"  value="{{ player.id }}" [selected]="player">{{ player.profile.role }} {{ player.name }}</option>
-
-                </select>
-                <br>
-                
-
-            </form>
-
+    <div class="content">
+        <div *ngIf="user.profile.isCaptain === false">
+            <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
             <div class="buttons">
-            <button form="ngForm" class="btn btn-primary" type="submit">Confirmer</button>
-            <button class="btn btn-danger" mat-button mat-dialog-close>Annuler</button>
+                <button class="confirm" (click)="leaveTeam();"><fa-icon [icon]="faCheck"></fa-icon>Confirmer</button>
+                <a  (click)="close()"><fa-icon [icon]="faXmark"></fa-icon>Annuler</a>
             </div>
-  
-    </div>
-    <div *ngIf="user.profile.isCaptain === true && user.team.players.length === 2 && playersWithoutCaptain.length === 1">
-        <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
-        {{playersWithoutCaptain[0].name | uppercase }} sera le nouveau capitaine de l'équipe.
+        </div>
 
-        <button form="ngForm" class="btn btn-primary" type="submit" (click)="leaveTeamWithOnlyOneOtherPlayer(playersWithoutCaptain[0].id)">Confirmer</button>
-        <button class="btn btn-danger" mat-button mat-dialog-close>Annuler</button>
+        <div *ngIf="user.profile.isCaptain === true && user.team.players.length > 2">
+
+                <form [formGroup]="setAsCaptain" (ngSubmit)="onSubmit()" id="ngForm">
+                    <small>En tant que capitaine, vous devez nommer un nouveau capitaine avant de pouvoir quitter l'équipe</small>
+                    <select formControlName="newCaptain" class="select">
+
+                    <option  *ngFor="let player of playersWithoutCaptain"  value="{{ player.id }}" [selected]="player">
+                    {{ player.name | uppercase}}
+                    </option>
+
+                    </select>
+                    <br>
+                    
+
+                </form>
+
+                <div class="buttons">
+                <button form="ngForm" class="confirm" type="submit"><fa-icon [icon]="faCheck"></fa-icon>Confirmer</button>
+                <a  mat-button mat-dialog-close><fa-icon [icon]="faXmark"></fa-icon>Annuler</a>
+                </div>
+    
+        </div>
+        <div *ngIf="user.profile.isCaptain === true && user.team.players.length === 2 && playersWithoutCaptain.length === 1">
+            <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
+            {{playersWithoutCaptain[0].name | uppercase }} sera le nouveau capitaine de l'équipe.
+
+            <button form="ngForm" class="confirm" type="submit" (click)="leaveTeamWithOnlyOneOtherPlayer(playersWithoutCaptain[0].id)"><fa-icon [icon]="faCheck"></fa-icon>Confirmer</button>
+            <a   mat-button mat-dialog-close><fa-icon [icon]="faXmark"></fa-icon>Annuler</a>
+        </div>
     </div>
 
-</ng-container> 
+</div> 
     
