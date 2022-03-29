@@ -255,7 +255,6 @@ button.joinBtn{
 .isPlayer:hover{
     cursor: pointer;
     border: 2px solid var(--orangeWarning);
-    transition: all 0.1s;
 }
 
 .joinDemands{

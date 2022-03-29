@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faBan, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCircleCheck, faXmark, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { RankEnum } from 'src/app/ranks.enum';
 import { RoleEnum } from 'src/app/roles.enum';
 import { TeamService } from '../team/team.service';
@@ -18,6 +18,7 @@ export class JoinrequestlistComponent implements OnInit {
   faCircleCheck = faCircleCheck;
   faBan = faBan;
   faDiscord = faDiscord;
+  faXmark = faXmark;
 
   roles = [
     RoleEnum.Toplaner, 
@@ -30,7 +31,7 @@ export class JoinrequestlistComponent implements OnInit {
   rankEnum = RankEnum;
   
 
-  constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private teamService: TeamService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private teamService: TeamService,private matRef: MatDialogRef<JoinrequestlistComponent>) {
   this.data = givenData 
   }
 
@@ -48,6 +49,10 @@ export class JoinrequestlistComponent implements OnInit {
     this.teamService.declineJoinRequest(idRequest).subscribe(
       () => console.log("Join request correctly refused.")
       )
+  }
+
+  close(){
+    this.matRef.close();
   }
 
 }

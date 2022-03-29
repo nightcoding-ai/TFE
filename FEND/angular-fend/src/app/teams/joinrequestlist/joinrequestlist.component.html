@@ -1,11 +1,14 @@
 <div class="joinRequestList">
+    <fa-icon [icon]="faXmark" id="close" (click)="close()"></fa-icon>
     
     <ul *ngFor="let role of data.roles">
+
         <div class="role">
             <div class="roleTitle">
                 
                 <h1>{{role | uppercase }}</h1>
             </div>
+
             <div *ngFor= "let joinRequest of data.joinRequests">
                 <li *ngIf="joinRequest.player.profile.role === role">
 

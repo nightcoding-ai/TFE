@@ -18,7 +18,9 @@ div.role{
 }
 
 
-
+h1{
+    margin-bottom: 0;
+}
 
 
 ul{
@@ -30,14 +32,20 @@ ul{
 
 li{
     margin-top: 15px;
-    border: 2px solid var(--secondColor);
+    border: 3px solid var(--secondColor);
     border-radius: 5px;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
     padding-top: 4px;
     height: max-content;
+    background-color: var(--firstColorDarker);
 
+}
+
+li:hover{
+    background-color: var(--firstColorHover);
+    transition: ease-in-out 0.3s;
 }
 
 
@@ -53,6 +61,7 @@ div.roleTitle{
 .profilPicture{
     border-radius: 50%;
     border: solid 2px var(--secondColor);
+    background-color: whitesmoke;
 }
 
 .buttons{
@@ -90,16 +99,22 @@ div.roleTitle{
 }
 
 #discord{
-    width: 1.66em;
-    height: 1.66em;
+    font-size: 1.55em;
 }
 
 div.socials{
     display: flex;
     color: var(--secondColor);
     font-weight: 500;
-    margin-left: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    align-items: center;
     
+}
+
+div.socials{
+    border-top: 1px solid var(--secondColor);
 }
 
 
@@ -126,4 +141,18 @@ div.pseudo{
     color: var(--redColor);
     transition: all ease-in-out .3s;
 
+}
+
+#close{
+    color: var(--secondColor);
+    font-size: 2em;
+    position: absolute;
+    top: 165px;
+    right: 165px;
+    margin-left: auto;
+}
+
+#close:hover{
+    cursor: pointer;
+   
 }
