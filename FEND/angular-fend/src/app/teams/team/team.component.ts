@@ -195,7 +195,7 @@ export class TeamComponent implements OnInit {
     this.dialog.open(SearchplayerformComponent, { data: {
       role: role,
       teamID: this.team.id
-    }, width: '600px', height: '600px'});
+    }});
   }
 
   onOpenDialogDeletePlayer(idPlayer: any, playerName: any){
