@@ -1,12 +1,21 @@
-
-h1{
+div.title{
     background-color: var(--firstColorDarker);
-    margin-bottom: 0;
     border-bottom: 5px solid var(--secondColor);
     color: white;
-    padding: 5px;
+    padding: 9px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    
+
 }
 
+span{
+    margin-left: auto;
+    margin-right: auto;
+}
 ul{
     list-style: none;
     padding: 0;

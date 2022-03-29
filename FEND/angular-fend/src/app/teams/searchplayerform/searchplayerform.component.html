@@ -1,6 +1,8 @@
 <div *ngIf="freePlayers && freePlayers.length > 0" style="width: 450px">
-    <h1 *ngIf="freePlayers.length > 1; else elseBlock"> {{ data.role | uppercase }}S disponibles  </h1>
-    <ng-template #elseBlock><h1> {{ data.role | uppercase }} disponible </h1></ng-template>
+    <div class="title">
+    <span *ngIf="freePlayers.length > 1; else elseBlock"> {{ data.role | uppercase }}S disponibles </span>
+    <ng-template #elseBlock><span> {{ data.role | uppercase }} disponible </span></ng-template>
+    </div>
     <div class="playersList">
         <ul class="ul">
             <li *ngFor="let player of freePlayers" class="playerFree">

@@ -39,12 +39,12 @@ li{
     margin-right: auto;
     padding-top: 4px;
     height: max-content;
-    background-color: var(--firstColorDarker);
 
 }
 
 li:hover{
-    background-color: var(--firstColorHover);
+    background-color: rgba(241, 240, 240, 0.925);
+
     transition: ease-in-out 0.3s;
 }
 
@@ -61,7 +61,6 @@ div.roleTitle{
 .profilPicture{
     border-radius: 50%;
     border: solid 2px var(--secondColor);
-    background-color: whitesmoke;
 }
 
 .buttons{
@@ -70,6 +69,7 @@ div.roleTitle{
     padding: 5px 0 5px 0;
     background-color: var(--secondColor);
 }
+
 
 .buttons fa-icon:hover{
     cursor: pointer;
@@ -110,11 +110,13 @@ div.socials{
     padding-top: 5px;
     padding-bottom: 5px;
     align-items: center;
+    border-top: 1px solid var(--secondColor);
+
     
 }
 
-div.socials{
-    border-top: 1px solid var(--secondColor);
+div.socials#discordDiv{
+    border-top: none;
 }
 
 

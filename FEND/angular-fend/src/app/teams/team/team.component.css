@@ -120,8 +120,8 @@ span{
 }
 
 .rolesIcon {
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
 }
 
 .rosterTag{
@@ -181,6 +181,15 @@ div.buttons{
 fa-icon.captain{
    color: var(--secondColor);
    font-size: 1.2em;
+}
+
+div.captain{
+    background-color: var(--secondColor);
+    border: none;
+    letter-spacing: 2px;
+    font-weight: 400;
+    width: 100%;
+    border-radius: none;
 }
 
 div.logo{

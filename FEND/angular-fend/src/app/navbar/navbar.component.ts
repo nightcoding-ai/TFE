@@ -59,6 +59,7 @@ export class NavbarComponent implements OnInit {
     this.notificationService.getNotifications().subscribe((res) => {
       this.notifications = res;
 
+
     })
 
     let token = this.authService.getToken();

@@ -57,7 +57,9 @@ export class TeamsController {
 
     @UseGuards(JwtAuthGuard)
     @Put('modify')
+    
     updateTeam(
+       
         @Req() req :any ){
         return this.TeamService.updateTeam(req.user.playerID, req.body);
         }

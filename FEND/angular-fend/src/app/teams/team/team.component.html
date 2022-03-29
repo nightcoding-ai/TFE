@@ -193,9 +193,7 @@
                     </div>
                 </div>
                 <div *ngIf="!this.getPlayerByRole(role)">
-                    <div *ngIf="!player || !player.team" id="free">
-                        POSTE VACANT
-                    </div>
+                    
                     
                     <div *ngIf="player">
                         <button class="btn joinBtn" *ngIf="!player.team && player.profile.role === role" id="join" (click)="onOpenDialogJoinRequest()">REJOINDRE</button>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { faPenSquare, faPenToSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
@@ -31,6 +32,11 @@ export class UpdateteamComponent implements OnInit {
 
   team : UpdateTeamDTO;
 
+  logoBase64: any;
+
+  faXmark = faXmark;
+  faPenSquare = faPenToSquare;
+
   constructor(private teamService: TeamService,
     private authService: AuthenticationService,
     private profilePlayerService: ProfilePlayerService,
@@ -56,6 +62,7 @@ export class UpdateteamComponent implements OnInit {
   }
 
   close(){
+    console.log('1');
     this.dialogRef.close();
   }
 
@@ -76,13 +83,24 @@ export class UpdateteamComponent implements OnInit {
         abbreviation: this.team.abbreviation,
         logo: ''
     })
-}
+  }
+
+  handleUpload(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+        this.logoBase64 = reader.result;
+        
+    };
+  }
 
 
   onSubmit(){
     if(this.updateTeamForm.invalid) {
       return alert("Bad form");
     }
+    this.updateTeamForm.patchValue({logo : this.logoBase64});
     this.close();
     return this.teamService.updateTeam(this.updateTeamForm.value);
   }

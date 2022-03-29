@@ -1,4 +1,9 @@
+<div class="title">
+<span> Modifier les informations</span>
+<small id="small">Ne modifiez que vous voulez changer...</small>
+</div>
 <form [formGroup]="updateTeamForm" (ngSubmit)="onSubmit()" class="updateTeam">
+    
     <label for="name">Nouveau nom d'équipe</label>
     <input type="text" formControlName="name">
 
@@ -6,14 +11,10 @@
     <input type="text" formControlName="abbreviation">
 
     <label for="logo">Nouveau logo</label>
-    <input type="file" class="form-control" formControlName="logo">
+    <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
 
-    <ng-container class="btns">
-        <button class="btn btn-primary" type="submit">
-            Modifier
-        </button>
-        <button class="btn btn-danger" (clik)="close()">
-            Annuler
-        </button>
-    </ng-container>
+    <div class="btns">
+        <button  type="submit"><fa-icon [icon]="faPenSquare"></fa-icon>Modifier</button>
+        <a  (click)="close()"><fa-icon id="cancel" [icon]="faXmark"></fa-icon>Annuler</a>
+    </div>
 </form>

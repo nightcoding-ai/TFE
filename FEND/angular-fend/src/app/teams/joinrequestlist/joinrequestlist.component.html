@@ -39,7 +39,7 @@
                         
                         </div>
                         <div class="socials"><img src="../../../assets/lol_icon_svg.svg"  id="lolIcon"alt="lolIcon">{{ joinRequest.player.profile.inGameName | uppercase }}</div>
-                        <div class="socials"><fa-icon [icon]="faDiscord" id="discord"></fa-icon> {{ joinRequest.player.profile.discord | uppercase }}</div>
+                        <div class="socials" id="discordDiv"><fa-icon [icon]="faDiscord" id="discord"></fa-icon> {{ joinRequest.player.profile.discord | uppercase }}</div>
                         <div class="buttons">
                             <fa-icon [icon]="faCircleCheck" id="accept" (click)="acceptRequest(joinRequest.id)"></fa-icon>
                             <fa-icon [icon]="faBan" id="decline" (click)="declineRequest(joinRequest.id)"></fa-icon>

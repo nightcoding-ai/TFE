@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  user : any;
 
   constructor(private authService: AuthenticationService,private router: Router, private notificationService: NotificationsService) { }
 
@@ -44,13 +43,13 @@ export class LoginComponent implements OnInit {
             console.log("switchmap (login component)",res);
             localStorage.setItem('player-auth', res.acces_token);
             this.authService._isLoggedIn$.next(true);
+
             return this.notificationService.getNotifications();
         }))
         .subscribe(
           (res) => {
             console.log("Réponse du subscribe", res);
             this.notificationService.notifications$.next(res);
-
             
           }
         )
