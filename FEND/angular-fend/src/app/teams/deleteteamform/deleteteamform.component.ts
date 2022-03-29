@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
@@ -14,6 +15,9 @@ import { TeamService } from '../team/team.service';
 export class DeleteteamformComponent implements OnInit {
 
   helper = new JwtHelperService();
+
+  faXmark = faXmark;
+  faCheck = faCheck;
 
   tokenDecoded : any;
 

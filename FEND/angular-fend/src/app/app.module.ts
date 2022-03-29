@@ -67,6 +67,7 @@ export function tokenGetter() {
     InvitedPlayersComponent,
     SetascaptainComponent,
     JoinrequestlistComponent,
+    DeleteteamformComponent
 
   ],
   entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent, SetascaptainComponent, JoinrequestlistComponent, JoinTeamFormComponent],

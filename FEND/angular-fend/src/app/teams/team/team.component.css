@@ -141,7 +141,7 @@ button#banBtn{
     border-radius: 5px;
     padding: 5px;
     color: white;
-    background-color: var(--redWarning);
+    background-color: var(--redColor);
     border: none;
 
 }
