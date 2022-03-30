@@ -1,34 +1,58 @@
 <div class="formContainer">
-<form (ngSubmit)="onSubmit(f)" novalidate #f="ngForm" >
-        <label for="username">Pseudonyme</label>
-        <input type="text" name="username" ngModel #username="ngModel" required>
-        <label for="email">Email</label>
-        <input type="email" name="email" ngModel #email="ngModel" required>
-        <label for="password1">Mot de passe</label>
-        <input type="password" name="password1" id="password1" ngModel #password1="ngModel" required>
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" >
+        <mat-form-field>
+            <mat-label>Pseudonyme</mat-label>
+            <input matInput formControlName="name">
+            <mat-hint class="hint">Min. 4 caractères</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Adresse e-mail</mat-label>
+            <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Mot de passe</mat-label>
+            <input matInput formControlName="password1" type="password">
+            <mat-hint class="hint">Min. 4 caractères</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Confirmation du mot de passe</mat-label>
+            <input matInput formControlName="password2" type="password">
+        </mat-form-field>
 
-        <label for="password2">Confirmation du mot de passe</label>
-        <input type="password" name="password2" id="password2" required ngModel #password2="ngModel">
-        <label for="profilPicture">Image de profil</label>
-        <input type="file" name="profilPicture" ngModel #profilPicture="ngModel">
+        <mat-error *ngIf="signUpForm.hasError('notSame')">
+			Les mots de passe ne sont pas les mêmes.
+		</mat-error>
 
-        <label for="discord">Discord</label>
-        <input type="text" name="discordname" required ngModel #discordname="ngModel">#
-        <input type="number"name="discordtag" min="0000" max="9999" required ngModel #discordtag="ngModel">
+      
+        <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
+        <div class="img" *ngIf="logoBase64">
+            <img [src]="logoBase64">
+        </div>
 
-        <label for="ign">Pseudonyme League of Legends</label>
-        <input type="text" name="inGameName" required ngModel #inGameName="ngModel">
-        <select formControlName="ranks">
-            <option [ngValue]="rank" *ngFor="let rank of ranks">
-                {{ rank.name | uppercase }}
-            </option>
-        </select>
-        <select formControlName="roles">
-            <option [ngValue]="role" *ngFor="let role of roles">
-                {{ role.name | uppercase }}
-            </option>
-        </select>
-
-    <button clas="btn btn-primary">S'inscrire</button>
+        <mat-form-field>
+            <mat-label>Discord</mat-label>
+            <input matInput formControlName="discord">
+            <mat-hint class="hint">ex : John#1234</mat-hint>        
+        </mat-form-field>
+        <mat-error *ngIf="signUpForm.hasError('notDiscord')">Ne respecte pas la struture</mat-error>
+        <mat-form-field>
+            <mat-label>Compte League of Legends</mat-label>
+            <input matInput formControlName="inGameName">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Rang</mat-label>
+            <mat-select formControlName="rank">
+                <mat-option *ngFor="let rank of ranks" value="{{rank.name}}">{{ rank.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+                <mat-option *ngFor="let role of roles" value="{{role.name}}">{{ role.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+     
+       <button type="submit" class="signUpButton">S'inscrire</button>
   </form>
 </div>
+

@@ -37,7 +37,7 @@ export class PlayersService {
             playerDTO.profile.password = hash;
 
 
-             await this.PlayerRepo.addPlayer(playerDTO);
+            return await this.PlayerRepo.addPlayer(playerDTO);
             
         }
         catch(err){
@@ -70,6 +70,7 @@ export class PlayersService {
     async getAllByRole(roleOfPlayer: RoleEnum): Promise<PlayerDTO[]> {
         return await this.PlayerRepo.getAllByRole(roleOfPlayer);
     }
+    
 
 
     async update(idPlayer: number, playerDTO: PlayerDTO ) {

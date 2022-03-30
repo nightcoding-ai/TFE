@@ -1,0 +1,13 @@
+div.joinTeam{
+    display: flex;
+    flex-direction: column;
+
+}
+
+div.buttons{
+    margin-top: 10px;
+}
+
+button{
+    margin-right: 10px;
+}

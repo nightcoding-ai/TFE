@@ -1,28 +1,91 @@
-ul.ul{
-    list-style: none;
+div.title{
+    background-color: var(--firstColorDarker);
+    border-bottom: 5px solid var(--secondColor);
+    color: white;
+    padding: 9px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    
 
 }
 
-h1{
-    text-align: center;
+span{
+    margin-left: auto;
+    margin-right: auto;
+}
+ul{
+    list-style: none;
+    padding: 0;
 }
 
 li{
-    height: 120px;
-    background-color: whitesmoke;
-
-}
-
-.noPlayerFound{
     display: flex;
+    align-items: center;
+    padding: 5px;
+    justify-content: space-between;
+    font-weight: 500;
+    color: var(--secondColor);
+}
+
+li:hover{
+    background-color: rgb(221, 221, 221);
+    transition: ease-in-out 0.3s;
+    cursor: pointer;
+}
+
+#discord{
+    color: var(--secondColor);
+    font-size: 1.26em;
+}
+
+
+div#close {
+    display: flex;
+    justify-content: center;
 
 }
 
-#alreadyInvited{
-    background-color: var(--firstColor);
-    border-radius: 5px;
-    color: white;
-    padding: 6px;
-    margin-left: 6px;
+button{
+    margin: 5px;
+}
 
+.pp{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--secondColor);
+}
+
+.socials{
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+}
+
+#lolIcon{
+    width: 1.26em;
+    height: 1.26em;
+    filter: invert(38%) sepia(11%) saturate(6579%) hue-rotate(249deg) brightness(80%) contrast(74%);
+    margin-right: 7px;
+}
+
+.ranksIcon{
+    width: 2.6em;
+    height: 2.6em;
+}
+
+.links{
+    display: flex;
+    align-items: center;
+}
+
+.invitePlayer{
+    color: var(--secondColor);
+}
+
+.invitePlayer:hover{
+    color: var(--secondColorDarker);
 }

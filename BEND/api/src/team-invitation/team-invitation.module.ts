@@ -6,13 +6,14 @@ import { PlayerRepository } from 'src/players/repository/player/player.repositor
 import { Team } from 'src/teams/models/teams.entity';
 import { TeamRepository } from 'src/teams/repository/teams.repository';
 import { TeamInvitationController } from './controllers/teamInvitation.controller';
-import { TeamInvitation } from './models/teamInvitation';
+import { JoinRequest } from '../join-request/models/joinRequest.entity';
+import { TeamInvitation } from './models/teamInvitation.entity';
 import { TeamInvitationService } from './providers/teamInvitation.service';
 import { TeamInvitationRepository } from './repositories/teamInvitation.repository';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Team, Player, TeamInvitation]),
+        TypeOrmModule.forFeature([Team, Player, TeamInvitation, JoinRequest]),
     ],
     controllers: [
         TeamInvitationController,
@@ -23,12 +24,12 @@ import { TeamInvitationRepository } from './repositories/teamInvitation.reposito
         TeamInvitationRepository,
         PlayerRepository,
         TeamRepository,
-        TeamInvitationService
+        TeamInvitationService,
 
         
     ],
     exports: [
-        TeamInvitationService
+        TeamInvitationService,
     ]
 })
 export class TeamInvitationModule {}

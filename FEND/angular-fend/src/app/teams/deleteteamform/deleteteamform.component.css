@@ -1,0 +1,34 @@
+.title{
+    background-color: var(--firstColorDarker);
+    border-bottom: 5px solid var(--secondColor);
+    color:white;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+div.content{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+div.buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.confirm{
+    background-color: var(--secondColor);
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 5px;
+
+}

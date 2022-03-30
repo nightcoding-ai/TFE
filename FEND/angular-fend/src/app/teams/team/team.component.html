@@ -1,5 +1,6 @@
 <div class="container  mt-4" *ngIf="team">
     <div class="teamInformations" >
+        <ng-container>
             <div class="logo mt-6" *ngIf="team.logo">
                 <img src="{{ team.logo }}" alt="logo" id="teamLogo">
 
@@ -8,7 +9,7 @@
 
                     {{ team.name | uppercase }}
                 </div>
-
+            
 
             </div>
             <div  class="logo" *ngIf="!team.logo">
@@ -22,8 +23,9 @@
                     {{team.name | uppercase}}
                 </div>
 
-            </div >
+            </div>
 
+        </ng-container>
             
         <ng-container *ngIf="player">
             <div *ngIf="player.team" class="teamButtons">
@@ -51,6 +53,7 @@
 
                 </ng-container>
             </div>
+            
         </ng-container>
     </div>
 
@@ -59,17 +62,28 @@
 <ng-container *ngIf="team">
     <div  *ngIf="team && team.players" class="container">
 
-        <h1 class="rosterTag"><fa-icon [icon]="faAngles"></fa-icon><span id="roster">ROSTER</span></h1>
+
+<a class="joinDemands" *ngIf="player && player.team && player.team.id === team.id && player.profile.isCaptain" (click)="onOpenDialogPlayersWantingToJoin()"><fa-icon [icon]="faUserCheck"></fa-icon>Demandes d'adhésion </a>
+        <h1 class="rosterTag">
+            <fa-icon [icon]="faAngles"></fa-icon><span id="roster">ROSTER</span>
+         </h1>
+         
+
+
+
 
         <div class="roster">
             <div *ngFor="let role of roles" class="player">
                 <div *ngIf="this.getPlayerByRole(role)">
+                        <div *ngIf="this.getPlayerByRole(role).profile.isCaptain" class="crown">
+                            <fa-icon [icon]="faCrown" id="crown"></fa-icon>
+                        </div>
                         <div *ngIf="this.getPlayerByRole(role).profile.profilPicture">
                             
-                            <img src="{{this.getPlayerByRole(role).profile.profilPicture}}" class="profilePicture" alt="profilePicture" [ngClass]="{'isCaptain' : this.getPlayerByRole(role).profile.isCaptain}"> 
+                            <img src="{{this.getPlayerByRole(role).profile.profilPicture}}" class="profilePicture" alt="profilePicture"  [ngClass]="{'isCaptain' : this.getPlayerByRole(role).profile.isCaptain, 'isPlayer' : player && player.profile.isCaptain && player.team.id === team.id && !this.getPlayerByRole(role).profile.isCaptain }"  (click)="onOpenDialogSetAsCaptain(this.getPlayerByRole(role).id, this.getPlayerByRole(role).name)"> 
                         </div>
                         <div *ngIf="!this.getPlayerByRole(role).profile.profilPicture">
-                            <img src="../../../assets/missing_player.png" class="profilePicture" alt="profilePicture"> 
+                            <img src="../../../assets/missing_player.png" class="profilePicture" alt="profilePicture" > 
                         </div>
                         
                         <div >
@@ -179,12 +193,10 @@
                     </div>
                 </div>
                 <div *ngIf="!this.getPlayerByRole(role)">
-                    <div *ngIf="!player || !player.team" id="free">
-                        POSTE VACANT
-                    </div>
+                    
                     
                     <div *ngIf="player">
-                        <button class="btn btn-primary" *ngIf="!player.team && player.profile.role === role" id="join" (click)="onOpenDialogJoinRequest(player.id, player.name)">REJOINDRE</button>
+                        <button class="btn joinBtn" *ngIf="!player.team && player.profile.role === role" id="join" (click)="onOpenDialogJoinRequest()">REJOINDRE</button>
                                            
                     </div>
                 
@@ -194,15 +206,7 @@
         
     </div>
 
-    <div>
-        <ul *ngIf="invitations">
-            JOUEURS INVITES 
-            <li *ngFor="let invitation of invitations">
-                {{ invitation.player.name }} a été invité, son invitation expira le {{ invitation.expiredAt | date}}
-                
-            </li>
-        </ul>
-    </div>
+   
 
     
         

@@ -1,6 +1,7 @@
 import { Team } from "src/teams/models/teams.entity";
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TournamentMatch } from "./tournamentMatch.entity";
+import { TournamentParticipation } from "./tournamentParticipation.entity";
 
 @Entity()
 export class Tournament {
@@ -22,8 +23,9 @@ export class Tournament {
     @Column({ nullable: true, default: null})
     endDate: Date;
 
-    @OneToMany(() => Team, team => team.tournament, { eager: true, cascade: true})
-    teams: Team[];
+    @OneToMany(() => TournamentParticipation, tournamentParticipation => tournamentParticipation.tournament)
+    
+    participants: TournamentParticipation[];
 
     @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.tournament)
     matches : TournamentMatch[];

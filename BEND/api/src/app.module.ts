@@ -9,6 +9,7 @@ import { PlayersModule } from './players/players.module';
 import { AuthModule } from './auth/auth.module';
 import { LocalStrategy } from './auth/strategy/local.strategy';
 import { TeamInvitationModule } from './team-invitation/team-invitation.module';
+import { JoinRequestModule } from './join-request/join-request.module';
 
 @Module({
   imports: [
@@ -27,18 +28,20 @@ import { TeamInvitationModule } from './team-invitation/team-invitation.module';
         'team-invitation/models/teamInvitation.entity.ts',
         'tournaments/models/tournaments.entity.ts',
         'tournaments/models/tournamentMatch.entity.ts',
+        'tournaments/models/tournamentParticipation.entity.ts',
+        'join-request/models/joinRequest.entity.ts',
 
       ],
       autoLoadEntities: true,
       synchronize: true,  // ! can't be used in production.
-      logging: 'all'
 
     }),
     PlayersModule,
     TeamsModule,
     TournamentsModule,
     AuthModule,
-    TeamInvitationModule
+    TeamInvitationModule,
+    JoinRequestModule
 
   ],
   controllers: [AppController],

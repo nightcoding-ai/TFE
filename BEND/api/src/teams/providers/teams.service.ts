@@ -116,7 +116,6 @@ export class TeamsService {
             }
             else{
 
-                console.log("EQUIPE DU JOUEUR", player.team.id);
 
                 const teamID = player.team.id;
 
@@ -140,7 +139,43 @@ export class TeamsService {
         }
     }
 
-    
+    async banPlayer(idCaptain: number, idPlayer: number): Promise<void>{
+        try{
+            const captain = await this.PlayerRepository.getOne(idCaptain);
+            const player = await this.PlayerRepository.getOne(idPlayer);
+
+            if(captain.profile.isCaptain === false || player.profile.isCaptain === true || player.team.id !== captain.team.id){
+                throw new UnauthorizedException();
+            }
+            player.team = null;
+            await this.PlayerRepository.savePlayer(player);
+
+        }
+        catch(err){
+            throw err;
+        }
+    }
+
+    async setAsCaptain(idOldCaptain: number, idNewCaptain: number){
+        try{
+            const oldCaptain = await this.PlayerRepository.getOne(idOldCaptain);
+            const newCaptain = await this.PlayerRepository.getOne(idNewCaptain);
+
+            if(!oldCaptain || !newCaptain || oldCaptain.profile.isCaptain === false || newCaptain.profile.isCaptain === true || oldCaptain.team.id !== newCaptain.team.id || oldCaptain.id === newCaptain.id){
+                throw new UnauthorizedException();
+            }
+
+            oldCaptain.profile.isCaptain = false;
+            newCaptain.profile.isCaptain = true;
+
+            await this.PlayerRepository.savePlayer(oldCaptain);
+            await this.PlayerRepository.savePlayer(newCaptain);
+        }
+        catch(err){
+
+            throw err;
+        }
+    }
     
 
     

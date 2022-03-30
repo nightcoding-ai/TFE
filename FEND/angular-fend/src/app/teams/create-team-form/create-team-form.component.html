@@ -3,7 +3,8 @@
 <div class="formContainer">
     <form [formGroup]="teamForm" (ngSubmit)="onSubmit()" class="teamForm">
         <div class="container">
-            <input placeholder="Nom d'équipe..." formControlName="name" type="text">
+            
+            <input  matInput placeholder="Nom d'équipe..." formControlName="name" type="text">
 
             <input placeholder="Abbreviation..." formControlName="abbreviation" type="text">
 

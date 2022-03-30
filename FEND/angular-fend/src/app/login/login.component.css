@@ -4,3 +4,25 @@
     align-items: center;
     justify-content: center;
 }
+
+form{
+    padding: 10px;
+    margin-top: 100px;
+}
+
+input{
+    padding: 5px;
+    margin-top: 5px;
+}
+
+input:focus{
+    border: none;
+}
+
+button{
+    margin-top: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--secondColor);
+    color: white;
+}

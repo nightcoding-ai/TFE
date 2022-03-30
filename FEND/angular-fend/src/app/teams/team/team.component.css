@@ -120,8 +120,8 @@ span{
 }
 
 .rolesIcon {
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
 }
 
 .rosterTag{
@@ -138,20 +138,27 @@ img.rolesIcon{
 }
 
 button#banBtn{
-    border: solid 1px var(--secondColorDarker);
     border-radius: 5px;
-    padding: 3px;
+    padding: 5px;
     color: white;
-    background-color: var(--redWarning);
+    background-color: var(--redColor);
+    border: none;
+
 }
 
+button#banBtn:hover{
+    font-weight: 500;
+}
 button#inviteBtn{
-    border: solid 1px var(--secondColorDarker);
     border-radius: 5px;
-    padding: 3px;
+    padding: 5px;
     color: white;
     background-color: rgb(75, 182, 75);
+    border:none;
 
+}
+button#inviteBtn:hover{
+    font-weight: 500;
 }
 
 
@@ -174,6 +181,15 @@ div.buttons{
 fa-icon.captain{
    color: var(--secondColor);
    font-size: 1.2em;
+}
+
+div.captain{
+    background-color: var(--secondColor);
+    border: none;
+    letter-spacing: 2px;
+    font-weight: 400;
+    width: 100%;
+    border-radius: none;
 }
 
 div.logo{
@@ -209,9 +225,7 @@ div.logo{
     margin-top: 25px;
 }
 
-#join:hover{
-    background-color: red;
-}
+
 
 #free{
     background-color: var(--firstColor);
@@ -238,4 +252,36 @@ div.info span{
 
 .redWarn{
     color: var(--redWarning)
+}
+
+button.joinBtn{
+    background-color: rgb(75, 182, 75);
+
+    width: max-content;
+    color: white;
+}
+
+.isPlayer:hover{
+    cursor: pointer;
+    border: 2px solid var(--orangeWarning);
+}
+
+.joinDemands{
+   padding: 3px;
+   color: var(--firstColor);
+}
+
+#crown{
+    color: var(--secondColor);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    bottom: 20%;
+}
+
+div.crown{
+    position: relative;
 }

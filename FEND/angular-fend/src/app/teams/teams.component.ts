@@ -39,12 +39,7 @@ export class TeamsComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-      this.getTeamsWithPlayersInfo();
-
-      
-
-      
+      this.getTeamsWithPlayersInfo(); 
   }
   
   
@@ -52,13 +47,12 @@ export class TeamsComponent implements OnInit {
   getTeamsWithPlayersInfo() {
 
     this.teamService.getTeamsWithPlayers().subscribe((res) => {
-
       this.teamsWithPlayers = res;
-
     })
   }
 
   onSelect(idTeam: number){
+    console.log('Je veux naviguer');
     this.router.navigate(['/teams',idTeam]);
   }
 

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { Player } from '../teams/teams.interface';
 import { SignUpDTO } from './DTO/signupDTO';
@@ -14,16 +15,13 @@ export class SignupService {
     readonly baseAPIUrl = "http://localhost:3000/api";
 
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
-
-
-    addPlayer(f: any){
-
-
-      
+    signUp(signUpDTO: SignUpDTO){
+      this.http.post<any>(this.baseAPIUrl + '/players', signUpDTO).subscribe(
+        () => this.router.navigate(['/login'])
+      )
     }
-
    
 
 

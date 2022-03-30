@@ -1,5 +1,13 @@
-<div>
-<span>Etes-vous sûr de vouloir supprimer cette équipe ?</span><br>
-<button class="btn btn-primary" (click)="onDeleteTeam()"  >Confirmer</button>
-<button class="btn btn-danger" mat-button (click)="close()">Annuler</button>
-</div>
+
+    <div class="title">
+        <span>Supprimer l'équipe</span>
+    </div>
+    <div class="content">
+        <div>
+            <span>Cette action est irréversible.</span>
+        </div>
+        <div class="buttons">
+            <button class="confirm" (click)="onDeleteTeam()"><fa-icon [icon]="faCheck"></fa-icon>Confirmer</button>
+            <a (click)="close()"><fa-icon [icon]="faXmark"></fa-icon>Annuler</a>
+        </div>
+    </div>

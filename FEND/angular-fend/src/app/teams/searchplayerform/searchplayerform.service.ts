@@ -21,7 +21,8 @@ export class SearchplayerformService {
     return this.http.post<any>("http://localhost:3000/api/players/all_by_role", { "role" : role}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
   }
 
-  invitePlayer(idPlayer: number, idTeam: number) {
-    return this.http.post<any>("http://localhost:3000/api/invitations", { "team" : idTeam, "player": idPlayer}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
+  invitePlayer(idPlayer: number, idTeam: number, role: RoleEnum) {
+    return this.http.post<any>("http://localhost:3000/api/invitations", { "team" : idTeam, "player": idPlayer, "role": role}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
   }
 }
+  

@@ -1,7 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { faFaceFrown } from '@fortawesome/free-solid-svg-icons';
+import { faDiscord } from '@fortawesome/free-brands-svg-icons';
+import { faFaceFrown, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
+import { RankEnum } from 'src/app/ranks.enum';
+import { RoleEnum } from 'src/app/roles.enum';
 import { TeamService } from '../team/team.service';
 import { SearchplayerformService } from './searchplayerform.service';
 
@@ -16,11 +19,23 @@ export class SearchplayerformComponent implements OnInit {
 
   freePlayers: any;
 
-  invitations: any ;
 
   faFaceFrown = faFaceFrown;
+  faPlus = faPlus;
+  faXmark = faXmark;
+  faDiscord = faDiscord;
 
   clicked = false;
+
+  roles = [
+    RoleEnum.Toplaner, 
+    RoleEnum.Jungler, 
+    RoleEnum.Midlaner, 
+    RoleEnum.ADC, 
+    RoleEnum.Support
+  ];
+
+  rankEnum = RankEnum;
 
 
   constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private searchPlayerService: SearchplayerformService, private teamService: TeamService) { }
@@ -37,30 +52,17 @@ export class SearchplayerformComponent implements OnInit {
             return
     })
 
-    this.teamService.getListofInvitedPlayers().subscribe(
-      (res) => {
-        this.invitations = res
-      }
-    )
+    
 
     
     
   }
 
-  OnInvitePlayer(idPlayer: number, idTeam: number){
-    return this.searchPlayerService.invitePlayer(idPlayer, idTeam).subscribe((res) => console.log(res))
+  OnInvitePlayer(idPlayer: number, idTeam: number, role: RoleEnum){
+    return this.searchPlayerService.invitePlayer(idPlayer, idTeam, role).subscribe((res) => console.log(res))
   
   
   }
 
-  alreadyInvited(name: string){
-    let allNames = [];
-
-    for(let inv of this.invitations){
-      allNames.push(inv.player.name);
-    }
-
-    return allNames.find(playerName => playerName === name)
-  }
   
 }

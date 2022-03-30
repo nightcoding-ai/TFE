@@ -10,11 +10,14 @@
     --orangeAttention : #e4c17067;
     --redWarning: #8b2828;
     --redWarningHover: #701f1f;
+    --greenColor: #65c957;
+    --redColor: #e04b4b;
 
     --firstColor: #191970;
     --secondColor: #884DA7;
 
     --firstColorDarker: #0e0e41;
+    --firstColorHover: #0a0a2c;
     --secondColorDarker: #49295a;
     --bodyColorDarker: #e4e4e4;
 
@@ -40,9 +43,16 @@ a {
     text-decoration: none;
 }
 
+a:hover{
+    cursor: pointer;
+}
+
 body{
-    background-color: var(--bodyColor);
     color: white;
+    background-image: url(./assets/Background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .icons{
@@ -62,4 +72,15 @@ body {
 
 fa-icon{
     margin-right: 4px;
+}
+
+.mat-dialog-container{
+    padding: 0px !important;
+
+}
+
+
+
+.mat-dialog-container::-webkit-scrollbar-thumb{
+    border-radius: 5px !important;
 }

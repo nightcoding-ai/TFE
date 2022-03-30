@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
+import { RoleEnum } from 'src/app/roles.enum';
 import { TeamDTO } from '../DTO/teamDTO';
 
 @Injectable({
@@ -10,16 +11,10 @@ import { TeamDTO } from '../DTO/teamDTO';
 })
 export class TeamService {
 
-  auth_token: any;
-
-  constructor(private http: HttpClient, private authService: AuthenticationService, private router: Router) {
-
-    this.auth_token = this.authService.getToken();
-
-   }
+  constructor(private http: HttpClient, private authService: AuthenticationService, private router: Router) { }
 
   deleteTeam(){
-    return this.http.delete<any>("http://localhost:3000/api/teams/delete", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} }).subscribe(
+    return this.http.delete<any>("http://localhost:3000/api/teams/delete").subscribe(
       () => { 
         this.router.navigate(["/teams"]);
       }
@@ -27,33 +22,48 @@ export class TeamService {
   }
 
   leaveTeam(){
-    return this.http.delete<any>("http://localhost:3000/api/players/leave_team", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} }).subscribe(
+    return this.http.delete<any>("http://localhost:3000/api/players/leave_team").subscribe(
     () => {
       this.router.navigate(["/teams"]);
     }
     );
   }
 
+  banPlayer(idPlayer: number){
+    return this.http.post<any>("http://localhost:3000/api/teams/ban", {idPlayer : idPlayer});
+  }
+
+  setAsCaptain(idPlayer: number){
+    return this.http.post<any>("http://localhost:3000/api/teams/setas_captain", { idPlayer : idPlayer});
+  }
+
   updateTeam(teamDTO: TeamDTO){
-    return this.http.put<any>("http://localhost:3000/api/teams/modify",teamDTO, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} }).subscribe(
+    return this.http.put<any>("http://localhost:3000/api/teams/modify",teamDTO).subscribe(
       () => {
         
       }
     )
 
   }
-
-  getNotifications(){
-    return this.http.get<any>("http://localhost:3000/api/invitations/mine", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
-  }
-
-  deleteNotif(idNotif: number){
-    return this.http.delete<any>(`http://localhost:3000/api/invitations/delete/${idNotif}`,{ headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
-  }
-
   getListofInvitedPlayers(){
-    return this.http.get<any>("http://localhost:3000/api/invitations/my_team", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
+    return this.http.get<any>("http://localhost:3000/api/invitations/my_team");
   }
 
+  getListOfJoinRequests(idTeam: number){
+    return this.http.post<any>("http://localhost:3000/api/joinrequests/team", { teamId: idTeam});
+  }
+
+  createJoinRequest(idPlayer: number, idTeam: number, role: RoleEnum){
+    return this.http.post<any>("http://localhost:3000/api/joinrequests", { player: idPlayer, team: idTeam, role: role});
+
+  }
+
+  acceptJoinRequest(idRequest: number){
+    return this.http.post<any>("http://localhost:3000/api/joinrequests/accept", { joinRequestId : idRequest});
+  }
+
+  declineJoinRequest(idRequest: number){
+    return this.http.delete<any>(`http://localhost:3000/api/joinrequests/refuse/${idRequest}`);
+  }
   
 }

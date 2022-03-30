@@ -1,0 +1,56 @@
+<div class="joinRequestList">
+    <fa-icon [icon]="faXmark" id="close" (click)="close()"></fa-icon>
+    
+    <ul *ngFor="let role of data.roles">
+
+        <div class="role">
+            <div class="roleTitle">
+                
+                <h1>{{role | uppercase }}</h1>
+            </div>
+
+            <div *ngFor= "let joinRequest of data.joinRequests">
+                <li *ngIf="joinRequest.player.profile.role === role">
+
+                        <div><img src="{{ joinRequest.player.profile.profilPicture }}" style="width: 100px; height: 100px;" alt="pp" class="profilPicture"></div>
+                        <div class="pseudo">{{ joinRequest.player.name | uppercase}}</div>
+                        
+                        <div class="rank" [ngSwitch]="joinRequest.player.profile.rank">
+
+                            <img src="../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">
+                        
+                            <img src="../../../assets/grandmaster.png" alt="rank" *ngSwitchCase="rankEnum.GrandMaitre" class="ranksIcon">
+                        
+                            <img src="../../../assets/master.png" alt="rank" *ngSwitchCase="rankEnum.Maitre" class="ranksIcon">
+                        
+                            <img src="../../../assets/diamond.png" alt="rank" *ngSwitchCase="rankEnum.Diamant" class="ranksIcon">
+                        
+                            <img src="../../../assets/platine.png" alt="rank" *ngSwitchCase="rankEnum.Platine" class="ranksIcon">
+                        
+                            <img src="../../../assets/gold.png" alt="rank" *ngSwitchCase="rankEnum.Or" class="ranksIcon">
+                        
+                            <img src="../../../assets/silver.png" alt="rank" *ngSwitchCase="rankEnum.Argent" class="ranksIcon">
+                        
+                            <img src="../../../assets/bronze.png" alt="rank" *ngSwitchCase="rankEnum.Bronze" class="ranksIcon">
+                        
+                            <img src="../../../assets/iron.png" alt="rank" *ngSwitchCase="rankEnum.Fer" class="ranksIcon">
+                        
+                            <img src="../../../assets/unranked.png" alt="rank" *ngSwitchDefault class="ranksIcon">
+                        
+                        </div>
+                        <div class="socials"><img src="../../../assets/lol_icon_svg.svg"  id="lolIcon"alt="lolIcon">{{ joinRequest.player.profile.inGameName | uppercase }}</div>
+                        <div class="socials" id="discordDiv"><fa-icon [icon]="faDiscord" id="discord"></fa-icon> {{ joinRequest.player.profile.discord | uppercase }}</div>
+                        <div class="buttons">
+                            <fa-icon [icon]="faCircleCheck" id="accept" (click)="acceptRequest(joinRequest.id)"></fa-icon>
+                            <fa-icon [icon]="faBan" id="decline" (click)="declineRequest(joinRequest.id)"></fa-icon>
+                        </div>
+                </li>
+            </div>
+                
+        </div>
+    </ul>
+
+    <div *ngIf="!data.joinRequests || data.joinRequests.length === 0" class="noDemands">
+        Aucune demande pour le moment.
+    </div>
+</div>

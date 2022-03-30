@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/co
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faAngleDoubleRight, faArrowRightFromBracket, faBan, faCrown, faDigitalTachograph, faPen, faPencilRuler, faPenClip, faPenToSquare, faPlus, faQuestion, faTrashCan, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleRight, faArrowRightFromBracket, faBan, faCrown, faDigitalTachograph, faPen, faPencilRuler, faPenClip, faPenToSquare, faPlus, faQuestion, faTrashCan, faTriangleExclamation, faUser, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
@@ -20,6 +20,9 @@ import { BanplayerComponent } from '../banplayer/banplayer.component';
 import { JoinTeamFormComponent } from '../join-team-form/join-team-form.component';
 import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { TeamService } from './team.service';
+import { SetascaptainComponent } from '../setascaptain/setascaptain.component';
+import { InvitedPlayersComponent } from '../invited-players/invited-players.component';
+import { JoinrequestlistComponent } from '../joinrequestlist/joinrequestlist.component';
 
 
 
@@ -71,11 +74,15 @@ export class TeamComponent implements OnInit {
 
   faPlus = faPlus;
 
+  faUserCheck= faUserCheck;
+
   helper = new JwtHelperService();
 
   tokenDecoded : any;
 
   player: PLayerDTO;
+
+  joinRequests: any;
 
  
 
@@ -91,33 +98,38 @@ export class TeamComponent implements OnInit {
 
     this.route.params.subscribe((data:any) => {
 
-    this.idTeam = data.id;
+    this.idTeam = parseInt(data.id);
 
     })
 
-
-    let token = this.authService.getToken();
+    let token = this.authService.token;
 
     if(token){
-      this.getDecodedAccesToken(token);
-
-      this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
-        (res) => this.player = res
-      )
-      this.getTeam(this.idTeam);
-      
-
+      this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => this.player = res);
     }
-
+    
     this.getTeam(this.idTeam);
 
-    this.myTeamservice.getListofInvitedPlayers().subscribe(
-      (res) => {
-        console.log(res);
-        this.invitations = res;
-      }
-    );
+    if(token && this.team && this.player.team !== undefined&& this.player.team.id === this.team.id){
 
+
+      this.myTeamservice.getListofInvitedPlayers().subscribe(
+        (res) => {
+          this.invitations = res;
+        }
+      )
+
+      this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
+        (res) => {
+          this.joinRequests = res;
+        }
+      );
+      
+    }
+
+    
+      
+    
     
   }
 
@@ -128,6 +140,7 @@ export class TeamComponent implements OnInit {
 
       this.team = res;
 
+
     }) 
   }
 
@@ -137,16 +150,6 @@ export class TeamComponent implements OnInit {
     
   
   }
-
-  makeCaptain(idPlayer: number, idTeam: number){
-    console.log(idPlayer, idTeam);
-  }
-  
-  joinTeamRequest(idTeam: number){
-    console.log(idTeam);
-  }
-
-  
 
   getDecodedAccesToken(tokenToDecode: string): any {
     try {
@@ -176,7 +179,7 @@ export class TeamComponent implements OnInit {
     this.dialog.open(SearchplayerformComponent, { data: {
       role: role,
       teamID: this.team.id
-    }, width: '600px', height: '600px'});
+    }});
   }
 
   onOpenDialogDeletePlayer(idPlayer: any, playerName: any){
@@ -184,13 +187,33 @@ export class TeamComponent implements OnInit {
       id: idPlayer,
       name: playerName
     }});
+    
   }
 
-  onOpenDialogJoinRequest(idPlayer: any, playerName: any){
+  onOpenDialogJoinRequest(){
     this.dialog.open(JoinTeamFormComponent, { data : {
+      team: this.team,
+      player: this.player
+    }});
+  }
+
+  onOpenDialogSetAsCaptain(idPlayer: any, playerName: any){
+    if(this.player.profile.isCaptain && idPlayer !== this.player.id){
+      this.dialog.open(SetascaptainComponent, { data: {
       id: idPlayer,
       name: playerName
-    }});
+    }})
+    };
+    return;
+  }
+
+  onOpenDialogPlayersWantingToJoin(){
+    this.dialog.open(JoinrequestlistComponent, { data: {
+      team: this.team,
+      roles: this.roles,
+      joinRequests: this.joinRequests
+
+    }})
   }
 
 

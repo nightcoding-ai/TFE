@@ -1,5 +1,6 @@
 import { UserType } from "src/players/enum/userType.enum";
-import { TeamInvitation } from "src/team-invitation/models/teamInvitation";
+import { JoinRequest } from "src/join-request/models/joinRequest.entity";
+import { TeamInvitation } from "src/team-invitation/models/teamInvitation.entity";
 import { Team } from "src/teams/models/teams.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Profile } from "../profile/profile.entity";
@@ -26,6 +27,9 @@ export class Player {
 
     @OneToMany(() => TeamInvitation, teamInvitation => teamInvitation.player, {nullable: true})
     invitations: TeamInvitation[];
+
+    @OneToMany(() => JoinRequest, joinRequest => joinRequest.player, {nullable: true})
+    joinRequests: JoinRequest[];
 
 
     

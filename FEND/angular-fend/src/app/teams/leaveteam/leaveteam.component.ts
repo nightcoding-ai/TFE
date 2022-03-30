@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
@@ -16,6 +17,9 @@ import { TeamService } from '../team/team.service';
 export class LeaveteamComponent implements OnInit {
 
   helper = new JwtHelperService();
+
+  faXmark = faXmark;
+  faCheck = faCheck;
 
   tokenDecoded : any;
 
@@ -44,7 +48,8 @@ export class LeaveteamComponent implements OnInit {
           this.user = res
 
           if(this.user.team.players){
-          this.playersWithoutCaptain = this.user.team.players.filter(player => player.profile.isCaptain === false);
+          this.playersWithoutCaptain = this.user.team.players.filter(player => player.profile.isCaptain === false)
+          console.log(this.playersWithoutCaptain);
           }
         }
       )
@@ -82,16 +87,41 @@ export class LeaveteamComponent implements OnInit {
 
 
   leaveTeam(){
-    return this.teamService.leaveTeam();
+    this.teamService.leaveTeam();
+    
   }
 
+
   onSubmit(){
+    console.log("Submission")
     if(this.setAsCaptain.invalid){
-      console.log("Mauvais form");
+      console.log("invalid form");
+    }
+    console.log("valeur du form", this.setAsCaptain.value.newCaptain);
+    if(this.user.profile.isCaptain === true){
+      console.log("Le capitaine va être nommé");
+      this.teamService.setAsCaptain(this.setAsCaptain.value.newCaptain).subscribe(
+      
+      () =>  {
+        console.log('Joueur a été nommé capitaine, réponse du service.')
+        this.teamService.leaveTeam();
+      }
+      )
     }
     this.close();
-    console.log(this.setAsCaptain.value);
 
+  }
+
+  leaveTeamWithOnlyOneOtherPlayer(idPlayer :number){
+    console.log(idPlayer);
+    console.log(this.user.id);
+
+    console.log(this.user.profile.isCaptain)
+    this.teamService.setAsCaptain(idPlayer).subscribe(
+      () => this.leaveTeam()
+    )
+    
+    this.close();
   }
 
 
