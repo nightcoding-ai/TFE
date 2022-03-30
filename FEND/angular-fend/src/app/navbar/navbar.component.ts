@@ -8,7 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { PLayerDTO } from '../profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from '../profile-player/profile-player.service';
-import { Subject, Subscription } from 'rxjs';
+import { forkJoin, Subject, Subscription } from 'rxjs';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TeamService } from '../teams/team/team.service';
 import { NotificationsService } from '../temp/notifications.service';
@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
 
   faXmark = faXmark;
 
-  isNotifsSeen : boolean = false;
+  _isNotifsSeen : boolean = false;
 
 
 
@@ -56,20 +56,18 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.notificationService.getNotifications().subscribe((res) => {
-      this.notifications = res;
-
-
-    })
-
-    let token = this.authService.getToken();
-    if(token){
-      this.getDecodedAccesToken(token);
-
-      this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
-        (res) => this.player = res
-      ) 
-    }
+    this.authService._isLoggedIn$.asObservable().subscribe(loggedIn => {
+      console.log(loggedIn);
+      if(loggedIn){
+        forkJoin([
+          this.notificationService.getNotifications(),
+          this.profilePlayerService.getUserInfos(this.authService.id),
+        ]).subscribe(res => {
+          this.notifications = res[0];
+          this.player = res[1];
+        });
+      }
+    });
   }
 
   getAuthUser() {
@@ -101,18 +99,14 @@ export class NavbarComponent implements OnInit {
   }
 
   myTeamSelect(teamId: number){
-
-    this.router.navigate(['/teams',teamId])
+    this.router.navigate(['/teams',teamId]);
   }
 
   OnDeclineOffer(notifId: number){
-    
     this.notificationService.deleteNotif(notifId);
   }
 
   OnAcceptOffer(notifId: number){
-    console.log("acceptance");
-
     this.notificationService.acceptNotif(notifId).subscribe((res) => console.log(res))
   }
 
@@ -125,7 +119,6 @@ export class NavbarComponent implements OnInit {
     return this.authService.logout();
   }
 
-  onOpenNotifs(){
-    this.isNotifsSeen = true;
-  }
+  
+  
 }

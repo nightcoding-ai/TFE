@@ -37,7 +37,7 @@ export class PlayersService {
             playerDTO.profile.password = hash;
 
 
-             await this.PlayerRepo.addPlayer(playerDTO);
+            return await this.PlayerRepo.addPlayer(playerDTO);
             
         }
         catch(err){

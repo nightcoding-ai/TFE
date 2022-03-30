@@ -13,7 +13,6 @@ import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SidebarModule} from 'primeng/sidebar';
 import {MenubarModule} from 'primeng/menubar';
 import {AuthModule} from '@auth0/auth0-angular';
-import { environment as env } from 'src/environments/environment';
 
 import {ButtonModule} from 'primeng/button';
 import {TableModule} from 'primeng/table';
@@ -37,9 +36,16 @@ import { DeleteteamformComponent } from './teams/deleteteamform/deleteteamform.c
 import { BanplayerComponent } from './teams/banplayer/banplayer.component';
 import { JoinTeamFormComponent } from './teams/join-team-form/join-team-form.component';
 import { InvitedPlayersComponent } from './teams/invited-players/invited-players.component';
-import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+
 import { SetascaptainComponent } from './teams/setascaptain/setascaptain.component';
 import { JoinrequestlistComponent } from './teams/joinrequestlist/joinrequestlist.component';
+import { AuthenticationService } from './auth/auth.service';
+import { AuthInterceptorService } from './auth/authInterceptor.service';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 
 
 export function tokenGetter() {
@@ -96,9 +102,18 @@ export function tokenGetter() {
     MatDialogModule,
     MatTableModule,
     MatBadgeModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule,
+    MatSelectModule
   ],
-  providers: [{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

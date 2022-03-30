@@ -1,16 +1,9 @@
 <div *ngIf="teamsWithPlayers" class="listOfTeams">
     <div class="teamContainer" *ngFor="let team of teamsWithPlayers">
         <div class=" teamInfo" (click)="onSelect(team.id)">
-        
-
-        <img src="{{ team.logo }}" alt="logo" id="teamLogo" *ngIf="team.logo">
-        <img src="../../assets/Logo_v5.png" alt="logo" id="teamLogo" *ngIf="!team.logo">
-
-
-        {{ team.name | uppercase }}
-        
-
-        
+            <img src="{{ team.logo }}" alt="logo" id="teamLogo" *ngIf="team.logo">
+            <img src="../../assets/Logo_v5.png" alt="logo" id="teamLogo" *ngIf="!team.logo">
+            {{ team.name | uppercase }}
         </div>
     </div>
 </div>

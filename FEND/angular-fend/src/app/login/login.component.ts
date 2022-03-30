@@ -37,20 +37,11 @@ export class LoginComponent implements OnInit {
       console.log("Form is invalid.");
       return;
     }
-    this.authService.login(this.loginForm.value).pipe(
-        switchMap(
-          (res) => {
-            console.log("switchmap (login component)",res);
-            localStorage.setItem('player-auth', res.acces_token);
-            this.authService._isLoggedIn$.next(true);
-
-            return this.notificationService.getNotifications();
-        }))
-        .subscribe(
+    this.authService.login(this.loginForm.value).subscribe(
           (res) => {
             console.log("Réponse du subscribe", res);
-            this.notificationService.notifications$.next(res);
             
+            this.router.navigate(['/teams']);
           }
         )
   

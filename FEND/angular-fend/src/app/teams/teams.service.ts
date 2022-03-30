@@ -34,8 +34,6 @@ export class TeamsService {
 
   getTeamByID(idTeam: number){
     return this.http.get<any>(this.baseAPIUrl + `/teams/single/${idTeam}`);
-
-
   }
 
 }

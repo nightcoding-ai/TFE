@@ -99,44 +99,36 @@ export class TeamComponent implements OnInit {
     this.route.params.subscribe((data:any) => {
 
     this.idTeam = parseInt(data.id);
-    console.log(typeof(this.idTeam));
-
 
     })
 
-
-    let token = this.authService.getToken();
+    let token = this.authService.token;
 
     if(token){
-      this.getDecodedAccesToken(token);
-
-      this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
-        (res) => this.player = res
-      )
-      this.getTeam(this.idTeam);
-      
-
+      this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => this.player = res);
     }
-
+    
     this.getTeam(this.idTeam);
 
-    if(this.team && this.player.team !== undefined&& this.player.team.id === this.team.id){
+    if(token && this.team && this.player.team !== undefined&& this.player.team.id === this.team.id){
+
 
       this.myTeamservice.getListofInvitedPlayers().subscribe(
         (res) => {
           this.invitations = res;
         }
       )
+
+      this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
+        (res) => {
+          this.joinRequests = res;
+        }
+      );
       
     }
 
     
-      this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
-        (res) => {
-          console.log(res);
-          this.joinRequests = res;
-        }
-      );
+      
     
     
   }
@@ -158,14 +150,6 @@ export class TeamComponent implements OnInit {
     
   
   }
-
-  makeCaptain(idPlayer: number, idTeam: number){
-    console.log(idPlayer, idTeam);
-  }
-  
-  
-
-  
 
   getDecodedAccesToken(tokenToDecode: string): any {
     try {

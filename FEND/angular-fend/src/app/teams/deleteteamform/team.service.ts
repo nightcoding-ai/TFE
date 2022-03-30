@@ -19,7 +19,7 @@ export class TeamService {
    }
 
   deleteTeam(){
-    return this.http.delete<any>("http://localhost:3000/api/teams/delete", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} }).subscribe(
+    return this.http.delete<any>("http://localhost:3000/api/teams/delete").subscribe(
       () => { 
         this.router.navigate(["/teams"]);
       }
@@ -27,7 +27,7 @@ export class TeamService {
   }
 
   leaveTeam(){
-    return this.http.delete<any>("http://localhost:3000/api/players/leave_team", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} }).subscribe(
+    return this.http.delete<any>("http://localhost:3000/api/players/leave_team").subscribe(
     () => {
       this.router.navigate(["/teams"]);
     }
@@ -35,7 +35,7 @@ export class TeamService {
   }
 
   updateTeam(teamDTO: TeamDTO){
-    return this.http.put<any>("http://localhost:3000/api/teams/modify",teamDTO, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} }).subscribe(
+    return this.http.put<any>("http://localhost:3000/api/teams/modify",teamDTO).subscribe(
       () => {
         
       }
@@ -44,11 +44,11 @@ export class TeamService {
   }
 
   getNotifications(){
-    return this.http.get<any>("http://localhost:3000/api/invitations/mine", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
+    return this.http.get<any>("http://localhost:3000/api/invitations/mine");
   }
 
   deleteNotif(idNotif: number){
-    return this.http.delete<any>(`http://localhost:3000/api/invitations/delete/${idNotif}`,{ headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`}});
+    return this.http.delete<any>(`http://localhost:3000/api/invitations/delete/${idNotif}`);
   }
 
   getListofInvitedPlayers(){

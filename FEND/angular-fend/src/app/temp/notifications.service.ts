@@ -26,27 +26,25 @@ export class NotificationsService {
   apiURLNotif = `${this.apiURLBase}invitations/mine`;
 
   constructor(private http: HttpClient, private authService: AuthenticationService, private profileService: ProfilePlayerService) { 
-
-    this.token = localStorage.getItem('player-auth');
   }
 
   getNotifications(){
-    console.log(this.token);
-    return this.http.get<any>("http://localhost:3000/api/invitations/mine", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`}});
+    console.log(this.authService.token);
+    return this.http.get<any>("http://localhost:3000/api/invitations/mine", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.authService.token}`}});
   }
 
   deleteAllNotifs(){
 
-    return this.http.delete<any>("http://localhost:3000/api/invitations/remove_all", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`}});
+    return this.http.delete<any>("http://localhost:3000/api/invitations/remove_all", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.authService.token}`}});
   }
 
   deleteNotif(idNotif: number){
 
-    return this.http.delete<any>(`http://localhost:3000/api/invitations/delete/${idNotif}`,{ headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`}});
+    return this.http.delete<any>(`http://localhost:3000/api/invitations/delete/${idNotif}`,{ headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.authService.token}`}});
   }
 
   acceptNotif(idNotif: number){
-    return this.http.post<any>(`http://localhost:3000/api/invitations/accept`,{ idNotif: idNotif}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.token}`}});
+    return this.http.post<any>(`http://localhost:3000/api/invitations/accept`,{ idNotif: idNotif}, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.authService.token}`}});
   }
 
  
