@@ -19,17 +19,7 @@ export class TeamsService {
   
 
   getTeamsWithPlayers(){
-    return this.http.get<any>(this.baseAPIUrl + "/teams/all").pipe(
-      map((res: TeamWithPlayers[]) => {
-        for(let i = 0; i < res.length; i++){
-          let missingPlayers = 5 - res[i].players.length;
-          for(let j = missingPlayers; j > 0; j--){
-            res[i].players.push(null as Player);
-          }
-        }
-        return res;
-      })
-    );
+    return this.http.get<any>(this.baseAPIUrl + "/teams");
   }
 
   getTeamByID(idTeam: number){

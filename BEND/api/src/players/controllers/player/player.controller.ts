@@ -58,7 +58,7 @@ export class PlayersController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Put('modify_profile')
+    @Patch('modify_profile')
     updateProfil(
         @Req() req:any) {
         return this.PlayersService.updateProfile(req.user.playerID, req.body);

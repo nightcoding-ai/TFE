@@ -49,6 +49,7 @@ import { AuthInterceptorService } from './auth/authInterceptor.service';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { AdminPannelComponent } from './admin-pannel/admin-pannel.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ModifyProfileComponent } from './profile-player/modify-profile/modify-profile.component';
 
 
 export function tokenGetter() {
@@ -77,10 +78,20 @@ export function tokenGetter() {
     SetascaptainComponent,
     JoinrequestlistComponent,
     DeleteteamformComponent,
-    AdminPannelComponent
+    AdminPannelComponent,
+    ModifyProfileComponent
 
   ],
-  entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent, SetascaptainComponent, JoinrequestlistComponent, JoinTeamFormComponent],
+  entryComponents: [
+    SearchplayerformComponent,
+    LeaveteamComponent,
+    UpdateteamComponent,
+    DeleteteamformComponent, 
+    SetascaptainComponent, 
+    JoinrequestlistComponent, 
+    JoinTeamFormComponent,
+    ModifyProfileComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

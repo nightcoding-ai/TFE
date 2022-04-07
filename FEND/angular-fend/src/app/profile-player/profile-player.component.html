@@ -1,5 +1,5 @@
-<div *ngIf="player" class="profile">
-    <div class="crucials" >
+<div *ngIf="player" class="profile" >
+    <div class="crucials" (click)="onChangeProfile()" >
         <div class="profilPicture">
             <img src="{{player.profile.profilPicture}}" alt="pp" id="pp" *ngIf="player.profile.profilPicture">
             <img src="../../assets/ndls_white_face.png" alt="pp" id="pp" class="noPp" *ngIf="!player.profile.profilPicture">
@@ -10,8 +10,8 @@
         </div>
     </div>
     <div class="lolInfos">
-        <div class="role">
-            <div [ngSwitch]="player.profile.role" id="role">
+        <div class="role" (click)="onChangeProfile()">
+            <div [ngSwitch]="player.profile.role" id="role" >
 
                 <img src="../../../assets/Top_icon.png" alt="role" *ngSwitchCase="roleEnum.Toplaner" class="rolesIcon">
                     
@@ -27,7 +27,7 @@
             </div>
             <div class="roleName"><span>{{player.profile.role | uppercase}}</span></div>
         </div>
-        <div class="rank">
+        <div class="rank" (click)="onChangeProfile()">
             <div  [ngSwitch]="player.profile.rank">
 
             <img src="../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">
@@ -51,14 +51,14 @@
             <img src="../../../assets/unranked.png" alt="rank" id="unranked" *ngSwitchDefault class="ranksIcon">
             
             </div>
-            <div class="rankName"><span>{{player.profile.rank | uppercase}}</span></div>
+            <div class="rankName" ><span>{{player.profile.rank | uppercase}}</span></div>
 
         </div>
-        <div class="ign">
+        <div class="ign" (click)="onChangeProfile()">
             <img src="../../assets/lol_icon_svg.svg" alt=" lolIcon" class="lolIcon">
             <div class="igName"><span>{{player.profile.inGameName | uppercase}}</span></div>
         </div>
-        <div class="discord">
+        <div class="discord" (click)="onChangeProfile()">
             <fa-icon [icon]="faDiscord" class="discordIcon"></fa-icon>
             <div class="discordName"><span>{{player.profile.discord | uppercase}}</span></div>
         </div>

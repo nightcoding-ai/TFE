@@ -8,9 +8,14 @@
 
 .teamName{
     font-weight: 700;
-    letter-spacing: 0.13em;
+    letter-spacing: 0.22em;
     display: flex;
     flex-direction: column;
+}
+
+.teamName span{
+    padding: 10px;
+    font-size: 2em;
 }
 
 #teamLogo{
@@ -288,6 +293,11 @@ button.joinBtn{
 
 div.crown{
     position: relative;
+}
+
+.noPp{
+    background-color: var(--firstColorDarker);
+    
 }
 
 @media only screen and (max-width: 767px){

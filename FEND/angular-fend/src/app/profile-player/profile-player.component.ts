@@ -11,6 +11,8 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { RoleEnum } from '../roles.enum';
 import { RankEnum } from '../ranks.enum';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
+import { ModifyProfileComponent } from './modify-profile/modify-profile.component';
 
 @Component({
   selector: 'app-profile-player',
@@ -45,7 +47,10 @@ export class ProfilePlayerComponent implements OnInit {
 
   roleEnum = RoleEnum;
 
-  constructor(private http: HttpClient, private authService: AuthenticationService, private profilePlayerService: ProfilePlayerService) { }
+  constructor(private http: HttpClient,
+    private authService: AuthenticationService,
+    private profilePlayerService: ProfilePlayerService,
+    private dialog: MatDialog  ) { }
 
   ngOnInit(): void {
     let token = this.authService.getToken();
@@ -68,8 +73,9 @@ export class ProfilePlayerComponent implements OnInit {
     }
   }
 
-  changeCrucialsInfos(){
-    console.log('');
+  onChangeProfile(): void {
+    this.dialog.open(ModifyProfileComponent, { data: this.player});
+    
   }
 
 }

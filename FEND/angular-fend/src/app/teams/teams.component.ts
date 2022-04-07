@@ -19,8 +19,6 @@ export class TeamsComponent implements OnInit {
 
   teams?: Team[] = [];
 
-  teamsWithPlayers?: TeamWithPlayers[] = [];
-
   roleEnum = RoleEnum;
 
   rankEnum = RankEnum;
@@ -47,7 +45,7 @@ export class TeamsComponent implements OnInit {
   getTeamsWithPlayersInfo() {
 
     this.teamService.getTeamsWithPlayers().subscribe((res) => {
-      this.teamsWithPlayers = res;
+      this.teams = res;
     })
   }
 

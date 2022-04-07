@@ -5,9 +5,9 @@
                 <img src="{{ team.logo }}" alt="logo" id="teamLogo">
 
                 <div class="teamName">
-                    {{ team.abbreviation | uppercase }}<br>
+                    <span>{{ team.abbreviation | uppercase }}</span>
 
-                    {{ team.name | uppercase }}
+                    <span>{{ team.name | uppercase }}</span>
                 </div>
             
 
@@ -83,7 +83,7 @@
                             <img src="{{this.getPlayerByRole(role).profile.profilPicture}}" class="profilePicture" alt="profilePicture"  [ngClass]="{'isCaptain' : this.getPlayerByRole(role).profile.isCaptain, 'isPlayer' : player && player.profile.isCaptain && player.team.id === team.id && !this.getPlayerByRole(role).profile.isCaptain }"  (click)="onOpenDialogSetAsCaptain(this.getPlayerByRole(role).id, this.getPlayerByRole(role).name)"> 
                         </div>
                         <div *ngIf="!this.getPlayerByRole(role).profile.profilPicture">
-                            <img src="../../../assets/missing_player.png" class="profilePicture" alt="profilePicture" > 
+                            <img src="../../../assets/ndls_white.png" class="profilePicture noPp" alt="profilePicture" > 
                         </div>
                         
                         <div >

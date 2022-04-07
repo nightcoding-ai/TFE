@@ -26,7 +26,7 @@
             <mat-cell *matCellDef="let player"> {{player.rank}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="team">
-            <mat-header-cell  *matHeaderCellDef mat-sort-header> Team </mat-header-cell>
+            <mat-header-cell  *matHeaderCellDef mat-sort-header> Equipe </mat-header-cell>
             <mat-cell *matCellDef="let player">
                 <ng-container *ngIf="player.team">{{player.team | uppercase}}</ng-container>
              </mat-cell>

@@ -21,6 +21,17 @@ export class TeamRepository extends Repository<Team> {
             select: ["id", "name", "abbreviation"]});
     }
 
+    async getAllWithLogos(): Promise<TeamInterface[]> {
+        const teamRepo = getRepository(Team);
+
+        return await teamRepo.find({
+            select: ["id", "name", "logo"],
+            order: {
+                logo: "ASC"
+             }
+        })
+    }
+
     async getNumberOfTeams(): Promise<number> {
         const teamRepo = getRepository(Team);
 

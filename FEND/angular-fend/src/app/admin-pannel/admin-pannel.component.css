@@ -26,6 +26,13 @@ mat-row:hover{
     background-color: rgb(237, 237, 237);
 }
 
+mat-paginator{
+    background-color: var(--secondColor);
+    color: white;
+}
+
+
+
 ::ng-deep .mat-sort-header-arrow {
     color: white;
 }

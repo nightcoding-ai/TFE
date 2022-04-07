@@ -107,7 +107,7 @@ export class TeamComponent implements OnInit {
   ngOnInit(): void {
     this.getTeam(this.idTeam).subscribe((res) => { 
       this.team = res
-      if(token && this.team && this.player.profile.isCaptain && this.team.id === this.player.team.id){
+      if(token && this.team && this.player && this.player.profile.isCaptain && this.team.id === this.player.team.id){
         this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
           (res) => {
             console.log('Requêtes équipe',res);

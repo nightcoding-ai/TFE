@@ -14,4 +14,14 @@ export class ProfilePlayerService {
   getUserInfos(idPlayer: number){
     return this.http.get<any>(`${this.baseAPIUrl}/players/single/${idPlayer}`);
   }
+
+  updatePlayer(updatePlayerDTO: any){
+    console.log(updatePlayerDTO);
+    return this.http.patch<any>(this.baseAPIUrl + "/players/modify", updatePlayerDTO);
+  }
+
+  updateProfile(updateProfileDTO: any){
+    console.log(updateProfileDTO);
+    return this.http.patch<any>(this.baseAPIUrl + "/players/modify_profile", updateProfileDTO);
+  }
 }

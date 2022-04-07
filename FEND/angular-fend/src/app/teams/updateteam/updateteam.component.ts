@@ -62,7 +62,6 @@ export class UpdateteamComponent implements OnInit {
   }
 
   close(){
-    console.log('1');
     this.dialogRef.close();
   }
 

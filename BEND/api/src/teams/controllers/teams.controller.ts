@@ -44,12 +44,17 @@ export class TeamsController {
         return this.TeamService.setAsCaptain(req.user.playerID, req.body.idPlayer);
     }
     
+    @Get()
+    getAllWithLogos(): Promise<TeamInterface[]> {
+        return this.TeamService.getAllWithLogos();
+    }
     @UseGuards(JwtAuthGuard)
     @Get('all')
     getAll(
         @Req() req:any): Promise<TeamInterface[]> {
         return this.TeamService.getAll(req.user.playerID);
     }
+
 
     @Get('count_teams')
     getNumberOfTeams(): Promise<number> {

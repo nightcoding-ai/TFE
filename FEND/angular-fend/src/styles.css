@@ -49,10 +49,7 @@ a:hover{
 
 body{
     color: white;
-    background-image: url(./assets/Background.jpg);
-    background-repeat: repeat-y;
-    background-size: cover;
-    background-position: center;
+    background-color: rgb(217, 217, 217);
 }
 
 .icons{

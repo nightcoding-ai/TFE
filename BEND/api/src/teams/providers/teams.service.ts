@@ -68,6 +68,15 @@ export class TeamsService {
         }
     }
 
+    async getAllWithLogos(): Promise<TeamInterface[]>{
+        try{
+            return await this.TeamRepository.getAllWithLogos();
+        }
+        catch(err){
+            throw err;
+        }
+    }
+
     async getNumberOfTeams(): Promise<number> {
         try{
             return await this.TeamRepository.getNumberOfTeams();
