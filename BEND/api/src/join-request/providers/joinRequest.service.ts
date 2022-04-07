@@ -1,4 +1,5 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Cron, CronExpression } from "@nestjs/schedule";
 import { join } from "path";
 import { RoleEnum } from "src/players/enum/role.enum";
 import { Player } from "src/players/models/player/player.entity";
@@ -33,9 +34,9 @@ export class JoinRequestService {
             const player = await this.PlayerRepository.getOne(idPlayer);
             const teamToJoin = await this.TeamRepository.getTeam(joinRequest.team);
 
-            const allRequestsofPlayer = await this.JoinRequestRepository.getAllOfAPlayer(player.id);
+            const requestToTeam = await this.JoinRequestRepository.getRequestToTeam(player.id, teamToJoin.id);
 
-            if(player.id !== joinRequest.player || player.team || player.profile.isCaptain || !teamToJoin || teamToJoin.players.length >= 5 || teamToJoin.players.find((plr) => plr.profile.role === player.profile.role) || allRequestsofPlayer.length > 0){
+            if(player.id !== joinRequest.player || player.team || player.profile.isCaptain || !teamToJoin || teamToJoin.players.length >= 5 || teamToJoin.players.find((plr) => plr.profile.role === player.profile.role) || requestToTeam.length > 0){
                 throw new UnauthorizedException();
             }
             else {
@@ -59,15 +60,16 @@ export class JoinRequestService {
             if(!captain || !captain.team || !captain.profile.isCaptain || playerAsker.team || team.players.length > 4){
                 throw new UnauthorizedException();
             }
+
+            request.isApproved = true;
             playerAsker.team = team;
+            await this.JoinRequestRepository.saveRequest(request);
             await this.PlayerRepository.savePlayer(playerAsker);
 
             if(team.players.length === 4){
-                console.log("SI TEAM.LENGTH === 4 \n",playerAsker.team);
                 return await this.JoinRequestRepository.deleteAllOfATeam(team.id);
             }
             else{
-                console.log("SI TEAM.LENGTH > 4 \n",playerAsker.team.players.length);
                 return await this.JoinRequestRepository.deleteAllOfATeamByRole(playerAsker.profile.role, captain.team);
             }
 
@@ -117,6 +119,16 @@ export class JoinRequestService {
         }
     }
 
+    async getAllExpiredRequests(): Promise<JoinRequest[]>{
+        try{
+            return await this.JoinRequestRepository.getAllWithExpiredRequests();
+        }
+        catch(err){
+            throw err;
+        }
+    }
+        
+
     async deleteOne(idPlayer: number, idJoinRequest: number): Promise<DeleteResult>{
         try{
 
@@ -159,4 +171,17 @@ export class JoinRequestService {
             throw err;
         }
     }
+
+
+    @Cron(CronExpression.EVERY_12_HOURS)
+    async deleteAllExpiredRequests(): Promise<DeleteResult>{
+        try{
+            return await this.JoinRequestRepository.deleteAllExpiredRequests();
+        }
+        catch(err){
+            throw err
+        }
+    }
+
+    
 }

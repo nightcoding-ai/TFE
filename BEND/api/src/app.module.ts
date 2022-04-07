@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { LocalStrategy } from './auth/strategy/local.strategy';
 import { TeamInvitationModule } from './team-invitation/team-invitation.module';
 import { JoinRequestModule } from './join-request/join-request.module';
+import { ScheduleModule } from '@nestjs/schedule';
+
 
 @Module({
   imports: [
@@ -41,7 +43,9 @@ import { JoinRequestModule } from './join-request/join-request.module';
     TournamentsModule,
     AuthModule,
     TeamInvitationModule,
-    JoinRequestModule
+    JoinRequestModule,
+    ScheduleModule.forRoot(),
+
 
   ],
   controllers: [AppController],

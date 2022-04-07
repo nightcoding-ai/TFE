@@ -35,7 +35,7 @@ export class TournamentMatch{
     @JoinColumn()
     teamBWins: number;
 
-    @ManyToOne(() => Team, team => team.matchWon)
+    @ManyToOne(() => Team, team => team.matchesWon)
     @JoinColumn()
     winner: Team;
 

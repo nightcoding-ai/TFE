@@ -9,20 +9,11 @@ import { ProfileDTO } from "../profil/profileDTO";
 
 export class CreatePlayerDTO {
     
-    id: number;
-
-    userType: UserType
-
-    @IsString()
+    id?: number;
+    userType: UserType;
     name: string;
-
-    
     profile: CreateProfileDTO;
-
-
-    team: Team;
-
-    invitations : TeamInvitation[];
-
-    joinRequests : JoinRequest[];
+    team?: Team;
+    invitations? : TeamInvitation[];
+    joinRequests? : JoinRequest[];
 }

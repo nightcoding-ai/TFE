@@ -1,16 +1,13 @@
 <div class="joinRequestList">
-    <fa-icon [icon]="faXmark" id="close" (click)="close()"></fa-icon>
     
     <ul *ngFor="let role of data.roles">
 
-        <div class="role">
-            <div class="roleTitle">
+        <div class="role" *ngIf="role !== data.player.profile.role && checkRequests(data.joinRequests, role)">
                 
                 <h1>{{role | uppercase }}</h1>
-            </div>
 
-            <div *ngFor= "let joinRequest of data.joinRequests">
-                <li *ngIf="joinRequest.player.profile.role === role">
+            <div *ngFor= "let joinRequest of data.joinRequests" id="liParent">
+                <li *ngIf="joinRequest.player.profile.role === role && !joinRequest.deletedAt">
 
                         <div><img src="{{ joinRequest.player.profile.profilPicture }}" style="width: 100px; height: 100px;" alt="pp" class="profilPicture"></div>
                         <div class="pseudo">{{ joinRequest.player.name | uppercase}}</div>
@@ -50,7 +47,5 @@
         </div>
     </ul>
 
-    <div *ngIf="!data.joinRequests || data.joinRequests.length === 0" class="noDemands">
-        Aucune demande pour le moment.
-    </div>
+
 </div>

@@ -1,6 +1,6 @@
 import { RoleEnum } from "src/players/enum/role.enum";
 import { Team } from "src/teams/models/teams.entity";
-import { DeleteResult, getRepository, Repository } from "typeorm";
+import { DeleteResult, getRepository, LessThan, MoreThan, Repository } from "typeorm";
 import { CreateJoinRequestDTO } from "../DTO/createJoinRequestDTO";
 import { JoinRequestDTO } from "../DTO/joinRequestDTO";
 import { JoinRequest } from "../models/joinRequest.entity";
@@ -31,23 +31,33 @@ export class JoinRequestRepository extends Repository<JoinRequest>{
         const reqRepo = getRepository(JoinRequest);
 
 
-        return await reqRepo.findOneOrFail(joinRequestId);   
+        return await reqRepo.findOneOrFail(joinRequestId);  
+    }
+
+    async saveRequest(request: JoinRequest): Promise<JoinRequest>{
+        const reqRepo = getRepository(JoinRequest);
+
+        return await reqRepo.save(request);
+
     }
 
     async getAll(): Promise<JoinRequest[]>{
         const reqRepo = getRepository(JoinRequest);
 
 
-        return await reqRepo.find();
+        return await reqRepo.find({withDeleted: true});
     }
 
     async getAllOfATeam(teamId: number): Promise<JoinRequest[]>{
         const reqRepo = getRepository(JoinRequest);
 
 
-        return await reqRepo.find({
+        return await reqRepo.find({withDeleted: true,
             where: {
                 team: { id: teamId}
+            },
+            order: {
+                id: "ASC"
             }
         })
     }
@@ -56,9 +66,20 @@ export class JoinRequestRepository extends Repository<JoinRequest>{
         const reqRepo = getRepository(JoinRequest);
 
 
-        return await reqRepo.find({
+        return await reqRepo.find({withDeleted: true,
             where: {
                 player: { id: playerId}
+            }
+        })
+    }
+
+    async getRequestToTeam(playerId: number, teamId: number): Promise<JoinRequest[]>{
+        const reqRepo = getRepository(JoinRequest);
+        
+        return await reqRepo.find({withDeleted: true,
+            where: {
+                player: { id: playerId},
+                team: { id: teamId}
             }
         })
     }
@@ -67,14 +88,14 @@ export class JoinRequestRepository extends Repository<JoinRequest>{
         const reqRepo = getRepository(JoinRequest);
 
 
-        return  await reqRepo.delete(joinRequestId);
+        return  await reqRepo.softDelete(joinRequestId);
     }
 
     async deleteAllOfAPlayer(playerId: number): Promise<DeleteResult>{
         const reqRepo = getRepository(JoinRequest);
 
 
-        return await reqRepo.delete({player: { id: playerId}});
+        return await reqRepo.softDelete({player: { id: playerId}});
 
     }
 
@@ -82,7 +103,7 @@ export class JoinRequestRepository extends Repository<JoinRequest>{
         const reqRepo = getRepository(JoinRequest);
 
 
-        return await reqRepo.delete({team : { id: teamId}});
+        return await reqRepo.softDelete({team : { id: teamId}});
     }
 
     async deleteAllOfATeamByRole(roleToDelete: RoleEnum, team: Team): Promise<any>{
@@ -95,8 +116,25 @@ export class JoinRequestRepository extends Repository<JoinRequest>{
         
         });
 
-        return await reqRepo.delete(allReqOfTeamByRole);
+        return await reqRepo.softDelete(allReqOfTeamByRole);
 
 
+    }
+
+    async deleteAllExpiredRequests(): Promise<DeleteResult>{
+        const reqRepo = getRepository(JoinRequest);
+        const today = new Date();
+
+        return await reqRepo.softDelete({expiredAt : LessThan(today)});
+    }
+
+    async getAllWithExpiredRequests(): Promise<JoinRequest[]>{
+        const reqRepo = getRepository(JoinRequest);
+
+        return await reqRepo.find({withDeleted: true,
+        order: {
+            id: "ASC"
+        },
+        })
     }
 }

@@ -22,6 +22,10 @@ export class SignupService {
         () => this.router.navigate(['/login'])
       )
     }
+
+    getDiscordServer(){
+      return this.http.get<any>("https://discord.com/api/guilds/950369524635553842/widget.json");
+    }
    
 
 

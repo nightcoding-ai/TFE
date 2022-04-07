@@ -19,5 +19,5 @@ export class JoinRequestDTO {
 
     expiredAt: Date;
 
-    
+    deletedAt: Date;
 }

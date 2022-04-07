@@ -1,16 +1,20 @@
-<h1>Créer mon équipe</h1>
 
-<div class="formContainer">
     <form [formGroup]="teamForm" (ngSubmit)="onSubmit()" class="teamForm">
-        <div class="container">
-            
-            <input  matInput placeholder="Nom d'équipe..." formControlName="name" type="text">
+            <mat-form-field>
+                <mat-label>Nom de l'équipe</mat-label>
+                <input  matInput placeholder="Nom d'équipe..." formControlName="name" >
+            </mat-form-field>
 
-            <input placeholder="Abbreviation..." formControlName="abbreviation" type="text">
+            <mat-form-field>
+                <mat-label>Abbréviation</mat-label>
+                <input matInput placeholder="Abbreviation..." formControlName="abbreviation">
+                <mat-hint>Max. 3 caractères</mat-hint>
+            </mat-form-field>
 
-            <input  formControlName="logo" type="file" >
+            <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
+            <div class="img" *ngIf="logoBase64">
+                <img [src]="logoBase64">
+            </div>
 
             <button  type="submit">Créer l'équipe</button>
-        </div>
     </form>
-</div>

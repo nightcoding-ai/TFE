@@ -10,8 +10,6 @@ import { AuthController } from './auth.controller';
 
 
 @Module({
-
-
   imports: [ 
     PlayersModule,
     PassportModule,

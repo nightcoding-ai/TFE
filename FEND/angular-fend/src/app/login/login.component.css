@@ -6,9 +6,22 @@
 }
 
 form{
+    display: grid;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid var(--secondColor);
+    color: var(--secondColor);
     padding: 10px;
-    margin-top: 100px;
+    border-radius: 5px;
+    background-color: #ececec;
+
 }
+
+mat-label{
+    color:var(--secondColor);
+}
+
 
 input{
     padding: 5px;
@@ -25,4 +38,14 @@ button{
     border-radius: 5px;
     background-color: var(--secondColor);
     color: white;
+}
+
+a{
+    margin-right: auto;
+    color: var(--secondColor);
+}
+
+a:hover{
+    color: var(--secondColorDarker);
+    transition: ease-in-out 0.3s;
 }

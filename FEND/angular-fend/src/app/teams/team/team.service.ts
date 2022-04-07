@@ -38,11 +38,7 @@ export class TeamService {
   }
 
   updateTeam(teamDTO: TeamDTO){
-    return this.http.put<any>("http://localhost:3000/api/teams/modify",teamDTO).subscribe(
-      () => {
-        
-      }
-    )
+    return this.http.put<any>("http://localhost:3000/api/teams/modify",teamDTO);
 
   }
   getListofInvitedPlayers(){

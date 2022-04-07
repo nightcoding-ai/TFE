@@ -102,7 +102,18 @@ export class UpdateteamComponent implements OnInit {
     }
     this.updateTeamForm.patchValue({logo : this.logoBase64});
     this.close();
-    return this.teamService.updateTeam(this.updateTeamForm.value);
+    return this.teamService.updateTeam(this.updateTeamForm.value).subscribe(
+      () => {
+        this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
+          (res) => {
+            console.log("Informations du joueur reçues : ", res)
+            this.player = res; 
+              if(this.player.team){
+                this.team = this.player.team;
+              }  
+          })
+      }
+    )
   }
 
 }

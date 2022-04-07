@@ -2,7 +2,7 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
-import { faBars, faBell, faEnvelope, faGear, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faEnvelope, faGear, faScrewdriverWrench, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../auth/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
@@ -44,7 +44,11 @@ export class NavbarComponent implements OnInit {
 
   faXmark = faXmark;
 
+  faAdmin= faScrewdriverWrench;
+
   _isNotifsSeen : boolean = false;
+
+  isMenuCollapsed = true;
 
 
 

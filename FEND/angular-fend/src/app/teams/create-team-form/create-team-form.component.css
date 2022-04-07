@@ -1,4 +1,48 @@
-.formNewTeam{
+form{
     display: grid;
-    color: var(--firstColor);
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid var(--secondColor);
+    color: var(--secondColor);
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ececec;
+}
+
+.img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+input{
+    margin-top: 5px;
+}
+
+input[type='file']{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+button{
+    background-color: var(--secondColor);
+    padding: 5px;
+    color:white;
+    border: none;
+    border-radius: 5px;
+}
+
+
+button:hover{
+    background-color: var(--secondColorDarker);
+    transition: ease-in-out 0.3s;
 }

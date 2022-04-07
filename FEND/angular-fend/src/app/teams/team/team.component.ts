@@ -23,6 +23,7 @@ import { TeamService } from './team.service';
 import { SetascaptainComponent } from '../setascaptain/setascaptain.component';
 import { InvitedPlayersComponent } from '../invited-players/invited-players.component';
 import { JoinrequestlistComponent } from '../joinrequestlist/joinrequestlist.component';
+import { TeamDTO } from '../DTO/teamDTO';
 
 
 
@@ -33,9 +34,9 @@ import { JoinrequestlistComponent } from '../joinrequestlist/joinrequestlist.com
 })
 export class TeamComponent implements OnInit {
 
-  team: TeamWithPlayers;
 
   invitations: any;
+
 
 
   roles = [
@@ -84,6 +85,8 @@ export class TeamComponent implements OnInit {
 
   joinRequests: any;
 
+  team: any;
+
  
 
   constructor(private route : ActivatedRoute,
@@ -92,56 +95,36 @@ export class TeamComponent implements OnInit {
       private authService: AuthenticationService,
       private profilePlayerService: ProfilePlayerService,
       private dialog : MatDialog,
-  ) { }
-
-  ngOnInit(): void {
-
+  ) {
     this.route.params.subscribe((data:any) => {
 
-    this.idTeam = parseInt(data.id);
+      this.idTeam = parseInt(data.id);
+  
+    })
 
+   }
+
+  ngOnInit(): void {
+    this.getTeam(this.idTeam).subscribe((res) => { 
+      this.team = res
+      if(token && this.team && this.player.profile.isCaptain && this.team.id === this.player.team.id){
+        this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
+          (res) => {
+            console.log('Requêtes équipe',res);
+            this.joinRequests = res;
+          }
+        );
+      }
     })
 
     let token = this.authService.token;
-
     if(token){
       this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => this.player = res);
     }
-    
-    this.getTeam(this.idTeam);
-
-    if(token && this.team && this.player.team !== undefined&& this.player.team.id === this.team.id){
-
-
-      this.myTeamservice.getListofInvitedPlayers().subscribe(
-        (res) => {
-          this.invitations = res;
-        }
-      )
-
-      this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
-        (res) => {
-          this.joinRequests = res;
-        }
-      );
-      
-    }
-
-    
-      
-    
-    
   }
 
-  
   getTeam(id: number) {
-
-    this.teamService.getTeamByID(id).subscribe((res) => {
-
-      this.team = res;
-
-
-    }) 
+    return this.teamService.getTeamByID(id);
   }
 
   getPlayerByRole(role: RoleEnum){
@@ -209,6 +192,7 @@ export class TeamComponent implements OnInit {
 
   onOpenDialogPlayersWantingToJoin(){
     this.dialog.open(JoinrequestlistComponent, { data: {
+      player: this.player,
       team: this.team,
       roles: this.roles,
       joinRequests: this.joinRequests

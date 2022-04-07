@@ -36,7 +36,7 @@ export class JoinrequestlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  console.log(this.data.roles);
+    console.log(this.data);
   }
 
   acceptRequest(idRequest: number){
@@ -53,6 +53,14 @@ export class JoinrequestlistComponent implements OnInit {
 
   close(){
     this.matRef.close();
+  }
+
+  checkRequests(reqs: any, role: RoleEnum){
+    if(reqs){
+
+      return reqs.find((r) => r.player.profile.role === role);
+    }
+    return;
   }
 
 }

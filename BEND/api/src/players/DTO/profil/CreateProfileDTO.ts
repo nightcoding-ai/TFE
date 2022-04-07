@@ -4,23 +4,13 @@ import { Player } from "src/players/models/player/player.entity";
 
 export class CreateProfileDTO {
 
-    id: number;
-
+    id?: number;
     email: string;
-
     password: string;
-
     profilPicture: string;
-
     discord: string;
-
     inGameName: string;
-
     role: RoleEnum;
-
     rank: RankEnum;
-
-    isCaptain: boolean;
-
-    player: Player;
+    isCaptain?: boolean;
 }

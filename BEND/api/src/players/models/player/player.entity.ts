@@ -2,7 +2,7 @@ import { UserType } from "src/players/enum/userType.enum";
 import { JoinRequest } from "src/join-request/models/joinRequest.entity";
 import { TeamInvitation } from "src/team-invitation/models/teamInvitation.entity";
 import { Team } from "src/teams/models/teams.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Profile } from "../profile/profile.entity";
 
 
@@ -18,7 +18,7 @@ export class Player {
     @Column({enum: UserType, default: UserType.USER})
     userType: UserType;
 
-    @OneToOne(() => Profile, profile => profile.player, { onDelete: 'CASCADE', eager:true, cascade: true})
+    @OneToOne(() => Profile, profile => profile.player, { onDelete: 'CASCADE', cascade: true, eager:true})
     @JoinColumn()
     profile: Profile;
 
@@ -31,6 +31,8 @@ export class Player {
     @OneToMany(() => JoinRequest, joinRequest => joinRequest.player, {nullable: true})
     joinRequests: JoinRequest[];
 
+    @DeleteDateColumn()
+    deletedAt: Date;
 
     
 }

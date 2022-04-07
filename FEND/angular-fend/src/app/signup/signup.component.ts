@@ -16,10 +16,7 @@ import { SignupService } from './signup.service';
 export class SignupComponent implements OnInit {
 
   signUpForm: FormGroup;
-
   signUpDTO: SignUpDTO;
-
-
   ranks = [
     {name: RankEnum.NonClassé, abbrev: "Unranked"},
     {name: RankEnum.Fer, abbrev: "Fer"},
@@ -32,7 +29,6 @@ export class SignupComponent implements OnInit {
     {name: RankEnum.GrandMaitre, abbrev: "GM"},
     {name: RankEnum.Challenger, abbrev: "Chall"},
   ]
-
   roles = [
     {name: RoleEnum.Toplaner, abbrev: "Top"},
     {name: RoleEnum.Jungler, abbrev: "Jun"},
@@ -40,67 +36,55 @@ export class SignupComponent implements OnInit {
     {name: RoleEnum.ADC, abbrev: "ADC"},
     {name: RoleEnum.Support, abbrev: "Support"},
   ]
-
   logoBase64: any;
-
   matcher = new MyErrorStateMatcher();
 
-
-
-
   constructor(private signupService: SignupService) { }
-
 
   ngOnInit(): void {
 
     this.signUpForm = new FormGroup({
-      name: new FormControl(null, [
+      name: new FormControl('', [
         Validators.required,
         Validators.maxLength(40),
         Validators.minLength(4)
       ]),
-      email: new FormControl(null, [
+      email: new FormControl('', [
         Validators.required,
         Validators.email
       ]),
-      password1: new FormControl(null, [
+      password1: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
       ]),
-      password2: new FormControl(null, [
+      password2: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
 
       ]),
-      profilPicture: new FormControl(null),
+      profilPicture: new FormControl(''),
 
-      discord: new FormControl(null,[ 
+      discord: new FormControl('',[ 
         Validators.required,
       ]),
-      
-      inGameName: new FormControl(null, 
+      inGameName: new FormControl('', 
         Validators.required
       ),
-      rank: new FormControl(RankEnum.NonClassé,
+      rank: new FormControl('',
         Validators.required
       ),
-      role: new FormControl(RoleEnum.Toplaner, 
+      role: new FormControl('', 
         Validators.required
-      )
-    }, { validators: [this.checkPasswords,
-                      this.checkDiscord],
-                      })
+      )},
+      { validators: [
+        this.checkPasswords,
+        this.checkDiscord],
+      })
     
-  
     
   }
 
-  get passwordOne() {  return this.signUpForm.get('password1');}
-
-  get passwordTwo() {  return this.signUpForm.get('password2');}
-
-  get discord() { return this.signUpForm.get('discord')};
-
+  
   handleUpload(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -111,7 +95,10 @@ export class SignupComponent implements OnInit {
     };
   }
 
+  
+
   onSubmit(){
+      
       if(this.signUpForm.valid){
         this.signUpDTO = new SignUpDTO();
         this.signUpForm.patchValue({profilPicture : this.logoBase64});
@@ -140,7 +127,8 @@ export class SignupComponent implements OnInit {
 
   checkDiscord: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 
     let disc = group.get('discord').value;
-    return (disc !== null && disc[disc.length-5] === '#' && (typeof(Number(disc.slice(-4))) === 'number')) ? null : { notDiscord: true }
+    let exp = new RegExp("^.{3,32}#[0-9]{4}$");
+    return exp.test(disc) ? null : { notDiscord: true};
   }
  
   
@@ -149,4 +137,3 @@ export class SignupComponent implements OnInit {
 }
 
 
-// <!--(disc[disc.length-5] === '#' && (typeof(Number(disc.slice(-4))) === 'number')) ? {discord: {value: control.value}} : null;-->

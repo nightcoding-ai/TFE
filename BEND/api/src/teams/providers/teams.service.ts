@@ -2,10 +2,12 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { captureRejections } from "events";
 import { from, Observable } from "rxjs";
+import { UserType } from "src/players/enum/userType.enum";
 import { PlayerRepository } from "src/players/repository/player/player.repository";
 import { ProfileRepository } from "src/players/repository/profil/profile.repository";
 import { DeleteResult, Repository, UpdateResult} from "typeorm";
 import { TeamDTO } from "../DTO/teamDTO";
+import { TeamInterface } from "../interfaces/teams.interface";
 import { Team } from "../models/teams.entity";
 import { TeamRepository } from "../repository/teams.repository";
 
@@ -52,15 +54,61 @@ export class TeamsService {
          }
     }
 
-    async getAll(): Promise<TeamDTO[]> {
+    async getAll(adminId: number): Promise<TeamInterface[]> {
         try{
+            const admin = await this.PlayerRepository.getOne(adminId);
+            if(admin.userType !== UserType.ADMIN){
+                throw new UnauthorizedException('Access denied, admin ressources');
+            }
+            return await this.TeamRepository.getAll();
 
-            const teams = await this.TeamRepository.getAll();
-
-            return teams;
         }
         catch(err) {
+            throw err;
+        }
+    }
 
+    async getNumberOfTeams(): Promise<number> {
+        try{
+            return await this.TeamRepository.getNumberOfTeams();
+        }
+        catch(err){
+            throw err;
+        }
+    }
+    
+    async getFullTeams(): Promise<TeamInterface[]> {
+        try{
+            return await this.TeamRepository.getAllFullTeams();
+        }
+        catch(err){
+            throw err;
+        }
+    }
+
+    async getNotFullTeams(): Promise<TeamInterface[]> {
+        try{
+            return await this.TeamRepository.getAllNotFullTeams();
+        }
+        catch(err){
+            throw err;
+        }
+    }
+
+    async getTeamsWithPrecisedNumberOfPlayers(nbr: string): Promise<TeamInterface[]> {
+        try{
+            return await this.TeamRepository.getTeamsWithPrecisedNumberOfPlayers(parseInt(nbr));
+        }
+        catch(err){
+            throw err;
+        }
+    }
+
+    async getTeamsWithPrecisedFreePlaces(nbr: string): Promise<TeamInterface[]> {
+        try{
+            return await this.TeamRepository.getTeamsWithPrecisedFreePlaces(parseInt(nbr));
+        }
+        catch(err){
             throw err;
         }
     }

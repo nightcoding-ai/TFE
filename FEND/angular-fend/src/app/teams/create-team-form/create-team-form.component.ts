@@ -16,23 +16,36 @@ import { MatFormField } from '@angular/material/form-field';
 export class CreateTeamFormComponent implements OnInit {
 
   
-  teamForm: FormGroup;
+
+  logoBase64: any;
+
+  teamForm: FormGroup = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(40),
+      Validators.minLength(5)
+    ]),
+    abbreviation: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(3)
+    ]),
+    logo: new FormControl('')
+  })
+
 
   
 
   constructor(private createTeamService: CreateTeamFormService, private playerService: ProfilePlayerService) { }
 
   ngOnInit(): void {
-    this.teamForm = new FormGroup({
-      name: new FormControl(null, [
-        Validators.required,
-        Validators.maxLength(40)
-      ]),
-      abbreviation: new FormControl(null, [
-        Validators.required,
-        Validators.maxLength(3)
-      ]),
-      logo: new FormControl(null)
+    this.initializeForm();
+  }
+
+  initializeForm() {
+    this.teamForm.setValue({
+        name: null,
+        abbreviation: null,
+        logo: ''
     })
   }
 
@@ -41,9 +54,20 @@ export class CreateTeamFormComponent implements OnInit {
       console.log("Form is invalid.");
       return;
     }
+    this.teamForm.patchValue({logo : this.logoBase64});
     this.createTeamService.createTeam(this.teamForm.value);
 
   };
+
+  handleUpload(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+        this.logoBase64 = reader.result;
+        
+    };
+  }
 
  
 

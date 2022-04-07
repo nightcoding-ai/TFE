@@ -29,6 +29,7 @@ import { CreateTeamFormComponent } from './teams/create-team-form/create-team-fo
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatSortModule} from '@angular/material/sort';
 import { LeaveteamComponent } from './teams/leaveteam/leaveteam.component';
 import { UpdateteamComponent } from './teams/updateteam/updateteam.component';
 import { SearchplayerformComponent } from './teams/searchplayerform/searchplayerform.component';
@@ -46,6 +47,8 @@ import { JoinrequestlistComponent } from './teams/joinrequestlist/joinrequestlis
 import { AuthenticationService } from './auth/auth.service';
 import { AuthInterceptorService } from './auth/authInterceptor.service';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { AdminPannelComponent } from './admin-pannel/admin-pannel.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 export function tokenGetter() {
@@ -73,7 +76,8 @@ export function tokenGetter() {
     InvitedPlayersComponent,
     SetascaptainComponent,
     JoinrequestlistComponent,
-    DeleteteamformComponent
+    DeleteteamformComponent,
+    AdminPannelComponent
 
   ],
   entryComponents: [SearchplayerformComponent, LeaveteamComponent, UpdateteamComponent, DeleteteamformComponent, SetascaptainComponent, JoinrequestlistComponent, JoinTeamFormComponent],
@@ -105,7 +109,9 @@ export function tokenGetter() {
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [
     {

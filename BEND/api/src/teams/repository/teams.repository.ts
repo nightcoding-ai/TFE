@@ -1,68 +1,106 @@
 import { Team } from "../models/teams.entity";
-import { DeleteResult, getConnection, getRepository, Repository, UpdateResult } from "typeorm";
+import { DeleteResult, Equal, getConnection, getRepository, LessThan, Not, Repository, UpdateResult } from "typeorm";
 import { TeamDTO } from "../DTO/teamDTO";
 import { Player } from "src/players/models/player/player.entity";
+import { TeamInterface } from "../interfaces/teams.interface";
 
 
-export class TeamRepository extends Repository<Team>{
+export class TeamRepository extends Repository<Team> {
 
-    async addTeam(teamDTO: TeamDTO): Promise<Team> {
-
+    async addTeam(teamDTO: TeamDTO): Promise<TeamInterface> {
         const teamRepo = getRepository(Team);
 
-        return  await teamRepo.save(teamDTO);
-
-        
+        return await teamRepo.save(teamDTO);
     }
     
-
-    async getAll(): Promise<TeamDTO[]> {
-
+    async getAll(): Promise<TeamInterface[]> {
         const teamRepo = getRepository(Team);
 
-        const teams = await teamRepo.find();
-
-        return teams;
+        return await teamRepo.find({
+            withDeleted: true,
+            select: ["id", "name", "abbreviation"]});
     }
 
-    async getTeam(idTeam: number): Promise<TeamDTO> {
-
+    async getNumberOfTeams(): Promise<number> {
         const teamRepo = getRepository(Team);
 
-        const team = await teamRepo.findOne(idTeam);
+        return await teamRepo.count();
+    }
 
-        return team;
+    async getAllFullTeams(): Promise<TeamInterface[]> {
+        const teamRepo = getRepository(Team);
+        const teams = await teamRepo.find({ select: ["id", "name"]});
+        const fullTeams : TeamInterface[] = [];
+
+        for (const team of teams) {
+            if(team.players.length === 5){
+                fullTeams.push(team);
+            }
+        }
+        return fullTeams;
+    }
+
+    async getAllNotFullTeams(): Promise<TeamInterface[]> {
+        const teamRepo = getRepository(Team);
+        const teams = await teamRepo.find({ select: ["id", "name"]});
+        const notFullTeams : TeamInterface[] = [];
+
+        for (const team of teams) {
+            if(team.players.length < 5){
+                notFullTeams.push(team);
+            }
+        }
+        return notFullTeams;
+    }
+
+    async getTeamsWithPrecisedNumberOfPlayers(nbr: number): Promise<TeamInterface[]> {
+        const teamRepo = getRepository(Team);
+        const teams = await teamRepo.find({ select: ["id", "name"]});
+        const notFullTeams : TeamInterface[] = [];
+
+        for (const team of teams) {
+            if(team.players.length === nbr){
+                notFullTeams.push(team);
+            }
+        }
+        return notFullTeams;
+    }
+
+    async getTeamsWithPrecisedFreePlaces(nbr: number): Promise<TeamInterface[]> {
+        const teamRepo = getRepository(Team);
+        const teams = await teamRepo.find({ select: ["id", "name"]});
+        const teamsWithFreePlaces : TeamInterface[] = [];
+
+        for (const team of teams) {
+            if(team.players.length === (5-nbr)){
+                teamsWithFreePlaces.push(team);
+            }
+        }
+        return teamsWithFreePlaces;
+    }
+
+    async getTeam(idTeam: number): Promise<TeamInterface> {
+        const teamRepo = getRepository(Team);
+
+        return await teamRepo.findOne(idTeam, {relations: ["players"]});
     }
 
     async updateTeam(idTeam: number, teamDTO: TeamDTO): Promise<UpdateResult> {
-
         const teamRepo = getRepository(Team);
 
-        const modify = await teamRepo.update(idTeam, teamDTO);
-
-        return modify;
-        
+        return await teamRepo.update(idTeam, teamDTO);        
     }
 
     async deleteTeam(idTeam: number): Promise<DeleteResult> {
-
         const teamRepo = getRepository(Team);
         const playerRepo = getRepository(Player);
-
-
         const teamToDeleted = await teamRepo.findOne(idTeam);
 
         for (const player of teamToDeleted.players) {
             player.team = null;
-
-            await playerRepo.save(player);
-            
+            await playerRepo.save(player);  
         }
-
-        const deleted = await teamRepo.delete(idTeam);
-
-        return deleted;
-
+        return await teamRepo.softDelete(idTeam);
     }
     
 }

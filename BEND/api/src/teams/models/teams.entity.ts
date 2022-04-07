@@ -4,7 +4,7 @@ import { TeamInvitation } from "src/team-invitation/models/teamInvitation.entity
 import { TournamentMatch } from "src/tournaments/models/tournamentMatch.entity";
 import { TournamentParticipation } from "src/tournaments/models/tournamentParticipation.entity";
 import { Tournament } from "src/tournaments/models/tournaments.entity";
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -40,13 +40,16 @@ export class Team {
     sideBWins: number;
 
     @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.winner)
-    matchWon: TournamentMatch;
+    matchesWon: TournamentMatch[];
 
     @OneToMany( () => TeamInvitation, teamInvitation => teamInvitation.team, {nullable: true})
     invitationToPlayer: TeamInvitation[];
 
     @OneToMany( () => JoinRequest, joinRequest => joinRequest.team, {nullable: true})
     joinRequestsReceived: JoinRequest[];
+
+    @DeleteDateColumn()
+    deletedAt?: Date;
   
 
 

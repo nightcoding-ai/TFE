@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { AdminPannelComponent } from './admin-pannel/admin-pannel.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NewsComponent } from './news/news.component';
@@ -12,6 +13,7 @@ import { TeamComponent } from './teams/team/team.component';
 import { TeamsComponent } from './teams/teams.component';
 
 const routes: Routes = [
+  { path: 'admin', component: AdminPannelComponent},
   { path: 'news', component: NewsComponent},
   { path: '', redirectTo: '/news', pathMatch: 'full'},
   { path: 'teams', component: TeamsComponent},

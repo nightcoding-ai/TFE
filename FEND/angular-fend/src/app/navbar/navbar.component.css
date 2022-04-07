@@ -176,3 +176,34 @@ div.cross{
     padding-left: 70%;
     border-bottom: 1px solid black;
 }
+
+@media only screen and (max-width: 990px){
+    a.inscr.nav-link, a.nav-link.connect, a.deco{
+        width: fit-content;
+        padding: 5px;
+        margin-bottom: 5px;
+        margin-left: 15px;
+    }
+
+    div.row div.col{
+        margin-left: -15px !important;
+        text-align: center;
+        display: flex;
+        align-items: center;
+    }
+
+    uL.navbar-nav.mr-auto{
+        margin-bottom: 15px;
+        padding-left: 15px;
+    }
+
+    a.dropdown-toggle.dropdownBasic1{
+        margin-left: 15px;
+        margin-bottom: 15px;
+    }
+
+   
+    a.dropdown-toggle.dropdownBasic1#bell{
+        display: none;
+    }
+}

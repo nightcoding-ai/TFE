@@ -5,19 +5,19 @@
         <img src="../../assets/ndls_white.png" alt="logoNDLS" height="60px" width="70">
     </a>
     
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" (click)="isMenuCollapsed = !isMenuCollapsed">
       
-      <fa-icon [icon]="faBars" id="navMenuIcon"></fa-icon>
+      <fa-icon [icon]="faBars" id="navMenuIcon" class="navbar-toggler-icon"></fa-icon>
     
     </button>
     
-    <div class="collapse navbar-collapse" >
+    <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed" >
       
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
 
         <li class="nav-item active">
 
-          <a class="nav-link" href="#">Actualités <span class="sr-only"></span></a>
+          <a class="nav-link" href="#" (click)="isMenuCollapsed = true" routerLink="/news">Actualités</a>
 
         </li>
 
@@ -31,7 +31,7 @@
 
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu">
 
-                <a ngbDropdownItem routerLink="/teams">Equipes</a>
+                <a ngbDropdownItem routerLink="/teams" (click)="isMenuCollapsed = true">Equipes</a>
 
                 <ng-container  *ngIf="getAuthUser();">
 
@@ -59,15 +59,15 @@
 
             <div ngbDropdown >
 
-              <a class="dropdownBasic1" ngbDropdownToggle>Tournois</a>
+              <a class="dropdownBasic1" ngbDropdownToggle >Tournois</a>
 
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu">
 
-                <button ngbDropdownItem>Action - 1</button>
+                <a ngbDropdownItem >Action - 1</a>
 
-                <button ngbDropdownItem>Another Action</button>
+                <a ngbDropdownItem>Another Action</a>
 
-                <button ngbDropdownItem>Something else is here</button>
+                <a ngbDropdownItem>Something else is here</a>
 
               </div>
 
@@ -79,13 +79,13 @@
 
         <li class="nav-item" >
 
-          <a class="nav-link" href="https://www.twitch.tv/latavernedelaleague" target="_blank">Stream</a>
+          <a class="nav-link" href="https://www.twitch.tv/latavernedelaleague" target="_blank" (click)="isMenuCollapsed = true">Stream</a>
 
         </li>
 
         <li class="nav-item">
 
-          <a class="nav-link" href="https://discord.gg/SYUQ9JdPgR" target="_blank">Discord</a>
+          <a class="nav-link" href="https://discord.gg/SYUQ9JdPgR" target="_blank" (click)="isMenuCollapsed = true">Discord</a>
 
         </li>
 
@@ -100,16 +100,17 @@
       <ul class="navbar-nav  ms-auto" *ngIf="getAuthUser(); else loggedOut">
         <div ngbDropdown class="profile" *ngIf="player">
 
-          <a class="dropdownBasic1" ngbDropdownToggle *ngIf="player">
-            <img src="../../../assets/missing_player.png" class="profilePicture" alt="profilePicture" *ngIf="!player.profile.profilPicture" style="width: 35px; height: 35px;"> 
+          <a class="dropdownBasic1" ngbDropdownToggle *ngIf="player" >
+            <img src="../../assets/ndls_white.png" class="profilePicture noPp" alt="profilePicture" *ngIf="!player.profile.profilPicture" style="width: 35px; height: 35px;"> 
             <img src="{{player.profile.profilPicture}}" style="width: 35px; height: 35px;" *ngIf="player.profile.profilPicture">{{ player.name }}
 
             
           </a>
 
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu" *ngIf="getAuthUser();">
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu" *ngIf="getAuthUser();" >
 
-            <a ngbDropdownItem routerLink="/profile"><fa-icon [icon]="faGear" style="margin-right: 5px;" ></fa-icon>profil</a>
+            <a ngbDropdownItem routerLink="/profile"  (click)="isMenuCollapsed = true"><fa-icon [icon]="faGear" style="margin-right: 5px;"></fa-icon>profil</a>
+            <a ngbDropdownItem routerLink="/admin"  (click)="isMenuCollapsed = true" *ngIf="player.userType === 'admin'"><fa-icon [icon]="faAdmin" style="margin-right: 5px;"></fa-icon>administration</a>
             
           </div>
 
@@ -117,7 +118,7 @@
         <ng-container *ngIf="player && !player.team && notifications">
           <div ngbDropdown class=" dropdownmenu dropleft profile " *ngIf="getAuthUser()" placement="bottom-right" display="dynamic" >
 
-            <a class="dropdownBasic1" ngbDropdownToggle *ngIf="getAuthUser()" id="bell" > 
+            <a class="dropdownBasic1" ngbDropdownToggle *ngIf="getAuthUser()" id="bell"> 
             <fa-icon [icon]="faEnveloppe" id="bellIcon"  ></fa-icon>
             <span *ngIf="notifications && notifications.length > 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"></span>
             <span *ngIf="!notifications || notifications.length < 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false" hidden="true"></span>
@@ -150,7 +151,7 @@
           </div>
         </ng-container>
         <li class="nav-item">
-          <a routerLink="/"  *ngIf="this.authService.isLoggedIn$"(click)="onLogOut()" class="nav-link deco" >Déconnexion</a>
+          <a routerLink="/"  *ngIf="this.authService.isLoggedIn$" (click)="onLogOut()" class="nav-link deco" >Déconnexion</a>
         </li>
       </ul>
 
@@ -160,13 +161,13 @@
           
           <li class="nav-item">
     
-            <a class="nav-link connect " routerLink="/login">Connexion</a>
+            <a class="nav-link connect " routerLink="/login" (click)="isMenuCollapsed = true">Connexion</a>
     
           </li>
 
           <li class="nav-item">
     
-            <a class="nav-link inscr" routerLink="/signup">Inscription</a>
+            <a class="nav-link inscr" routerLink="/signup" (click)="isMenuCollapsed = true">Inscription</a>
           </li>
 
         </ul>

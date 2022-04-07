@@ -20,6 +20,7 @@ export class JoinRequestController {
     @Post()
     create(
         @Req() req:any): Promise<JoinRequest>{
+        console.log(req.user.playerID, req.body);
         return this.JoinRequestService.createOne(req.user.playerID, req.body);
     }
 
@@ -52,6 +53,10 @@ export class JoinRequestController {
         @Req() req: any): Promise<DeleteResult>{
         return this.JoinRequestService.deleteOne(req.user.playerID, id);
     }
+
+    
+
+    
     
     
     

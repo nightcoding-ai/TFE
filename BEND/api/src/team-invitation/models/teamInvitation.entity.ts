@@ -1,7 +1,7 @@
 import { RoleEnum } from "src/players/enum/role.enum";
 import { Player } from "src/players/models/player/player.entity";
 import { Team } from "src/teams/models/teams.entity";
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 const currentDate : Date = new Date();
 
@@ -31,4 +31,7 @@ export class TeamInvitation {
 
     @Column({ type: 'date', default: new Date(currentDate.setDate(currentDate.getDate() + 7))})
     expiredAt: Date;
+
+    @DeleteDateColumn()
+    deletedAt?: Date;
 }

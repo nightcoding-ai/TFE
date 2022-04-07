@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  
+
 
   constructor(private authService: AuthenticationService,private router: Router, private notificationService: NotificationsService) { }
 
@@ -38,9 +40,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.login(this.loginForm.value).subscribe(
-          (res) => {
-            console.log("Réponse du subscribe", res);
-            
+          () => {
             this.router.navigate(['/teams']);
           }
         )

@@ -50,7 +50,7 @@ a:hover{
 body{
     color: white;
     background-image: url(./assets/Background.jpg);
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
     background-position: center;
 }
@@ -83,4 +83,13 @@ fa-icon{
 
 .mat-dialog-container::-webkit-scrollbar-thumb{
     border-radius: 5px !important;
+}
+
+@media only screen and (max-width: 991px){
+    body{
+        background-image: url(./assets/Background.jpg);
+        background-repeat: repeat-y;
+        background-size: cover;
+        background-position: center;
+    }
 }

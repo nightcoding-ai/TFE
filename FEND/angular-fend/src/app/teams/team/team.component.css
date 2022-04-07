@@ -205,6 +205,10 @@ div.logo{
 
 }
 
+#unranked{
+    filter: invert(14%) sepia(7%) saturate(6980%) hue-rotate(207deg) brightness(93%) contrast(116%);
+
+}
 #lolIcon{
     width: 1.5em;
     height: 1.5em;
@@ -285,3 +289,18 @@ button.joinBtn{
 div.crown{
     position: relative;
 }
+
+@media only screen and (max-width: 767px){
+    div.roster{
+        display: grid;
+    }
+
+    div.infos{
+        display: none;
+    }
+
+    div.buttons{
+        display: grid;
+    }
+}
+

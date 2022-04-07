@@ -87,6 +87,7 @@ export class LeaveteamComponent implements OnInit {
 
 
   leaveTeam(){
+    this.dialogRef.close();
     this.teamService.leaveTeam();
     
   }

@@ -18,23 +18,19 @@
             <mat-label>Confirmation du mot de passe</mat-label>
             <input matInput formControlName="password2" type="password">
         </mat-form-field>
-
         <mat-error *ngIf="signUpForm.hasError('notSame')">
 			Les mots de passe ne sont pas les mêmes.
 		</mat-error>
-
-      
         <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
         <div class="img" *ngIf="logoBase64">
             <img [src]="logoBase64">
         </div>
-
         <mat-form-field>
             <mat-label>Discord</mat-label>
             <input matInput formControlName="discord">
             <mat-hint class="hint">ex : John#1234</mat-hint>        
         </mat-form-field>
-        <mat-error *ngIf="signUpForm.hasError('notDiscord')">Ne respecte pas la struture</mat-error>
+        <mat-error *ngIf="signUpForm.hasError('notDiscord')">Ne respecte pas la structure</mat-error>
         <mat-form-field>
             <mat-label>Compte League of Legends</mat-label>
             <input matInput formControlName="inGameName">
@@ -51,8 +47,9 @@
                 <mat-option *ngFor="let role of roles" value="{{role.name}}">{{ role.name }}</mat-option>
             </mat-select>
         </mat-form-field>
-     
+
        <button type="submit" class="signUpButton">S'inscrire</button>
+
   </form>
 </div>
 
