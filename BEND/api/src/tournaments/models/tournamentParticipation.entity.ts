@@ -1,5 +1,5 @@
 import { Team } from "src/teams/models/teams.entity";
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Tournament } from "./tournaments.entity";
 
 
@@ -9,9 +9,11 @@ export class TournamentParticipation {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Tournament, tournament => tournament.participants)
+    @ManyToOne(() => Tournament, tournament => tournament.participants, {eager: true, cascade: true})
+    @JoinColumn()
     tournament: Tournament;
 
-    @ManyToOne(() => Team, team => team.tournamentParticipations)
+    @ManyToOne(() => Team, team => team.tournamentParticipations, {eager: true, cascade: true})
+    @JoinColumn()
     team: Team;
 }

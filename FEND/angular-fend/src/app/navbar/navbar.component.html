@@ -1,132 +1,75 @@
 <nav class="navbar navbar-expand-lg  bg-navbar color-navbar ">
-
     <a class="navbar-brand" href="#">
-
         <img src="../../assets/ndls_white.png" alt="logoNDLS" height="60px" width="70">
     </a>
-    
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" (click)="isMenuCollapsed = !isMenuCollapsed">
-      
-      <fa-icon [icon]="faBars" id="navMenuIcon" class="navbar-toggler-icon"></fa-icon>
-    
-    </button>
-    
-    <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed" >
-      
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" (click)="isMenuCollapsed = !isMenuCollapsed">     
+      <fa-icon [icon]="faBars" id="navMenuIcon" class="navbar-toggler-icon"></fa-icon>  
+    </button>   
+    <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed" >    
       <ul class="navbar-nav mr-auto">
-
         <li class="nav-item active">
-
           <a class="nav-link" href="#" (click)="isMenuCollapsed = true" routerLink="/news">Actualités</a>
-
         </li>
-
         <div class="row">
-
           <div class="col">
-
             <div ngbDropdown >
-
               <a class="dropdownBasic1" ngbDropdownToggle>Equipes</a>
-
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu">
-
                 <a ngbDropdownItem routerLink="/teams" (click)="isMenuCollapsed = true">Equipes</a>
-
                 <ng-container  *ngIf="getAuthUser();">
-
                   <ng-container *ngIf="player">
-
                     <a ngbDropdownItem *ngIf="player.team " routerLink="/teams/{{player.team.id}}">Mon équipe</a>
-
                     <a ngbDropdownItem *ngIf="!player.team " routerLink="/new_team" >Créer une équipe</a>
-
                   </ng-container>
-
               </ng-container>
-
               </div>
-
             </div>
-
-          </div>
-        
+          </div>       
         </div>
-
         <div class="row">
-
           <div class="col">
-
             <div ngbDropdown >
-
               <a class="dropdownBasic1" ngbDropdownToggle >Tournois</a>
-
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu">
-
-                <a ngbDropdownItem >Action - 1</a>
-
-                <a ngbDropdownItem>Another Action</a>
-
-                <a ngbDropdownItem>Something else is here</a>
-
+                <a ngbDropdownItem routerLink="/tournaments" >Tournois</a>
+                <a ngbDropdownItem routerLink="/tournaments/now">Tournoi actuel</a>
+                <ng-container *ngIf="getAuthUser();">
+                  <ng-container *ngIf="player">
+                    <a ngbDropdownItem *ngIf="player.userType === userTypes.admin" routerLink="/tournaments/create">Créer un tournoi</a>
+                  
+                  </ng-container>
+                </ng-container>
               </div>
-
             </div>
-
-          </div>
-        
+          </div>        
         </div>
-
         <li class="nav-item" >
-
           <a class="nav-link" href="https://www.twitch.tv/latavernedelaleague" target="_blank" (click)="isMenuCollapsed = true">Stream</a>
-
         </li>
-
         <li class="nav-item">
-
           <a class="nav-link" href="https://discord.gg/SYUQ9JdPgR" target="_blank" (click)="isMenuCollapsed = true">Discord</a>
-
         </li>
-
-        
-
-      
-        
-  
-      </ul>
-
-      
+      </ul> 
       <ul class="navbar-nav  ms-auto" *ngIf="getAuthUser(); else loggedOut">
         <div ngbDropdown class="profile" *ngIf="player">
-
           <a class="dropdownBasic1" ngbDropdownToggle *ngIf="player" >
             <img src="../../assets/ndls_white.png" class="profilePicture noPp" alt="profilePicture" *ngIf="!player.profile.profilPicture" style="width: 35px; height: 35px;"> 
-            <img src="{{player.profile.profilPicture}}" style="width: 35px; height: 35px;" *ngIf="player.profile.profilPicture">{{ player.name }}
-
-            
+            <img src="{{player.profile.profilPicture}}" style="width: 35px; height: 35px;" *ngIf="player.profile.profilPicture">{{ player.name }} 
           </a>
-
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu" *ngIf="getAuthUser();" >
-
             <a ngbDropdownItem routerLink="/profile"  (click)="isMenuCollapsed = true"><fa-icon [icon]="faGear" style="margin-right: 5px;"></fa-icon>profil</a>
-            <a ngbDropdownItem routerLink="/admin"  (click)="isMenuCollapsed = true" *ngIf="player.userType === 'admin'"><fa-icon [icon]="faAdmin" style="margin-right: 5px;"></fa-icon>administration</a>
-            
+            <a ngbDropdownItem routerLink="/admin"  (click)="isMenuCollapsed = true" *ngIf="player.userType === 'admin'"><fa-icon [icon]="faAdmin" style="margin-right: 5px;"></fa-icon>administration</a>  
           </div>
-
         </div>
         <ng-container *ngIf="player && !player.team && notifications">
           <div ngbDropdown class=" dropdownmenu dropleft profile " *ngIf="getAuthUser()" placement="bottom-right" display="dynamic" >
-
             <a class="dropdownBasic1" ngbDropdownToggle *ngIf="getAuthUser()" id="bell"> 
             <fa-icon [icon]="faEnveloppe" id="bellIcon"  ></fa-icon>
             <span *ngIf="notifications && notifications.length > 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"></span>
             <span *ngIf="!notifications || notifications.length < 0" [matBadge]="notifications.length" matBadgeSize="small" matBadgeColor="warn" overlap="false" hidden="true"></span>
             </a>
-
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu dropdownmenu-left" *ngIf="notifications">
               <div class="cross" (click)="deleteAllNotifs()" *ngIf="notifications.length > 0" >
-
                 Décliner tout <fa-icon [icon]="faXmark" id="clearNotifs"></fa-icon>
               </div>
               <ul id="listOfNotifications">
@@ -135,62 +78,32 @@
                   L'équipe {{ notification.team.name | uppercase }} voudrait vous recruter pour le rôle de  {{ player.profile.role | uppercase }}
                   <div class="buttons">
                     <button class="btn btn-primary" (click)="OnAcceptOffer(notification)">Accepter</button>
-                    <button class="btn btn-danger" (click)="OnDeclineOffer(notification.id)">Décliner</button><br>
-                    
+                    <button class="btn btn-danger" (click)="OnDeclineOffer(notification.id)">Décliner</button><br>                    
                   </div>
                   <a (click)="myTeamSelect(notification.team.id)" class="linkTeamProfileNotif">voir profil de l'équipe...</a>
                 </li>
                 </ng-container>
               </ul >
-
               <span style="margin-left: 20px;" *ngIf="(!notifications ||  notifications.length === 0) && player && !player.team">  Aucune invitation pour le moment.</span>
-              <span style="margin-left: 20px;" *ngIf="player && player.team">Vous faites déjà parti d'une équipe, vous ne pouvez donc pas être invité</span>
-              
+              <span style="margin-left: 20px;" *ngIf="player && player.team">Vous faites déjà parti d'une équipe, vous ne pouvez donc pas être invité</span>             
             </div>
-
           </div>
         </ng-container>
         <li class="nav-item">
           <a routerLink="/"  *ngIf="this.authService.isLoggedIn$" (click)="onLogOut()" class="nav-link deco" >Déconnexion</a>
         </li>
       </ul>
-
       <ng-template #loggedOut>
-
-        <ul class="navbar-nav  ms-auto">
-          
-          <li class="nav-item">
-    
-            <a class="nav-link connect " routerLink="/login" (click)="isMenuCollapsed = true">Connexion</a>
-    
+        <ul class="navbar-nav  ms-auto">    
+          <li class="nav-item">    
+            <a class="nav-link connect " routerLink="/login" (click)="isMenuCollapsed = true">Connexion</a>  
           </li>
-
           <li class="nav-item">
-    
             <a class="nav-link inscr" routerLink="/signup" (click)="isMenuCollapsed = true">Inscription</a>
           </li>
-
         </ul>
-
     </ng-template>
-
-
-
-
-   
-
-          
-
- 
-
-       
-     
-
-
-     
     </div>
-
-
   </nav>
 
 

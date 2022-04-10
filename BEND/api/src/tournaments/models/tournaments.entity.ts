@@ -1,4 +1,3 @@
-import { Team } from "src/teams/models/teams.entity";
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TournamentMatch } from "./tournamentMatch.entity";
 import { TournamentParticipation } from "./tournamentParticipation.entity";
@@ -8,7 +7,7 @@ export class Tournament {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ unique: false })
+    @Column({ unique: true })
     name: string;
 
     @Column({ default: false})
@@ -29,6 +28,5 @@ export class Tournament {
 
     @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.tournament)
     matches : TournamentMatch[];
-
-  
+ 
 }

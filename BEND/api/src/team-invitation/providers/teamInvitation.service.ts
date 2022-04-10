@@ -24,14 +24,12 @@ export class TeamInvitationService {
        try{
            const capitaine = await this.PlayerRepo.getOne(idPlayer);
            const invititationsOfPlayer = await this.TeamInvitationRepo.getAllOfOnePlayer(invitation.player);
-
            if(capitaine.profile.isCaptain === false || !capitaine || !capitaine.team || capitaine.team.players.length >= 5 || capitaine.team.id !== invitation.team || capitaine.team.players.find((player) => player.profile.role === invitation.role)){
                 throw new UnauthorizedException();
            }
            if(invititationsOfPlayer.find(invitation => invitation.team.id === capitaine.team.id)){
                 throw new UnauthorizedException();
            }
-
            return await this.TeamInvitationRepo.createNewInvitation(invitation);
        }
        catch(err){

@@ -12,6 +12,7 @@ import { forkJoin, Subject, Subscription } from 'rxjs';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TeamService } from '../teams/team/team.service';
 import { NotificationsService } from '../temp/notifications.service';
+import { userTypeEnum } from '../userType.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -23,38 +24,23 @@ export class NavbarComponent implements OnInit {
   MaterialComponents = [
     MatBadgeModule
   ]
-
   faBars = faBars;
-
   faGear = faGear;
-
   faBell = faBell;
-
   helper = new JwtHelperService();
-
   tokenDecoded : any;
-
   player: PLayerDTO;
-
   faEnveloppe = faEnvelope;
-
   updatePlayerSubject: Subscription;
-
   notifications : any;
-
   faXmark = faXmark;
-
   faAdmin= faScrewdriverWrench;
-
   _isNotifsSeen : boolean = false;
-
   isMenuCollapsed = true;
-
-
-
-
-  
-
+  userTypes = {
+    admin: 'admin',
+    user: 'user'
+  };
   
   constructor(public authService: AuthenticationService, private router: Router, private profilePlayerService: ProfilePlayerService, private teamService: TeamService, private notificationService: NotificationsService) { }
 
@@ -72,6 +58,7 @@ export class NavbarComponent implements OnInit {
         });
       }
     });
+    console.log(this.userTypes);
   }
 
   getAuthUser() {

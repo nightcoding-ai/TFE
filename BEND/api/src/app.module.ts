@@ -32,7 +32,6 @@ import { ScheduleModule } from '@nestjs/schedule';
         'tournaments/models/tournamentMatch.entity.ts',
         'tournaments/models/tournamentParticipation.entity.ts',
         'join-request/models/joinRequest.entity.ts',
-
       ],
       autoLoadEntities: true,
       synchronize: true,  // ! can't be used in production.

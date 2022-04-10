@@ -20,31 +20,23 @@ export class JoinRequestRepository extends Repository<JoinRequest>{
 
 
     async createOne(joinRequest:any): Promise<JoinRequest>{
-
         const reqRepo = getRepository(JoinRequest);
-
-
         return await reqRepo.save(joinRequest);
     }
 
     async getOne(joinRequestId: number):  Promise<JoinRequest>{
         const reqRepo = getRepository(JoinRequest);
-
-
         return await reqRepo.findOneOrFail(joinRequestId);  
     }
 
     async saveRequest(request: JoinRequest): Promise<JoinRequest>{
         const reqRepo = getRepository(JoinRequest);
-
         return await reqRepo.save(request);
 
     }
 
     async getAll(): Promise<JoinRequest[]>{
         const reqRepo = getRepository(JoinRequest);
-
-
         return await reqRepo.find({withDeleted: true});
     }
 

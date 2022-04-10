@@ -15,25 +15,21 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
 
     async createNewInvitation(newInvitation: TeamInvitationDTO): Promise<TeamInvitationInterface>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.save(newInvitation);
     }
 
     async getOne(idNotif: number): Promise<TeamInvitationInterface>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.findOne(idNotif); 
     }
 
     async getAll(): Promise<TeamInvitationInterface[]>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.find({withDeleted: true});
     }
 
     async getOneOfOnePlayer(idPlayer: number): Promise<TeamInvitationInterface>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.findOne({ where: {
             player: {
                 id: idPlayer

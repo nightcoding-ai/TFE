@@ -41,6 +41,7 @@ import { InvitedPlayersComponent } from './teams/invited-players/invited-players
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
 
 import { SetascaptainComponent } from './teams/setascaptain/setascaptain.component';
 import { JoinrequestlistComponent } from './teams/joinrequestlist/joinrequestlist.component';
@@ -50,6 +51,11 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { AdminPannelComponent } from './admin-pannel/admin-pannel.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ModifyProfileComponent } from './profile-player/modify-profile/modify-profile.component';
+import { TournamentComponent } from './tournament/tournament.component';
+import { CreateTournamentFormComponent } from './tournament/create-tournament-form/create-tournament-form.component';
+import { TournamentViewComponent } from './tournament/tournament-view/tournament-view.component';
+import { TournamentMatchesScheduleComponent } from './tournament/tournament-matches-schedule/tournament-matches-schedule.component';
+import { CurrentTournamentComponent } from './tournament/current-tournament/current-tournament.component';
 
 
 export function tokenGetter() {
@@ -79,7 +85,12 @@ export function tokenGetter() {
     JoinrequestlistComponent,
     DeleteteamformComponent,
     AdminPannelComponent,
-    ModifyProfileComponent
+    ModifyProfileComponent,
+    TournamentComponent,
+    CreateTournamentFormComponent,
+    TournamentViewComponent,
+    TournamentMatchesScheduleComponent,
+    CurrentTournamentComponent
 
   ],
   entryComponents: [
@@ -122,7 +133,9 @@ export function tokenGetter() {
     MatOptionModule,
     MatSelectModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule,
+
   ],
   providers: [
     {

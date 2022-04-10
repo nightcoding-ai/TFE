@@ -33,15 +33,12 @@ export class JoinRequestService {
         try{
             const player = await this.PlayerRepository.getOne(idPlayer);
             const teamToJoin = await this.TeamRepository.getTeam(joinRequest.team);
-
             const requestToTeam = await this.JoinRequestRepository.getRequestToTeam(player.id, teamToJoin.id);
-
             if(player.id !== joinRequest.player || player.team || player.profile.isCaptain || !teamToJoin || teamToJoin.players.length >= 5 || teamToJoin.players.find((plr) => plr.profile.role === player.profile.role) || requestToTeam.length > 0){
                 throw new UnauthorizedException();
             }
             else {
                 return await this.JoinRequestRepository.createOne(joinRequest);
-
             }
         }
         catch(err){
@@ -71,11 +68,7 @@ export class JoinRequestService {
             }
             else{
                 return await this.JoinRequestRepository.deleteAllOfATeamByRole(playerAsker.profile.role, captain.team);
-            }
-
-
-            
-            
+            }   
         }
         catch(err){
             throw err;

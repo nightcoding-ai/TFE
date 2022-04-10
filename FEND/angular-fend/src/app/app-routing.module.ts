@@ -11,6 +11,9 @@ import { SignupComponent } from './signup/signup.component';
 import { CreateTeamFormComponent } from './teams/create-team-form/create-team-form.component';
 import { TeamComponent } from './teams/team/team.component';
 import { TeamsComponent } from './teams/teams.component';
+import { CreateTournamentFormComponent } from './tournament/create-tournament-form/create-tournament-form.component';
+import { CurrentTournamentComponent } from './tournament/current-tournament/current-tournament.component';
+import { TournamentComponent } from './tournament/tournament.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminPannelComponent},
@@ -22,10 +25,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'profile', component: ProfilePlayerComponent},
   { path: 'new_team', component: CreateTeamFormComponent},
-
-
-
-  
+  { path: 'tournaments', component: TournamentComponent},
+  { path: 'tournaments/now', component: CurrentTournamentComponent},
+  { path: 'tournaments/create', component: CreateTournamentFormComponent},
   { path: '**', component: PagenotfoundComponent }
 ];
 
