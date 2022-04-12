@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { faFaceFrown, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
@@ -16,7 +17,6 @@ import { SearchplayerformService } from './searchplayerform.service';
 export class SearchplayerformComponent implements OnInit {
 
   data : any;
-
   freePlayers: any;
 
 
@@ -24,9 +24,7 @@ export class SearchplayerformComponent implements OnInit {
   faPlus = faPlus;
   faXmark = faXmark;
   faDiscord = faDiscord;
-
   clicked = false;
-
   roles = [
     RoleEnum.Toplaner, 
     RoleEnum.Jungler, 
@@ -38,7 +36,9 @@ export class SearchplayerformComponent implements OnInit {
   rankEnum = RankEnum;
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private searchPlayerService: SearchplayerformService, private teamService: TeamService) { }
+
+
+  constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private searchPlayerService: SearchplayerformService, private teamService: TeamService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 
@@ -52,17 +52,16 @@ export class SearchplayerformComponent implements OnInit {
             return
     })
 
-    
-
-    
-    
   }
 
   OnInvitePlayer(idPlayer: number, idTeam: number, role: RoleEnum){
     return this.searchPlayerService.invitePlayer(idPlayer, idTeam, role).subscribe((res) => console.log(res))
   
-  
   }
+
+  getSafeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);     
+}
 
   
 }

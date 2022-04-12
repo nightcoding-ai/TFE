@@ -10,10 +10,10 @@ export class TournamentMatch{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ default: 1})
     round: number;
 
-    @Column({ enum: BestOfTypeEnum})
+    @Column({ enum: BestOfTypeEnum, default: BestOfTypeEnum.BO3})
     bestOfType: BestOfTypeEnum;
 
     @Column()

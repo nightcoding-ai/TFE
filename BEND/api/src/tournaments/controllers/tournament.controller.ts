@@ -1,7 +1,11 @@
-import { Controller, Post, Req, UseGuards } from "@nestjs/common";
+import { Controller, Delete, Get, Param, Post, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { DeleteResult } from "typeorm";
+import { threadId } from "worker_threads";
 import { TournamentInterface } from "../interfaces/tournament.interface";
 import { TournamentParticipationInterface } from "../interfaces/tournamentParticipation.interface";
+import { TournamentParticipation } from "../models/tournamentParticipation.entity";
+import { Tournament } from "../models/tournaments.entity";
 import { TournamentService } from "../providers/tournament.service";
 
 
@@ -15,19 +19,61 @@ export class TournamentsController {
     @UseGuards(JwtAuthGuard)
     @Post()
     create(
-        @Req() req:any): Promise<TournamentInterface> {
+        @Req() req:any): Promise<Tournament> {
     return this.tournamentService.createOne(req.user.playerID, req.body);
     }
 
     @UseGuards(JwtAuthGuard)
     @Post('add_participant')
     addParticipant(
-        @Req() req:any): Promise<TournamentParticipationInterface> {
+        @Req() req:any): Promise<TournamentParticipation> {
     return this.tournamentService.addParticipantAsAdmin(req.user.playerID, req.body);
     }
 
     @UseGuards(JwtAuthGuard)
     @Post('register')
-    registerToTournament
-    
+    registerToTournament(
+        @Req() req:any): Promise<TournamentParticipation> {
+    return this.tournamentService.addParticipantAsCaptain(req.user.playerID, req.body);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('start')
+    startTournament(
+        @Req() req:any): Promise<any> {
+    return this.tournamentService.startTournament(req.user.playerID, req.body.tournament);
+        }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('my_team')
+    getAllOfMyTeam(
+        @Req() req:any): Promise<TournamentParticipation[]> {
+    return this.tournamentService.getAllOfATeam(req.user.playerID, req.body.team);
+    }
+
+    @Get('all')
+    getAll(): Promise<TournamentParticipation[]> {
+    return this.tournamentService.getAll();
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete('delete')
+    deleteAParticipantAsAdmin(
+        @Req() req:any): Promise<DeleteResult> {
+    return this.tournamentService.deleteAParticpantAsAdmin(req.user.playerID, req.body.tournamentParticipation);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete('leave')
+    leaveTournament(
+        @Req() req:any): Promise<DeleteResult> {
+    return this.tournamentService.leaveTournament(req.user.playerID, req.body.tournamentParticipation);
+    }
+
+    @Get('/:id')
+    getAllParticipantsOfATournament(
+        @Param('id') tournamentId:number): Promise<TournamentParticipation[]> {
+    return this.tournamentService.getAllOfATournament(tournamentId);
+    }
+
 }

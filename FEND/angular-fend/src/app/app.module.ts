@@ -56,6 +56,7 @@ import { CreateTournamentFormComponent } from './tournament/create-tournament-fo
 import { TournamentViewComponent } from './tournament/tournament-view/tournament-view.component';
 import { TournamentMatchesScheduleComponent } from './tournament/tournament-matches-schedule/tournament-matches-schedule.component';
 import { CurrentTournamentComponent } from './tournament/current-tournament/current-tournament.component';
+import { SafeHTMLPipe } from './safe-html.pipe';
 
 
 export function tokenGetter() {
@@ -90,7 +91,8 @@ export function tokenGetter() {
     CreateTournamentFormComponent,
     TournamentViewComponent,
     TournamentMatchesScheduleComponent,
-    CurrentTournamentComponent
+    CurrentTournamentComponent,
+    SafeHTMLPipe,
 
   ],
   entryComponents: [
@@ -142,7 +144,7 @@ export function tokenGetter() {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

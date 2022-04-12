@@ -10,11 +10,11 @@ export class Tournament {
     @Column({ unique: true })
     name: string;
 
-    @Column({ default: false})
-    isFinished: boolean;
-
     @Column({ default: 8})
     seed: number;
+
+    @Column({ default: false})
+    areInscriptionsClosed: boolean;
 
     @Column({ default: new Date()})
     startDate: Date;

@@ -1,4 +1,3 @@
-
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="container">
         <mat-form-field>
@@ -9,6 +8,11 @@
             <mat-label>Mot de passe</mat-label>
             <input matInput placeholder="Mot de passe..." formControlName="password" type="password">
         </mat-form-field>
+        <div class="error" *ngIf="err">
+            <small>
+                Le nom de compte ou le mot de passe est incorrecte
+            </small>
+        </div>
 
        <a href="https://www.google.com" target="_blank"><small>mot de passe oublié ?</small></a>
 

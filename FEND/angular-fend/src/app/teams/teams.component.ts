@@ -50,7 +50,6 @@ export class TeamsComponent implements OnInit {
   }
 
   onSelect(idTeam: number){
-    console.log('Je veux naviguer');
     this.router.navigate(['/teams',idTeam]);
   }
 

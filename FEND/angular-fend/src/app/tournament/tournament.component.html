@@ -1,1 +1,6 @@
-<p>tournament works!</p>
+<ul *ngFor="let match of matches">
+    <li *ngFor="let fighter of match">
+        {{fighter.name}}
+    </li>
+
+</ul>

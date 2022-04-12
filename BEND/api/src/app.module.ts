@@ -20,22 +20,11 @@ import { ScheduleModule } from '@nestjs/schedule';
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: parseInt(<string>process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
+      username: process.env.POSTGRES_USER, //ndls
+      password: process.env.POSTGRES_PASSWORD, // 1234
       database: process.env.POSTGRES_DATABASE,
-      entities: [
-        'players/models/player/player.entity.ts',
-        'players/models/profile/profile.entity.ts',
-        'teams/models/teams.entity.ts',
-        'team-invitation/models/teamInvitation.entity.ts',
-        'tournaments/models/tournaments.entity.ts',
-        'tournaments/models/tournamentMatch.entity.ts',
-        'tournaments/models/tournamentParticipation.entity.ts',
-        'join-request/models/joinRequest.entity.ts',
-      ],
       autoLoadEntities: true,
-      synchronize: true,  // ! can't be used in production.
-
+      synchronize: true,
     }),
     PlayersModule,
     TeamsModule,
@@ -44,11 +33,9 @@ import { ScheduleModule } from '@nestjs/schedule';
     TeamInvitationModule,
     JoinRequestModule,
     ScheduleModule.forRoot(),
-
-
   ],
   controllers: [AppController],
-  providers: [AppService, LocalStrategy,],
+  providers: [AppService, LocalStrategy],
   
 })
 export class AppModule {

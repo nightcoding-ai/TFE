@@ -6,7 +6,8 @@
     <div class="playersList">
         <ul class="ul">
             <li *ngFor="let player of freePlayers" class="playerFree">
-                <img src="{{ player.profile.profilPicture }} " alt="pp" class="pp">
+                <img [src]="getSafeUrl(player.profile.profilPicture)" alt="pp" class="pp" *ngIf="player.profile.profilPicture">
+                <img src="../../../assets/ndls_white.png" alt="pp" class="pp noPp" *ngIf="!player.profile.profilPicture">
                 {{ player.name | uppercase}} 
                 <div class="rank" [ngSwitch]="player.profile.rank">
 

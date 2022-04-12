@@ -3,11 +3,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 }
 
 form{
     display: grid;
-    width: max-content;
+    width: 500px;
     margin-left: auto;
     margin-right: auto;
     border: 3px solid var(--secondColor);
@@ -42,10 +43,18 @@ button{
 
 a{
     margin-right: auto;
+    margin-left: auto;
     color: var(--secondColor);
 }
 
 a:hover{
     color: var(--secondColorDarker);
     transition: ease-in-out 0.3s;
+}
+
+div.error{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    color: var(--redColor);
 }

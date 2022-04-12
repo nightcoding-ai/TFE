@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs';
@@ -16,6 +16,7 @@ import { Player, Team } from '../teams/teams.interface';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  err: any;
 
   
 
@@ -42,7 +43,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
           () => {
             this.router.navigate(['/teams']);
-          }
+          }, error => 
+          this.err = error
         )
   
 

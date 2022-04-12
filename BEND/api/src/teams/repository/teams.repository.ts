@@ -27,7 +27,7 @@ export class TeamRepository extends Repository<Team> {
         return await teamRepo.find({
             select: ["id", "name", "logo"],
             order: {
-                logo: "ASC"
+                name: "ASC"
              }
         })
     }

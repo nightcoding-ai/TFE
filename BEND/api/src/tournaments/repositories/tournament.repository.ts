@@ -5,12 +5,17 @@ import { Tournament } from "../models/tournaments.entity";
 
 export class TournamentRepository extends Repository<Tournament> {
 
-    async createOne(createTournamentDTO: TournamentInterface): Promise<TournamentInterface>{ 
+    async createOne(createTournamentDTO: TournamentInterface): Promise<Tournament> { 
         const tournamentRepo = getRepository(Tournament);
         return await tournamentRepo.save(createTournamentDTO);
     }
 
-    async getOne(tournamentId: number): Promise<TournamentInterface> {
+    async saveOne(tournament: TournamentInterface): Promise<Tournament> {
+        const tournamentRepo = getRepository(Tournament);
+        return await tournamentRepo.save(tournament);
+    }
+
+    async getOne(tournamentId: number): Promise<Tournament> {
         const tournamentRepo = getRepository(Tournament);
         return await tournamentRepo.findOne(tournamentId);
     }

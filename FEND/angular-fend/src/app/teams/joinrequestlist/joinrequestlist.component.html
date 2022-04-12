@@ -1,4 +1,4 @@
-<div class="joinRequestList">
+<div class="joinRequestList" *ngIf="data.joinRequests.length > 0">
     
     <ul *ngFor="let role of data.roles">
 
@@ -48,4 +48,7 @@
     </ul>
 
 
+</div>
+<div *ngIf="data.joinRequests.length === 0">
+    Aucune demande pour le moment
 </div>

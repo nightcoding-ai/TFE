@@ -82,11 +82,3 @@ fa-icon{
     border-radius: 5px !important;
 }
 
-@media only screen and (max-width: 991px){
-    body{
-        background-image: url(./assets/Background.jpg);
-        background-repeat: repeat-y;
-        background-size: cover;
-        background-position: center;
-    }
-}

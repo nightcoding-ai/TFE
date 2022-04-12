@@ -77,12 +77,11 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
 
     async deleteAllOfTeamByPlayerRole(roleToDelete: RoleEnum, idTeam: number): Promise<DeleteResult>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         const allInvOfTeamByRole: any = await teamInvRepo.find({ where:
             {role: roleToDelete,
             team: {id: idTeam}}
             });
-            
+    
         return await teamInvRepo.softDelete(allInvOfTeamByRole);
     }
 
@@ -90,7 +89,6 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
         const teamInvRepo = getRepository(TeamInvitation);
 
         return await teamInvRepo.softDelete(idNotif);
-       
     }
 
     async deleteAllExpiredInvitations(): Promise<DeleteResult>{
@@ -98,8 +96,5 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
         const today = new Date();
 
         return await teamInvRepo.softDelete({expiredAt : LessThan(today)});
-
     }
-
-    
 }

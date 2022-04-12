@@ -7,8 +7,8 @@ export interface TournamentInterface {
 
     id: number;
     name: string;
-    isFinished: boolean; 
     seed: number;
+    areInscriptionsClose: boolean;
     startDate?: Date;
     endDate?: Date;
     participants?: TournamentParticipationInterface[];

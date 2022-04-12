@@ -1,5 +1,5 @@
 import { Team } from "src/teams/models/teams.entity";
-import { getRepository, Repository } from "typeorm";
+import { DeleteResult, getRepository, Repository } from "typeorm";
 import { TournamentParticipationDTO } from "../DTO/createTournamentParticipationDTO";
 import { TournamentParticipationInterface } from "../interfaces/tournamentParticipation.interface";
 import { TournamentParticipation } from "../models/tournamentParticipation.entity";
@@ -15,23 +15,35 @@ export class TournamentParticipationRepository extends Repository<TournamentPart
         return await tournamentParticpationRepo.save(tournamentParticipation);
     }
 
-    async getAll(): Promise<TournamentParticipationInterface[]> {
+    async getAll(): Promise<TournamentParticipation[]> {
         const tournamentParticpationRepo = getRepository(TournamentParticipation);
         return await tournamentParticpationRepo.find();
     }
 
-    async getAllOfATournament(tournamentId: number): Promise<TournamentParticipationInterface[]> {
+    async getOne(tournamentParticipationId: number): Promise<TournamentParticipation> {
         const tournamentParticpationRepo = getRepository(TournamentParticipation);
-        return await tournamentParticpationRepo.find({where: {
-            tournament: { id: tournamentId}
+        return await tournamentParticpationRepo.findOne(tournamentParticipationId);
+    }
+
+    async getAllOfATournament(tournamentId: number): Promise<TournamentParticipation[]> {
+        const tournamentParticpationRepo = getRepository(TournamentParticipation);
+        return await tournamentParticpationRepo.find({
+            where: {
+                tournament: { 
+                    id: tournamentId}
             }
         })
     }
 
-    async getAllOfATeam(teamId: number): Promise<TournamentParticipationInterface[]> {
+    async getAllOfATeam(teamId: number): Promise<TournamentParticipation[]> {
         const tournamentParticpationRepo = getRepository(TournamentParticipation);
         return await tournamentParticpationRepo.find({where: {
-            team: { id:teamId}
+            team: { id: teamId}
         }})
+    }
+
+    async deleteOne(tournamentParticipationId: number): Promise<DeleteResult> {
+        const tournamentParticpationRepo = getRepository(TournamentParticipation);
+        return await tournamentParticpationRepo.delete(tournamentParticipationId);
     }
 }
