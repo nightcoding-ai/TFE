@@ -1,4 +1,5 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Injectable, UnauthorizedException, UseFilters } from "@nestjs/common";
+import { Matches } from "class-validator";
 import { UserType } from "src/players/enum/userType.enum";
 import { PlayerInterface } from "src/players/interfaces/player.interface";
 import { PlayerRepository } from "src/players/repository/player/player.repository";
@@ -51,7 +52,7 @@ export class TournamentService {
             if(admin.userType !== UserType.ADMIN) {
                 throw new UnauthorizedException();
             }
-            else if(!tournament || allParticipations.length > tournament.seed ||  tournament.startDate > new Date() ) { //|| tournament.startDate > tournament.endDate || tournament.areInscriptionsClosed 
+            else if(!tournament || allParticipations.length > tournament.seed ||  tournament.startDate > new Date() || tournament.startDate > tournament.endDate || tournament.areInscriptionsClosed  ) { 
                 throw new UnauthorizedException("Tournament can't be started", "Le tournoi n'a pas pu être lancé pour ces possibles raisons :  Le tournoi n'existe pas, le tournoi a plus de participants que nécessaire, les dates ne conviennent pas ou les inscription sont fermées.");
             }
             tournament.areInscriptionsClosed = true;
@@ -210,18 +211,36 @@ export class TournamentService {
         }
     }
 
-    async updateMatchScore(adminId: number, matchId: number, newMatchScore: any): Promise<UpdateResult> {
+    async updateMatchScore(adminId: number,tournamentId: number, matchId: number, newMatchScore: any): Promise<any> {
         try {
             const admin = await this.playerRepository.getOne(adminId);
             const match = await this.tournamentMatchRepository.getOne(matchId);
+            const matches = await this.tournamentRepository.getOneOnlyMatches(tournamentId);
+            let nextMatchForWinner;
             if(admin.userType !== UserType.ADMIN) {
                 throw new UnauthorizedException();
             }
-            if(match.isOver || !match) {
+            if(match.isOver || match.winner || !match || !matches.find(m => m.id === match.id) || (newMatchScore.teamAWins === match.bestOfType && newMatchScore.teamBWins === match.bestOfType) || newMatchScore.teamAWins > match.bestOfType || newMatchScore.teamBWins > match.bestOfType) {
                 throw new UnauthorizedException("Match score can't be updated", "Le score ne peut être modifié car soit le match n'existe pas, soit le match est terminé.");
             }
-
-            return await this.tournamentMatchRepository.updateMatchScore(matchId, newMatchScore);
+            match.teamAWins = newMatchScore.teamAWins;
+            match.teamBWins = newMatchScore. teamBWins;
+            await this.tournamentMatchRepository.saveOne(match);
+            if(newMatchScore.teamAWins === match.bestOfType || newMatchScore.teamBWins === match.bestOfType) {
+                match.isOver = true;
+                match.teamAWins === match.bestOfType ? match.winner = match.teamA : match.winner = match.teamB;
+                nextMatchForWinner = matches.find(nm => nm.round === match.round + 1 && nm.order === Math.ceil(match.order/2))
+                await this.tournamentMatchRepository.saveOne(match);
+                if(nextMatchForWinner.teamA === null && nextMatchForWinner.teamB === null) {
+                    nextMatchForWinner.teamA = match.winner;
+                    return await this.tournamentMatchRepository.saveOne(nextMatchForWinner);
+                }
+                if(nextMatchForWinner.teamA !== null && nextMatchForWinner.teamB === null && nextMatchForWinner.teamA !== match.winner) {
+                    nextMatchForWinner.teamB = match.winner;
+                    return await this.tournamentMatchRepository.saveOne(nextMatchForWinner);
+                }           
+            }
+            return match;
         }
         catch(err) {
             throw err;
@@ -256,4 +275,13 @@ export class TournamentService {
             throw err;
         }
     }
+
+    filterNextMatch(previousMatch, nextMatch): boolean {
+        if(nextMatch.round === (previousMatch.round +1)  ) {
+            return false;
+        }
+        return true;
+    }
 }
+
+

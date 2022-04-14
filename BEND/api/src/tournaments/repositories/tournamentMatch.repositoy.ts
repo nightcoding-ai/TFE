@@ -19,14 +19,14 @@ export class TournamentMatchRepository extends Repository<TournamentMatch> {
     }
 
     
-     getOne(matchId: number): Promise<TournamentMatchInterface> {
+     getOne(matchId: number): Promise<TournamentMatch> {
         const tournamentMatchRepo = getRepository(TournamentMatch);
         return  tournamentMatchRepo.findOne(matchId);
     }
 
-     updateMatchScore(matchId: number, matchScoreUpdated: any ): Promise<UpdateResult> {
+    async updateMatchScore(matchId: number, matchScoreUpdated: any ): Promise<UpdateResult> {
         const tournamentMatchRepo = getRepository(TournamentMatch);
-        return  tournamentMatchRepo.update(matchId, matchScoreUpdated);
+        return await tournamentMatchRepo.update(matchId, matchScoreUpdated);
     }
 
      getAllMatchesForARound(tournamentId: number, round: number): Promise<TournamentMatchInterface[]> {

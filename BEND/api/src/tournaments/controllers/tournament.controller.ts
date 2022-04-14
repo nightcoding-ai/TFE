@@ -77,12 +77,13 @@ export class TournamentsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Put('matches/:id/update/score')
+    @Put(':tournament/matches/:id/update/score')
     updateMatchScore(
+        @Param('tournament') tournament: number,
         @Param('id') id:number,
-        @Req() req:any): Promise<UpdateResult> {
-    return this.tournamentService.updateMatchScore(req.user.playerID, id, req.body);
-        }
+        @Req() req:any): Promise<any> {
+    return this.tournamentService.updateMatchScore(req.user.playerID,tournament, id, req.body);
+    }
 
     @UseGuards(JwtAuthGuard)
     @Delete('delete')
