@@ -10,28 +10,34 @@ export class TournamentComponent implements OnInit {
 
   tournament: any;
   matches = [];
-  nbrOfRounds: number = 0;
-
+  final;
   constructor(private tournamentService: TournamentService) { }
 
   ngOnInit(): void {
     this.tournamentService.testTournament().subscribe(
       res => {
         this.tournament = res;
-        this.nbrOfRounds = Math.log2(this.tournament.seed);
-        console.log(this.nbrOfRounds);
-        for (let i = 0; i < this.tournament.matches; i ++) {
-          console.log(this.tournament.matches[i].round);
-          console.log(i+1)
-          if(this.tournament.matches[i].round === (i + 1)){
-            this.matches[i] = this.tournament.matches[i];
-          }
-        }
-        console.log(this.matches);
-        
+        this.getMatchesPerRound(this.tournament);
+        console.log(this.matches)
+        console.log(this.final);
       }
     )
-    if(this.tournament){
+    
+  }
+
+  getMatchesPerRound(tournament: any) {
+    for(let i = 0; i < tournament.matches.length; i ++) {
+      const rounds = tournament.matches.filter(m => m.round === i + 1);
+      if(rounds.length > 0) {
+        rounds.sort((a,b) => {
+          if(a.id> b.id) return 1
+          if(a.id  < b.id) return -1
+          return 0
+        }
+        )
+        this.matches.push(rounds);
+        this.final = this.matches[this.matches.length -1];
+      }
       
     }
   }

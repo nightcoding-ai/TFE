@@ -1,0 +1,95 @@
+<ng-container *ngIf="tournament">
+    <div class="tournament">
+        <div class="split" *ngFor="let round of matches; let i = index">
+            <ul class="fight" *ngFor="let match of round">
+                    <li>
+                        <ng-container *ngIf="match.teamA">
+                            <img src="{{match.teamA.logo}}" alt="" *ngIf="match.teamA.logo" class="teamLogo">
+                            <img src="../../assets/ndls_white_face.png" alt="" *ngIf="!match.teamA.logo" class="teamLogo">
+                        </ng-container>
+                        <span *ngIf="match.teamA">{{ match.teamA.name | uppercase }}</span>
+                        <span  class="score"*ngIf="match.teamA && match.teamB" [ngClass]="{ 'scoreOfWinner': match.teamAWins === match.bestOfType }"> {{ match.teamAWins }}</span>
+                        <span  *ngIf="!match.teamA">A déterminer</span>
+                        
+                    </li>
+                    <li>
+                        <ng-container *ngIf="match.teamB">
+                            <img src="{{match.teamB.logo}}" alt="" *ngIf="match.teamB.logo" class="teamLogo">
+                            <img src="../../assets/ndls_white_face.png" alt="" *ngIf="!match.teamB.logo" class="teamLogo">
+                        </ng-container>
+                        <span *ngIf="match.teamB">{{ match.teamB.name | uppercase }}</span>
+                        <span class="score" *ngIf="match.teamA && match.teamB" [ngClass]="{ 'scoreOfWinner': match.teamBWins === match.bestOfType }"> {{ match.teamBWins }}</span>
+                        <span  *ngIf="!match.teamB">A déterminer</span>
+
+                    </li>
+
+            </ul>
+        </div>
+        <div *ngIf="final[0].teamA && final[0].teamB">
+            <h3>
+                Vainqueur
+            </h3>
+            <span *ngIf="final[0].teamAWins === final[0].bestOfType"> {{ final[0].teamA.name }} </span>
+            <span *ngIf="final[0].teamBWins === final[0].bestOfType"> {{ final[0].teamB.name }} </span>
+        </div>
+        <h1 class="tournamentName">
+            {{ tournament.name }}'s <br>
+            bracket
+        </h1>
+    </div>
+   
+    <div class="schedule">
+        <div class="splitSchedule" *ngFor="let round of matches">
+            <div class="fightSchedule" *ngFor="let match of round">
+                <ng-container *ngIf="match.teamA && match.teamB">
+                    <span *ngIf="match.teamA">{{ match.teamA.name | uppercase}}</span>
+                    <img src="{{match.teamA.logo}}" alt="" *ngIf="match.teamA.logo" class="teamLogo">
+                    <img src="../../assets/ndls_white_face.png" alt="" *ngIf="!match.teamA.logo" class="teamLogo">
+                    <div class="vs">
+                        <ng-container [ngSwitch]="match.bestOfType" >
+                            <span class="bo" *ngSwitchCase="1">BO{{match.bestOfType }}</span>
+                            <span class="bo" *ngSwitchCase="2">BO{{match.bestOfType +1 }}</span>
+                            <span class="bo" *ngSwitchCase="3">BO{{match.bestOfType + 2 }}</span>
+                        </ng-container>
+                        <span>VS</span>
+                        {{match.teamAWins}}-{{match.teamBWins}}
+                    </div>
+                    <img src="{{match.teamB.logo}}" alt="" *ngIf="match.teamB.logo" class="teamLogo">
+                    <img src="../../assets/ndls_white_face.png" alt="" *ngIf="!match.teamB.logo" class="teamLogo">
+                    <span *ngIf="match.teamB">{{ match.teamB.name | uppercase}}</span>
+                </ng-container>
+                <ng-container *ngIf="match.teamA && !match.teamB">
+                    <span >A déterminer</span>
+                    <img src="{{match.teamA.logo}}" alt="" *ngIf="match.teamA.logo" class="teamLogo">
+                    <img src="../../assets/ndls_white_face.png" alt=""  class="teamLogo">
+                    <div class="vs">
+                        <ng-container [ngSwitch]="match.bestOfType">
+                            <span class="bo" *ngSwitchCase="1">BO{{match.bestOfType }}</span>
+                            <span class="bo" *ngSwitchCase="2">BO{{match.bestOfType +1 }}</span>
+                            <span class="bo" *ngSwitchCase="3">BO{{match.bestOfType + 2 }}</span>
+                            <span>VS</span>
+
+                        </ng-container>
+                    </div>
+                    <img src="../../assets/ndls_white_face.png" alt=""  class="teamLogo">
+                    <span >A déterminer</span>
+                </ng-container>
+                <ng-container *ngIf="!match.teamA && !match.teamB">
+                    <span>A déterminer</span>
+                    <img src="../../assets/ndls_white_face.png" alt=""  class="teamLogo">
+                    <div class="vs">
+                        <ng-container [ngSwitch]="match.bestOfType">
+                            <span class="bo" *ngSwitchCase="1">BO{{match.bestOfType }}</span>
+                            <span class="bo" *ngSwitchCase="2">BO{{match.bestOfType +1 }}</span>
+                            <span class="bo" *ngSwitchCase="3">BO{{match.bestOfType + 2 }}</span>
+                            <span>VS</span>
+                        </ng-container>
+                    </div>
+                    <img src="../../assets/ndls_white_face.png" alt=""  class="teamLogo">
+                    <span>A déterminer</span>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+</ng-container>

@@ -52,7 +52,7 @@ export class TournamentService {
             if(admin.userType !== UserType.ADMIN) {
                 throw new UnauthorizedException();
             }
-            else if(!tournament || allParticipations.length > tournament.seed ||  tournament.startDate > new Date() || tournament.startDate > tournament.endDate || tournament.areInscriptionsClosed  ) { 
+            else if(!tournament || allParticipations.length > tournament.seed ||  tournament.startDate > new Date()   ) { // tournament.startDate > tournament.endDate || ||  tournament.areInscriptionsClosed
                 throw new UnauthorizedException("Tournament can't be started", "Le tournoi n'a pas pu être lancé pour ces possibles raisons :  Le tournoi n'existe pas, le tournoi a plus de participants que nécessaire, les dates ne conviennent pas ou les inscription sont fermées.");
             }
             tournament.areInscriptionsClosed = true;
@@ -94,7 +94,7 @@ export class TournamentService {
                 let MatchesFromLastRound = await this.tournamentMatchRepository.getAllMatchesForARound(tournament.id, j+1);
                 for(let k= 0; k < MatchesFromLastRound.length / 2; k ++) {
                     let newMatch = new TournamentMatch();
-                    newMatch.round = k + 2;
+                    newMatch.round = MatchesFromLastRound[0].round + 1;
                     newMatch.order = k + 1;
                     newMatch.tournament = tournament;
                     await this.tournamentMatchRepository.createOne(newMatch);
