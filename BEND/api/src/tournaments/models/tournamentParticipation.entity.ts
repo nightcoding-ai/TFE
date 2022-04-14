@@ -9,11 +9,11 @@ export class TournamentParticipation {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Tournament, tournament => tournament.participants, {eager: true, cascade: true})
+    @ManyToOne(() => Tournament, tournament => tournament.participants, { eager: true, cascade: true })
     @JoinColumn()
     tournament: Tournament;
 
-    @ManyToOne(() => Team, team => team.tournamentParticipations, {eager: true, cascade: true})
+    @ManyToOne(() => Team, team => team.tournamentParticipations, { eager: true, cascade: true })
     @JoinColumn()
     team: Team;
 }

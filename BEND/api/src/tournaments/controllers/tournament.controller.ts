@@ -1,8 +1,9 @@
-import { Controller, Delete, Get, Param, Post, Req, UseGuards } from "@nestjs/common";
+import { Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
-import { DeleteResult } from "typeorm";
+import { DeleteResult, UpdateResult } from "typeorm";
 import { threadId } from "worker_threads";
 import { TournamentInterface } from "../interfaces/tournament.interface";
+import { TournamentMatchInterface } from "../interfaces/tournamentMatch.interface";
 import { TournamentParticipationInterface } from "../interfaces/tournamentParticipation.interface";
 import { TournamentParticipation } from "../models/tournamentParticipation.entity";
 import { Tournament } from "../models/tournaments.entity";
@@ -51,10 +52,37 @@ export class TournamentsController {
     return this.tournamentService.getAllOfATeam(req.user.playerID, req.body.team);
     }
 
+    @Get('/:id')
+    getTournament(
+        @Param('id') id:number): Promise<TournamentInterface> {
+    return this.tournamentService.getTournament(id);
+    }
+
+    @Get(':id/matches')
+    getTournamentMatches(
+        @Param('id') id:number): Promise<TournamentMatchInterface[]> {
+    return this.tournamentService.getTournamentMatches(id);
+        }
+
     @Get('all')
     getAll(): Promise<TournamentParticipation[]> {
     return this.tournamentService.getAll();
     }
+
+    @Get(':id/round/:round_id')
+    getMatchesByRound(
+        @Param('id') id:number,
+        @Param('round_id') round_id:number): Promise<TournamentMatchInterface[]> {
+    return this.tournamentService.getMatchesByRound(id, round_id);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put('matches/:id/update/score')
+    updateMatchScore(
+        @Param('id') id:number,
+        @Req() req:any): Promise<UpdateResult> {
+    return this.tournamentService.updateMatchScore(req.user.playerID, id, req.body);
+        }
 
     @UseGuards(JwtAuthGuard)
     @Delete('delete')

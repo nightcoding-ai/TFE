@@ -1,3 +1,4 @@
+import { Observable } from "rxjs";
 import { Team } from "src/teams/models/teams.entity";
 import { DeleteResult, getRepository, Repository } from "typeorm";
 import { TournamentParticipationDTO } from "../DTO/createTournamentParticipationDTO";
@@ -25,20 +26,24 @@ export class TournamentParticipationRepository extends Repository<TournamentPart
         return await tournamentParticpationRepo.findOne(tournamentParticipationId);
     }
 
-    async getAllOfATournament(tournamentId: number): Promise<TournamentParticipation[]> {
+    getAllOfATournament(tournamentId: number): any {
         const tournamentParticpationRepo = getRepository(TournamentParticipation);
-        return await tournamentParticpationRepo.find({
+        return  tournamentParticpationRepo.find({
             where: {
                 tournament: { 
-                    id: tournamentId}
-            }
+                    id: tournamentId
+                }
+            },
         })
     }
 
     async getAllOfATeam(teamId: number): Promise<TournamentParticipation[]> {
         const tournamentParticpationRepo = getRepository(TournamentParticipation);
-        return await tournamentParticpationRepo.find({where: {
-            team: { id: teamId}
+        return await tournamentParticpationRepo.find({
+            where: {
+                team: { 
+                    id: teamId
+                }
         }})
     }
 

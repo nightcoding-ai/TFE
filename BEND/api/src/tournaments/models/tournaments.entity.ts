@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { SeedEnum } from "../enum/seed.enum";
 import { TournamentMatch } from "./tournamentMatch.entity";
 import { TournamentParticipation } from "./tournamentParticipation.entity";
 
@@ -10,8 +11,8 @@ export class Tournament {
     @Column({ unique: true })
     name: string;
 
-    @Column({ default: 8})
-    seed: number;
+    @Column({ default: SeedEnum.SEED8, enum: SeedEnum})
+    seed: SeedEnum;
 
     @Column({ default: false})
     areInscriptionsClosed: boolean;
@@ -26,7 +27,7 @@ export class Tournament {
     
     participants: TournamentParticipation[];
 
-    @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.tournament)
+    @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.tournament, { eager: true })
     matches : TournamentMatch[];
  
 }

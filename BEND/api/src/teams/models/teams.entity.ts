@@ -30,14 +30,8 @@ export class Team {
     @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.teamA)
     sideA: TournamentMatch[];
 
-    @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.teamAWins)
-    sideAWins: number;
-
     @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.teamB)
     sideB: TournamentMatch[];
-
-    @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.teamBWins)
-    sideBWins: number;
 
     @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.winner)
     matchesWon: TournamentMatch[];

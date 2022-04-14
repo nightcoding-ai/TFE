@@ -10,37 +10,37 @@ export class TournamentMatch{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ default: 1})
+    @Column({ default: 1 })
     round: number;
 
-    @Column({ enum: BestOfTypeEnum, default: BestOfTypeEnum.BO3})
+    @Column({ default: 1})
+    order: number;
+
+    @Column({ enum: BestOfTypeEnum, default: BestOfTypeEnum.BO3 })
     bestOfType: BestOfTypeEnum;
 
-    @Column()
+    @Column({ default: false})
     isOver: boolean;
 
-    @ManyToOne(() => Team, team => team.sideA)
+    @ManyToOne(() => Team, team => team.sideA, { eager: true })
     @JoinColumn()
     teamA: Team;
 
-    @ManyToOne(() => Team, team => team.sideAWins)
-    @JoinColumn()
+    @Column({ default: 0 })
     teamAWins: number;
 
-    @ManyToOne(() => Team, team => team.sideB)
+    @ManyToOne(() => Team, team => team.sideB, { eager: true })
     @JoinColumn()
     teamB: Team;
 
-    @ManyToOne(() => Team, team => team.sideBWins)
-    @JoinColumn()
+    @Column({ default: 0 })
     teamBWins: number;
 
-    @ManyToOne(() => Team, team => team.matchesWon)
+    @ManyToOne(() => Team, team => team.matchesWon, { nullable: true })
     @JoinColumn()
     winner: Team;
 
     @ManyToOne(() => Tournament, tournament => tournament.matches)
+    @JoinColumn()
     tournament: Tournament;
-
-    
 }

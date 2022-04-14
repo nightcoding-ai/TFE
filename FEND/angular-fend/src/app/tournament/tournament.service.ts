@@ -12,6 +12,6 @@ export class TournamentService {
   constructor(private http: HttpClient) { }
 
   testTournament(): Observable<any> {
-    return this.http.post(`${this.baseURLAPI}start`, {tournament: 1});
+    return this.http.get(`${this.baseURLAPI}1`);
   }
 }

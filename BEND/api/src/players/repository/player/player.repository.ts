@@ -11,38 +11,37 @@ import { isNull } from "util";
 
 export class PlayerRepository extends Repository<Player> {
 
-    async addPlayer(player: PlayerDTO): Promise<PlayerInterface> {
+     addPlayer(player: PlayerDTO): Promise<PlayerInterface> {
         const playerRepo = getRepository(Player);
-
-        return await playerRepo.save(player); 
+        return  playerRepo.save(player); 
     }
-    async savePlayer(player: PlayerDTO): Promise<PlayerInterface> {
+     savePlayer(player: PlayerDTO): Promise<PlayerInterface> {
         const playerRepo = getRepository(Player);
 
-        return await playerRepo.save(player);
+        return  playerRepo.save(player);
     }
   
     //---------------------------------------------
-    async getOne(idPlayer: number): Promise<Player> {
+     getOne(idPlayer: number): Promise<Player> {
         const playerRepo = getRepository(Player);
 
-        return await playerRepo.findOneOrFail(idPlayer,
+        return  playerRepo.findOneOrFail(idPlayer,
             { relations: ["team"]});
     }
 
-    async getOneByName(playerName: string): Promise<Player>{
+     getOneByName(playerName: string): Promise<Player>{
         const playerRepo = getRepository(Player);
 
-        return await playerRepo.findOneOrFail(
+        return  playerRepo.findOneOrFail(
             {name : playerName},
             {relations: ["team"]},
         );
     }
 
-    async getAll(): Promise<PlayerInterface[]> {
+     getAll(): Promise<PlayerInterface[]> {
         const playerRepo = getRepository(Player);
 
-        return await playerRepo.find({
+        return  playerRepo.find({
             withDeleted: true,
             relations: ["team"],
             select: ["id", "name", "team"],
@@ -50,16 +49,16 @@ export class PlayerRepository extends Repository<Player> {
         });
     }
 
-    async getNumberOfPlayers(): Promise<number> {
+     getNumberOfPlayers(): Promise<number> {
         const playerRepo = getRepository(Player);
 
-        return await playerRepo.count();
+        return  playerRepo.count();
 
     }
-    async getAllByRoleAndFree(roleOfPlayer: RoleEnum): Promise<PlayerInterface[]> {
+     getAllByRoleAndFree(roleOfPlayer: RoleEnum): Promise<PlayerInterface[]> {
         const playerRepo = getRepository(Player);
 
-        return await playerRepo.find({
+        return  playerRepo.find({
             withDeleted:true,
             where: {
                 profile :{
@@ -71,10 +70,10 @@ export class PlayerRepository extends Repository<Player> {
         })
     }
 
-    async getAllFree(): Promise<PlayerInterface[]> {
+     getAllFree(): Promise<PlayerInterface[]> {
         const playerRepo = getRepository(Player);
 
-        return await playerRepo.find({
+        return  playerRepo.find({
             withDeleted:true,
             where: {
                 team: IsNull()
@@ -86,22 +85,22 @@ export class PlayerRepository extends Repository<Player> {
     } 
     //-----------------------------------------------
 
-    async updatePlayer(idPlayer: number, playerDTO: PlayerDTO): Promise<UpdateResult> {
+     updatePlayer(idPlayer: number, playerDTO: PlayerDTO): Promise<UpdateResult> {
         const playerRepo = getRepository(Player);
     
-        return await playerRepo.update(idPlayer, playerDTO);
+        return  playerRepo.update(idPlayer, playerDTO);
     }
 
     //-----------------------------------------------
 
-    async delPlayer(idPlayer: number): Promise <DeleteResult> {
+     async delPlayer(idPlayer: number): Promise <DeleteResult> {
         const playerRepo = getRepository(Player);
         const profileRepo = getRepository(Profile);
         const player = await playerRepo.findOne(idPlayer);
-        const profile = player.profile;
+        const profile =  player.profile;
 
-        await profileRepo.delete(profile);
-        return await playerRepo.delete(player);   
+        profileRepo.delete(profile);
+        return  playerRepo.delete(player);   
     }
 
 }

@@ -13,9 +13,7 @@ export interface TeamInterface {
     players: Player[];
     tournamentParticipations: TournamentParticipation[];
     sideA: TournamentMatch[];
-    sideAWins: number;
     sideB: TournamentMatch[];
-    sideBWins: number;
     matchesWon: TournamentMatch[];
     invitationToPlayer: TeamInvitation[];
     joinRequestsReceived: JoinRequest[];

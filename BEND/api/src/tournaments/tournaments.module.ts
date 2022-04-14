@@ -13,6 +13,7 @@ import { TournamentParticipation } from './models/tournamentParticipation.entity
 import { Tournament } from './models/tournaments.entity';
 import { TournamentService } from './providers/tournament.service';
 import { TournamentRepository } from './repositories/tournament.repository';
+import { TournamentMatchRepository } from './repositories/tournamentMatch.repositoy';
 import { TournamentParticipationRepository } from './repositories/tournamentParticipation.repository';
 
 @Module({
@@ -33,7 +34,8 @@ import { TournamentParticipationRepository } from './repositories/tournamentPart
         PlayerRepository,
         TeamRepository,
         TournamentRepository,
-        TournamentParticipationRepository      
+        TournamentParticipationRepository,
+        TournamentMatchRepository
     ],
     exports: [TournamentService]
 })

@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Repository, UpdateResult } from "typeorm";
 import { TournamentMatchInterface } from "../interfaces/tournamentMatch.interface";
 import { TournamentMatch } from "../models/tournamentMatch.entity";
 
@@ -8,8 +8,36 @@ import { TournamentMatch } from "../models/tournamentMatch.entity";
 
 export class TournamentMatchRepository extends Repository<TournamentMatch> {
 
-    async createOne(match: TournamentMatchInterface): Promise<TournamentMatchInterface> {
+     createOne(match: TournamentMatchInterface): Promise<TournamentMatchInterface> {
         const tournamentMatchRepo = getRepository(TournamentMatch);
-        return await tournamentMatchRepo.save(match);
+        return  tournamentMatchRepo.save(match);
+    }
+
+     saveOne(match: TournamentMatchInterface): Promise<TournamentMatchInterface> {
+        const tournamentMatchRepo = getRepository(TournamentMatch);
+        return  tournamentMatchRepo.save(match);
+    }
+
+    
+     getOne(matchId: number): Promise<TournamentMatchInterface> {
+        const tournamentMatchRepo = getRepository(TournamentMatch);
+        return  tournamentMatchRepo.findOne(matchId);
+    }
+
+     updateMatchScore(matchId: number, matchScoreUpdated: any ): Promise<UpdateResult> {
+        const tournamentMatchRepo = getRepository(TournamentMatch);
+        return  tournamentMatchRepo.update(matchId, matchScoreUpdated);
+    }
+
+     getAllMatchesForARound(tournamentId: number, round: number): Promise<TournamentMatchInterface[]> {
+        const tournamentMatchRepo = getRepository(TournamentMatch);
+        return  tournamentMatchRepo.find({
+            where: {
+                tournament: {
+                    id: tournamentId
+                },
+                round: round
+            }
+        })
     }
 }
