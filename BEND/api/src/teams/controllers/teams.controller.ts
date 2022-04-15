@@ -84,7 +84,7 @@ export class TeamsController {
 
     @Get('single/:id')
     getTeam(
-        @Param('id') id: string): Promise<TeamDTO> {
+        @Param('id') id: string): Promise<Team> {
         return this.TeamService.getTeam(parseInt(id));
         }
 

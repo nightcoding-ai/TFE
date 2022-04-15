@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AdminPannelService } from 'src/app/admin-pannel/admin-pannel.service';
+import { Team } from 'src/app/teams/teams.interface';
 
 @Component({
   selector: 'app-create-tournament-form',
@@ -23,7 +25,21 @@ export class CreateTournamentFormComponent implements OnInit {
       Validators.required
     ])
   })
-  constructor() { }
 
-  ngOnInit(): void { }
+  teams: Team[] = [];
+
+  constructor(private adminPannelService: AdminPannelService) { }
+
+  ngOnInit(): void { 
+    this.adminPannelService.getAllTeamsList().subscribe(
+      res => {
+        this.teams = res;
+        console.log(this.teams);
+      }
+    )
+  }
+
+  onSubmit(): void {
+    console.log(this.tournamentForm.value);
+  }
 }

@@ -1,3 +1,4 @@
+
 <ng-container *ngIf="tournament">
     <div class="tournament">
         <div class="split" *ngFor="let round of matches; let i = index">
@@ -40,7 +41,7 @@
    
     <div class="schedule">
         <div class="splitSchedule" *ngFor="let round of matches">
-            <div class="fightSchedule" *ngFor="let match of round">
+            <div class="fightSchedule" *ngFor="let match of round" [ngClass]="{'fightScheduleAdmin': player.userType === 'admin'}">
                 <ng-container *ngIf="match.teamA && match.teamB">
                     <span *ngIf="match.teamA">{{ match.teamA.name | uppercase}}</span>
                     <img src="{{match.teamA.logo}}" alt="" *ngIf="match.teamA.logo" class="teamLogo">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../auth/auth.service';
 import { TournamentService } from './tournament.service';
 
 @Component({
@@ -11,18 +12,26 @@ export class TournamentComponent implements OnInit {
   tournament: any;
   matches = [];
   final;
-  constructor(private tournamentService: TournamentService) { }
+  player: any;
+  constructor(private tournamentService: TournamentService, private authService: AuthenticationService) {
+   }
 
   ngOnInit(): void {
+    this.player = this.authService.getPlayer(this.authService.id).subscribe(
+      (res) => {
+        console.log(res)
+        this.player = res
+        console.log(this.player)
+      }
+    )
     this.tournamentService.testTournament().subscribe(
       res => {
         this.tournament = res;
         this.getMatchesPerRound(this.tournament);
-        console.log(this.matches)
-        console.log(this.final);
       }
     )
-    
+    console.log(this.player, "3");
+
   }
 
   getMatchesPerRound(tournament: any) {

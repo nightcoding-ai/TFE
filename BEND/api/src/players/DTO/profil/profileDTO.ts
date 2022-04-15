@@ -13,5 +13,4 @@ export class ProfileDTO {
     role: RoleEnum;
     rank: RankEnum;
     isCaptain?: boolean;
-
 }

@@ -1,0 +1,33 @@
+<div class="newTournament">
+  <form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-label>Nom du tournoi</mat-label>
+            <input matInput placeholder="Nouveau tournoi..." formControlName="name">
+        </mat-form-field>
+        <mat-label>Nombre de participants</mat-label>
+        <mat-radio-group formControlName="seed" >
+            <mat-radio-button value="4">4 participants</mat-radio-button>
+            <mat-radio-button value="8">8 participants</mat-radio-button>
+            <mat-radio-button value="16">16 participants</mat-radio-button>
+        </mat-radio-group>
+        <mat-label>Date de début</mat-label>
+        <input matInput [matDatepicker]="startDate" formControlName="startDate">
+        <mat-hint>JJ/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+        <mat-label>Date de fin</mat-label>
+        <input matInput [matDatepicker]="endDate" formControlName="endDate">
+        <mat-hint>JJ/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+        <button [disabled]="!tournamentForm.valid" type="submit" mat-stroked-button>Créer</button>
+    </form>
+    <div class="addTeams">
+        <ul>
+            <li *ngFor="let team of teams">
+                <span>{{ team.name }}</span>
+                <span>{{ team.abbreviation }}</span>
+            </li>
+        </ul>
+    </div>
+</div>

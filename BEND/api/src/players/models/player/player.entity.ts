@@ -12,7 +12,7 @@ export class Player {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 40 })
+    @Column({ length: 40, unique: true })
     name: string;
 
     @Column({enum: UserType, default: UserType.USER})

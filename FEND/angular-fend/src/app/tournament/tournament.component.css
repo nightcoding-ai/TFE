@@ -91,6 +91,11 @@ li {
     border-bottom: 1px solid white;
 }
 
+.fightScheduleAdmin:hover {
+    background-color: var(--firstColor);
+    transition: ease-in 0.2s;
+}
+
 .fightSchedule img {
     width: 70px;
     height: 70px;

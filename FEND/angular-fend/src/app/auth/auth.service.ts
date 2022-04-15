@@ -31,6 +31,7 @@ export class AuthenticationService {
 
     private _token: string;
     private _user: any;
+    private _player: any;
 
     get token() {
         if (!this._token) {
@@ -50,12 +51,12 @@ export class AuthenticationService {
             if (!this.token) {
                 return null;
             }
-
-            this._user = (new JwtHelperService()).decodeToken(this.token);
+        this._user = (new JwtHelperService()).decodeToken(this.token);
         }
-
         return this._user;
     }
+
+    
 
     get id() {
         return this.user?.id;
@@ -77,8 +78,8 @@ export class AuthenticationService {
         return !!localStorage.getItem('player-auth');
     }
 
-    getProfile(){
-        return this.http.get<any>("http://localhost:3000/api/profile");
+    getPlayer(idPlayer: number){
+        return  this.http.get<any>(`http://localhost:3000/api/players/single/${idPlayer}`);
     }
 
    

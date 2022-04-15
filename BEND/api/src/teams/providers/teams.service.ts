@@ -19,7 +19,6 @@ export class TeamsService {
 
         private readonly PlayerRepository: PlayerRepository,
 
-        private readonly ProfileRepository: ProfileRepository
         
 
     ){}
@@ -122,7 +121,7 @@ export class TeamsService {
         }
     }
 
-    async getTeam(idTeam: number): Promise<TeamDTO> {
+    async getTeam(idTeam: number): Promise<Team> {
         try{
 
             const team = await this.TeamRepository.getTeam(idTeam);

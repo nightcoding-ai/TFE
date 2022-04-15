@@ -3,6 +3,8 @@ import { PlayersService } from 'src/players/providers/player/player.service';
 import { JwtService } from '@nestjs/jwt';
 import { PlayerDTO } from 'src/players/DTO/player/playerDTO';
 import { AuthDTO } from './DTO/authDTO';
+import { PlayerInterface } from '../players/interfaces/player.interface';
+import { Player } from '../players/models/player/player.entity';
 const argon2 = require('argon2');
 
 
@@ -12,7 +14,7 @@ export class AuthService {
         private playersService: PlayersService,
         private jwtService: JwtService) {}
 
-    async validatePlayer(name: string, pass: string): Promise<PlayerDTO> {
+    async validatePlayer(name: string, pass: string): Promise<Player> {
 
         const player = await this.playersService.getOneByName(name);
 

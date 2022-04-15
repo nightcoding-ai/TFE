@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { forkJoin, Observable } from 'rxjs';
-import { PlayerInterface } from '../interfaces/player.interface';
 import { AdminPannelService } from './admin-pannel.service';
 
 @Component({

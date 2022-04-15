@@ -90,7 +90,7 @@ export class TeamRepository extends Repository<Team> {
         return teamsWithFreePlaces;
     }
 
-    async getTeam(idTeam: number): Promise<TeamInterface> {
+    async getTeam(idTeam: number): Promise<Team> {
         const teamRepo = getRepository(Team);
 
         return await teamRepo.findOne(idTeam, {relations: ["players"]});

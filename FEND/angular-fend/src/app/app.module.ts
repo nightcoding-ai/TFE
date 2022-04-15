@@ -40,8 +40,11 @@ import { InvitedPlayersComponent } from './teams/invited-players/invited-players
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatOptionModule } from '@angular/material/core';
+import { MatOptionModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { SetascaptainComponent } from './teams/setascaptain/setascaptain.component';
 import { JoinrequestlistComponent } from './teams/joinrequestlist/joinrequestlist.component';
@@ -57,6 +60,7 @@ import { TournamentViewComponent } from './tournament/tournament-view/tournament
 import { TournamentMatchesScheduleComponent } from './tournament/tournament-matches-schedule/tournament-matches-schedule.component';
 import { CurrentTournamentComponent } from './tournament/current-tournament/current-tournament.component';
 import { SafeHTMLPipe } from './safe-html.pipe';
+import { MatButtonModule } from '@angular/material/button';
 
 
 export function tokenGetter() {
@@ -137,6 +141,10 @@ export function tokenGetter() {
     MatSortModule,
     MatPaginatorModule,
     MatCardModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule
 
   ],
   providers: [
@@ -145,6 +153,8 @@ export function tokenGetter() {
       useClass: AuthInterceptorService,
       multi: true
     },
+    { provide: MAT_DATE_LOCALE,
+      useValue: 'fr-FR'}
   ],
   bootstrap: [AppComponent]
 })

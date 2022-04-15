@@ -13,7 +13,4 @@ export class CreatePlayerDTO {
     userType: UserType;
     name: string;
     profile: CreateProfileDTO;
-    team?: Team;
-    invitations? : TeamInvitation[];
-    joinRequests? : JoinRequest[];
 }
