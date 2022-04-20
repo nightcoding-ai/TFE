@@ -81,7 +81,7 @@ export class TeamComponent implements OnInit {
 
   tokenDecoded : any;
 
-  player: PLayerDTO;
+  player: any;
 
   joinRequests: any;
 
@@ -107,7 +107,7 @@ export class TeamComponent implements OnInit {
   ngOnInit(): void {
     this.getTeam(this.idTeam).subscribe((res) => { 
       this.team = res
-      if(token && this.team && this.player && this.player.profile.isCaptain && this.team.id === this.player.team.id){
+      if(token && this.team && this.player && this.player.isCaptain && this.team.id === this.player.team.id){
         this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
           (res) => {
             console.log('Requêtes équipe',res);
@@ -129,7 +129,7 @@ export class TeamComponent implements OnInit {
 
   getPlayerByRole(role: RoleEnum){
     
-    return this.team.players.find((player) => player.profile.role === role)
+    return this.team.players.find((player) => player.role === role)
     
   
   }
@@ -181,7 +181,7 @@ export class TeamComponent implements OnInit {
   }
 
   onOpenDialogSetAsCaptain(idPlayer: any, playerName: any){
-    if(this.player.profile.isCaptain && idPlayer !== this.player.id){
+    if(this.player.isCaptain && idPlayer !== this.player.id){
       this.dialog.open(SetascaptainComponent, { data: {
       id: idPlayer,
       name: playerName

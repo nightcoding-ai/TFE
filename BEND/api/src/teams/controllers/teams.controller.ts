@@ -1,13 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
-import { FileInterceptor } from "@nestjs/platform-express";
-import { userInfo } from "os";
-import { Observable } from "rxjs";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
-import { JwtStrategy } from "src/auth/strategy/jwt.strategy";
 import { Player } from "src/players/models/player/player.entity";
 import { DeleteResult, UpdateResult } from "typeorm";
-import { runInThisContext } from "vm";
+import { FullTeamDTO } from "../DTO/fullTeamDTO";
+import { NotFullTeamDTO } from "../DTO/notFullTeamDTO";
 import { TeamDTO } from "../DTO/teamDTO";
+import { TeamWithLogoDTO } from "../DTO/teamWithLogoDTO";
 import { TeamInterface } from "../interfaces/teams.interface";
 import { Team } from "../models/teams.entity";
 import { TeamsService } from "../providers/teams.service";
@@ -24,10 +22,8 @@ export class TeamsController {
     @UseGuards(JwtAuthGuard)
     @Post('')
     addTeam(
-        @Req() req: any): Promise<void> {
+        @Req() req: any): Promise<TeamInterface> {
         return this.TeamService.create(req.user.playerID, req.body);
-         
-        
     }
 
     @UseGuards(JwtAuthGuard)
@@ -40,18 +36,19 @@ export class TeamsController {
     @UseGuards(JwtAuthGuard)
     @Post('setas_captain')
     setAsCaptain(
-        @Req() req:any): Promise<void> {
+        @Req() req:any): Promise<Player> {
         return this.TeamService.setAsCaptain(req.user.playerID, req.body.idPlayer);
     }
     
     @Get()
-    getAllWithLogos(): Promise<TeamInterface[]> {
+    getAllWithLogos(): Promise<TeamWithLogoDTO[]> {
         return this.TeamService.getAllWithLogos();
     }
+
     @UseGuards(JwtAuthGuard)
     @Get('all')
     getAll(
-        @Req() req:any): Promise<TeamInterface[]> {
+        @Req() req:any): Promise<TeamDTO[] | null> {
         return this.TeamService.getAll(req.user.playerID);
     }
 
@@ -62,12 +59,12 @@ export class TeamsController {
     }
 
     @Get('full')
-    getFullTeams(): Promise<TeamInterface[]> {
+    getFullTeams(): Promise<FullTeamDTO[]> {
         return this.TeamService.getFullTeams();
     }
 
     @Get('not_full')
-    getNotFullTeams(): Promise<TeamInterface[]> {
+    getNotFullTeams(): Promise<NotFullTeamDTO[]> {
         return this.TeamService.getNotFullTeams();
     }
 
@@ -86,23 +83,21 @@ export class TeamsController {
     getTeam(
         @Param('id') id: string): Promise<Team> {
         return this.TeamService.getTeam(parseInt(id));
-        }
+    }
 
     @UseGuards(JwtAuthGuard)
     @Put('modify')
-    
     updateTeam(
-       
         @Req() req :any ){
         return this.TeamService.updateTeam(req.user.playerID, req.body);
-        }
+    }
 
     @UseGuards(JwtAuthGuard)
     @Delete('delete')
     deleteTeam(
         @Req() req:any): Promise<DeleteResult> {
         return this.TeamService.deleteTeam(req.user.playerID);
-        }
+    }
 
 
 

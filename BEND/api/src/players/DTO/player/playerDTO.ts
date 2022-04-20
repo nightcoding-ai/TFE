@@ -12,9 +12,10 @@ export class PlayerDTO {
     name: string;
     userType?: UserType;
     discord: string;
+    profilPicture?: string;
     ign : string;
     role: RoleEnum;
     rank: RankEnum;
-    teamName: string;
+    teamName?: string;
     deletedAt?: Date;
 }

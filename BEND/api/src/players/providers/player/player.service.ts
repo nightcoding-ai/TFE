@@ -39,7 +39,7 @@ export class PlayersService {
      * Supprimer un joueur de la base de donnée en tant qu'administrateur.
      * @param {number} adminId - l'id du joueur administrateur afin de vérifier si celui-ci a bien le rôle.
      * @param {number} idPlayer - l'id du joueur à supprimer.
-     * @returns {DeleteResult | UnauthorizedException}le résultat après la suppresion du joueur de la base de données.
+     * @returns {DeleteResult | UnauthorizedException} le résultat après la suppresion du joueur de la base de données.
      */
     async delete(adminId: number,idPlayer: number): Promise<DeleteResult | UnauthorizedException> {
         try {
@@ -63,6 +63,7 @@ export class PlayersService {
             }
             let dto = new PlayerDTO();
             dto.id = result.id;
+            dto.profilPicture = result.profile.profilPicture;
             dto.name = result.name;
             dto.discord = result.profile.discord;
             dto.role = result.profile.role;

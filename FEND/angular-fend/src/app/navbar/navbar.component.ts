@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
   faBell = faBell;
   helper = new JwtHelperService();
   tokenDecoded : any;
-  player: PLayerDTO;
+  player: any;
   faEnveloppe = faEnvelope;
   updatePlayerSubject: Subscription;
   notifications : any;
@@ -55,6 +55,7 @@ export class NavbarComponent implements OnInit {
         ]).subscribe(res => {
           this.notifications = res[0];
           this.player = res[1];
+          console.log(this.player)
         });
       }
     });

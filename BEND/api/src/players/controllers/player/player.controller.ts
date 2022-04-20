@@ -65,12 +65,10 @@ export class PlayersController {
         return this.PlayersService.updateProfile(req.user.playerID, id, req.body);
     }
 
-
-
     @UseGuards(JwtAuthGuard)
     @Delete('leave_team')
     leaveTeam(
-    @Req() req:any) {
+        @Req() req:any) {
         return this.PlayersService.leaveTeam(req.user.playerID);
     }
 
