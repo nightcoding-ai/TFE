@@ -15,7 +15,7 @@ import { AuthController } from './auth.controller';
     PassportModule,
     JwtModule.register({
         secret: jwtConstants.secret,
-        signOptions: { expiresIn: '30d'}
+        signOptions: { expiresIn: '30d'} // Le token est aussi long, car l'application n'ayant aucune données sensibles et se veut être une application de logistique, il n'y a donc pas besoin de le raccourcir afin d'éviter à l'utilisateur de devoir se reconnecter à chaque fois.
     })
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, AuthController],

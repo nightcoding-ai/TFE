@@ -1,5 +1,3 @@
-import { TournamentMatch } from "../models/tournamentMatch.entity";
-import { TournamentParticipation } from "../models/tournamentParticipation.entity";
 import { TournamentMatchInterface } from "./tournamentMatch.interface";
 import { TournamentParticipationInterface } from "./tournamentParticipation.interface";
 

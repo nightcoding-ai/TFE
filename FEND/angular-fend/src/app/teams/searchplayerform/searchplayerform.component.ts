@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { faFaceFrown, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { RankEnum } from 'src/app/ranks.enum';
 import { RoleEnum } from 'src/app/roles.enum';
 import { TeamService } from '../team/team.service';
@@ -18,8 +17,6 @@ export class SearchplayerformComponent implements OnInit {
 
   data : any;
   freePlayers: any;
-
-
   faFaceFrown = faFaceFrown;
   faPlus = faPlus;
   faXmark = faXmark;

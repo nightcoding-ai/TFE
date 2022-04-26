@@ -1,12 +1,11 @@
-import { TeamDTO } from "src/teams/DTO/teamDTO";
-import { TournamentMatch } from "../models/tournamentMatch.entity";
+import { TeamDTO } from "../../teams/DTO/teamDTO";
 import { TournamentMatchDTO } from "./tournamentMatchDTO";
 
 export class TournamentDTO {
 
     id?: number;
     name: string;
-    isFinished: Date;
+    areInscriptionsclosed: boolean;
     seed: number;
     startDate: Date;
     endDate: Date;

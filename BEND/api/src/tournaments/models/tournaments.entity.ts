@@ -27,7 +27,7 @@ export class Tournament {
     
     participants: TournamentParticipation[];
 
-    @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.tournament, { eager: true })
+    @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.tournament)
     matches : TournamentMatch[];
  
 }

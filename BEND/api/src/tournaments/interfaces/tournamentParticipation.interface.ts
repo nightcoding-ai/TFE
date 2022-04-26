@@ -1,4 +1,4 @@
-import { TeamInterface } from "src/teams/interfaces/teams.interface";
+import { TeamInterface } from "../../teams/interfaces/teams.interface";
 import { TournamentInterface } from "./tournament.interface";
 
 export interface TournamentParticipationInterface {

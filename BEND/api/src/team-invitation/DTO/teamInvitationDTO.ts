@@ -1,6 +1,6 @@
-import { PlayerDTO } from "src/players/DTO/player/playerDTO";
-import { RoleEnum } from "src/players/enum/role.enum";
-import { TeamDTO } from "src/teams/DTO/teamDTO";
+import { PlayerDTO } from "../../players/DTO/player/playerDTO";
+import { RoleEnum } from "../../players/enum/role.enum";
+import { TeamDTO } from "../../teams/DTO/teamDTO";
 
 export class TeamInvitationDTO{
     

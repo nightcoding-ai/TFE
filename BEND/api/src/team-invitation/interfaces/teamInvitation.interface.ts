@@ -1,6 +1,6 @@
-import { RoleEnum } from "src/players/enum/role.enum";
-import { Player } from "src/players/models/player/player.entity";
-import { Team } from "src/teams/models/teams.entity";
+import { RoleEnum } from "../../players/enum/role.enum";
+import { Player } from "../../players/models/player/player.entity";
+import { Team } from "../../teams/models/teams.entity";
 
 export interface TeamInvitationInterface{
 

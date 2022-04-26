@@ -1,23 +1,14 @@
-import { RoleEnum } from "src/players/enum/role.enum";
-import { Player } from "src/players/models/player/player.entity";
-import { Team } from "src/teams/models/teams.entity";
-
+import { RoleEnum } from "../../players/enum/role.enum";
 
 
 export class JoinRequestDTO {
-    id: number;
 
-    player: Player;
-
-    team: Team;
-
-    Role: RoleEnum;
-
+    id?: number;
+    playerName: string;
+    teamName: string;
+    role: RoleEnum;
     isApproved: boolean;
-
     createdAt: Date;
-
     expiredAt: Date;
-
-    deletedAt: Date;
+    deletedAt?: Date;
 }

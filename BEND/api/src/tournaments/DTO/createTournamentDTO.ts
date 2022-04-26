@@ -1,4 +1,4 @@
-import { Team } from "src/teams/models/teams.entity";
+import { Team } from "../../teams/models/teams.entity";
 import { TournamentMatch } from "../models/tournamentMatch.entity";
 
 export class createTournamentDTO {

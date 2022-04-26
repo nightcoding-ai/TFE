@@ -1,7 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Roboto:wght@400;500&display=swap');
-
 
 :root{
     --teamHover : #c4a55f;
@@ -20,6 +18,7 @@
     --firstColorHover: #0a0a2c;
     --secondColorDarker: #49295a;
     --bodyColorDarker: #e4e4e4;
+    --redColorDarker: #be4040;
 
     --firstColorLighter: #1f1f8b;
     --secondColorLighter: #a05ac5;

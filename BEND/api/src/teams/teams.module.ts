@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JoinRequest } from 'src/join-request/models/joinRequest.entity';
-import { Player } from 'src/players/models/player/player.entity';
-import { Profile } from 'src/players/models/profile/profile.entity';
-import { PlayerRepository } from 'src/players/repository/player/player.repository';
-import { ProfileRepository } from 'src/players/repository/profil/profile.repository';
-import { TeamInvitation } from 'src/team-invitation/models/teamInvitation.entity';
-import { TournamentMatch } from 'src/tournaments/models/tournamentMatch.entity';
-import { TournamentParticipation } from 'src/tournaments/models/tournamentParticipation.entity';
-import { Tournament } from 'src/tournaments/models/tournaments.entity';
+import { JoinRequest } from '../join-request/models/joinRequest.entity';
+import { Player } from '../players/models/player/player.entity';
+import { Profile } from '../players/models/profile/profile.entity';
+import { PlayerRepository } from '../players/repository/player/player.repository';
+import { ProfileRepository } from '../players/repository/profil/profile.repository';
+import { TeamInvitation } from '../team-invitation/models/teamInvitation.entity';
+import { TournamentMatch } from '../tournaments/models/tournamentMatch.entity';
+import { TournamentParticipation } from '../tournaments/models/tournamentParticipation.entity';
+import { Tournament } from '../tournaments/models/tournaments.entity';
+import { TournamentRepository } from '../tournaments/repositories/tournament.repository';
+import { TournamentMatchRepository } from '../tournaments/repositories/tournamentMatch.repositoy';
+import { TournamentParticipationRepository } from '../tournaments/repositories/tournamentParticipation.repository';
 import { TeamsController } from './controllers/teams.controller';
 import { Team } from './models/teams.entity';
 import { TeamsService } from './providers/teams.service';
@@ -16,7 +19,15 @@ import { TeamRepository } from './repository/teams.repository';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Team, Tournament,Player, Profile, TeamInvitation, TournamentMatch, TournamentParticipation, JoinRequest]),
+        TypeOrmModule.forFeature([Team,
+            Tournament,
+            Player, 
+            Profile, 
+            TeamInvitation, 
+            TournamentMatch, 
+            TournamentParticipation, 
+            JoinRequest
+        ]),
     ],
     controllers: [
         TeamsController
@@ -26,7 +37,10 @@ import { TeamRepository } from './repository/teams.repository';
         TeamsService,
         TeamRepository,
         PlayerRepository,
-        ProfileRepository
+        ProfileRepository,
+        TournamentRepository,
+        TournamentParticipationRepository,
+        TournamentMatchRepository
 
         
     ],

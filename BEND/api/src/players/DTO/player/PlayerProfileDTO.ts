@@ -1,15 +1,19 @@
 import { RankEnum } from "../../enum/rank.enum";
 import { RoleEnum } from "../../enum/role.enum";
 
-export class CreateProfileDTO {
+
+
+
+export class PlayerProfileDTO {
 
     id?: number;
-    email: string;
-    password: string;
-    profilPicture: string;
+    name: string;
+    mail: string;
     discord: string;
-    inGameName: string;
+    profilPicture?: string;
+    ign : string;
     role: RoleEnum;
     rank: RankEnum;
-    isCaptain?: boolean;
+    teamName?: string;
+    deletedAt?: Date;
 }

@@ -64,11 +64,11 @@ export class AdminPannelComponent implements OnInit {
       let player = {};
       player["id"] = arr.id;
       player["name"] = arr.name;
-      player["inGameName"] = arr.profile.inGameName;
-      player["role"] = arr.profile.role;
-      player["rank"] = arr.profile.rank;
-      if(arr.team){
-        player["team"] = arr.team.name;
+      player["inGameName"] = arr.ign;
+      player["role"] = arr.role;
+      player["rank"] = arr.rank;
+      if(arr.teamName){
+        player["team"] = arr.teamName;
       }
       else{
         player["team"] = "Aucune Equipe";

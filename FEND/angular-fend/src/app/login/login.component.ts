@@ -1,12 +1,8 @@
 import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map, switchMap } from 'rxjs';
 import { AuthenticationService } from '../auth/auth.service';
-import { LoginService } from './login.service';
-import jwtDecode from 'jwt-decode';
 import { NotificationsService } from '../temp/notifications.service';
-import { Player, Team } from '../teams/teams.interface';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +14,10 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   err: any;
 
-  
-
-
-  constructor(private authService: AuthenticationService,private router: Router, private notificationService: NotificationsService) { }
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router, 
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

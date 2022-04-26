@@ -4,9 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { faPenSquare, faPenToSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
-import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
-import { TeamDTO } from '../DTO/teamDTO';
+import { Player } from '../../interfaces/player.interface';
 import { UpdateTeamDTO } from '../DTO/update-teamDTO';
 import { TeamService } from '../team/team.service';
 
@@ -22,18 +21,11 @@ export class UpdateteamComponent implements OnInit {
     abbreviation: new FormControl(''),
     logo: new FormControl('')
   });
-
-
   helper = new JwtHelperService();
-
   tokenDecoded : any;
-
-  player: PLayerDTO;
-
+  player: Player;
   team : UpdateTeamDTO;
-
   logoBase64: any;
-
   faXmark = faXmark;
   faPenSquare = faPenToSquare;
 
@@ -42,13 +34,12 @@ export class UpdateteamComponent implements OnInit {
     private profilePlayerService: ProfilePlayerService,
     private dialogRef: MatDialogRef<UpdateteamComponent>
   ) {}
+
   ngOnInit(): void {
 
-    let token = this.authService.getToken();
-
+    let token = this.authService.token;
     if(token){
       this.getDecodedAccesToken(token);
-
       this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
         (res) => {
           console.log("Informations du joueur reçues : ", res)
@@ -61,41 +52,39 @@ export class UpdateteamComponent implements OnInit {
     }
   }
 
-  close(){
+  close(): void {
     this.dialogRef.close();
   }
 
-  getDecodedAccesToken(tokenToDecode: string): any {
+  getDecodedAccesToken(tokenToDecode: string): any | null {
     try {
       this.tokenDecoded = this.helper.decodeToken(tokenToDecode);
       return this.tokenDecoded;
-      
-    } catch(err) {
+    }
+    catch(err) {
       return null;
     }
 
   }
 
-  initializeForm() {
+  initializeForm(): void {
     this.updateTeamForm.setValue({
         name: this.team.name,
         abbreviation: this.team.abbreviation,
         logo: ''
-    })
+    });
   }
 
-  handleUpload(event: any) {
+  handleUpload(event: any): void {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
         this.logoBase64 = reader.result;
-        
     };
   }
 
-
-  onSubmit(){
+  onSubmit(): any {
     if(this.updateTeamForm.invalid) {
       return alert("Bad form");
     }
@@ -114,5 +103,4 @@ export class UpdateteamComponent implements OnInit {
       }
     )
   }
-
 }

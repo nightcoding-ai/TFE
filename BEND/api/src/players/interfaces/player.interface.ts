@@ -1,7 +1,6 @@
-import { TeamDTO } from "src/teams/DTO/teamDTO";
+import { TeamDTO } from "../../teams/DTO/teamDTO";
 import { ProfileDTO } from "../DTO/profil/profileDTO";
 import { UserType } from "../enum/userType.enum";
-import { Profile } from "../models/profile/profile.entity";
 
 export interface PlayerInterface{
 

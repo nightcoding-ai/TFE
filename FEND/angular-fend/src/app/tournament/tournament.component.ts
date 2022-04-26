@@ -30,7 +30,6 @@ export class TournamentComponent implements OnInit {
         this.getMatchesPerRound(this.tournament);
       }
     )
-    console.log(this.player, "3");
 
   }
 

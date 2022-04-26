@@ -1,5 +1,4 @@
 import { getRepository, Repository, UpdateResult } from "typeorm";
-import { TournamentMatchInterface } from "../interfaces/tournamentMatch.interface";
 import { TournamentMatch } from "../models/tournamentMatch.entity";
 
 
@@ -8,18 +7,18 @@ import { TournamentMatch } from "../models/tournamentMatch.entity";
 
 export class TournamentMatchRepository extends Repository<TournamentMatch> {
 
-     createOne(match: TournamentMatchInterface): Promise<TournamentMatchInterface> {
+     createOne(match: TournamentMatch): Promise<TournamentMatch> {
         const tournamentMatchRepo = getRepository(TournamentMatch);
-        return  tournamentMatchRepo.save(match);
+        return tournamentMatchRepo.save(match);
     }
 
-     saveOne(match: TournamentMatchInterface): Promise<TournamentMatchInterface> {
+     saveOne(match: TournamentMatch): Promise<TournamentMatch> {
         const tournamentMatchRepo = getRepository(TournamentMatch);
-        return  tournamentMatchRepo.save(match);
+        return tournamentMatchRepo.save(match);
     }
 
     
-     getOne(matchId: number): Promise<TournamentMatch> {
+    getOne(matchId: number): Promise<TournamentMatch> {
         const tournamentMatchRepo = getRepository(TournamentMatch);
         return  tournamentMatchRepo.findOne(matchId);
     }
@@ -29,7 +28,7 @@ export class TournamentMatchRepository extends Repository<TournamentMatch> {
         return await tournamentMatchRepo.update(matchId, matchScoreUpdated);
     }
 
-     getAllMatchesForARound(tournamentId: number, round: number): Promise<TournamentMatchInterface[]> {
+    getAllMatchesForARound(tournamentId: number, round: number): Promise<TournamentMatch[]> {
         const tournamentMatchRepo = getRepository(TournamentMatch);
         return  tournamentMatchRepo.find({
             where: {
@@ -39,5 +38,18 @@ export class TournamentMatchRepository extends Repository<TournamentMatch> {
                 round: round
             }
         })
+    }
+
+    getAllMatchesOfATeam(teamId: number): Promise<TournamentMatch[]> {
+        const tournamentMatchRepo = getRepository(TournamentMatch);
+        return tournamentMatchRepo.find({
+            where: [
+                { teamA: { id : teamId}},
+                { teamB: { id: teamId}}
+            ],
+            order: { round: "ASC"},
+            relations: ["tournament"]
+        },
+        );
     }
 }

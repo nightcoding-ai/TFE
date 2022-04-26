@@ -1,5 +1,4 @@
-import { TeamInterface } from "src/teams/interfaces/teams.interface";
-import { Team } from "src/teams/models/teams.entity";
+import { TeamInterface } from "../../teams/interfaces/teams.interface";
 import { BestOfTypeEnum } from "../enum/bestOfType.enum";
 import { TournamentInterface } from "./tournament.interface";
 

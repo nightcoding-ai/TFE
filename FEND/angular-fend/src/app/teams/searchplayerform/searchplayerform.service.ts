@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from 'src/app/auth/auth.service';
-import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { RoleEnum } from 'src/app/roles.enum';
 
 @Injectable({

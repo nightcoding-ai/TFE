@@ -1,6 +1,5 @@
-import { RankEnum } from "src/players/enum/rank.enum";
-import { RoleEnum } from "src/players/enum/role.enum";
-import { Player } from "src/players/models/player/player.entity";
+import { RankEnum } from "../../enum/rank.enum";
+import { RoleEnum } from "../../enum/role.enum";
 
 export class ProfileDTO {
 

@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { JoinRequest } from 'src/join-request/models/joinRequest.entity';
-import { JoinRequestRepository } from 'src/join-request/repositories/joinRequest.repository';
-import { TeamInvitation } from 'src/team-invitation/models/teamInvitation.entity';
-import { Team } from 'src/teams/models/teams.entity';
+import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import { JoinRequest } from '../join-request/models/joinRequest.entity';
+import { TeamInvitation } from '../team-invitation/models/teamInvitation.entity';
+import { Team } from '../teams/models/teams.entity';
+import { TournamentRepository } from '../tournaments/repositories/tournament.repository';
+import { TournamentMatchRepository } from '../tournaments/repositories/tournamentMatch.repositoy';
+import { TournamentParticipationRepository } from '../tournaments/repositories/tournamentParticipation.repository';
 import { PlayersController } from './controllers/player/player.controller';
 import { Player } from './models/player/player.entity';
 import { Profile } from './models/profile/profile.entity';
@@ -17,11 +19,13 @@ import { ProfileRepository } from './repository/profil/profile.repository';
 @Module({
     imports: [
         TypeOrmModule.forFeature([
+            PlayerRepository,
             Player, 
             Team, 
             Profile,
             TeamInvitation,
-            JoinRequest,]),
+            JoinRequest,
+        ]),
     ],
     controllers: [
         PlayersController
@@ -30,6 +34,10 @@ import { ProfileRepository } from './repository/profil/profile.repository';
         PlayersService,
         PlayerRepository,
         ProfileRepository,
+        TournamentParticipationRepository,
+        TournamentMatchRepository,
+        TournamentRepository,
+       
         
     ],
     exports: [PlayersService]

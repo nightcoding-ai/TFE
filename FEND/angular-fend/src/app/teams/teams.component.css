@@ -50,10 +50,6 @@ div.teamInfo{
     margin-top: auto;
 }
 
-
-
-
-
 div.teamInfo:hover{
     background-color: white;
     border: 1px solid black;

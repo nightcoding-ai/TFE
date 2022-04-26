@@ -1,13 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import jwtDecode from 'jwt-decode';
 import { AuthenticationService } from '../auth/auth.service';
 import { JwtHelperService} from '@auth0/angular-jwt';
 import { ProfilePlayerService } from './profile-player.service';
-import { Player } from '../teams/teams.interface';
-import { PLayerDTO } from './DTO/playerDTO';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-
 import { RoleEnum } from '../roles.enum';
 import { RankEnum } from '../ranks.enum';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
@@ -21,18 +16,11 @@ import { ModifyProfileComponent } from './modify-profile/modify-profile.componen
 })
 export class ProfilePlayerComponent implements OnInit {
 
-
   helper = new JwtHelperService();
-
   tokenDecoded : any;
-
   faDiscord= faDiscord;
-
-
-  player: PLayerDTO;
-
+  player: any;
   faTriangle = faTriangleExclamation;
-
   roles = [
     RoleEnum.Toplaner, 
     RoleEnum.Jungler, 
@@ -40,14 +28,11 @@ export class ProfilePlayerComponent implements OnInit {
     RoleEnum.ADC, 
     RoleEnum.Support
   ];
-
   rankEnum = RankEnum;
-  
   idTeam: number;
-
   roleEnum = RoleEnum;
 
-  constructor(private http: HttpClient,
+  constructor(
     private authService: AuthenticationService,
     private profilePlayerService: ProfilePlayerService,
     private dialog: MatDialog  ) { }
@@ -55,7 +40,7 @@ export class ProfilePlayerComponent implements OnInit {
   ngOnInit(): void {
     let token = this.authService.getToken();
     this.getDecodedAccesToken(token);
-    this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
+    this.profilePlayerService.getPlayerProfile(this.tokenDecoded.id).subscribe(
       (res) => {
         this.player = res;
       }

@@ -1,13 +1,13 @@
 
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { CreatePlayerDTO } from 'src/players/DTO/player/CreatePlayerDTO';
-import { PlayerDTO } from 'src/players/DTO/player/playerDTO';
-import { PlayerInterface } from 'src/players/interfaces/player.interface';
-import { Player } from 'src/players/models/player/player.entity';
-import { PlayersService } from 'src/players/providers/player/player.service';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { CreatePlayerDTO } from '../../DTO/player/CreatePlayerDTO';
 import { FreePlayerDTO } from '../../DTO/player/freePlayerDTO';
+import { PlayerDTO } from '../../DTO/player/playerDTO';
+import { PlayerProfileDTO } from '../../DTO/player/PlayerProfileDTO';
+import { Player } from '../../models/player/player.entity';
+import { PlayersService } from '../../providers/player/player.service';
 
 @Controller('players')
 export class PlayersController {
@@ -19,18 +19,25 @@ export class PlayersController {
     @Post()
     create(
         @Body() player: CreatePlayerDTO): Promise<Player> {
-        return this.PlayersService.create(player);
+        return this.PlayersService.createAPlayer(player);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('my_profile')
+    getMyProfileInformations(
+        @Req() req: any): Promise<PlayerProfileDTO> {
+        return this.PlayersService.myProfile(req.user.playerID);
     }
 
     @Get('single/:id')
     getOne(
-        @Param('id') idPlayer: number): Promise<PlayerDTO> {
+        @Param('id') idPlayer: number): Promise<Player> {
         return this.PlayersService.getOne(idPlayer);
     }
     
     @Get('all')
     getAll(): Promise<PlayerDTO[]> {
-        return this.PlayersService.getAll();
+        return this.PlayersService.getAllPlayers();
     }
 
     @Get('free')

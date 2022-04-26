@@ -29,7 +29,6 @@ export class NotificationsService {
   }
 
   getNotifications(){
-    console.log(this.authService.token);
     return this.http.get<any>("http://localhost:3000/api/invitations/mine", { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.authService.token}`}});
   }
 

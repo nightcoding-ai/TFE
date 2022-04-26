@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Param, Post, Req, UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
 import { TeamInvitationService } from "../providers/teamInvitation.service";
 
 

@@ -1,17 +1,19 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { UserType } from "src/players/enum/userType.enum";
-import { PlayerRepository } from "src/players/repository/player/player.repository";
 import { DeleteResult, Repository, UpdateResult} from "typeorm";
 import { PlayerDTO } from "../../players/DTO/player/playerDTO";
-import { PlayerInterface } from "../../players/interfaces/player.interface";
+import { UserType } from "../../players/enum/userType.enum";
 import { Player } from "../../players/models/player/player.entity";
+import { PlayerRepository } from "../../players/repository/player/player.repository";
+import { TournamentMatch } from "../../tournaments/models/tournamentMatch.entity";
+import { TournamentRepository } from "../../tournaments/repositories/tournament.repository";
+import { TournamentMatchRepository } from "../../tournaments/repositories/tournamentMatch.repositoy";
+import { TournamentParticipationRepository } from "../../tournaments/repositories/tournamentParticipation.repository";
 import { CreateTeamDTO } from "../DTO/createTeamDTO";
 import { FullTeamDTO } from "../DTO/fullTeamDTO";
 import { NotFullTeamDTO } from "../DTO/notFullTeamDTO";
 import { TeamDTO } from "../DTO/teamDTO";
 import { TeamWithLogoDTO } from "../DTO/teamWithLogoDTO";
 import { TeamInterface } from "../interfaces/teams.interface";
-import { Team } from "../models/teams.entity";
 import { TeamRepository } from "../repository/teams.repository";
 
 @Injectable()
@@ -19,6 +21,9 @@ export class TeamsService {
     constructor(
         private readonly TeamRepository: TeamRepository,
         private readonly PlayerRepository: PlayerRepository,
+        private readonly TournamentRepository: TournamentRepository,
+        private readonly TournamentParticipationRepository: TournamentParticipationRepository,
+        private readonly TournamentMatchRepository: TournamentMatchRepository,
     ) {}
   
     /**
@@ -178,7 +183,6 @@ export class TeamsService {
                 for (const player of team.players) {
                     if(roles.find(role => role === player.profile.role)){
                         takenRoles.push(player.profile.role);
-                        console.log(player.profile.role);
                     }
                 }
                 for (const role of roles) {
@@ -313,8 +317,39 @@ export class TeamsService {
         try{
             const captain = await this.PlayerRepository.getOne(idCaptain);
             const player = await this.PlayerRepository.getOne(idPlayer);
+            const allMatchesOfTeam = await this.TournamentMatchRepository.getAllMatchesOfATeam(player.team.id);
+            const allTournamentsOfTeam = await this.TournamentParticipationRepository.getAllOfATeam(player.team.id);
             if(captain.profile.isCaptain === false || player.profile.isCaptain === true || player.team.id !== captain.team.id){
                 throw new UnauthorizedException();
+            }
+            if(captain.team.players.length === 5 && allMatchesOfTeam) {
+                for (const match of allMatchesOfTeam) {
+                    if(match.teamA.id === player.team.id) {
+                        match.teamAWins = 0;
+                        match.teamBWins = match.bestOfType;
+                        match.winner = match.teamB;
+                        match.isOver = true;
+                    }
+                    if(match.teamB.id === player.team.id) {
+                        match.teamBWins = 0;
+                        match.teamAWins = match.bestOfType;
+                        match.winner = match.teamA;
+                        match.isOver = true;
+                    }
+                    await this.TournamentMatchRepository.saveOne(match);
+                    for (const participation of allTournamentsOfTeam) {
+                        let tournament = await this.TournamentRepository.getOneWithMatches(participation.tournament.id);
+                        let nextMatchForWinner: TournamentMatch = tournament.matches.find(nm => nm.round === match.round + 1 && nm.order === Math.ceil(match.order/2));
+                        if(nextMatchForWinner.teamA === null && nextMatchForWinner.teamB === null) {
+                            nextMatchForWinner.teamA = match.winner;
+                            await this.TournamentMatchRepository.saveOne(nextMatchForWinner);
+                        }
+                        if(nextMatchForWinner.teamA !== null && nextMatchForWinner.teamB === null && nextMatchForWinner.teamA !== match.winner) {
+                            nextMatchForWinner.teamB = match.winner;
+                            await this.TournamentMatchRepository.saveOne(nextMatchForWinner);
+                        }  
+                    }
+                }
             }
             player.team = null;
             await this.PlayerRepository.savePlayer(player);

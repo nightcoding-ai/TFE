@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, RangeValueAccessor, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RankEnum } from '../ranks.enum';
 import { RoleEnum } from '../roles.enum';
-import { Player } from '../teams/teams.interface';
 import { SignUpDTO } from './DTO/signupDTO';
 import { MyErrorStateMatcher } from './myErrorStateMatcher';
 import { SignupService } from './signup.service';
@@ -39,7 +37,9 @@ export class SignupComponent implements OnInit {
   logoBase64: any;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private signupService: SignupService) { }
+  constructor(
+    private signupService: SignupService
+  ) { }
 
   ngOnInit(): void {
 
@@ -80,25 +80,18 @@ export class SignupComponent implements OnInit {
         this.checkPasswords,
         this.checkDiscord],
       })
-    
-    
-  }
-
+  };
   
-  handleUpload(event: any) {
+  handleUpload(event: any): void {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
         this.logoBase64 = reader.result;
-        
     };
   }
 
-  
-
-  onSubmit(){
-      
+  onSubmit(): void {
       if(this.signUpForm.valid){
         this.signUpDTO = new SignUpDTO();
         this.signUpForm.patchValue({profilPicture : this.logoBase64});

@@ -1,10 +1,5 @@
-import { PlayersController } from "src/players/controllers/player/player.controller";
-import { PlayerDTO } from "src/players/DTO/player/playerDTO";
-import { RoleEnum } from "src/players/enum/role.enum";
-import { Player } from "src/players/models/player/player.entity";
-import { TeamDTO } from "src/teams/DTO/teamDTO";
-import { Team } from "src/teams/models/teams.entity";
 import { DeleteResult, getRepository, LessThan, Repository } from "typeorm";
+import { RoleEnum } from "../../players/enum/role.enum";
 import { TeamInvitationDTO } from "../DTO/teamInvitationDTO";
 import { TeamInvitationInterface } from "../interfaces/teamInvitation.interface";
 import { TeamInvitation } from "../models/teamInvitation.entity";
@@ -39,7 +34,6 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
 
     async getAllOfOnePlayer(idPlayer: number): Promise<TeamInvitationInterface[]>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.find({ withDeleted: true,
             where: {
                 player: {
@@ -50,7 +44,6 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
 
     async getAllOfOneTeam(idTeam: number): Promise<TeamInvitationInterface[]>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.find({ withDeleted: true,
             where: {
                 team: {
@@ -61,7 +54,6 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
 
     async deleteAllOfPlayer(idPlayer: number): Promise<DeleteResult>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.softDelete({player: {
                 id: idPlayer
         }})
@@ -69,7 +61,6 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
 
     async deleteAllOfTeam(idTeam: number): Promise<DeleteResult>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.softDelete({team: {
                 id: idTeam
         }})
@@ -81,20 +72,17 @@ export class TeamInvitationRepository extends Repository<TeamInvitation>{
             {role: roleToDelete,
             team: {id: idTeam}}
             });
-    
         return await teamInvRepo.softDelete(allInvOfTeamByRole);
     }
 
     async deleteOne(idNotif: number): Promise<DeleteResult>{
         const teamInvRepo = getRepository(TeamInvitation);
-
         return await teamInvRepo.softDelete(idNotif);
     }
 
     async deleteAllExpiredInvitations(): Promise<DeleteResult>{
         const teamInvRepo = getRepository(TeamInvitation);
         const today = new Date();
-
         return await teamInvRepo.softDelete({expiredAt : LessThan(today)});
     }
 }

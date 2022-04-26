@@ -4,13 +4,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { faAngleDoubleRight, faArrowRightFromBracket, faBan, faCrown, faDigitalTachograph, faPen, faPencilRuler, faPenClip, faPenToSquare, faPlus, faQuestion, faTrashCan, faTriangleExclamation, faUser, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
-import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
 import { RankEnum } from 'src/app/ranks.enum';
 import { RoleEnum } from 'src/app/roles.enum';
-import { CreateTeamFormComponent } from '../create-team-form/create-team-form.component';
 import { DeleteteamformComponent } from '../deleteteamform/deleteteamform.component';
-import { Player, Team, TeamWithPlayers } from '../teams.interface';
 import { TeamsService } from '../teams.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LeaveteamComponent } from '../leaveteam/leaveteam.component';
@@ -18,12 +15,10 @@ import { UpdateteamComponent } from '../updateteam/updateteam.component';
 import { SearchplayerformComponent } from '../searchplayerform/searchplayerform.component';
 import { BanplayerComponent } from '../banplayer/banplayer.component';
 import { JoinTeamFormComponent } from '../join-team-form/join-team-form.component';
-import { NavbarComponent } from 'src/app/navbar/navbar.component';
 import { TeamService } from './team.service';
 import { SetascaptainComponent } from '../setascaptain/setascaptain.component';
-import { InvitedPlayersComponent } from '../invited-players/invited-players.component';
 import { JoinrequestlistComponent } from '../joinrequestlist/joinrequestlist.component';
-import { TeamDTO } from '../DTO/teamDTO';
+import { forkJoin } from 'rxjs';
 
 
 
@@ -34,11 +29,7 @@ import { TeamDTO } from '../DTO/teamDTO';
 })
 export class TeamComponent implements OnInit {
 
-
   invitations: any;
-
-
-
   roles = [
     RoleEnum.Toplaner, 
     RoleEnum.Jungler, 
@@ -46,81 +37,65 @@ export class TeamComponent implements OnInit {
     RoleEnum.ADC, 
     RoleEnum.Support
   ];
-
   rankEnum = RankEnum;
-  
   idTeam: number;
-
   roleEnum = RoleEnum;
-
   faDiscord = faDiscord;
-
   faCrown = faCrown;
-
   faUser = faUser;
-
   faTrianglExclamation = faTriangleExclamation;
-
   faBan = faBan;
-
   faArrowRight = faArrowRightFromBracket;
-
   faPenLine = faPenToSquare;
-
   faTrashCan = faTrashCan;
-
   faQuestion = faQuestion;
-
   faAngles = faAngleDoubleRight;
-
   faPlus = faPlus;
-
   faUserCheck= faUserCheck;
-
   helper = new JwtHelperService();
-
   tokenDecoded : any;
-
   player: any;
-
   joinRequests: any;
-
   team: any;
+  matches: any;
 
- 
-
-  constructor(private route : ActivatedRoute,
-      private teamService:TeamsService,
-      private myTeamservice: TeamService,
-      private authService: AuthenticationService,
-      private profilePlayerService: ProfilePlayerService,
-      private dialog : MatDialog,
+  constructor(
+    private route : ActivatedRoute,
+    private teamService:TeamsService,
+    private myTeamservice: TeamService,
+    private authService: AuthenticationService,
+    private profilePlayerService: ProfilePlayerService,
+    private dialog : MatDialog,
   ) {
     this.route.params.subscribe((data:any) => {
-
       this.idTeam = parseInt(data.id);
-  
     })
-
    }
 
   ngOnInit(): void {
     this.getTeam(this.idTeam).subscribe((res) => { 
       this.team = res
+      if(this.team) {
+        this.myTeamservice.getMatches(this.idTeam).subscribe(
+          (res) => {
+            this.matches = res;
+          }
+        )
+      }
       if(token && this.team && this.player && this.player.isCaptain && this.team.id === this.player.team.id){
         this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
           (res) => {
-            console.log('Requêtes équipe',res);
             this.joinRequests = res;
           }
-        );
+        ); 
       }
+      
     })
-
     let token = this.authService.token;
     if(token){
       this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => this.player = res);
     }
+
   }
 
   getTeam(id: number) {
@@ -128,10 +103,7 @@ export class TeamComponent implements OnInit {
   }
 
   getPlayerByRole(role: RoleEnum){
-    
-    return this.team.players.find((player) => player.role === role)
-    
-  
+    return this.team.players.find((player) => player.profile.role === role)
   }
 
   getDecodedAccesToken(tokenToDecode: string): any {

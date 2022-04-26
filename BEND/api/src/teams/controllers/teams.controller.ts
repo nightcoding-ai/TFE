@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
-import { Player } from "src/players/models/player/player.entity";
 import { DeleteResult, UpdateResult } from "typeorm";
+import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
+import { Player } from "../../players/models/player/player.entity";
 import { FullTeamDTO } from "../DTO/fullTeamDTO";
 import { NotFullTeamDTO } from "../DTO/notFullTeamDTO";
 import { TeamDTO } from "../DTO/teamDTO";
@@ -41,7 +41,7 @@ export class TeamsController {
     }
     
     @Get()
-    getAllWithLogos(): Promise<TeamWithLogoDTO[]> {
+    getAllWithLogos(): Promise<TeamWithLogoDTO[] | null> {
         return this.TeamService.getAllWithLogos();
     }
 
@@ -59,36 +59,36 @@ export class TeamsController {
     }
 
     @Get('full')
-    getFullTeams(): Promise<FullTeamDTO[]> {
+    getFullTeams(): Promise<FullTeamDTO[] | null> {
         return this.TeamService.getFullTeams();
     }
 
     @Get('not_full')
-    getNotFullTeams(): Promise<NotFullTeamDTO[]> {
+    getNotFullTeams(): Promise<NotFullTeamDTO[] | null> {
         return this.TeamService.getNotFullTeams();
     }
 
     @Get('with/:nbr')
     getTeamsWithPrecisedNumberOfPlayer(
-        @Param('nbr') nbr: string): Promise<TeamInterface[]>{
+        @Param('nbr') nbr: string): Promise<TeamInterface[] | null>{
         return this.TeamService.getTeamsWithPrecisedNumberOfPlayers(nbr);
     }
     @Get('free_slots/:nbr')
     getTeamsWithPrecisedFreePlaces(
-        @Param('nbr') nbr: string): Promise<TeamInterface[]>{
+        @Param('nbr') nbr: string): Promise<TeamInterface[] | null>{
         return this.TeamService.getTeamsWithPrecisedFreePlaces(nbr);
     }
 
     @Get('single/:id')
     getTeam(
-        @Param('id') id: string): Promise<Team> {
+        @Param('id') id: string): Promise<Team | undefined> {
         return this.TeamService.getTeam(parseInt(id));
     }
 
     @UseGuards(JwtAuthGuard)
     @Put('modify')
     updateTeam(
-        @Req() req :any ){
+        @Req() req :any ): Promise<UpdateResult> {
         return this.TeamService.updateTeam(req.user.playerID, req.body);
     }
 

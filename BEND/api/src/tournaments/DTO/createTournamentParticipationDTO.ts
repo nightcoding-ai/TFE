@@ -1,4 +1,4 @@
-import { TeamDTO } from "src/teams/DTO/teamDTO";
+import { TeamDTO } from "../../teams/DTO/teamDTO";
 import { TournamentDTO } from "./tournamentDTO";
 
 export class TournamentParticipationDTO {

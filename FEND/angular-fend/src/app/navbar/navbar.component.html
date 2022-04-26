@@ -32,11 +32,9 @@
               <a class="dropdownBasic1" ngbDropdownToggle >Tournois</a>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu">
                 <a ngbDropdownItem routerLink="/tournaments" >Tournois</a>
-                <a ngbDropdownItem routerLink="/tournaments/now">Tournoi actuel</a>
                 <ng-container *ngIf="getAuthUser();">
                   <ng-container *ngIf="player">
                     <a ngbDropdownItem *ngIf="player.userType === userTypes.admin" routerLink="/tournaments/create">Créer un tournoi</a>
-                  
                   </ng-container>
                 </ng-container>
               </div>
@@ -52,9 +50,9 @@
       </ul> 
       <ul class="navbar-nav  ms-auto" *ngIf="getAuthUser(); else loggedOut">
         <div ngbDropdown class="profile" *ngIf="player">
-          <a class="dropdownBasic1" ngbDropdownToggle *ngIf="player" >
-            <img src="../../assets/ndls_white.png" class="profilePicture noPp" alt="profilePicture" *ngIf="!player.profilPicture" style="width: 35px; height: 35px;"> 
-            <img src="{{player.profilPicture}}" style="width: 35px; height: 35px;" *ngIf="player.profilPicture">{{ player.name }} 
+          <a class="dropdownBasic1" ngbDropdownToggle *ngIf="player.profile.profilPicture" >
+            <img src="../../assets/ndls_white.png" class="profilePicture noPp" alt="profilePicture" *ngIf="!player.profile.profilPicture" style="width: 35px; height: 35px;"> 
+            <img src="{{player.profile.profilPicture}}" style="width: 35px; height: 35px;" *ngIf="player.profile.profilPicture">{{ player.name }} 
           </a>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu" *ngIf="getAuthUser();" >
             <a ngbDropdownItem routerLink="/profile"  (click)="isMenuCollapsed = true"><fa-icon [icon]="faGear" style="margin-right: 5px;"></fa-icon>profil</a>
@@ -75,7 +73,7 @@
               <ul id="listOfNotifications">
                 <ng-container *ngIf="player && notifications"> 
                 <li class="notifElement" *ngFor="let notification of notifications"> 
-                  L'équipe {{ notification.team.name | uppercase }} voudrait vous recruter pour le rôle de  {{ player.role | uppercase }}
+                  L'équipe {{ notification.team.name | uppercase }} voudrait vous recruter pour le rôle de  {{ player.profile.role | uppercase }}
                   <div class="buttons">
                     <button class="btn btn-primary" (click)="OnAcceptOffer(notification)">Accepter</button>
                     <button class="btn btn-danger" (click)="OnDeclineOffer(notification.id)">Décliner</button><br>                    

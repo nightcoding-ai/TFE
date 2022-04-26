@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminPannelService } from 'src/app/admin-pannel/admin-pannel.service';
-import { Team } from 'src/app/teams/teams.interface';
+import { Team } from '../../interfaces/team.interface';
 
 @Component({
   selector: 'app-create-tournament-form',

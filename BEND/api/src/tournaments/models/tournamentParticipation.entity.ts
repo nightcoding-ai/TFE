@@ -1,5 +1,5 @@
-import { Team } from "src/teams/models/teams.entity";
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Team } from "../../teams/models/teams.entity";
 import { Tournament } from "./tournaments.entity";
 
 

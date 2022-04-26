@@ -1,7 +1,8 @@
-import { Team } from "src/teams/models/teams.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Team } from "../../teams/models/teams.entity";
 import { BestOfTypeEnum } from "../enum/bestOfType.enum";
 import { Tournament } from "./tournaments.entity";
+
 
 
 @Entity()
@@ -36,7 +37,7 @@ export class TournamentMatch{
     @Column({ default: 0 })
     teamBWins: number;
 
-    @ManyToOne(() => Team, team => team.matchesWon, { nullable: true })
+    @ManyToOne(() => Team, team => team.matchesWon, { eager: true, nullable: true })
     @JoinColumn()
     winner: Team;
 

@@ -1,18 +1,13 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-
-import {MenubarModule} from 'primeng/menubar';
-import {MenuItem} from 'primeng/api';
 import { faBars, faBell, faEnvelope, faGear, faScrewdriverWrench, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../auth/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { PLayerDTO } from '../profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from '../profile-player/profile-player.service';
 import { forkJoin, Subject, Subscription } from 'rxjs';
 import { MatBadgeModule } from '@angular/material/badge';
-import { TeamService } from '../teams/team/team.service';
 import { NotificationsService } from '../temp/notifications.service';
-import { userTypeEnum } from '../userType.enum';
+import { Player } from '../interfaces/player.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -29,7 +24,7 @@ export class NavbarComponent implements OnInit {
   faBell = faBell;
   helper = new JwtHelperService();
   tokenDecoded : any;
-  player: any;
+  player: Player;
   faEnveloppe = faEnvelope;
   updatePlayerSubject: Subscription;
   notifications : any;
@@ -42,12 +37,15 @@ export class NavbarComponent implements OnInit {
     user: 'user'
   };
   
-  constructor(public authService: AuthenticationService, private router: Router, private profilePlayerService: ProfilePlayerService, private teamService: TeamService, private notificationService: NotificationsService) { }
+  constructor(
+    public authService: AuthenticationService,
+    private router: Router,
+    private profilePlayerService: ProfilePlayerService, 
+    private notificationService: NotificationsService
+  ) { }
 
   ngOnInit(): void {
-   
     this.authService._isLoggedIn$.asObservable().subscribe(loggedIn => {
-      console.log(loggedIn);
       if(loggedIn){
         forkJoin([
           this.notificationService.getNotifications(),
@@ -55,17 +53,14 @@ export class NavbarComponent implements OnInit {
         ]).subscribe(res => {
           this.notifications = res[0];
           this.player = res[1];
-          console.log(this.player)
+
         });
       }
     });
-    console.log(this.userTypes);
   }
 
-  getAuthUser() {
-
-    let token = this.authService.getToken();
-
+  getAuthUser(): string {
+    let token = this.authService.token;
     if(token){
       this.getDecodedAccesToken(token);
       if(this.player && this.player.id !== this.tokenDecoded.id){
@@ -75,19 +70,16 @@ export class NavbarComponent implements OnInit {
       }
     }
     return token;
-
   }
   
-  
-  getDecodedAccesToken(tokenToDecode: string): any {
+  getDecodedAccesToken(tokenToDecode: string): any | null {
     try {
       this.tokenDecoded = this.helper.decodeToken(tokenToDecode);
       return this.tokenDecoded;
-      
-    } catch(err) {
+    } 
+    catch(err) {
       return null;
     }
-
   }
 
   myTeamSelect(teamId: number){
@@ -110,7 +102,4 @@ export class NavbarComponent implements OnInit {
   onLogOut(){
     return this.authService.logout();
   }
-
-  
-  
 }

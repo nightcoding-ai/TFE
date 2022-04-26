@@ -1,37 +1,34 @@
-*{
+* {
     color: var(--firstColorDarker);
 }
 
-div.players{
+div.players {
     margin: auto;
     width: 90%;
 }
 
-
-mat-header-cell{
+mat-header-cell {
     padding: 10px;
     background-color: var(--firstColorDarker);
     color:white;
     border-bottom: solid 3px var(--secondColor);
 }
 
-mat-cell{
+mat-cell {
     padding: 10px;
     width: max-content;
     cursor: pointer;
  
 }
 
-mat-row:hover{
+mat-row:hover {
     background-color: rgb(237, 237, 237);
 }
 
-mat-paginator{
+mat-paginator { 
     background-color: var(--secondColor);
     color: white;
 }
-
-
 
 ::ng-deep .mat-sort-header-arrow {
     color: white;

@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthenticationService } from 'src/app/auth/auth.service';
-import { PLayerDTO } from 'src/app/profile-player/DTO/playerDTO';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
 import { CreateTeamFormService } from './create-team-form.service';
-import { MatFormField } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-create-team-form',
@@ -15,10 +10,7 @@ import { MatFormField } from '@angular/material/form-field';
 })
 export class CreateTeamFormComponent implements OnInit {
 
-  
-
   logoBase64: any;
-
   teamForm: FormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -30,18 +22,17 @@ export class CreateTeamFormComponent implements OnInit {
       Validators.maxLength(3)
     ]),
     logo: new FormControl('')
-  })
+  });
 
-
-  
-
-  constructor(private createTeamService: CreateTeamFormService, private playerService: ProfilePlayerService) { }
+  constructor(
+    private createTeamService: CreateTeamFormService, 
+  ) { }
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
-  initializeForm() {
+  initializeForm(): void {
     this.teamForm.setValue({
         name: null,
         abbreviation: null,
@@ -49,17 +40,17 @@ export class CreateTeamFormComponent implements OnInit {
     })
   }
 
-  onSubmit(){
+  onSubmit(): void | null{
     if(this.teamForm.invalid){
       console.log("Form is invalid.");
-      return;
+      return null;
     }
+    console.log(this.logoBase64);
     this.teamForm.patchValue({logo : this.logoBase64});
     this.createTeamService.createTeam(this.teamForm.value);
-
   };
 
-  handleUpload(event: any) {
+  handleUpload(event: any): void {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -68,7 +59,4 @@ export class CreateTeamFormComponent implements OnInit {
         
     };
   }
-
- 
-
 }

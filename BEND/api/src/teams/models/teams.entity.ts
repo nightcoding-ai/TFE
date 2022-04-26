@@ -1,10 +1,10 @@
-import { Player } from "src/players/models/player/player.entity";
-import { JoinRequest } from "src/join-request/models/joinRequest.entity";
-import { TeamInvitation } from "src/team-invitation/models/teamInvitation.entity";
-import { TournamentMatch } from "src/tournaments/models/tournamentMatch.entity";
-import { TournamentParticipation } from "src/tournaments/models/tournamentParticipation.entity";
-import { Tournament } from "src/tournaments/models/tournaments.entity";
-import { Column, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { JoinRequest } from "../../join-request/models/joinRequest.entity";
+import { Player } from "../../players/models/player/player.entity";
+import { TeamInvitation } from "../../team-invitation/models/teamInvitation.entity";
+import { TournamentMatch } from "../../tournaments/models/tournamentMatch.entity";
+import { TournamentParticipation } from "../../tournaments/models/tournamentParticipation.entity";
+
 
 
 @Entity()
@@ -44,9 +44,5 @@ export class Team {
 
     @DeleteDateColumn()
     deletedAt?: Date;
-  
-
-
-    
 
 }  

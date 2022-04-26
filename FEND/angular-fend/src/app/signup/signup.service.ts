@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
-import { Player } from '../teams/teams.interface';
 import { SignUpDTO } from './DTO/signupDTO';
 
 @Injectable({

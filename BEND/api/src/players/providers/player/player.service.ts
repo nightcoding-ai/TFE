@@ -1,14 +1,20 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CreatePlayerDTO } from 'src/players/DTO/player/CreatePlayerDTO';
-import { PlayerDTO } from 'src/players/DTO/player/playerDTO';
-import { ProfileDTO } from 'src/players/DTO/profil/profileDTO';
-import { Player } from 'src/players/models/player/player.entity';
-import { PlayerRepository } from 'src/players/repository/player/player.repository';
-import { ProfileRepository } from 'src/players/repository/profil/profile.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { TournamentMatch } from '../../../tournaments/models/tournamentMatch.entity';
+import { TournamentRepository } from '../../../tournaments/repositories/tournament.repository';
+import { TournamentMatchRepository } from '../../../tournaments/repositories/tournamentMatch.repositoy';
+import { TournamentParticipationRepository } from '../../../tournaments/repositories/tournamentParticipation.repository';
+import { CreatePlayerDTO } from '../../DTO/player/CreatePlayerDTO';
 import { FreePlayerDTO } from '../../DTO/player/freePlayerDTO';
+import { PlayerDTO } from '../../DTO/player/playerDTO';
+import { PlayerProfileDTO } from '../../DTO/player/PlayerProfileDTO';
+import { ProfileDTO } from '../../DTO/profil/profileDTO';
 import { RoleEnum } from '../../enum/role.enum';
 import { UserType } from '../../enum/userType.enum';
+import { Player } from '../../models/player/player.entity';
+import { PlayerRepository } from '../../repository/player/player.repository';
+import { ProfileRepository } from '../../repository/profil/profile.repository';
 const argon2 = import('argon2');
 
 @Injectable()
@@ -16,15 +22,18 @@ export class PlayersService {
 
     constructor(
         private readonly PlayerRepo : PlayerRepository,
-        private readonly ProfileRepo : ProfileRepository
+        private readonly ProfileRepo : ProfileRepository,
+        private readonly TournamentMatchRepo : TournamentMatchRepository,
+        private readonly TournamentParticipationRepo : TournamentParticipationRepository,
+        private readonly TournamentRepo : TournamentRepository
     ){ }
 
     /**
-     * Permet la création d'un nouveau
+     * Permet la création d'un nouveau joueur.
      * @param {CreatePlayerDTO} newPlayer - L'objet représentant un nouveau joueur.
      * @returns {Player} le résultat après la création du joueur dans la base de données.
      */
-    async create(newPlayer: CreatePlayerDTO): Promise<Player> {
+    async createAPlayer(newPlayer: CreatePlayerDTO): Promise<Player> {
         try {
             const hash =  await (await argon2).hash(newPlayer.profile.password);
             newPlayer.profile.password = hash;
@@ -55,22 +64,34 @@ export class PlayersService {
      * @param {number} idPlayer - L'id du joueur à trouver dans la base de donnée.
      * @returns {PlayerDTO | undefined} le résultat après avoir trouvé le joueur ou renvoie {undefined} si aucun joueur n'a été trouvé.
      */
-    async getOne(idPlayer: number): Promise<PlayerDTO  | undefined> {
+    async getOne(idPlayer: number): Promise<Player  | undefined> {
         try {
             const result = await this.PlayerRepo.getOne(idPlayer);
             if(!result) { 
                 return undefined;
             }
-            let dto = new PlayerDTO();
+            
+            return result;
+        }
+        catch(err) {
+            throw err;
+        }
+    }
+
+    async myProfile(idPlayer: number): Promise<PlayerProfileDTO | undefined> {
+        try {
+            const result = await this.PlayerRepo.getOne(idPlayer);
+            if(!result) {
+                return undefined;
+            }
+            const dto: PlayerProfileDTO = new PlayerProfileDTO();
             dto.id = result.id;
-            dto.profilPicture = result.profile.profilPicture;
             dto.name = result.name;
+            dto.mail = result.profile.email;
             dto.discord = result.profile.discord;
+            dto.ign = result.profile.inGameName;
             dto.role = result.profile.role;
             dto.rank = result.profile.rank;
-            if(result.team){
-                dto.teamName = result.team.name;
-            }
             return dto;
         }
         catch(err) {
@@ -96,7 +117,7 @@ export class PlayersService {
      * Trouver tous les joueurs qui existent dans la base de données.
      * @returns {PlayerDTO[] | undefined} le résultat après avoir trouvé tous les joueurs de la base de données ou renvoie {undefined} si aucun joueur n'existe.
      */
-    async getAll(): Promise<PlayerDTO[] | undefined> {
+    async getAllPlayers(): Promise<PlayerDTO[] | undefined> {
         try {
             const dtoArray: PlayerDTO[] = [];
             const result = await this.PlayerRepo.getAll();
@@ -106,6 +127,7 @@ export class PlayersService {
                     dto.id = item.id;
                     dto.name = item.name;
                     dto.discord = item.profile.discord;
+                    dto.ign = item.profile.inGameName;
                     dto.role = item.profile.role;
                     dto.rank = item.profile.rank;
                     if(item.team) {
@@ -217,6 +239,8 @@ export class PlayersService {
     async leaveTeam(idPlayer: number): Promise<Player> {
         try {
             const player = await this.PlayerRepo.getOne(idPlayer);
+            const allMatchesOfTeam = await this.TournamentMatchRepo.getAllMatchesOfATeam(player.team.id);
+            const allTournamentsOfTeam = await this.TournamentParticipationRepo.getAllOfATeam(player.team.id);
             if(!player || !player.team){
                 throw new UnauthorizedException();
             }
@@ -224,6 +248,36 @@ export class PlayersService {
                 player.team = null;
                 player.profile.isCaptain = false;
                 await this.PlayerRepo.savePlayer(player);
+            }
+            if(player.team.players.length === 5 && allMatchesOfTeam) {
+                for (const match of allMatchesOfTeam) {
+                    if(match.teamA.id === player.team.id) {
+                        match.teamAWins = 0;
+                        match.teamBWins = match.bestOfType;
+                        match.winner = match.teamB;
+                        match.isOver = true;
+                    }
+                    if(match.teamB.id === player.team.id) {
+                        match.teamBWins = 0;
+                        match.teamAWins = match.bestOfType;
+                        match.winner = match.teamA;
+                        match.isOver = true;
+                    }
+                    await this.TournamentMatchRepo.saveOne(match);
+                    for (const participation of allTournamentsOfTeam) {
+                        let tournament = await this.TournamentRepo.getOneWithMatches(participation.tournament.id);
+                        let nextMatchForWinner: TournamentMatch = tournament.matches.find(nm => nm.round === match.round + 1 && nm.order === Math.ceil(match.order/2));
+                        if(nextMatchForWinner.teamA === null && nextMatchForWinner.teamB === null) {
+                            nextMatchForWinner.teamA = match.winner;
+                            await this.TournamentMatchRepo.saveOne(nextMatchForWinner);
+                        }
+                        if(nextMatchForWinner.teamA !== null && nextMatchForWinner.teamB === null && nextMatchForWinner.teamA !== match.winner) {
+                            nextMatchForWinner.teamB = match.winner;
+                            await this.TournamentMatchRepo.saveOne(nextMatchForWinner);
+                        }  
+                    }
+                }
+                
             }
             player.team = null;
             return await this.PlayerRepo.savePlayer(player);

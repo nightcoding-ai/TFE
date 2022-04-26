@@ -1,9 +1,9 @@
-import { PLayerDTO } from "src/app/profile-player/DTO/playerDTO";
+import { Player } from "../../interfaces/player.interface";
 
 export class TeamDTO{
     id?: number;
     name: string;
     abbreviation: string;
     logo: string;
-    players: PLayerDTO[];
+    players: Player[];
 }

@@ -1,7 +1,7 @@
 import { IsEmail } from "class-validator";
-import { RankEnum } from "src/players/enum/rank.enum";
-import { RoleEnum } from "src/players/enum/role.enum";
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { RankEnum } from "../../enum/rank.enum";
+import { RoleEnum } from "../../enum/role.enum";
 import { Player } from "../player/player.entity";
 
 
@@ -27,12 +27,10 @@ export class Profile {
     @Column({ nullable: false })
     inGameName: string;
 
-    @Column({ nullable: false,
-            enum: RoleEnum })
+    @Column({ nullable: false, enum: RoleEnum })
     role: RoleEnum
 
-    @Column({ nullable: true,
-            enum: RankEnum})
+    @Column({ nullable: true, enum: RankEnum})
     rank: RankEnum;
 
     @Column({ nullable: false, default: false})

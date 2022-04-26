@@ -11,7 +11,6 @@
                         <span *ngIf="match.teamA">{{ match.teamA.name | uppercase }}</span>
                         <span  class="score"*ngIf="match.teamA && match.teamB" [ngClass]="{ 'scoreOfWinner': match.teamAWins === match.bestOfType }"> {{ match.teamAWins }}</span>
                         <span  *ngIf="!match.teamA">A déterminer</span>
-                        
                     </li>
                     <li>
                         <ng-container *ngIf="match.teamB">
@@ -21,9 +20,7 @@
                         <span *ngIf="match.teamB">{{ match.teamB.name | uppercase }}</span>
                         <span class="score" *ngIf="match.teamA && match.teamB" [ngClass]="{ 'scoreOfWinner': match.teamBWins === match.bestOfType }"> {{ match.teamBWins }}</span>
                         <span  *ngIf="!match.teamB">A déterminer</span>
-
                     </li>
-
             </ul>
         </div>
         <div *ngIf="final[0].teamA && final[0].teamB">
@@ -38,7 +35,6 @@
             bracket
         </h1>
     </div>
-   
     <div class="schedule">
         <div class="splitSchedule" *ngFor="let round of matches">
             <div class="fightSchedule" *ngFor="let match of round" [ngClass]="{'fightScheduleAdmin': player.userType === 'admin'}">
@@ -69,7 +65,6 @@
                             <span class="bo" *ngSwitchCase="2">BO{{match.bestOfType +1 }}</span>
                             <span class="bo" *ngSwitchCase="3">BO{{match.bestOfType + 2 }}</span>
                             <span>VS</span>
-
                         </ng-container>
                     </div>
                     <img src="../../assets/ndls_white_face.png" alt=""  class="teamLogo">
@@ -80,9 +75,9 @@
                     <img src="../../assets/ndls_white_face.png" alt=""  class="teamLogo">
                     <div class="vs">
                         <ng-container [ngSwitch]="match.bestOfType">
-                            <span class="bo" *ngSwitchCase="1">BO{{match.bestOfType }}</span>
-                            <span class="bo" *ngSwitchCase="2">BO{{match.bestOfType +1 }}</span>
-                            <span class="bo" *ngSwitchCase="3">BO{{match.bestOfType + 2 }}</span>
+                            <span class="bo" *ngSwitchCase="1">BO{{ match.bestOfType }}</span>
+                            <span class="bo" *ngSwitchCase="2">BO{{ match.bestOfType + 1 }}</span>
+                            <span class="bo" *ngSwitchCase="3">BO{{ match.bestOfType + 2 }}</span>
                             <span>VS</span>
                         </ng-container>
                     </div>
@@ -92,5 +87,4 @@
             </div>
         </div>
     </div>
-
 </ng-container>

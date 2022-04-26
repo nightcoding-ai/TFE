@@ -1,17 +1,19 @@
-import { TeamDTO } from "src/teams/DTO/teamDTO";
+import { TeamDTO } from "../../teams/DTO/teamDTO";
 import { BestOfTypeEnum } from "../enum/bestOfType.enum";
 import { TournamentDTO } from "./tournamentDTO";
 
 export class TournamentMatchDTO {
 
-    id: number;
+    id?: number;
     round: number;
     bestOfType: BestOfTypeEnum;
     isOver: boolean;
-    teamA: TeamDTO;
+    teamA: string;
+    teamALogo: string;
     teamAWins: number;
-    teamB: TeamDTO;
+    teamB: string;
+    teamBLogo: string;
     teamBWins: number;
-    winner: TeamDTO;
-    tournament: TournamentDTO;
+    winner: string;
+    tournament: string;
 }

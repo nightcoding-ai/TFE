@@ -1,16 +1,12 @@
-import { ModuleCompiler } from "@nestjs/core/injector/compiler";
-import { PlayerDTO } from "src/players/DTO/player/playerDTO";
-import { RoleEnum } from "src/players/enum/role.enum";
-import { PlayerInterface } from "src/players/interfaces/player.interface";
-import { Player } from "src/players/models/player/player.entity";
-import { Profile } from "src/players/models/profile/profile.entity";
-import { TeamDTO } from "src/teams/DTO/teamDTO";
-import { DeleteResult, getConnection, getRepository, IsNull, Repository, UpdateEvent, UpdateResult } from "typeorm";
-import { isNull } from "util";
+import { DeleteResult, EntityRepository, getConnection, getRepository, IsNull, Repository, UpdateEvent, UpdateResult } from "typeorm";
 import { CreatePlayerDTO } from "../../DTO/player/CreatePlayerDTO";
+import { PlayerDTO } from "../../DTO/player/playerDTO";
+import { RoleEnum } from "../../enum/role.enum";
 import { UserType } from "../../enum/userType.enum";
+import { Player } from "../../models/player/player.entity";
+import { Profile } from "../../models/profile/profile.entity";
 
-
+@EntityRepository(Player)
 export class PlayerRepository extends Repository<Player> {
 
 

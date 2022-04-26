@@ -1,5 +1,4 @@
-import { PlayerDTO } from "src/players/DTO/player/playerDTO";
-import { Tournament } from "src/tournaments/models/tournaments.entity";
+import { PlayerDTO } from "../../players/DTO/player/playerDTO";
 
 export class TeamDTO{
 

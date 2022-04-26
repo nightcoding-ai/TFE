@@ -1,8 +1,8 @@
-import { Controller, Delete, Get, Param, Post, Req, UseGuards } from "@nestjs/common";
-import { identitytoolkit } from "googleapis/build/src/apis/identitytoolkit";
-import { jwtConstants } from "src/auth/constants";
-import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { Controller, Delete, Get, Param, Post, Req, UnauthorizedException, UseGuards } from "@nestjs/common";
+
 import { DeleteResult } from "typeorm";
+import { JwtAuthGuard } from "../../auth/guards/jwt-auth.guard";
+import { JoinRequestDTO } from "../DTO/joinRequestDTO";
 import { JoinRequest } from "../models/joinRequest.entity";
 import { JoinRequestService } from "../providers/joinRequest.service";
 
@@ -19,7 +19,7 @@ export class JoinRequestController {
     @UseGuards(JwtAuthGuard)
     @Post()
     create(
-        @Req() req:any): Promise<JoinRequest>{
+        @Req() req:any): Promise<JoinRequest | UnauthorizedException> {
         console.log(req.user.playerID, req.body);
         return this.JoinRequestService.createOne(req.user.playerID, req.body);
     }
@@ -27,22 +27,35 @@ export class JoinRequestController {
     @UseGuards(JwtAuthGuard)
     @Post('accept')
     acceptRequest(
-        @Req() req:any): Promise<any>{
+        @Req() req:any): Promise<UnauthorizedException | DeleteResult> {
         return this.JoinRequestService.acceptRequest(req.user.playerID, req.body.joinRequestId);
     }
-    
 
+    @UseGuards(JwtAuthGuard)
+    @Get('all')
+    getAllRequests(
+        @Req() req:any): Promise<JoinRequestDTO[] | UnauthorizedException | null> { 
+        return this.JoinRequestService.getAll(req.user.playerID);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('all/expired')
+    getAllExpiredRequests(
+        @Req() req:any): Promise<JoinRequest[] | null | UnauthorizedException> {
+        return this.JoinRequestService.getAllExpiredRequests(req.user.playerID);
+    }
+    
     @UseGuards(JwtAuthGuard)
     @Get('mine')
     getAllOfAPlayer(
-        @Req() req:any): Promise<JoinRequest[]>{
+        @Req() req:any): Promise<JoinRequest[] | null> {
         return this.JoinRequestService.getAllOfAPlayer(req.user.playerID);
     }
 
     @UseGuards(JwtAuthGuard)
     @Post('team')
     getAllOfATeam(
-        @Req() req:any): Promise<JoinRequest[]>{
+        @Req() req:any): Promise<JoinRequest[] | UnauthorizedException | null> {
         return this.JoinRequestService.getAllOfTeam(req.user.playerID, req.body.teamId); 
     }
 
@@ -50,14 +63,7 @@ export class JoinRequestController {
     @Delete('refuse/:id')
     refuseRequest(
         @Param() id: number,
-        @Req() req: any): Promise<DeleteResult>{
+        @Req() req: any): Promise<DeleteResult | null | UnauthorizedException> {
         return this.JoinRequestService.deleteOne(req.user.playerID, id);
-    }
-
-    
-
-    
-    
-    
-    
+    }    
 }
