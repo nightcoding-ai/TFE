@@ -11,6 +11,8 @@ import { LocalStrategy } from './auth/strategy/local.strategy';
 import { TeamInvitationModule } from './team-invitation/team-invitation.module';
 import { JoinRequestModule } from './join-request/join-request.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 
 @Module({

@@ -1,4 +1,5 @@
 import { TeamDTO } from "../../teams/DTO/teamDTO";
+import { TournamentMatch } from "../models/tournamentMatch.entity";
 import { TournamentMatchDTO } from "./tournamentMatchDTO";
 
 export class TournamentDTO {
@@ -10,5 +11,5 @@ export class TournamentDTO {
     startDate: Date;
     endDate: Date;
     participants?: TeamDTO;
-    matches?: TournamentMatchDTO;
+    matches?: TournamentMatch[];
 }

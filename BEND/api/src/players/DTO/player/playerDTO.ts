@@ -12,6 +12,7 @@ export class PlayerDTO {
     ign : string;
     role: RoleEnum;
     rank: RankEnum;
+    teamId?: number;
     teamName?: string;
     deletedAt?: Date;
 }

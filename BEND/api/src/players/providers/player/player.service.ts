@@ -36,6 +36,7 @@ export class PlayersService {
     async createAPlayer(newPlayer: CreatePlayerDTO): Promise<Player> {
         try {
             const hash =  await (await argon2).hash(newPlayer.profile.password);
+
             newPlayer.profile.password = hash;
             return await this.PlayerRepo.addPlayer(newPlayer);      
         }
@@ -64,14 +65,26 @@ export class PlayersService {
      * @param {number} idPlayer - L'id du joueur à trouver dans la base de donnée.
      * @returns {PlayerDTO | undefined} le résultat après avoir trouvé le joueur ou renvoie {undefined} si aucun joueur n'a été trouvé.
      */
-    async getOne(idPlayer: number): Promise<Player  | undefined> {
+    async getOne(idPlayer: number): Promise<PlayerDTO  | undefined> {
         try {
             const result = await this.PlayerRepo.getOne(idPlayer);
             if(!result) { 
                 return undefined;
             }
-            
-            return result;
+            let player: PlayerDTO = new PlayerDTO();
+            player.id = result.id;
+            player.userType = result.userType;
+            player.name = result.name;
+            player.discord = result.profile.discord;
+            player.profilPicture = result.profile.profilPicture;
+            player.role = result.profile.role;
+            player.rank = result.profile.rank;
+            player.ign = result.profile.inGameName;
+            if(result.team) {
+                player.teamId = result.team.id;
+                player.teamName = result.team.name;
+            }
+            return player;
         }
         catch(err) {
             throw err;
@@ -281,6 +294,23 @@ export class PlayersService {
             }
             player.team = null;
             return await this.PlayerRepo.savePlayer(player);
+        }
+        catch(err) {
+            throw err;
+        }
+    }
+
+    /**
+     * 
+     * @param playerId 
+     * @returns 
+     */
+    async deleteProfilePicture(playerId: number): Promise<DeleteResult | null> {
+        try {
+            const player = await this.PlayerRepo.getOne(playerId);
+            if(!player.profile.profilPicture) {
+                return null;
+            }
         }
         catch(err) {
             throw err;

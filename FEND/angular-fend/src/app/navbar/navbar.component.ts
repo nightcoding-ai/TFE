@@ -8,6 +8,8 @@ import { forkJoin, Subject, Subscription } from 'rxjs';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationsService } from '../temp/notifications.service';
 import { Player } from '../interfaces/player.interface';
+import { AuthService } from '@auth0/auth0-angular';
+import { PlayerDTO } from '../profile-player/DTO/playerDTO';
 
 @Component({
   selector: 'app-navbar',
@@ -22,15 +24,17 @@ export class NavbarComponent implements OnInit {
   faBars = faBars;
   faGear = faGear;
   faBell = faBell;
+  faXmark = faXmark;
+  faAdmin= faScrewdriverWrench;
+
   helper = new JwtHelperService();
   tokenDecoded : any;
-  player: Player;
+  player: PlayerDTO;
+  playerTeam: any;
   faEnveloppe = faEnvelope;
   updatePlayerSubject: Subscription;
   notifications : any;
-  faXmark = faXmark;
-  faAdmin= faScrewdriverWrench;
-  _isNotifsSeen : boolean = false;
+ 
   isMenuCollapsed = true;
   userTypes = {
     admin: 'admin',
@@ -53,13 +57,14 @@ export class NavbarComponent implements OnInit {
         ]).subscribe(res => {
           this.notifications = res[0];
           this.player = res[1];
+          console.log(this.player);
 
         });
       }
     });
   }
 
-  getAuthUser(): string {
+  getAuthUser(): any {
     let token = this.authService.token;
     if(token){
       this.getDecodedAccesToken(token);

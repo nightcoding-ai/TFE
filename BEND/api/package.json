@@ -29,6 +29,8 @@
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/schedule": "^1.1.0",
+    "@nestjs/serve-static": "^2.2.2",
+    "@nestjs/swagger": "^5.2.1",
     "@nestjs/typeorm": "^8.0.3",
     "argon2": "^0.28.5",
     "body-parser": "^1.19.2",
@@ -43,6 +45,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.3.0",
     "typeorm": "^0.2.41",
     "uuidv4": "^6.2.12"
   },

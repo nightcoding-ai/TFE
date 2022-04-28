@@ -28,7 +28,7 @@ export class TournamentRepository extends Repository<Tournament> {
 
     getAll(): Promise<Tournament[]> {
         const tournamentRepo = getRepository(Tournament);
-        return tournamentRepo.find();
+        return tournamentRepo.find({ relations: ["matches"]});
     }
 
     async getOneOnlyMatches(tournamentId: number): Promise<TournamentMatch[]> {

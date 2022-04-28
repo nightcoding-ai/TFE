@@ -31,6 +31,7 @@ export class TeamsComponent implements OnInit {
 
   ngOnInit(): void {
       this.getTeamsWithPlayersInfo(); 
+      console.log(this.teams);
   }
   
   

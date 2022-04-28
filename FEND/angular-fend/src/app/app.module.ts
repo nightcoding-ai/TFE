@@ -45,6 +45,7 @@ import { MatCardModule } from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { SetascaptainComponent } from './teams/setascaptain/setascaptain.component';
 import { JoinrequestlistComponent } from './teams/joinrequestlist/joinrequestlist.component';
@@ -144,7 +145,8 @@ export function tokenGetter() {
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [

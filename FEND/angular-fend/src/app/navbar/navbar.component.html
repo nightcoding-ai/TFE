@@ -18,8 +18,8 @@
                 <a ngbDropdownItem routerLink="/teams" (click)="isMenuCollapsed = true">Equipes</a>
                 <ng-container  *ngIf="getAuthUser();">
                   <ng-container *ngIf="player">
-                    <a ngbDropdownItem *ngIf="player.team " routerLink="/teams/{{player.team.id}}">Mon équipe</a>
-                    <a ngbDropdownItem *ngIf="!player.team " routerLink="/new_team" >Créer une équipe</a>
+                    <a ngbDropdownItem *ngIf="player.teamName " routerLink="/teams/{{player.teamId}}">Mon équipe</a>
+                    <a ngbDropdownItem *ngIf="!player.teamName " routerLink="/new_team" >Créer une équipe</a>
                   </ng-container>
               </ng-container>
               </div>
@@ -50,16 +50,16 @@
       </ul> 
       <ul class="navbar-nav  ms-auto" *ngIf="getAuthUser(); else loggedOut">
         <div ngbDropdown class="profile" *ngIf="player">
-          <a class="dropdownBasic1" ngbDropdownToggle *ngIf="player.profile.profilPicture" >
-            <img src="../../assets/ndls_white.png" class="profilePicture noPp" alt="profilePicture" *ngIf="!player.profile.profilPicture" style="width: 35px; height: 35px;"> 
-            <img src="{{player.profile.profilPicture}}" style="width: 35px; height: 35px;" *ngIf="player.profile.profilPicture">{{ player.name }} 
+          <a class="dropdownBasic1" ngbDropdownToggle>
+            <img src="../../assets/ndls_white.png" class="profilePicture noPp" alt="profilePicture" *ngIf="!player.profilPicture" style="width: 35px; height: 35px;"> 
+            <img src="{{player.profilPicture}}" style="width: 35px; height: 35px;" *ngIf="player.profilPicture">{{ player.name }} 
           </a>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdownmenu" *ngIf="getAuthUser();" >
             <a ngbDropdownItem routerLink="/profile"  (click)="isMenuCollapsed = true"><fa-icon [icon]="faGear" style="margin-right: 5px;"></fa-icon>profil</a>
-            <a ngbDropdownItem routerLink="/admin"  (click)="isMenuCollapsed = true" *ngIf="player.userType === 'admin'"><fa-icon [icon]="faAdmin" style="margin-right: 5px;"></fa-icon>administration</a>  
+            <a ngbDropdownItem routerLink="/admin"  (click)="isMenuCollapsed = true" *ngIf="player.userType === 'admin' "><fa-icon [icon]="faAdmin" style="margin-right: 5px;"></fa-icon>administration</a>  
           </div>
         </div>
-        <ng-container *ngIf="player && !player.team && notifications">
+        <ng-container *ngIf="player && !player.teamName && notifications">
           <div ngbDropdown class=" dropdownmenu dropleft profile " *ngIf="getAuthUser()" placement="bottom-right" display="dynamic" >
             <a class="dropdownBasic1" ngbDropdownToggle *ngIf="getAuthUser()" id="bell"> 
             <fa-icon [icon]="faEnveloppe" id="bellIcon"  ></fa-icon>
@@ -73,7 +73,7 @@
               <ul id="listOfNotifications">
                 <ng-container *ngIf="player && notifications"> 
                 <li class="notifElement" *ngFor="let notification of notifications"> 
-                  L'équipe {{ notification.team.name | uppercase }} voudrait vous recruter pour le rôle de  {{ player.profile.role | uppercase }}
+                  L'équipe {{ notification.team.name | uppercase }} voudrait vous recruter pour le rôle de  {{ player.role | uppercase }}
                   <div class="buttons">
                     <button class="btn btn-primary" (click)="OnAcceptOffer(notification)">Accepter</button>
                     <button class="btn btn-danger" (click)="OnDeclineOffer(notification.id)">Décliner</button><br>                    
@@ -82,8 +82,8 @@
                 </li>
                 </ng-container>
               </ul >
-              <span style="margin-left: 20px;" *ngIf="(!notifications ||  notifications.length === 0) && player && !player.team">  Aucune invitation pour le moment.</span>
-              <span style="margin-left: 20px;" *ngIf="player && player.team">Vous faites déjà parti d'une équipe, vous ne pouvez donc pas être invité</span>             
+              <span style="margin-left: 20px;" *ngIf="(!notifications ||  notifications.length === 0) && player && !player.teamName">  Aucune invitation pour le moment.</span>
+              <span style="margin-left: 20px;" *ngIf="player && player.teamName">Vous faites déjà parti d'une équipe, vous ne pouvez donc pas être invité</span>             
             </div>
           </div>
         </ng-container>

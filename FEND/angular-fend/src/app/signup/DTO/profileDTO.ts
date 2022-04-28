@@ -9,7 +9,7 @@ export class ProfileDTO{
 
     password: string;
 
-    profilPicture: string;
+    profilPicture?: File;
 
     discord: string;
 

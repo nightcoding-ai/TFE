@@ -54,13 +54,20 @@ export class TournamentsController {
     @Get('my_team')
     getAllOfMyTeam(
         @Req() req:any): Promise<TournamentDTO[] | null | UnauthorizedException> {
-        return this.tournamentService.getAllOfATeam(req.user.playerID, req.body.team);
+        return this.tournamentService.getAllOfMyTeam(req.user.playerID, req.body.team);
     }
-
-    @Get(':id/matches')
-    getAllMatchesOfMyTeam(
+    
+    @UseGuards(JwtAuthGuard)
+    @Get('team/:id/matches')
+    getAllMatchesOfTeam(
         @Param('id') id: number): Promise<TournamentMatchDTO[] | null> {
         return this.tournamentService.getAllMatchesOfTeam(id);
+    }
+
+    @Get('my_team/matches')
+    getAllMatchesOfMyTeam(
+        @Req() req:any): Promise<TournamentMatchDTO[] | null> {
+        return this.tournamentService.getAllMatchesOfTeam(req.user.playerID);
     }
 
     @Get('/:id')

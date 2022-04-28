@@ -76,7 +76,7 @@ export class TeamComponent implements OnInit {
     this.getTeam(this.idTeam).subscribe((res) => { 
       this.team = res
       if(this.team) {
-        this.myTeamservice.getMatches(this.idTeam).subscribe(
+        this.myTeamservice.getMatches(this.team.id).subscribe(
           (res) => {
             this.matches = res;
           }

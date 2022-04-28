@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
     {name: RoleEnum.ADC, abbrev: "ADC"},
     {name: RoleEnum.Support, abbrev: "Support"},
   ]
-  logoBase64: any;
+  profilePicture: any;
   matcher = new MyErrorStateMatcher();
 
   constructor(
@@ -78,36 +78,35 @@ export class SignupComponent implements OnInit {
       )},
       { validators: [
         this.checkPasswords,
-        this.checkDiscord],
+        this.checkDiscord
+        ],
       })
   };
   
   handleUpload(event: any): void {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-        this.logoBase64 = reader.result;
-    };
+    console.log(event.target.files[0]);
+    this.profilePicture = event.target.files[0];
   }
 
   onSubmit(): void {
       if(this.signUpForm.valid){
         this.signUpDTO = new SignUpDTO();
-        this.signUpForm.patchValue({profilPicture : this.logoBase64});
-        console.log(this.signUpForm.get('name').value);
-        console.log(this)
-        this.signUpDTO.name = this.signUpForm.get('name').value;
-        this.signUpDTO.profile = {
-          email: this.signUpForm.get('email').value,
-          password: this.signUpForm.get('password1').value,
-          discord: this.signUpForm.get('discord').value,
-          inGameName: this.signUpForm.get('inGameName').value,
-          role: this.signUpForm.get('role').value,
-          rank: this.signUpForm.get('rank').value,
-          profilPicture: this.logoBase64
-        }
-        this.signupService.signUp(this.signUpDTO); 
+        console.log(this.profilePicture);
+        this.signupService.uploadProfilePicture(this.profilePicture).subscribe(res => {
+          this.profilePicture = res;
+          this.signUpDTO.name = this.signUpForm.get('name').value;
+          this.signUpDTO.profile = {
+            email: this.signUpForm.get('email').value,
+            password: this.signUpForm.get('password1').value,
+            discord: this.signUpForm.get('discord').value,
+            inGameName: this.signUpForm.get('inGameName').value,
+            role: this.signUpForm.get('role').value,
+            rank: this.signUpForm.get('rank').value,
+            profilPicture: this.profilePicture.filePath
+          }
+          console.log(this.signUpDTO.profile.profilPicture);
+          this.signupService.signUp(this.signUpDTO);
+        });
       }
       return;
   }

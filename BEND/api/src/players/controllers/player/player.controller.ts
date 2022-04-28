@@ -1,5 +1,10 @@
 
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, Res, Response, StreamableFile, UnauthorizedException, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { createReadStream } from 'fs';
+import { file } from 'googleapis/build/src/apis/file';
+import { diskStorage } from 'multer';
+import { join } from 'path';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 import { CreatePlayerDTO } from '../../DTO/player/CreatePlayerDTO';
@@ -22,6 +27,58 @@ export class PlayersController {
         return this.PlayersService.createAPlayer(player);
     }
 
+    @Get("stream/:pp")
+    getFile(
+        @Param('pp') pp: string,): StreamableFile {
+        const file = createReadStream(join(process.cwd(), `assets/${pp}`));
+        return new StreamableFile(file);
+    }
+
+    @Post("upload")
+    @UseInterceptors(
+        FileInterceptor("picture", {
+            storage: diskStorage({
+                destination: "./images",
+                filename: async (req, file: Express.Multer.File, cb) => {
+                    console.log(file);
+                    const name = await file.originalname.split(".")[0];
+                    const fileExtension = await file.originalname.split(".")[1];
+                    const newFileName = name.split(" ").join("_") + "_" + Date.now() + "." + fileExtension;
+                    cb(null, newFileName)
+                } 
+            }),
+            fileFilter: (req: Request, file, cb) => {
+                const ext = file.mimetype;
+                const validExtensions = ["image/jpg","image/png", "image/jpeg", "image/svg"];
+                console.log(ext);
+                if(!validExtensions.find(e => e === ext)) {
+                    return cb(new Error('Extension not allowed'), false);
+                }
+                return cb(null, true);
+            }          
+        })
+    )
+    uploadSingle(
+        @UploadedFile() file: any) {
+        console.log(file);
+        if(!file) {
+            throw new BadRequestException('File is not an image');
+        }
+        else {
+            const response = {
+                filePath: `http://localhost:3000/api/players/images/${file.filename}`
+            }
+            return response;
+        }
+    }
+
+    @Get('images/:filename')
+    async getPicture(
+        @Param('filename') filename,
+        @Res() res) {
+        res.sendFile(filename, { root: './images'});
+    }
+
     @UseGuards(JwtAuthGuard)
     @Get('my_profile')
     getMyProfileInformations(
@@ -31,7 +88,7 @@ export class PlayersController {
 
     @Get('single/:id')
     getOne(
-        @Param('id') idPlayer: number): Promise<Player> {
+        @Param('id') idPlayer: number): Promise<PlayerDTO> {
         return this.PlayersService.getOne(idPlayer);
     }
     
@@ -85,5 +142,12 @@ export class PlayersController {
         @Param('id') idPlayer: number,
         @Req() req:any): Promise<DeleteResult | UnauthorizedException> {
         return this.PlayersService.delete(req.user.playerID, idPlayer);
+    }
+    
+    @UseGuards(JwtAuthGuard)
+    @Delete('profile_picture')
+    deleteProfilePicture(
+        @Req() req:any): Promise<DeleteResult | null> {
+        return this.PlayersService.deleteProfilePicture(req.user.playerID);
     }
 }

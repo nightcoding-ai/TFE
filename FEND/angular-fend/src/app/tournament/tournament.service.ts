@@ -18,4 +18,8 @@ export class TournamentService {
   getListOfTournaments(): Observable<any> {
     return this.http.get<any>(`${this.baseURLAPI}all`);
   }
+
+  getTournamentBrackets(idTournament: number): Observable<any> {
+    return this.http.get<any>(`${this.baseURLAPI}${idTournament}/matches`);
+  }
 }

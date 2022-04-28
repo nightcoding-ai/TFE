@@ -22,9 +22,6 @@
 			Les mots de passe ne sont pas les mêmes.
 		</mat-error>
         <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
-        <div class="img" *ngIf="logoBase64">
-            <img [src]="logoBase64">
-        </div>
         <mat-form-field>
             <mat-label>Discord</mat-label>
             <input matInput formControlName="discord">

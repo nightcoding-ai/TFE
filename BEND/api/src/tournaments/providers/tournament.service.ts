@@ -209,6 +209,7 @@ export class TournamentService {
                 dto.startDate = tournament.startDate;
                 dto.endDate = tournament.endDate;
                 dto.seed = tournament.seed;
+                dto.matches = tournament.matches;
                 dtoArray.push(dto);
             }
             return dtoArray;
@@ -303,7 +304,7 @@ export class TournamentService {
         }
     }
 
-    async getAllOfATeam(askerId: number, teamId: number): Promise<TournamentDTO[] | null | UnauthorizedException> {
+    async getAllOfMyTeam(askerId: number, teamId: number): Promise<TournamentDTO[] | null | UnauthorizedException> {
         try {
             const asker = await this.playerRepository.getOne(askerId);
             if(!asker || !asker.team || asker.team.id !== teamId) {
@@ -334,7 +335,6 @@ export class TournamentService {
 
     async getAllMatchesOfTeam(teamId: number): Promise<TournamentMatchDTO[] | null> {
         try {
-            
             const result = await this.tournamentMatchRepository.getAllMatchesOfATeam(teamId);
             const dtoArray: TournamentMatchDTO[] = [];
             if(!result) {

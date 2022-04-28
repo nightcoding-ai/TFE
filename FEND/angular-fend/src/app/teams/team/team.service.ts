@@ -65,7 +65,7 @@ export class TeamService {
   }
 
   getMatches(idTeam: number) { 
-    return this.http.get<any>(`http://localhost:3000/api/tournaments/${idTeam}/matches`);
+    return this.http.get<any>(`http://localhost:3000/api/tournaments/team/${idTeam}/matches`);
   }
   
 }

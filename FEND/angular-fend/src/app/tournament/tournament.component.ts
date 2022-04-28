@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TypePredicateKind } from 'typescript';
 import { AuthenticationService } from '../auth/auth.service';
+import { Tournament } from '../interfaces/tournament.interface';
 import { TournamentService } from './tournament.service';
 
 @Component({
@@ -9,47 +11,60 @@ import { TournamentService } from './tournament.service';
 })
 export class TournamentComponent implements OnInit {
 
-  tournament: any;
-  matches = [];
-  final;
   player: any;
+  tournamentList = [];
+  responseOfService: boolean = false;
+
   constructor(private tournamentService: TournamentService, private authService: AuthenticationService) {
    }
 
   ngOnInit(): void {
     this.player = this.authService.getPlayer(this.authService.id).subscribe(
       (res) => {
-        console.log(res)
         this.player = res
-        console.log(this.player)
       }
     )
-    this.tournamentService.testTournament().subscribe(
+    this.tournamentService.getListOfTournaments().subscribe(
       res => {
-        this.tournament = res;
-        this.getMatchesPerRound(this.tournament);
+        this.responseOfService = !this.responseOfService;
+        for (const t of res) {
+          console.log(t)
+          let tournament = new Object();
+          tournament["id"] = t.id;
+          tournament["name"] = t.name;
+          tournament["areInscriptionsClosed"] = t.areInscriptionsClosed;
+          tournament["startDate"] = t.startDate;
+          tournament["endDate"] = t.endDate;
+          tournament["seed"] = t.seed;
+          tournament["matches"] = this.getMatchesPerRound(t);
+          this.tournamentList.push(tournament);
+        } 
+        return this.tournamentList;
       }
     )
 
   }
 
   getMatchesPerRound(tournament: any) {
+    let matches = [];
     for(let i = 0; i < tournament.matches.length; i ++) {
       const rounds = tournament.matches.filter(m => m.round === i + 1);
       if(rounds.length > 0) {
         rounds.sort((a,b) => {
-          if(a.id> b.id) return 1
-          if(a.id  < b.id) return -1
+          if(a.id > b.id) return 1
+          if(a.id < b.id) return -1
           return 0
         }
         )
-        this.matches.push(rounds);
-        this.final = this.matches[this.matches.length -1];
-      }
-      
+        matches.push(rounds);
+      } 
     }
+    return matches;
   }
 
+  showTournamentDetails(idTournament: number) {
+    
+  }
   
 
 }
