@@ -7,12 +7,13 @@ import { diskStorage } from 'multer';
 import { join } from 'path';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
-import { CreatePlayerDTO } from '../../DTO/player/CreatePlayerDTO';
+import { CreatePlayerDTO } from '../../DTO/player/createPlayerDTO';
 import { FreePlayerDTO } from '../../DTO/player/freePlayerDTO';
 import { PlayerDTO } from '../../DTO/player/playerDTO';
-import { PlayerProfileDTO } from '../../DTO/player/PlayerProfileDTO';
+import { PlayerProfileDTO } from '../../DTO/player/playerProfileDTO';
 import { Player } from '../../models/player/player.entity';
 import { PlayersService } from '../../providers/player/player.service';
+const fs = require('fs')
 
 @Controller('players')
 export class PlayersController {
@@ -34,13 +35,24 @@ export class PlayersController {
         return new StreamableFile(file);
     }
 
+    @Delete('images/:filename')
+    deleteFile(
+        @Param('filename') filename) {
+        const path = `./images/${filename}`;
+        try {
+            fs.unlink(path, () => console.log('OK'))
+        }
+        catch(err) {
+            throw err;
+        }
+    }
+
     @Post("upload")
     @UseInterceptors(
         FileInterceptor("picture", {
             storage: diskStorage({
                 destination: "./images",
                 filename: async (req, file: Express.Multer.File, cb) => {
-                    console.log(file);
                     const name = await file.originalname.split(".")[0];
                     const fileExtension = await file.originalname.split(".")[1];
                     const newFileName = name.split(" ").join("_") + "_" + Date.now() + "." + fileExtension;
@@ -50,7 +62,6 @@ export class PlayersController {
             fileFilter: (req: Request, file, cb) => {
                 const ext = file.mimetype;
                 const validExtensions = ["image/jpg","image/png", "image/jpeg", "image/svg"];
-                console.log(ext);
                 if(!validExtensions.find(e => e === ext)) {
                     return cb(new Error('Extension not allowed'), false);
                 }
@@ -60,7 +71,6 @@ export class PlayersController {
     )
     uploadSingle(
         @UploadedFile() file: any) {
-        console.log(file);
         if(!file) {
             throw new BadRequestException('File is not an image');
         }
@@ -114,20 +124,20 @@ export class PlayersController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Patch(':id/modify')
-    update(
+    @Put(':id/update/profile')
+    updateProfile(
         @Param('id') id:number,
         @Req() req: any): Promise<UpdateResult | UnauthorizedException> {
-        return this.PlayersService.patchPlayer(req.user.playerID, id, req.body);
-    } 
+        return this.PlayersService.updatePlayerProfile(req.user.playerID, id, req.body);
+    }
 
     @UseGuards(JwtAuthGuard)
-    @Patch('modify_profile/:id')
-    updateProfil(
-        @Param() id:number,
-        @Req() req:any): Promise<UpdateResult | UnauthorizedException> {
-        return this.PlayersService.updateProfile(req.user.playerID, id, req.body);
-    }
+    @Put(':id/update')
+    updatePlayer(
+        @Param('id') id:number,
+        @Req() req: any): Promise<UpdateResult | UnauthorizedException> {
+        return this.PlayersService.updatePlayer(req.user.playerID, id, req.body);
+    } 
 
     @UseGuards(JwtAuthGuard)
     @Delete('leave_team')

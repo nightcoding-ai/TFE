@@ -89,9 +89,8 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-      if(this.signUpForm.valid){
+      if(this.signUpForm.valid && this.profilePicture){
         this.signUpDTO = new SignUpDTO();
-        console.log(this.profilePicture);
         this.signupService.uploadProfilePicture(this.profilePicture).subscribe(res => {
           this.profilePicture = res;
           this.signUpDTO.name = this.signUpForm.get('name').value;
@@ -104,11 +103,25 @@ export class SignupComponent implements OnInit {
             rank: this.signUpForm.get('rank').value,
             profilPicture: this.profilePicture.filePath
           }
-          console.log(this.signUpDTO.profile.profilPicture);
           this.signupService.signUp(this.signUpDTO);
         });
       }
+      else if(this.signUpForm.valid && !this.profilePicture) {
+        this.signUpDTO = new SignUpDTO();
+        this.signUpDTO.name = this.signUpForm.get('name').value;
+        this.signUpDTO.profile = {
+          email: this.signUpForm.get('email').value,
+          password: this.signUpForm.get('password1').value,
+          discord: this.signUpForm.get('discord').value,
+          inGameName: this.signUpForm.get('inGameName').value,
+          role: this.signUpForm.get('role').value,
+          rank: this.signUpForm.get('rank').value,
+          profilPicture: null
+          }
+          this.signupService.signUp(this.signUpDTO);
+      }
       return;
+      
   }
 
   checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 

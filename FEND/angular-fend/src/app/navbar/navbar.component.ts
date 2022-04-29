@@ -57,8 +57,6 @@ export class NavbarComponent implements OnInit {
         ]).subscribe(res => {
           this.notifications = res[0];
           this.player = res[1];
-          console.log(this.player);
-
         });
       }
     });

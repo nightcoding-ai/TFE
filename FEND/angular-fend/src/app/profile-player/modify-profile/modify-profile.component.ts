@@ -4,6 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { faPenSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { RankEnum } from 'src/app/ranks.enum';
 import { RoleEnum } from 'src/app/roles.enum';
+import { SignupService } from '../../signup/signup.service';
+import { UpdatePlayerDTO } from '../DTO/updatePlayerDTO';
+import { UpdatePlayerProfileDTO } from '../DTO/updatePlayerProfileDTO';
 import { ProfilePlayerService } from '../profile-player.service';
 
 @Component({
@@ -17,7 +20,7 @@ export class ModifyProfileComponent implements OnInit {
   wrongRole: boolean = false;
   faXmark= faXmark;
   player: any;
-  logoBase64: any;
+  newPp: any;
   mates: any = [];
   ranks = [
     {name: RankEnum.NonClassé, abbrev: "Unranked"},
@@ -49,7 +52,11 @@ export class ModifyProfileComponent implements OnInit {
     discord: new FormControl('')
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<ModifyProfileComponent>, private profileService: ProfilePlayerService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private data: any, 
+    private dialogRef: MatDialogRef<ModifyProfileComponent>, 
+    private signupService: SignupService,
+    private playerProfileService: ProfilePlayerService) {
     this.player = data;
    }
 
@@ -73,22 +80,30 @@ export class ModifyProfileComponent implements OnInit {
     if(this.updatePlayerForm.invalid && this.verifyMates(this.updatePlayerForm.get('role').value)) {
       return alert("Bad form");
     }
-    this.updatePlayerForm.patchValue({profilPicture : this.logoBase64});
-    let newPlayerInfos = {};
-    let newProfileInfos = {};
-    newPlayerInfos["name"] = this.updatePlayerForm.get('name').value;
-    newProfileInfos["email"] = this.updatePlayerForm.get('email').value;
-    newProfileInfos["profilPicture"] = this.updatePlayerForm.get('profilPicture').value;
-    newProfileInfos["role"] = this.updatePlayerForm.get('role').value;
-    newProfileInfos["rank"] = this.updatePlayerForm.get('rank').value;
-    newProfileInfos["inGameName"] = this.updatePlayerForm.get('inGameName').value;
-    newProfileInfos["discord"] = this.updatePlayerForm.get('discord').value;
-
-    
-    this.profileService.updatePlayer(newPlayerInfos).subscribe(
-      () => this.close()
-    )
-    this.profileService.updateProfile(newProfileInfos).subscribe(
+    let playerDTO: UpdatePlayerDTO = new UpdatePlayerDTO();
+    playerDTO.name = this.updatePlayerForm.get('name').value;
+    let profileDTO: UpdatePlayerProfileDTO = new UpdatePlayerProfileDTO();
+    profileDTO.email = this.updatePlayerForm.get('email').value;
+    profileDTO.discord = this.updatePlayerForm.get('discord').value;
+    profileDTO.role = this.updatePlayerForm.get('role').value;
+    profileDTO.rank = this.updatePlayerForm.get('rank').value;
+    if(this.newPp) {
+      let oldFileName = this.player.profilPicture.split('/').pop();
+      console.log(oldFileName)
+      this.playerProfileService.deleteOldPlayerPp(oldFileName).subscribe(
+        () => true
+      )
+      this.signupService.uploadProfilePicture(this.newPp).subscribe(
+        res => {
+          profileDTO.profilPicture = res.filePath;
+          this.playerProfileService.updatePlayer(this.player.id,playerDTO);
+          this.playerProfileService.updatePlayerProfile(this.player.id, profileDTO).subscribe(
+            () => this.close()
+          )}
+      )
+    }
+    this.playerProfileService.updatePlayer(this.player.id,playerDTO);
+    this.playerProfileService.updatePlayerProfile(this.player.id, profileDTO).subscribe(
       () => this.close()
     )
   }
@@ -96,22 +111,18 @@ export class ModifyProfileComponent implements OnInit {
   initializeForm() {
     this.updatePlayerForm.setValue({
         name: this.player.name,
-        email: this.player.profile.email,
-        profilPicture: '',
-        role: this.player.profile.role,
-        rank: this.player.profile.rank,
-        inGameName: this.player.profile.inGameName,
-        discord: this.player.profile.discord
+        email: this.player.mail,
+        profilPicture: this.player.profilPicture,
+        role: this.player.role,
+        rank: this.player.rank,
+        inGameName: this.player.ign,
+        discord: this.player.discord
     });
   }
 
   handleUpload(event: any){
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-        this.logoBase64 = reader.result;    
-    };
+     this.newPp = event.target.files[0];
+      
   }
 
   verifyMates(role: RoleEnum){

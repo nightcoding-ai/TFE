@@ -75,6 +75,7 @@ export class TeamComponent implements OnInit {
   ngOnInit(): void {
     this.getTeam(this.idTeam).subscribe((res) => { 
       this.team = res
+      console.log(res, "EQUIPE")
       if(this.team) {
         this.myTeamservice.getMatches(this.team.id).subscribe(
           (res) => {
@@ -82,7 +83,7 @@ export class TeamComponent implements OnInit {
           }
         )
       }
-      if(token && this.team && this.player && this.player.isCaptain && this.team.id === this.player.team.id){
+      if(token && this.team && this.player && this.player.isCaptain && this.team.id === this.player.teamId){
         this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
           (res) => {
             this.joinRequests = res;
@@ -93,7 +94,9 @@ export class TeamComponent implements OnInit {
     })
     let token = this.authService.token;
     if(token){
-      this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => this.player = res);
+      this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => {
+        console.log(res);
+        this.player = res});
     }
 
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
+import { SignupService } from '../../signup/signup.service';
+import { CreateTeamDTO } from '../DTO/create-teamDTO';
 import { CreateTeamFormService } from './create-team-form.service';
 
 @Component({
@@ -23,9 +25,11 @@ export class CreateTeamFormComponent implements OnInit {
     ]),
     logo: new FormControl('')
   });
+  teamPp:any;
 
   constructor(
     private createTeamService: CreateTeamFormService, 
+    private signUpService: SignupService
   ) { }
 
   ngOnInit(): void {
@@ -45,18 +49,23 @@ export class CreateTeamFormComponent implements OnInit {
       console.log("Form is invalid.");
       return null;
     }
-    console.log(this.logoBase64);
-    this.teamForm.patchValue({logo : this.logoBase64});
-    this.createTeamService.createTeam(this.teamForm.value);
+    let dto: CreateTeamDTO = new CreateTeamDTO();
+    dto.name = this.teamForm.get('name').value;
+    dto.abbreviation = this.teamForm.get('abbreviation').value;
+    if(this.teamPp) {
+      this.signUpService.uploadProfilePicture(this.teamPp).subscribe(
+        res => {
+          dto.logo = res.filePath;
+          this.createTeamService.createTeam(dto);
+        }
+      )
+    }
+    if(!this.teamForm.get('logo').value) {
+      this.createTeamService.createTeam(dto); 
+    }
   };
 
   handleUpload(event: any): void {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-        this.logoBase64 = reader.result;
-        
-    };
+    this.teamPp = event.target.files[0];
   }
 }

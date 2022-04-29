@@ -24,8 +24,11 @@ export class CreateTeamFormService {
   
 
   createTeam(teamDTO: CreateTeamDTO){
-    this.http.post<any>(this.baseAPIUrl + "/teams", teamDTO, { headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${this.auth_token}`} }).subscribe(
-      (res) => this.router.navigate(['/teams', res.team.id])
+    this.http.post<any>(this.baseAPIUrl + "/teams", teamDTO).subscribe(
+      (res) => {
+        console.log(res);
+        this.router.navigate(['/teams', res])
+      }
     )
 
 

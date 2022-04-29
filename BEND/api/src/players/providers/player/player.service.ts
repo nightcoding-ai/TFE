@@ -5,10 +5,12 @@ import { TournamentMatch } from '../../../tournaments/models/tournamentMatch.ent
 import { TournamentRepository } from '../../../tournaments/repositories/tournament.repository';
 import { TournamentMatchRepository } from '../../../tournaments/repositories/tournamentMatch.repositoy';
 import { TournamentParticipationRepository } from '../../../tournaments/repositories/tournamentParticipation.repository';
-import { CreatePlayerDTO } from '../../DTO/player/CreatePlayerDTO';
+import { CreatePlayerDTO } from '../../DTO/player/createPlayerDTO';
 import { FreePlayerDTO } from '../../DTO/player/freePlayerDTO';
 import { PlayerDTO } from '../../DTO/player/playerDTO';
-import { PlayerProfileDTO } from '../../DTO/player/PlayerProfileDTO';
+import { PlayerProfileDTO } from '../../DTO/player/playerProfileDTO';
+import { UpdatePlayerDTO } from '../../DTO/player/updatePlayerDTO';
+import { UpdatePlayerProfileDTO } from '../../DTO/player/updatePlayerProfileDTO';
 import { ProfileDTO } from '../../DTO/profil/profileDTO';
 import { RoleEnum } from '../../enum/role.enum';
 import { UserType } from '../../enum/userType.enum';
@@ -80,6 +82,7 @@ export class PlayersService {
             player.role = result.profile.role;
             player.rank = result.profile.rank;
             player.ign = result.profile.inGameName;
+            player.isCaptain = result.profile.isCaptain;
             if(result.team) {
                 player.teamId = result.team.id;
                 player.teamName = result.team.name;
@@ -99,7 +102,9 @@ export class PlayersService {
             }
             const dto: PlayerProfileDTO = new PlayerProfileDTO();
             dto.id = result.id;
+            dto.idProfile = result.profile.id;
             dto.name = result.name;
+            dto.profilPicture = result.profile.profilPicture;
             dto.mail = result.profile.email;
             dto.discord = result.profile.discord;
             dto.ign = result.profile.inGameName;
@@ -211,33 +216,28 @@ export class PlayersService {
      * @param {number} idAsker - l'id du joueur qui souhaite modifier le nom, afin de vérifier si c'est bien son propre nom, ou si il est administrateur.
      * @param {number} idPlayer - l'id du joueur dont il faut modifier le nom.
      * @param {PlayerDTO} playerDTO - le nouveau nom du joueur.
-     * @returns {UpdateResult | UnauthorizedException}  le résultat après la modification
+     * @returns {UpdateResult | UnauthorizedException}  le résultat après la modification ou une erreur 401.
      */
-    async patchPlayer(idAsker: number, idPlayer: number, playerDTO: PlayerDTO ): Promise<UpdateResult | UnauthorizedException> {
+    async updatePlayerProfile(idAsker: number, idPlayer: number, updatePlayerProfileDTO: UpdatePlayerProfileDTO): Promise<UpdateResult | UnauthorizedException> {
         try {  
             const asker = await this.PlayerRepo.getOne(idAsker);
-            if(playerDTO.userType && asker.userType !== UserType.ADMIN) {
-                throw new UnauthorizedException();
+            if(asker.id !== +idPlayer) {
+                return new UnauthorizedException();
             }
-            return asker.userType === UserType.ADMIN || asker.id === idPlayer ? await this.PlayerRepo.updatePlayer(idPlayer, playerDTO) : new UnauthorizedException();
+            await this.ProfileRepo.updateProfile(asker.profile.id, updatePlayerProfileDTO);
         }
         catch(err) {
             throw err;
         }
     }
 
-    /**
-     * Modifier le profil d'un joueur.
-     * @param {number} idAsker - l'id du joueur qui souhaite modifier le profil, afin de vérifier si c'est bien son propre profil, ou si il est administrateur.
-     * @param {number} idAsker - l'id du joueur dont il faut modifier le profil.
-     * @param {number} idProfile - l'id du profil qui doit être modifié.
-     * @param {ProfileDTO} profileDTO - Le nouveau profil.
-     * @returns {UpdateResult | UnauthorizedException}
-     */
-    async updateProfile(idAsker: number, idProfile: number, profileDTO: ProfileDTO): Promise<UpdateResult | UnauthorizedException> {
-        try {
+    async updatePlayer(idAsker: number, idPlayer: number, updatePlayerDTO: UpdatePlayerDTO): Promise<UpdateResult | UnauthorizedException> {
+        try {  
             const asker = await this.PlayerRepo.getOne(idAsker);
-            return asker.userType === UserType.ADMIN || asker.profile.id === idProfile ? await this.ProfileRepo.updateProfile(idProfile, profileDTO) : new UnauthorizedException();
+            if(asker.id !== +idPlayer) {
+                return new UnauthorizedException();
+            }
+            await this.PlayerRepo.updatePlayer(asker.id, updatePlayerDTO);
         }
         catch(err) {
             throw err;

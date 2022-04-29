@@ -7,6 +7,7 @@ import { RoleEnum } from "../../enum/role.enum";
 export class PlayerProfileDTO {
 
     id?: number;
+    idProfile?: number;
     name: string;
     mail: string;
     discord: string;

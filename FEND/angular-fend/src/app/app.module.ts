@@ -62,6 +62,7 @@ import { TournamentMatchesScheduleComponent } from './tournament/tournament-matc
 import { CurrentTournamentComponent } from './tournament/current-tournament/current-tournament.component';
 import { SafeHTMLPipe } from './safe-html.pipe';
 import { MatButtonModule } from '@angular/material/button';
+import { PlayerComponent } from './teams/team/playerComponent/player/player.component';
 
 
 export function tokenGetter() {
@@ -98,6 +99,7 @@ export function tokenGetter() {
     TournamentMatchesScheduleComponent,
     CurrentTournamentComponent,
     SafeHTMLPipe,
+    PlayerComponent,
 
   ],
   entryComponents: [

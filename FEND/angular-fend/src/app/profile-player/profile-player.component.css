@@ -64,11 +64,6 @@ span{
 
 }
 
-.role:hover, .rank:hover, .ign:hover, .discord:hover{
-    border: solid 4px var(--secondColor);
-    
-}
-
 .discordIcon{
     font-size: 45px;
     margin-right: 25px;

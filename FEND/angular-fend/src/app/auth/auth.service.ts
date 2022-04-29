@@ -12,13 +12,15 @@ import { LoginDTO } from "../login/DTO/loginDTO";
 export class AuthenticationService {
 
     readonly baseAPIAuthURL = "http://localhost:3000/api/auth";
-
     readonly baseAPIURL = "http://localhost:3000/api";
-
     public _isLoggedIn$ = new BehaviorSubject<boolean>(!!localStorage.getItem('player-auth'));
     isLoggedIn$ = this._isLoggedIn$.asObservable();
+    private _token: string;
+    private _user: any;
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(
+        private http: HttpClient
+    ) {}
 
     login(loginDTO: LoginDTO) {
         return this.http.post<any>("http://localhost:3000/api/auth/login", { name: loginDTO.name, password: loginDTO.password}).pipe(
@@ -29,20 +31,14 @@ export class AuthenticationService {
         );
     }
 
-    private _token: string;
-    private _user: any;
-    private _player: any;
-
     get token() {
         if (!this._token) {
             this._token = localStorage.getItem('player-auth');
-
             if (!this._token){
                 this.logout();
                 return null;
             }
         }
-
         return this._token;
     }
 
@@ -56,8 +52,6 @@ export class AuthenticationService {
         return this._user;
     }
 
-    
-
     get id() {
         return this.user?.id;
     }
@@ -69,7 +63,6 @@ export class AuthenticationService {
     logout(): void {
         this._token = null;
         this._user = null;
-
         localStorage.removeItem('player-auth');
         this._isLoggedIn$.next(false);
     }
@@ -80,7 +73,5 @@ export class AuthenticationService {
 
     getPlayer(idPlayer: number){
         return  this.http.get<any>(`http://localhost:3000/api/players/single/${idPlayer}`);
-    }
-
-   
+    }  
 }

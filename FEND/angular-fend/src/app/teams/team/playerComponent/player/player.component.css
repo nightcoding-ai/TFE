@@ -1,0 +1,28 @@
+.rolesIcon {
+    width: 50px;
+    height: 50px;
+    opacity: 0.89;
+}
+
+.ranksIcon {
+    width: 50px;
+    height: 50px;
+}
+
+.pp {
+    width: 50px;
+    height: 50px;
+}
+
+#lolIcon {
+    filter: invert(66%) sepia(51%) saturate(285%) hue-rotate(358deg) brightness(87%) contrast(87%);
+}
+
+.player {
+    width: 300px;
+    height: 400px;
+    background-color: var(--secondColorDarker);
+    margin: 10px;
+    border-radius: 15px;
+    padding: 15px;
+}

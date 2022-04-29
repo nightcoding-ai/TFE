@@ -14,6 +14,7 @@
     --firstColor: #191970;
     --secondColor: #884DA7;
 
+    --notPureWhite: #cfcfcf;
     --firstColorDarker: #0e0e41;
     --firstColorHover: #0a0a2c;
     --secondColorDarker: #49295a;
@@ -24,7 +25,7 @@
     --secondColorLighter: #a05ac5;
 
     --navColor : #191970;
-    --bodyColor : #E9E9E9;
+    --bodyColor : #0b0b3f;
     
 
 
@@ -48,7 +49,7 @@ a:hover{
 
 body{
     color: white;
-    background-color: rgb(217, 217, 217);
+    background-color: var(--bodyColor);
 }
 
 .icons{

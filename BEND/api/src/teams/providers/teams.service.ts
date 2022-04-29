@@ -32,7 +32,7 @@ export class TeamsService {
      * @param {CreateTeamDTO }teamDTO - L'objet représentant la nouvelle équipe.
      * @returns {TeamInterface} la nouvelle équipe créée;
      */
-    async create(idPlayer: number, teamDTO: CreateTeamDTO): Promise<TeamInterface> {
+    async create(idPlayer: number, teamDTO: CreateTeamDTO): Promise<number> {
         try {
             const player = await this.PlayerRepository.getOne(idPlayer);
             if(player.team || player.team !== null || player.profile.isCaptain === true){
@@ -43,7 +43,7 @@ export class TeamsService {
             player.team = newTeam;
             player.profile.isCaptain = true;
             await this.PlayerRepository.savePlayer(player);
-            return newTeam;
+            return newTeam.id;
             }
         }
         catch(err) {  

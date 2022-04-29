@@ -40,7 +40,7 @@ export class ProfilePlayerComponent implements OnInit {
   ngOnInit(): void {
     let token = this.authService.getToken();
     this.getDecodedAccesToken(token);
-    this.profilePlayerService.getPlayerProfile(this.tokenDecoded.id).subscribe(
+    this.profilePlayerService.getPlayerProfile().subscribe(
       (res) => {
         this.player = res;
       }

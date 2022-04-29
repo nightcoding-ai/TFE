@@ -15,17 +15,22 @@ export class ProfilePlayerService {
     return this.http.get<any>(`${this.baseAPIUrl}/players/single/${idPlayer}`);
   }
 
-  getPlayerProfile(idPlayer: number) {
+  getPlayerProfile() {
     return this.http.get<any>(`${this.baseAPIUrl}/players/my_profile`);
   }
 
-  updatePlayer(updatePlayerDTO: any) {
+  updatePlayer(idPlayer: number, updatePlayerDTO: any) {
     console.log(updatePlayerDTO);
-    return this.http.patch<any>(this.baseAPIUrl + "/players/modify", updatePlayerDTO);
+    return this.http.put<any>(`${this.baseAPIUrl}/players/${idPlayer}/update`, updatePlayerDTO);
   }
 
-  updateProfile(updateProfileDTO: any) {
-    console.log(updateProfileDTO);
-    return this.http.patch<any>(this.baseAPIUrl + "/players/modify_profile", updateProfileDTO);
+  updatePlayerProfile(idPlayer: number, updatePlayerProfileDTO: any) {
+    return this.http.put<any>(`${this.baseAPIUrl}/players/${idPlayer}/update/profile`, updatePlayerProfileDTO)
+  }
+
+  deleteOldPlayerPp(filePath: string) {
+    console.log("suppression de l'ancienne pp frontend")
+    console.log(filePath);
+    return this.http.delete<any>(`${this.baseAPIUrl}/players/images/${filePath}`);
   }
 }

@@ -1,6 +1,5 @@
 import { DeleteResult, EntityRepository, getConnection, getRepository, IsNull, Repository, UpdateEvent, UpdateResult } from "typeorm";
-import { CreatePlayerDTO } from "../../DTO/player/CreatePlayerDTO";
-import { PlayerDTO } from "../../DTO/player/playerDTO";
+import { CreatePlayerDTO } from "../../DTO/player/createPlayerDTO";
 import { RoleEnum } from "../../enum/role.enum";
 import { UserType } from "../../enum/userType.enum";
 import { Player } from "../../models/player/player.entity";
@@ -79,9 +78,9 @@ export class PlayerRepository extends Repository<Player> {
         });
     } 
 
-    updatePlayer(idPlayer: number, playerDTO: PlayerDTO): Promise<UpdateResult> {
-        const playerRepo =  getRepository(Player);
-        return  playerRepo.update(idPlayer, playerDTO);
+    updatePlayer(idPlayer: number, player: any): Promise<UpdateResult> {
+        const playerRepo = getRepository(Player);
+        return  playerRepo.update(idPlayer, player);
     }
 
     async deleteOne(idPlayer: number): Promise <DeleteResult> {

@@ -22,7 +22,7 @@ export class TeamsController {
     @UseGuards(JwtAuthGuard)
     @Post('')
     addTeam(
-        @Req() req: any): Promise<TeamInterface> {
+        @Req() req: any): Promise<number> {
         return this.TeamService.create(req.user.playerID, req.body);
     }
 
