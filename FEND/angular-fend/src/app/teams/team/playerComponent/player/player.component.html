@@ -1,19 +1,26 @@
 <ng-container *ngIf="player">
     <div class="player">
-        <div [ngSwitch]="player.profile.role" id="role">
+        <div [ngSwitch]="player.role" id="role">
             <img src="../../../../../assets/top_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Toplaner" class="rolesIcon">
             <img src="../../../../../assets/jungle_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Jungler" class="rolesIcon">
             <img src="../../../../../assets/mid_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Midlaner" class="rolesIcon">
             <img src="../../../../../assets/bottom_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.ADC" class="rolesIcon">
             <img src="../../../../../assets/support_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Support" class="rolesIcon">
-            <img src="../../../../../assets/ndls_white_face.png" alt="ndls" *ngSwitchDefault>      
+            <img src="../../../../../assets/ndls_white_face.png" alt="ndls" *ngSwitchDefault>
+            <span>{{ player.role  | uppercase}}</span>
         </div>
-        <img src="{{player.profile.profilPicture}}" alt="pp" class="pp" *ngIf="player.profile.profilPicture">
-        <img src="../../../../../assets/ndls_white_face.png" alt="pp" class="pp" *ngIf="!player.profile.profilPicture">
-        <span>
+        <mat-menu #playerSettings="matMenu" class="playerSettings">
+            <a mat-menu-item (click)="onOpenDialogDeletePlayer(player.id, player.name)">Exclure le joueur</a>
+            <a mat-menu-item (click)="onOpenDialogSetAsCaptain(player.id, player.name)">Nommer capitaine</a>
+        </mat-menu>
+            <fa-icon [icon]="faGear" id="param" [mat-menu-trigger-for]="playerSettings" *ngIf="user && user.isCaptain && user.id !== player.id && !player.isCaptain && user.teamId === team.id"></fa-icon>     
+        <img src="{{player.profilPicture}}" alt="pp" class="pp" *ngIf="player.profilPicture">
+        <img src="../../../../../assets/ndls_white_face.png" alt="pp" class="pp" *ngIf="!player.profilPicture">
+        <span id="name">
             {{ player.name }}
         </span>
-        <div class="rank" [ngSwitch]="player.profile.rank">
+        <fa-icon [icon]="faCrown" *ngIf="player.isCaptain" id="crown"></fa-icon>
+        <div class="rank" [ngSwitch]="player.rank">
             <img src="../../../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">
             <img src="../../../../../assets/grandmaster.png" alt="rank" *ngSwitchCase="rankEnum.GrandMaitre" class="ranksIcon">
             <img src="../../../../../assets/master.png" alt="rank" *ngSwitchCase="rankEnum.Maitre" class="ranksIcon">
@@ -23,8 +30,38 @@
             <img src="../../../../../assets/silver.png" alt="rank" *ngSwitchCase="rankEnum.Argent" class="ranksIcon">
             <img src="../../../../../assets/bronze.png" alt="rank" *ngSwitchCase="rankEnum.Bronze" class="ranksIcon">
             <img src="../../../../../assets/iron.png" alt="rank" *ngSwitchCase="rankEnum.Fer" class="ranksIcon">
-            <img src="../../../../../assets/unranked.png" alt="rank" *ngSwitchDefault class="ranksIcon">
+            <img src="../../../../../assets/unranked.png" alt="rank" *ngSwitchDefault class="ranksIcon" id="unranked">
         </div>
-        <img src="../../../../../assets/lol_icon_svg.svg" alt="" id="lolIcon">
+        <div class="socials">
+            <div class="lolAccount">
+                <img src="../../../../../assets/lol_icon_svg.svg" alt="" id="lolIcon">
+                <span>{{ player.ign }}</span>
+            </div>
+            <div class="discordAccount">
+                <fa-icon [icon]="faDiscord" alt="discord" id="discordIcon"></fa-icon>
+                <span>{{ player.discord }}</span>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="!player">
+    <div class="player missingPlayer">
+        <div [ngSwitch]="role" id="role">
+            <img src="../../../../../assets/top_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Toplaner" class="rolesIcon">
+            <img src="../../../../../assets/jungle_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Jungler" class="rolesIcon">
+            <img src="../../../../../assets/mid_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Midlaner" class="rolesIcon">
+            <img src="../../../../../assets/bottom_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.ADC" class="rolesIcon">
+            <img src="../../../../../assets/support_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Support" class="rolesIcon">
+            <img src="../../../../../assets/ndls_white_face.png" alt="ndls" *ngSwitchDefault>
+            <span>{{ role  | uppercase}}</span>
+        </div>
+        <img src="../../../../../assets/ndls_white_face.png" alt="pp" class="pp missing">
+        <span id="freePlace missing">
+            Place libre
+        </span>
+        <button *ngIf="user && !user.teamId && user.role === role" id="join" (click)="onOpenDialogJoinRequest()">
+            Rejoindre
+        </button>
+        <button *ngIf="user && user.isCaptain && user.teamId === team.id" (click)="onOpenDialogSearchPlayer(role)" class="search"><fa-icon [icon]="faMagnifyingGlass"></fa-icon>Rechercher</button>
     </div>
 </ng-container>

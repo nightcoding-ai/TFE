@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
@@ -18,7 +18,7 @@ import { JoinTeamFormComponent } from '../join-team-form/join-team-form.componen
 import { TeamService } from './team.service';
 import { SetascaptainComponent } from '../setascaptain/setascaptain.component';
 import { JoinrequestlistComponent } from '../joinrequestlist/joinrequestlist.component';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subject, takeUntil } from 'rxjs';
 
 
 
@@ -58,6 +58,7 @@ export class TeamComponent implements OnInit {
   joinRequests: any;
   team: any;
   matches: any;
+  private destroyed$: Subject<void>;
 
   constructor(
     private route : ActivatedRoute,
@@ -66,16 +67,21 @@ export class TeamComponent implements OnInit {
     private authService: AuthenticationService,
     private profilePlayerService: ProfilePlayerService,
     private dialog : MatDialog,
-  ) {
+    
+  ) { }
+
+  ngOnInit(): void {
     this.route.params.subscribe((data:any) => {
       this.idTeam = parseInt(data.id);
     })
-   }
-
-  ngOnInit(): void {
+    let token = this.authService.token;
+    if(token){
+      this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => {
+        this.player = res});
+    }
+    console.log(this.idTeam)
     this.getTeam(this.idTeam).subscribe((res) => { 
       this.team = res
-      console.log(res, "EQUIPE")
       if(this.team) {
         this.myTeamservice.getMatches(this.team.id).subscribe(
           (res) => {
@@ -84,20 +90,16 @@ export class TeamComponent implements OnInit {
         )
       }
       if(token && this.team && this.player && this.player.isCaptain && this.team.id === this.player.teamId){
-        this.myTeamservice.getListOfJoinRequests(this.idTeam).subscribe(
+        this.myTeamservice.getListOfJoinRequests(this.player.teamId).subscribe(
           (res) => {
+            console.log(res);
             this.joinRequests = res;
           }
         ); 
       }
       
     })
-    let token = this.authService.token;
-    if(token){
-      this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => {
-        console.log(res);
-        this.player = res});
-    }
+    
 
   }
 
@@ -106,7 +108,7 @@ export class TeamComponent implements OnInit {
   }
 
   getPlayerByRole(role: RoleEnum){
-    return this.team.players.find((player) => player.profile.role === role)
+    return this.team.players.find((player) => player.role === role)
   }
 
   getDecodedAccesToken(tokenToDecode: string): any {
@@ -175,7 +177,7 @@ export class TeamComponent implements OnInit {
     }})
   }
 
-
+ 
  
 
 }

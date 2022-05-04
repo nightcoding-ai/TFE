@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
 import { SignupService } from '../../signup/signup.service';
 import { CreateTeamDTO } from '../DTO/create-teamDTO';
@@ -12,7 +13,6 @@ import { CreateTeamFormService } from './create-team-form.service';
 })
 export class CreateTeamFormComponent implements OnInit {
 
-  logoBase64: any;
   teamForm: FormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -26,6 +26,7 @@ export class CreateTeamFormComponent implements OnInit {
     logo: new FormControl('')
   });
   teamPp:any;
+  faCirclePlus = faCirclePlus;
 
   constructor(
     private createTeamService: CreateTeamFormService, 

@@ -86,7 +86,11 @@ export class NavbarComponent implements OnInit {
   }
 
   myTeamSelect(teamId: number){
-    this.router.navigate(['/teams',teamId]);
+    this.redirectTo('/teams/' + teamId.toString());    
+  }
+
+  redirectTo(uri: string): void {
+    this.router.navigateByUrl('',{skipLocationChange: true}).then( () =>  this.router.navigate([uri]))
   }
 
   OnDeclineOffer(notifId: number){

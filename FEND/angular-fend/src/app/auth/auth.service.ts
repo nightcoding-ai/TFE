@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import jwtDecode from "jwt-decode";
 import { BehaviorSubject, map, tap } from "rxjs";
+import { Player } from "../interfaces/player.interface";
 import { LoginDTO } from "../login/DTO/loginDTO";
 
 @Injectable({
@@ -72,6 +73,6 @@ export class AuthenticationService {
     }
 
     getPlayer(idPlayer: number){
-        return  this.http.get<any>(`http://localhost:3000/api/players/single/${idPlayer}`);
+        return  this.http.get<Player>(`http://localhost:3000/api/players/single/${idPlayer}`);
     }  
 }

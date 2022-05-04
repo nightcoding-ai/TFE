@@ -46,6 +46,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 import { SetascaptainComponent } from './teams/setascaptain/setascaptain.component';
 import { JoinrequestlistComponent } from './teams/joinrequestlist/joinrequestlist.component';
@@ -63,6 +65,8 @@ import { CurrentTournamentComponent } from './tournament/current-tournament/curr
 import { SafeHTMLPipe } from './safe-html.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { PlayerComponent } from './teams/team/playerComponent/player/player.component';
+import { TeamMatchComponent } from './teams/team/team-match/team-match.component';
+import { PlayerListElementComponent } from './player-list-element/player-list-element.component';
 
 
 export function tokenGetter() {
@@ -100,6 +104,8 @@ export function tokenGetter() {
     CurrentTournamentComponent,
     SafeHTMLPipe,
     PlayerComponent,
+    TeamMatchComponent,
+    PlayerListElementComponent,
 
   ],
   entryComponents: [
@@ -148,7 +154,8 @@ export function tokenGetter() {
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
 
   ],
   providers: [

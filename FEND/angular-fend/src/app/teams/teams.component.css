@@ -1,23 +1,5 @@
-img.missingPlayer{
-    height: 3em;
-    width: 3em;
-    margin-bottom: 3px;
-}
-
-#missingBlock{
-    font-style: italic;
-    color: var(--orangeWarning);
-}
-
-.ranksIcon{
-    justify-content: center;
-    width: 4em;
-    height: 4em;
-}
-
-
-
 .listOfTeams{
+    margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -52,47 +34,11 @@ div.teamInfo{
 
 div.teamInfo:hover{
     background-color: var(--secondColor);
+    cursor: pointer;
     color: var(--firstColorDarker);
 }
 
-#profilTeam{
-    margin-left: 6px;
-    align-items: center;
-}
 
-div.teamInfo:hover{
-    cursor: pointer;
-}
-
-div.teamPlayers{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    background-color: var(--firstColorDarker);
-
-    width: 165px;
-
-
-}
-
-div.teamPlayers:first-child{
-    border-radius: 0px 0px 0px 5px;
-}
-
-div.teamPlayers:last-child{
-    border-radius: 0px 0px 5px 0px;
-}
-
-
-
-
-
-
-
-div.teamInfo a:hover{
-    cursor: pointer;
-}
 
 div.teamInfo a img{
     width: 0.5em;
@@ -105,7 +51,9 @@ div.teamInfo a img{
 #teamLogo{
     width: 120px;
     height: 120px;
-    margin-bottom: 25px
+    margin-bottom: 25px;
+    border-radius: 50%;
+
 }
 
 

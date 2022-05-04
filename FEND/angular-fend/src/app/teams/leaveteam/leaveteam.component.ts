@@ -7,7 +7,9 @@ import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
 import { Player } from '../../interfaces/player.interface';
+import { Team } from '../../interfaces/team.interface';
 import { TeamService } from '../team/team.service';
+import { TeamsService } from '../teams.service';
 
 @Component({
   selector: 'app-leaveteam',
@@ -21,6 +23,7 @@ export class LeaveteamComponent implements OnInit {
   faCheck = faCheck;
   tokenDecoded : any;
   user: Player;
+  team: Team;
   setAsCaptain: FormGroup;
   playersWithoutCaptain : any;
   
@@ -28,6 +31,7 @@ export class LeaveteamComponent implements OnInit {
     public authService: AuthenticationService,
     private profilePlayerService: ProfilePlayerService,
     private teamService: TeamService,
+    private teamsService: TeamsService,
     private dialogRef: MatDialogRef<LeaveteamComponent>
   ) { }
 
@@ -40,9 +44,14 @@ export class LeaveteamComponent implements OnInit {
       this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
         (res) => {
           this.user = res
-          if(this.user.team.players){
-          this.playersWithoutCaptain = this.user.team.players.filter(player => player.profile.isCaptain === false)
-          }
+          this.teamsService.getTeamByID(this.user.teamId).subscribe(
+            res => {
+              this.team = res;
+              if(this.team.players){
+                this.playersWithoutCaptain = this.team.players.filter(player => player.isCaptain === false);
+              }
+            }
+          )
         }
       )
     }
@@ -78,7 +87,7 @@ export class LeaveteamComponent implements OnInit {
     if(this.setAsCaptain.invalid){
       console.log("invalid form");
     }
-    if(this.user.profile.isCaptain === true){
+    if(this.user.isCaptain === true){
       this.teamService.setAsCaptain(this.setAsCaptain.value.newCaptain).subscribe(
         () =>  {
         this.teamService.leaveTeam();

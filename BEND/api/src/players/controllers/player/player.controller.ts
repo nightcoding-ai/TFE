@@ -119,7 +119,7 @@ export class PlayersController {
 
     @Post('all_by_role')
     getAllByRoleAndFree(
-    @Req() req: any): Promise<Player[]> {
+    @Req() req: any): Promise<PlayerDTO[]> {
         return this.PlayersService.getAllByRoleAndFree(req.body.role);
     }
 

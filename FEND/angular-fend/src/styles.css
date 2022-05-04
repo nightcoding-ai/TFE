@@ -10,6 +10,7 @@
     --redWarningHover: #701f1f;
     --greenColor: #65c957;
     --redColor: #e04b4b;
+    --yellowColor: #b99b6c;
 
     --firstColor: #191970;
     --secondColor: #884DA7;
@@ -18,7 +19,6 @@
     --firstColorDarker: #0e0e41;
     --firstColorHover: #0a0a2c;
     --secondColorDarker: #49295a;
-    --bodyColorDarker: #e4e4e4;
     --redColorDarker: #be4040;
 
     --firstColorLighter: #1f1f8b;
@@ -39,6 +39,10 @@
     scroll-behavior: smooth;
 }
 
+html {
+    height: 100%;
+}
+
 a {
     text-decoration: none;
 }
@@ -48,24 +52,24 @@ a:hover{
 }
 
 body{
-    color: white;
-    background-color: var(--bodyColor);
+    color: var(--notPureWhite);
+    background: rgb(12,12,75) ;
+    background: linear-gradient(0deg, rgba(12,12,75,1) 0%, rgba(6,6,37,1) 100%) ;
+    background-size: 100% 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    height: 100%; 
+    background-attachment: fixed;
+
+
 }
 
 .icons{
     width: 1em;
     height: 1em;
 }
-
-html, body {
- height: 100%; 
-}
-
-body { 
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
 
 fa-icon{
     margin-right: 4px;

@@ -14,6 +14,7 @@ export class JoinTeamFormComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private MaterialDialog: MatDialogRef<JoinTeamFormComponent>, private teamService: TeamService) { 
     this.data = givenData;
+    console.log(this.data);
   }
 
   ngOnInit(): void {

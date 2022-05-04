@@ -7,5 +7,5 @@ export class TeamDTO{
     name: string;
     abbreviation: string;
     logo: string;
-    players: Player[];
+    players: PlayerDTO[];
 }

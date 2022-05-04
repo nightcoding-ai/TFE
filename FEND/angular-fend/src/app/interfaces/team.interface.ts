@@ -9,5 +9,5 @@ export interface Team {
     abbreviation: string;
     logo: string;
     deletedAt?: Date;
-    players?: Player[];
+    players: Player[];
 }

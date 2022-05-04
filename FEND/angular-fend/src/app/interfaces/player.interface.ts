@@ -1,13 +1,18 @@
-import { ProfileDTO } from "../signup/DTO/profileDTO";
-import { TeamDTO } from "../teams/DTO/teamDTO";
-import { Profile } from "./profile.interface";
-import { Team } from "./team.interface";
+import { RankEnum } from "../ranks.enum";
+import { RoleEnum } from "../roles.enum";
+
 
 export interface Player {
 
     id?: number;
-    name: string;
     userType?: string;
-    profile: Profile;
-    team?: Team;
+    name: string;
+    discord: string;
+    profilPicture?: string;
+    role: RoleEnum;
+    rank?: RankEnum;
+    isCaptain: boolean;
+    ign: string;
+    teamId?: number;
+    teamName?: string;
 }

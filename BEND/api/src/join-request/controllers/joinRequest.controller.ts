@@ -55,7 +55,7 @@ export class JoinRequestController {
     @UseGuards(JwtAuthGuard)
     @Post('team')
     getAllOfATeam(
-        @Req() req:any): Promise<JoinRequest[] | UnauthorizedException | null> {
+        @Req() req:any): Promise<JoinRequestDTO[] | UnauthorizedException | null> {
         return this.JoinRequestService.getAllOfTeam(req.user.playerID, req.body.teamId); 
     }
 

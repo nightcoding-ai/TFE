@@ -102,9 +102,13 @@ export class JoinRequestService {
             for (const req of result) {
                 let dto = new JoinRequestDTO();
                 dto.id = req.id;
+                dto.playerId = req.player.id;
                 dto.playerName = req.player.name;
-                dto.teamName = req.team.name;
+                if(req.player.profile.profilPicture) {
+                    dto.playerProfilePicture = req.player.profile.profilPicture;
+                }
                 dto.role = req.role;
+                dto.isApproved = req.isApproved;
                 dto.createdAt = req.createdAt;
                 dto.expiredAt = req.expiredAt;
                 dtoArray.push(dto);
@@ -140,16 +144,33 @@ export class JoinRequestService {
      * @param {number} idTeam  - L'id de l'équipe pour trouver toutes les demandes de celle-ci.
      * @returns {JoinRequest[] | null | UnauthorizedException} la liste de toutes les demandes d'adhésion de l'équipe ou {null} si aucune existe, cependant peut retourner une erreur 401 si l'une des conditions n'est pas respectée.
      */
-    async getAllOfTeam(idCaptain: number, idTeam: number): Promise<JoinRequest[] | null | UnauthorizedException> {
+    async getAllOfTeam(idCaptain: number, idTeam: number): Promise<JoinRequestDTO[] | null | UnauthorizedException> {
         try{
             const captain = await this.PlayerRepository.getOne(idCaptain);
             if(!captain || !captain.profile.isCaptain || !captain.team || captain.team.id !== idTeam){
                 return new UnauthorizedException();
             }
             const result = await this.JoinRequestRepository.getAllOfATeam(idTeam);
+            const dtoArray: JoinRequestDTO[] = [];
             if(!result) { 
                 return null;
             }
+            for (const req of result) {
+                let dto: JoinRequestDTO = new JoinRequestDTO();
+                dto.id = req.id;
+                dto.playerId = req.player.id;
+                dto.playerName = req.player.name;
+                if(req.player.profile.profilPicture) {
+                    dto.playerProfilePicture = req.player.profile.profilPicture;
+                }
+                dto.teamId = req.team.id;
+                dto.role = req.role;
+                dto.isApproved = req.isApproved;
+                dto.createdAt = req.createdAt;
+                dto.expiredAt = req.expiredAt;
+                dtoArray.push(dto);
+            }
+            return dtoArray;
         }
         catch(err){
             throw err;

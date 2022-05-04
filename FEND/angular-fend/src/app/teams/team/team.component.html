@@ -1,147 +1,43 @@
 
-    <div class="teamInformationsContainer" >
-            <div class="logo" *ngIf="team && team.logo">
-                <img src="{{ team.logo }}" alt="logo" id="teamLogo">
-            </div>
-            <div class="teamName" *ngIf="team && team.logo">
-                <span>{{ team.abbreviation | uppercase }}</span>
-                <span>{{ team.name | uppercase }}</span>
-            </div>           
-            <div  class="logo" *ngIf=" team && !team.logo">
-                <img src="../../../assets/ndls_blue_face" alt="logo" id="teamLogo">
-            </div>
-
-            <div class="teamName" *ngIf=" team && !team.logo" >
-                <span>{{ team.abbreviation | uppercase }}</span>
-                <span>{{team.name | uppercase}}</span>
-            </div>
+<div class="teamInformationsContainer" >
+    <div class="logo" *ngIf="team && team.logo">
+        <img src="{{ team.logo }}" alt="logo" id="teamLogo">
+    </div>
+    <div class="teamName" *ngIf="team && team.logo">
+        <span id="abb">{{ team.abbreviation | uppercase }}</span>
+        <span>{{ team.name | uppercase }}</span>
+    </div>           
+    <div  class="logo" *ngIf=" team && !team.logo">
+        <img src="../../../assets/ndls_white_face.png" alt="logo" id="teamLogo">
+    </div>
+    <div class="teamName" *ngIf=" team && !team.logo" >
+        <span>{{ team.abbreviation | uppercase }}</span>
+        <span>{{team.name | uppercase}}</span>
+    </div>
         <ng-container *ngIf="player">
             <div *ngIf="player.teamId" class="teamButtons">
-                <ng-container *ngIf="player && team && player.teamId === team.id">
+                <ng-container *ngIf="player && team && player.teamId === team.id"> 
                     <ng-container *ngIf="player.isCaptain === true">
-                    <a (click)="onOpenDialogUpdateTeamInfo()" class="teamLinks modifButton"><fa-icon [icon]="faPenLine"></fa-icon>Modifier</a>
+                        <a (click)="onOpenDialogPlayersWantingToJoin()" class="teamLinks joinRequests" *ngIf="joinRequests" [matBadge]="joinRequests.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"><fa-icon [icon]="faUserCheck"></fa-icon>Demandes d'adhésion</a>
+                        <a (click)="onOpenDialogUpdateTeamInfo()" class="teamLinks modifButton"><fa-icon [icon]="faPenLine"></fa-icon>Modifier</a>
                     </ng-container>
                     <ng-container *ngIf="team.players.length > 1">
-                    <a (click)="onOpenDialogLeaveTeam()" class="teamLinks leaveButton"><fa-icon [icon]="faArrowRight" ></fa-icon>Quitter</a>
+                        <a (click)="onOpenDialogLeaveTeam()" class="teamLinks leaveButton"><fa-icon [icon]="faArrowRight" ></fa-icon>Quitter</a>
                     </ng-container>
                     <ng-container *ngIf="player.isCaptain === true">
-                    <a (click)="onOpenDialogDeleteTeam()" class="teamLinks deleteButton"><fa-icon [icon]="faTrashCan" ></fa-icon>Supprimer</a>
+                        <a (click)="onOpenDialogDeleteTeam()" class="teamLinks deleteButton"><fa-icon [icon]="faTrashCan" ></fa-icon>Supprimer</a>
                     </ng-container>
                 </ng-container>
             </div>
         </ng-container>
-    </div>
+</div>
+
     <div *ngIf="team" class="playersContainer">
-            <ndls-player [player]="this.getPlayerByRole(role)" *ngFor="let role of roles"></ndls-player>
+        <ndls-player [player]="this.getPlayerByRole(role)" [team]="team" [role]="role" [user]="player" *ngFor="let role of roles" class="playerComponent"></ndls-player>
     </div>
-    <!--
+<!--
 
-    
-    <div class="team" *ngIf="team">
-            <a class="joinDemands" *ngIf="player && player.teamId && player.team.id === team.id && player.isCaptain" (click)="onOpenDialogPlayersWantingToJoin()"><fa-icon [icon]="faUserCheck"></fa-icon>Demandes d'adhésion </a>
-                <div *ngFor="let role of roles" class="player">
-                    <div *ngIf="this.getPlayerByRole(role)">
-                            <div *ngIf="this.getPlayerByRole(role).isCaptain" class="crown">
-                                <fa-icon [icon]="faCrown" id="crown"></fa-icon>
-                            </div>
-                            <div *ngIf="this.getPlayerByRole(role).profilPicture">
-                                <img src="{{this.getPlayerByRole(role).profilPicture}}" class="profilePicture" alt="profilePicture"  [ngClass]="{'isCaptain' : this.getPlayerByRole(role).isCaptain, 'isPlayer' : player && player.isCaptain && player.team.id === team.id && !this.getPlayerByRole(role).isCaptain }"  (click)="onOpenDialogSetAsCaptain(this.getPlayerByRole(role).id, this.getPlayerByRole(role).name)"> 
-                            </div>
-                            <div *ngIf="!this.getPlayerByRole(role).profilPicture">
-                                <img src="../../../assets/ndls_white.png" class="profilePicture noPp" alt="profilePicture" > 
-                            </div>
-                            <div >
-                                <span id="name">{{ this.getPlayerByRole(role).name  }} </span>
-                            </div>
-                    </div> 
-                    <div class="playerOfRosterMissing" *ngIf="!this.getPlayerByRole(role)" >
-                        <img src="../../../assets/ndls_white_face.png" alt="noPlayer" class="noPlayer">
-                        <span>{{ role }} manquant</span> 
-                    </div>
-                    <ng-container *ngIf="team && team.players && this.getPlayerByRole(role)">
-                        <div [ngSwitch]="role" id="role">
-                            <img src="../../../assets/Top_icon.png" alt="role" *ngSwitchCase="roleEnum.Toplaner" class="rolesIcon">
-                            <img src="../../../assets/Jungle_icon.png" alt="role" *ngSwitchCase="roleEnum.Jungler" class="rolesIcon">
-                            <img src="../../../assets/Middle_icon.png" alt="role" *ngSwitchCase="roleEnum.Midlaner" class="rolesIcon">
-                            <img src="../../../assets/Bottom_icon.png" alt="role" *ngSwitchCase="roleEnum.ADC" class="rolesIcon">
-                            <img src="../../../assets/Support_icon.png" alt="role" *ngSwitchCase="roleEnum.Support" class="rolesIcon">
-                            <fa-icon [icon]="faTrianglExclamation" *ngSwitchDefault></fa-icon>      
-                        </div>
-                        <div class="rank  " [ngSwitch]="this.getPlayerByRole(role).rank">
-                            <img src="../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">
-                            <img src="../../../assets/grandmaster.png" alt="rank" *ngSwitchCase="rankEnum.GrandMaitre" class="ranksIcon">
-                            <img src="../../../assets/master.png" alt="rank" *ngSwitchCase="rankEnum.Maitre" class="ranksIcon">
-                            <img src="../../../assets/diamond.png" alt="rank" *ngSwitchCase="rankEnum.Diamant" class="ranksIcon">
-                            <img src="../../../assets/platine.png" alt="rank" *ngSwitchCase="rankEnum.Platine" class="ranksIcon">
-                            <img src="../../../assets/gold.png" alt="rank" *ngSwitchCase="rankEnum.Or" class="ranksIcon">
-                            <img src="../../../assets/silver.png" alt="rank" *ngSwitchCase="rankEnum.Argent" class="ranksIcon">
-                            <img src="../../../assets/bronze.png" alt="rank" *ngSwitchCase="rankEnum.Bronze" class="ranksIcon">
-                            <img src="../../../assets/iron.png" alt="rank" *ngSwitchCase="rankEnum.Fer" class="ranksIcon">
-                            <img src="../../../assets/unranked.png" alt="rank" *ngSwitchDefault class="ranksIcon">
-                        </div>
-                    </ng-container>
-                    <div class="info" *ngIf="this.getPlayerByRole(role)">
-                        <div><img src="../../../assets/lol_icon_svg.svg" alt="lolIcon" id="lolIcon"><span>{{ this.getPlayerByRole(role).inGameName | uppercase}}</span></div>
-                        <div><fa-icon [icon]="faDiscord" id="discord"></fa-icon><span>{{ this.getPlayerByRole(role).discord | uppercase}}</span></div>
-                    </div>
-                    <div *ngIf="!this.getPlayerByRole(role)">
-                        <div *ngIf="player">
-                            <button class="btn joinBtn" *ngIf="!player.team && player.role === role" id="join" (click)="onOpenDialogJoinRequest()">REJOINDRE</button>                   
-                        </div>
-                    </div>
-                    <div class="buttons" *ngIf="player 
-                        && team
-                        && player.team
-                        && player.team.id === team.id 
-                        && player.isCaptain">
-                        <button id="banBtn" *ngIf="player 
-                        && team 
-                        && player.team.id === team.id 
-                        && player.isCaptain
-                        && this.getPlayerByRole(role)
-                        && !this.getPlayerByRole(role).isCaptain
-                        && this.getPlayerByRole(role).id !== player.id"
-                        (click)="onOpenDialogDeletePlayer(this.getPlayerByRole(role).id, this.getPlayerByRole(role).name)">
-                        <fa-icon [icon]="faBan"></fa-icon>  Expulser</button>
-                        <button id="inviteBtn" *ngIf="!this.getPlayerByRole(role)
-                        && player 
-                        && team 
-                        && player.team.id === team.id 
-                        && player.isCaptain" 
-                        (click)="onOpenDialogSearchPlayer(role);">
-                        <fa-icon [icon]="faPlus"></fa-icon>  Inviter</button>
-                        <div *ngIf=" 
-                        player 
-                        && team 
-                        && player.team.id === team.id 
-                        && player.isCaptain
-                        && this.getPlayerByRole(role)
-                        && this.getPlayerByRole(role).isCaptain" class="captain" >
-                            CAPITAINE
-                        </div>
-                    </div>
-                </div>
+    <div *ngIf="matches" class="teamMatches">
+        <ndls-match [match]="match" *ngFor="let match of matches" class="matchComponent"></ndls-match>
     </div>
-    <div class="matches">
-        <div class="match" *ngFor="let match of matches" [ngClass]="{'won': team.name === match.winner}">
-            <span *ngIf="match.teamA" class="teamNameMatch">{{ match.teamA | uppercase }}</span>
-            <span *ngIf="!match.teamA" class="teamNameMatch">T.B.D</span>
-            <img src="{{match.teamALogo}}" alt="logoTeamA" *ngIf="match.teamALogo">
-            <img src="../../../assets/ndls_white_face.png" alt="logo" *ngIf="!match.teamALogo">
-            <div class="VS">
-                <ng-container [ngSwitch]="match.bestOfType" >
-                    <span class="bo" *ngSwitchCase="1">BO{{match.bestOfType }}</span>
-                    <span class="bo" *ngSwitchCase="2">BO{{match.bestOfType +1 }}</span>
-                    <span class="bo" *ngSwitchCase="3">BO{{match.bestOfType + 2 }}</span>
-                </ng-container>
-                <span>VS</span>
-                <span id="score">{{match.teamAWins}} - {{match.teamBWins}}</span>
-            </div>
-            <img src="{{match.teamBLogo}}" alt="logoTeamB" *ngIf="match.teamBLogo">
-            <img src="../../../assets/ndls_white_face.png" alt="logo" *ngIf="!match.teamBLogo">
-            <span *ngIf="match.teamB" class="teamName">{{ match.teamB | uppercase }}</span>
-            <span *ngIf="!match.teamB" class="teamName">T.B.D</span>
-        </div>
-    </div>
-
 -->

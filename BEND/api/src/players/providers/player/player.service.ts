@@ -189,9 +189,27 @@ export class PlayersService {
      * @param {RoleEnum} roleOfPlayer -  le rôle sur lequel doit se baser la recherche des joueurs n'ayant pas d'équipe
      * @returns le résultat après avoir trouvé les joueurs étant libres et qui ont le rôle recherché sinon {undefined} si aucun joueur est libre.
      */
-    async getAllByRoleAndFree(roleOfPlayer: RoleEnum): Promise<Player[] | undefined> {
+    async getAllByRoleAndFree(roleOfPlayer: RoleEnum): Promise<PlayerDTO[] | undefined> {
         try {
-            return await this.PlayerRepo.getAllByRoleAndFree(roleOfPlayer);
+            const result = await this.PlayerRepo.getAllByRoleAndFree(roleOfPlayer);
+            if(!result) {
+                return undefined;
+            }
+            const dtoArray: PlayerDTO[] = [];
+            for (const player of result) {
+                let dto: PlayerDTO = new PlayerDTO();
+                dto.id = player.id;
+                dto.name = player.name;
+                dto.discord = player.profile.discord;
+                dto.ign = player.profile.inGameName;
+                if(player.profile.profilPicture) {
+                    dto.profilPicture = player.profile.profilPicture;
+                }
+                dto.role = player.profile.role;
+                dto.rank = player.profile.rank;
+                dtoArray.push(dto);
+            }
+            return dtoArray;
         }
         catch(err) {
             throw err;

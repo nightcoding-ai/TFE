@@ -14,6 +14,7 @@ import { NotFullTeamDTO } from "../DTO/notFullTeamDTO";
 import { TeamDTO } from "../DTO/teamDTO";
 import { TeamWithLogoDTO } from "../DTO/teamWithLogoDTO";
 import { TeamInterface } from "../interfaces/teams.interface";
+import { Team } from "../models/teams.entity";
 import { TeamRepository } from "../repository/teams.repository";
 
 @Injectable()
@@ -241,13 +242,37 @@ export class TeamsService {
      * @param {number} idTeam - id de l'équipe à trouver
      * @returns {TeamInterface | undefined} - renvoie l'équipe, sinon {undefined} si elle n'existe pas.
      */
-    async getTeam(idTeam: number): Promise<TeamInterface | undefined> {
+    async getTeam(idTeam: number): Promise<TeamDTO | undefined> {
         try{
-            const team = await this.TeamRepository.getTeam(idTeam);
-            if(!team) { 
+            const result = await this.TeamRepository.getTeam(idTeam);
+            if(!result) { 
                 return undefined;
             }
-            return team;
+            let dto: TeamDTO = new TeamDTO();
+            dto.id = result.id;
+            dto.name = result.name;
+            dto.abbreviation = result.abbreviation;
+            dto.logo = result.logo;
+            if(result.players) {
+                dto.players = [];
+                for (const player of result.players) {
+                    if(player) {
+                        let dtoPlayer: PlayerDTO = new PlayerDTO();
+                        dtoPlayer.id = player.id;
+                        dtoPlayer.name = player.name;
+                        dtoPlayer.discord = player.profile.discord;
+                        dtoPlayer.role = player.profile.role;
+                        dtoPlayer.rank = player.profile.rank;
+                        if(player.profile.profilPicture) {
+                            dtoPlayer.profilPicture = player.profile.profilPicture;
+                        }
+                        dtoPlayer.ign = player.profile.inGameName;
+                        dtoPlayer.isCaptain = player.profile.isCaptain;
+                        dto.players.push(dtoPlayer);
+                    }
+                }
+            }
+            return dto;
         }
         catch(err) {
             throw err;

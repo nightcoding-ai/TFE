@@ -14,7 +14,18 @@ div.logo {
     justify-content: space-between;
 }
 
+#abb {
+    text-transform: lowercase;
+    font-size: 0.66em;
+    text-orientation: sideways;
+    opacity: 0.5;
+}
 
+
+
+div.logo img{
+    border-radius: 50%;
+}
 
 .teamInformationsContainer {
     height: 130px;
@@ -22,25 +33,32 @@ div.logo {
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    justify-content: space-evenly;
-    padding: 10px;
-    background-color: #dddddd;
-    border: solid 2px var(--secondColor);
-    border-bottom: none;
-    width: calc(100% - 10px);
+    justify-content: space-around;
+    padding: 25px;
+    
+    margin-bottom: 50px;
+}
+
+.playerComponent {
+    width: 20%;
 }
 
 div.teamName {
     position: relative;
+    width: calc(100% - 5px);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     font-weight: 700;
     font-size: 3em;
-    color: var(--firstColorDarker);
-
+    color: var(--notPureWhite);
+    letter-spacing: 6px;
+    align-items: center;
 }
 
+div.player {
+    width: 18%;
+}
 div.teamName:first-child {
     color: var(--firstColor);
 }
@@ -51,14 +69,18 @@ div.teamName span {
 
 div.teamButtons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-
+    align-items: center;
 }
 
 div.teamButtons a {
+    display: flex;
     padding: 4px;
     margin: 6px;
+    background-color: var(--firstColorDarker);
+    border-radius: 5px;
+    padding: 10px;
 }
 
 div.teamButtons a:hover {
@@ -69,7 +91,7 @@ div.teamButtons a:hover {
 }
 
 .modifButton {
-    color: var(--firstColorDarker);
+    color: var(--notPureWhite);
 }
 
 a.deleteButton, a.leaveButton {
@@ -185,6 +207,11 @@ div.info {
     border-radius: 50%;
 }
 
+.joinRequests {
+    width: max-content;
+    color: var(--notPureWhite);
+}
+
 .playerOfRosterMissing span {
     text-transform: uppercase;
     color: var(--firstColorDarker);
@@ -232,6 +259,7 @@ div.info {
     font-weight: 600;
 }
 
+
 @media only screen and (max-width: 990px){
 
     a {
@@ -239,10 +267,43 @@ div.info {
     }
 
     .playersContainer {
+        margin-top: 150px;
         display: flex;
         flex-direction: column;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .playersContainer:first-child {
+        margin-top: 50px;
+    }
+
+    .teamInformationsContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    div.logo {
+        width: fit-content;
+        margin-top: 115px;
+        margin-bottom: 15px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    div.teamName {
+        padding: 15px;
+    }
+
+    .playerComponent {
+        width: calc(100% - 100px);
+    }
+
+    ndls-player {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 25px;
+        align-items: center;
     }
 
 }

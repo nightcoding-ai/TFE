@@ -18,7 +18,7 @@
                 <a ngbDropdownItem routerLink="/teams" (click)="isMenuCollapsed = true">Equipes</a>
                 <ng-container  *ngIf="getAuthUser();">
                   <ng-container *ngIf="player">
-                    <a ngbDropdownItem *ngIf="player.teamName " routerLink="/teams/{{player.teamId}}">Mon équipe</a>
+                    <a ngbDropdownItem *ngIf="player.teamName " (click)="myTeamSelect(player.teamId)">Mon équipe</a>
                     <a ngbDropdownItem *ngIf="!player.teamName " routerLink="/new_team" >Créer une équipe</a>
                   </ng-container>
               </ng-container>

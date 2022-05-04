@@ -1,0 +1,34 @@
+div.player {
+    display: flex;
+    background-color: var(--secondColorDarker);
+    height: 70px;
+    width: 500px;
+    color: var(--notPureWhite);
+}
+
+.playerPp {
+    width: 50px;
+    height: 50px;
+}
+
+.ranksIcon {
+    width: 50px;
+    height: 50px;
+}
+
+#lolIcon {
+    width: 25px;
+    height: 25px;
+}
+
+.discordAccount {
+    font-size: 25px;
+}
+
+.icon {
+    color: var(--yellowColor);
+}
+
+#lolIcon {
+    filter: invert(66%) sepia(51%) saturate(285%) hue-rotate(358deg) brightness(87%) contrast(87%);
+}

@@ -1,5 +1,6 @@
 
     <form [formGroup]="teamForm" (ngSubmit)="onSubmit()" class="teamForm">
+            <h1>Creer une <span>equipe</span> </h1>
             <mat-form-field>
                 <mat-label>Nom de l'équipe</mat-label>
                 <input  matInput placeholder="Nom d'équipe..." formControlName="name" >
@@ -8,13 +9,10 @@
             <mat-form-field>
                 <mat-label>Abbréviation</mat-label>
                 <input matInput placeholder="Abbreviation..." formControlName="abbreviation">
-                <mat-hint>Max. 3 caractères</mat-hint>
+                <mat-hint style="color: var(--notPureWhite);">Max. 3 caractères</mat-hint>
             </mat-form-field>
 
-            <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
-            <div class="img" *ngIf="logoBase64">
-                <img [src]="logoBase64">
-            </div>
+            <input type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
 
-            <button  type="submit">Créer l'équipe</button>
+            <button type="submit"><fa-icon [icon]="faCirclePlus"></fa-icon>Creer</button>
     </form>

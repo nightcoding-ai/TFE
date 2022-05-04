@@ -1,7 +1,6 @@
-import { RoleEnum } from "../../players/enum/role.enum";
+import { RoleEnum } from "../roles.enum";
 
-
-export class JoinRequestDTO {
+export interface JoinRequest {
 
     id?: number;
     playerId: number;

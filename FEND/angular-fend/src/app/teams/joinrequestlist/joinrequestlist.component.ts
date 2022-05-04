@@ -4,6 +4,8 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { faBan, faCircleCheck, faXmark, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { RankEnum } from 'src/app/ranks.enum';
 import { RoleEnum } from 'src/app/roles.enum';
+import { Player } from '../../interfaces/player.interface';
+import { JoinRequest } from '../../interfaces/request.interface';
 import { TeamService } from '../team/team.service';
 
 @Component({
@@ -13,7 +15,8 @@ import { TeamService } from '../team/team.service';
 })
 export class JoinrequestlistComponent implements OnInit {
 
-  data: any;
+  requests: JoinRequest[];
+  player: Player;
 
   faCircleCheck = faCircleCheck;
   faBan = faBan;
@@ -31,12 +34,17 @@ export class JoinrequestlistComponent implements OnInit {
   rankEnum = RankEnum;
   
 
-  constructor(@Inject(MAT_DIALOG_DATA) private givenData: any, private teamService: TeamService,private matRef: MatDialogRef<JoinrequestlistComponent>) {
-  this.data = givenData 
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private givenData: any,
+    private teamService: TeamService,
+    private matRef: MatDialogRef<JoinrequestlistComponent>
+    ) {
+    this.requests = givenData.joinRequests;
+    this.player = givenData.player;
   }
 
   ngOnInit(): void {
-    console.log(this.data);
+    console.log(this.player);
   }
 
   acceptRequest(idRequest: number){
@@ -55,7 +63,7 @@ export class JoinrequestlistComponent implements OnInit {
     this.matRef.close();
   }
 
-  checkRequests(reqs: any, role: RoleEnum){
+  filterRequests(reqs: any, role: RoleEnum){
     if(reqs){
 
       return reqs.find((r) => r.player.profile.role === role);
