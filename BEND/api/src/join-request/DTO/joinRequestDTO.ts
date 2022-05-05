@@ -1,3 +1,4 @@
+import { RankEnum } from "../../players/enum/rank.enum";
 import { RoleEnum } from "../../players/enum/role.enum";
 
 
@@ -7,6 +8,10 @@ export class JoinRequestDTO {
     playerId: number;
     playerName: string;
     playerProfilePicture?: string;
+    playerRank: RankEnum;
+    playerRole: RoleEnum;
+    playerDiscord: string;
+    playerIGN: string;
     teamId: number;
     role: RoleEnum;
     isApproved: boolean;

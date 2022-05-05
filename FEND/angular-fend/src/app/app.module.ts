@@ -67,6 +67,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { PlayerComponent } from './teams/team/playerComponent/player/player.component';
 import { TeamMatchComponent } from './teams/team/team-match/team-match.component';
 import { PlayerListElementComponent } from './player-list-element/player-list-element.component';
+import { CancelButtonComponent } from './cancel-button/cancel-button.component';
+import { ConfirmButtonComponent } from './confirm-button/confirm-button.component';
 
 
 export function tokenGetter() {
@@ -106,6 +108,8 @@ export function tokenGetter() {
     PlayerComponent,
     TeamMatchComponent,
     PlayerListElementComponent,
+    CancelButtonComponent,
+    ConfirmButtonComponent,
 
   ],
   entryComponents: [
@@ -116,7 +120,7 @@ export function tokenGetter() {
     SetascaptainComponent, 
     JoinrequestlistComponent, 
     JoinTeamFormComponent,
-    ModifyProfileComponent
+    ModifyProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,5 @@
-<ndls-player-element [player]="player" *ngFor="let player of freePlayers"></ndls-player-element>
+<div class="parent">
+    <div *ngFor="let player of freePlayers" (click)="onInvitePlayer(player.id,player.teamId, player.role); player.invited = true">
+        <ndls-player-element [player]="player" [ngStyle]="{'opacity': player.invited ? .2 : 1}" [ngClass]="{'hover': true}"></ndls-player-element>
+    </div>
+</div>

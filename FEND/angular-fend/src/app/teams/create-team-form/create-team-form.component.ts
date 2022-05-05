@@ -47,7 +47,6 @@ export class CreateTeamFormComponent implements OnInit {
 
   onSubmit(): void | null{
     if(this.teamForm.invalid){
-      console.log("Form is invalid.");
       return null;
     }
     let dto: CreateTeamDTO = new CreateTeamDTO();
@@ -61,12 +60,12 @@ export class CreateTeamFormComponent implements OnInit {
         }
       )
     }
-    if(!this.teamForm.get('logo').value) {
-      this.createTeamService.createTeam(dto); 
+    else {
+      this.createTeamService.createTeam(dto);
     }
   };
 
   handleUpload(event: any): void {
     this.teamPp = event.target.files[0];
-  }
+  };
 }

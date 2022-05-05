@@ -1,106 +1,17 @@
-.profile{
+div.profile {
+    width: calc(100% - 100px);
+    height: 650px;
+    margin-top: 50px;
+    border: 4px solid green;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-    width: max-content;
-    color: var(--firstColorDarker);
-    font-weight: 600;
-    
-}
-#pp{
-    margin-left: 20px;
-    width: 100px;
-    height: 100px;
-    border: 5px solid var(--secondColor);
-    border-radius: 50%;
-    margin-right: 25px;
-    margin-left: 0;
 }
 
-#pseudo, .discordName{
-    letter-spacing: 3px;
-    font-size: 1.6em;
-}
-
- .igName, .discordName{
-    display: flex;
-    align-items: center;
-}
-
-span{
-    height: fit-content;
-}
-.pseudo{
-    display: grid;
-    align-items: center;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.noPp{
-    background-color: var(--firstColorDarker);
-}
-
-.rolesIcon, .ranksIcon, .lolIcon, .discordIcon{
-    width: 55px;
-    height: 55px;
-}
-
-.crucials{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    
-}
-
-.role, .rank, .ign, .discord{
-    display: flex;
-    flex-direction: row;
-    border: solid 3px var(--secondColor);
-    padding: 5px;
-    border-radius: 5px;
-
-}
-
-.discordIcon{
-    font-size: 45px;
-    margin-right: 25px;
-}
-
-.ign, .discord{
-    margin-top: 20px;
-}
-
-.role{
-    margin-bottom: 20px;
-
-}
-
-.rolesIcon, .ranksIcon, .lolIcon{
-    margin-right: 30px;
-}
-
-.lolIcon{
-    filter: invert(14%) sepia(7%) saturate(6980%) hue-rotate(207deg) brightness(93%) contrast(116%);
-
-}
-
-.roleName, .rankName, .igName{
-    display: flex;
-    align-items: center;
-    font-size: 1.55em;
-    letter-spacing: 3px;
-}
-
-fa-icon{
-    display: flex;
-    align-items: center;
-}
-
-.lolInfos{
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
+img { 
+    width: 10px;
+    height: 10px;
 }

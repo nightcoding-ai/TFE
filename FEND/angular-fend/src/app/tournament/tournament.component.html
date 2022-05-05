@@ -3,8 +3,11 @@
         {{tournament.name}}
     </div>
 </ng-container>
-<ng-container *ngIf="tournamentList.length === 0" style="color: blue">
-    Aucun tournoi pour le moment 
+<ng-container *ngIf="tournamentList.length === 0" >
+    <div  class="noTeam">
+        <img src="../../assets/ndls_white.png" alt="ndls" class="ndls">
+        <span>Aucune tournoi pour le moment.</span>
+    </div>
 </ng-container>
 
 <ng-container *ngIf="!responseOfService">

@@ -1,20 +1,10 @@
-<div class="title">
-<span> Modifier les informations</span>
-<small id="small">Ne modifiez que vous voulez changer...</small>
-</div>
 <form [formGroup]="updateTeamForm" (ngSubmit)="onSubmit()" class="updateTeam">
-    
-    <label for="name">Nouveau nom d'équipe</label>
-    <input type="text" formControlName="name">
-
-    <label for="abbreviation">Nouvelle abréviation</label>
-    <input type="text" formControlName="abbreviation">
-
-    <label for="logo">Nouveau logo</label>
-    <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
-
+    <h1>Modifier les informations de l'<span> equipe</span></h1>
+    <input matInput type="text" formControlName="name" placeholder="Nom">  
+    <input matInput type="text" formControlName="abbreviation" maxlength="3" placeholder="Abbreviation"> 
+    <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)"> 
     <div class="btns">
         <button  type="submit"><fa-icon [icon]="faPenSquare"></fa-icon>Modifier</button>
-        <a  (click)="close()"><fa-icon id="cancel" [icon]="faXmark"></fa-icon>Annuler</a>
+        <ndls-cancel-button (click)="close()"></ndls-cancel-button>
     </div>
 </form>

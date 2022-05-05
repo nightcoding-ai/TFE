@@ -12,7 +12,7 @@ import { TeamService } from '../team/team.service';
 import { TeamsService } from '../teams.service';
 
 @Component({
-  selector: 'app-leaveteam',
+  selector: 'ndls-leaveteam',
   templateUrl: './leaveteam.component.html',
   styleUrls: ['./leaveteam.component.css']
 })
@@ -25,56 +25,24 @@ export class LeaveteamComponent implements OnInit {
   user: Player;
   team: Team;
   setAsCaptain: FormGroup;
-  playersWithoutCaptain : any;
+  playersWithoutCaptain : Player[];
+  selectedPlayer: Player;
   
   constructor(
+    @Inject(MAT_DIALOG_DATA) private givenData: any,
     public authService: AuthenticationService,
-    private profilePlayerService: ProfilePlayerService,
     private teamService: TeamService,
-    private teamsService: TeamsService,
     private dialogRef: MatDialogRef<LeaveteamComponent>
   ) { }
 
   ngOnInit(): void {
-    let token = this.authService.getToken();
-
-    if(token){
-      this.getDecodedAccesToken(token);
-
-      this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
-        (res) => {
-          this.user = res
-          this.teamsService.getTeamByID(this.user.teamId).subscribe(
-            res => {
-              this.team = res;
-              if(this.team.players){
-                this.playersWithoutCaptain = this.team.players.filter(player => player.isCaptain === false);
-              }
-            }
-          )
-        }
-      )
-    }
-    this.setAsCaptain = new FormGroup({
-      newCaptain: new FormControl(null, [
-        Validators.required
-      ]) 
-    });
+    this.user = this.givenData.player;
+    this.team = this.givenData.team;
+    this.getPlayersWithoutCaptain(this.team.players, this.user);
   }
   
   close(): void{
     this.dialogRef.close();
-  }
-  
-  getDecodedAccesToken(tokenToDecode: string): any {
-    try {
-      this.tokenDecoded = this.helper.decodeToken(tokenToDecode);
-      return this.tokenDecoded;
-      
-    } 
-    catch(err) {
-      return null;
-    }
   }
 
   leaveTeam(): void{
@@ -82,19 +50,10 @@ export class LeaveteamComponent implements OnInit {
     this.teamService.leaveTeam();
   }
 
-
-  onSubmit(): void{
-    if(this.setAsCaptain.invalid){
-      console.log("invalid form");
-    }
-    if(this.user.isCaptain === true){
-      this.teamService.setAsCaptain(this.setAsCaptain.value.newCaptain).subscribe(
-        () =>  {
-        this.teamService.leaveTeam();
-      }
-      )
-    }
-    this.close();
+  onSetNewCaptain(idPlayer: number):void {
+    this.teamService.setAsCaptain(idPlayer).subscribe(
+      () => this.leaveTeam()
+    );
   }
 
   leaveTeamWithOnlyOneOtherPlayer(idPlayer :number): void {
@@ -102,5 +61,16 @@ export class LeaveteamComponent implements OnInit {
       () => this.leaveTeam()
     )
     this.close();
+  }
+
+  getSelectedPlayer(player: Player): Player {
+    this.selectedPlayer = player;
+    console.log(this.selectedPlayer);
+    return this.selectedPlayer;
+  }
+
+  getPlayersWithoutCaptain(playersArray: Player[], user: Player): Player[] {
+    this.playersWithoutCaptain = playersArray.filter(p => p.id !== user.id);
+    return this.playersWithoutCaptain;
   }
 }

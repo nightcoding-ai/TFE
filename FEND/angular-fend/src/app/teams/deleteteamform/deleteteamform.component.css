@@ -1,34 +1,17 @@
-.title{
-    background-color: var(--firstColorDarker);
-    border-bottom: 5px solid var(--secondColor);
-    color:white;
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-    text-transform: uppercase;
+div.parent {
+    padding: 15px;
 }
-
-div.content{
+span {
+    color: var(--notPureWhite);
     padding: 10px;
+    text-align: center;
+}
+div.btns {
     display: flex;
-    flex-direction: column;
-
+    justify-content: space-between;
+    padding: 15px;
 }
 
-div.buttons{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.confirm{
-    background-color: var(--secondColor);
-    padding: 5px;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 5px;
-
+span#irr {
+    margin-bottom: 15px;
 }

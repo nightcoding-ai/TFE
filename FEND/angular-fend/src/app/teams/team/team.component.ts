@@ -79,7 +79,6 @@ export class TeamComponent implements OnInit {
       this.profilePlayerService.getUserInfos(this.authService.id).subscribe(res => {
         this.player = res});
     }
-    console.log(this.idTeam)
     this.getTeam(this.idTeam).subscribe((res) => { 
       this.team = res
       if(this.team) {
@@ -92,15 +91,12 @@ export class TeamComponent implements OnInit {
       if(token && this.team && this.player && this.player.isCaptain && this.team.id === this.player.teamId){
         this.myTeamservice.getListOfJoinRequests(this.player.teamId).subscribe(
           (res) => {
-            console.log(res);
             this.joinRequests = res;
           }
         ); 
       }
       
     })
-    
-
   }
 
   getTeam(id: number) {
@@ -115,20 +111,20 @@ export class TeamComponent implements OnInit {
     try {
       this.tokenDecoded = this.helper.decodeToken(tokenToDecode);
       return this.tokenDecoded;
-      
     } catch(err) {
       return null;
     }
-
   }
 
   onOpenDialogDeleteTeam(){
     this.dialog.open(DeleteteamformComponent);
-    
   }
 
   onOpenDialogLeaveTeam(){
-    this.dialog.open(LeaveteamComponent);
+    this.dialog.open(LeaveteamComponent, { data : {
+      team: this.team,
+      player: this.player
+    }});
   }
 
   onOpenDialogUpdateTeamInfo(){
@@ -146,8 +142,7 @@ export class TeamComponent implements OnInit {
     this.dialog.open(BanplayerComponent, { data : {
       id: idPlayer,
       name: playerName
-    }});
-    
+    }});  
   }
 
   onOpenDialogJoinRequest(){
@@ -173,11 +168,6 @@ export class TeamComponent implements OnInit {
       team: this.team,
       roles: this.roles,
       joinRequests: this.joinRequests
-
     }})
   }
-
- 
- 
-
 }

@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { faPenSquare, faPenToSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { ProfilePlayerService } from 'src/app/profile-player/profile-player.service';
 import { Player } from '../../interfaces/player.interface';
+import { Team } from '../../interfaces/team.interface';
+import { SignupService } from '../../signup/signup.service';
 import { UpdateTeamDTO } from '../DTO/update-teamDTO';
 import { TeamService } from '../team/team.service';
+import { TeamsService } from '../teams.service';
 
 @Component({
-  selector: 'app-updateteam',
+  selector: 'ndls-update-team',
   templateUrl: './updateteam.component.html',
   styleUrls: ['./updateteam.component.css']
 })
@@ -18,21 +22,27 @@ export class UpdateteamComponent implements OnInit {
 
   updateTeamForm: FormGroup = new FormGroup({
     name: new FormControl(''),
-    abbreviation: new FormControl('', Validators.maxLength(3)),
+    abbreviation: new FormControl(''),
     logo: new FormControl('')
   });
+  playerTeam: Team;
   helper = new JwtHelperService();
   tokenDecoded : any;
   player: any;
-  team : UpdateTeamDTO;
   logoBase64: any;
   faXmark = faXmark;
   faPenSquare = faPenToSquare;
+  newTeamLogo: any;
 
-  constructor(private teamService: TeamService,
+  constructor(
+    private signupService: SignupService,
+    private playerProfileService: ProfilePlayerService,
+    private myTeamService: TeamService,
+    private teamService: TeamsService,
     private authService: AuthenticationService,
     private profilePlayerService: ProfilePlayerService,
-    private dialogRef: MatDialogRef<UpdateteamComponent>
+    private dialogRef: MatDialogRef<UpdateteamComponent>,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -42,11 +52,13 @@ export class UpdateteamComponent implements OnInit {
       this.getDecodedAccesToken(token);
       this.profilePlayerService.getUserInfos(this.tokenDecoded.id).subscribe(
         (res) => {
-          console.log("Informations du joueur reçues : ", res)
           this.player = res; 
-            if(this.player.team){
-              this.team = this.player.team;
-              this.initializeForm();
+            if(this.player.teamId){
+              this.teamService.getTeamByID(this.player.teamId).subscribe(res => {
+                this.playerTeam = res
+                this.initializeForm();
+                });
+
             }  
         })
     }
@@ -69,53 +81,52 @@ export class UpdateteamComponent implements OnInit {
 
   initializeForm(): void {
     this.updateTeamForm.setValue({
-        name: this.team.name,
-        abbreviation: this.team.abbreviation,
+        name: this.playerTeam.name,
+        abbreviation: this.playerTeam.abbreviation,
         logo: ''
     });
   }
 
   handleUpload(event: any): void {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-        this.logoBase64 = reader.result;
-    };
+    this.newTeamLogo = event.target.files[0];
   }
 
   onSubmit(): void {
-
-    /*
-    if(this.updatePlayerForm.invalid && this.verifyMates(this.updatePlayerForm.get('role').value)) {
-      return alert("Bad form");
-    }
-    let playerDTO: UpdatePlayerDTO = new UpdatePlayerDTO();
-    playerDTO.name = this.updatePlayerForm.get('name').value;
-    let profileDTO: UpdatePlayerProfileDTO = new UpdatePlayerProfileDTO();
-    profileDTO.email = this.updatePlayerForm.get('email').value;
-    profileDTO.discord = this.updatePlayerForm.get('discord').value;
-    profileDTO.role = this.updatePlayerForm.get('role').value;
-    profileDTO.rank = this.updatePlayerForm.get('rank').value;
-    if(this.newPp) {
-      let oldFileName = this.player.profilPicture.split('/').pop();
-      console.log(oldFileName)
+    console.log('submit');
+    let teamDTO: UpdateTeamDTO = new UpdateTeamDTO();
+    teamDTO.name = this.updateTeamForm.get('name').value;
+    teamDTO.abbreviation = this.updateTeamForm.get('abbreviation').value;
+    if(this.newTeamLogo) {
+      let oldFileName = this.playerTeam.logo.split('/').pop();
+      console.log(oldFileName);
       this.playerProfileService.deleteOldPlayerPp(oldFileName).subscribe(
         () => true
-      )
-      this.signupService.uploadProfilePicture(this.newPp).subscribe(
+      );
+      this.signupService.uploadProfilePicture(this.newTeamLogo).subscribe(
         res => {
-          profileDTO.profilPicture = res.filePath;
-          this.playerProfileService.updatePlayer(this.player.id,playerDTO);
-          this.playerProfileService.updatePlayerProfile(this.player.id, profileDTO).subscribe(
-            () => this.close()
-          )}
-      )
+          teamDTO.logo = res.filePath;
+          this.myTeamService.updateTeam(teamDTO).subscribe(
+            () => {
+              this.close();
+              this.reloadCurrentRoute();
+            }
+          )
+        }
+      );
     }
-    this.playerProfileService.updatePlayer(this.player.id,playerDTO);
-    this.playerProfileService.updatePlayerProfile(this.player.id, profileDTO).subscribe(
-      () => this.close()
-  */
-    
-  }
+    this.myTeamService.updateTeam(teamDTO).subscribe(
+      () => {
+        this.close();
+        this.reloadCurrentRoute();
+      }
+    );
+    }
+
+    reloadCurrentRoute() {
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate([currentUrl]);
+          console.log(currentUrl);
+      });
+    }
 }

@@ -11,24 +11,17 @@
     --greenColor: #65c957;
     --redColor: #e04b4b;
     --yellowColor: #b99b6c;
-
     --firstColor: #191970;
     --secondColor: #884DA7;
-
     --notPureWhite: #cfcfcf;
     --firstColorDarker: #0e0e41;
     --firstColorHover: #0a0a2c;
     --secondColorDarker: #49295a;
     --redColorDarker: #be4040;
-
     --firstColorLighter: #1f1f8b;
     --secondColorLighter: #a05ac5;
-
     --navColor : #191970;
     --bodyColor : #0b0b3f;
-    
-
-
 }
 
 * {
@@ -62,8 +55,6 @@ body{
     font-family: Roboto, "Helvetica Neue", sans-serif;
     height: 100%; 
     background-attachment: fixed;
-
-
 }
 
 .icons{
@@ -75,9 +66,11 @@ fa-icon{
     margin-right: 4px;
 }
 
+
 .mat-dialog-container{
     padding: 0px !important;
-
+    background-color: var(--secondColorDarker) !important;
+    border-radius: 15px !important;
 }
 
 

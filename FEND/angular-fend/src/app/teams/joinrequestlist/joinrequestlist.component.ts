@@ -16,20 +16,14 @@ import { TeamService } from '../team/team.service';
 export class JoinrequestlistComponent implements OnInit {
 
   requests: JoinRequest[];
+  requestsWithClick: any = [];
   player: Player;
 
   faCircleCheck = faCircleCheck;
   faBan = faBan;
   faDiscord = faDiscord;
   faXmark = faXmark;
-
-  roles = [
-    RoleEnum.Toplaner, 
-    RoleEnum.Jungler, 
-    RoleEnum.Midlaner, 
-    RoleEnum.ADC, 
-    RoleEnum.Support
-  ];
+  roleEnum = RoleEnum;
 
   rankEnum = RankEnum;
   
@@ -44,13 +38,21 @@ export class JoinrequestlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.player);
+    for (const req of this.requests) {
+      let r = {};
+      r = req;
+      r["clicked"] = false;
+      this.requestsWithClick.push(r);
+    }
   }
 
   acceptRequest(idRequest: number){
+    console.log(idRequest);
+    /*
     this.teamService.acceptJoinRequest(idRequest).subscribe(
       () => console.log("Join request correctly ACCEPTED.")
     )
+    */
   }
 
   declineRequest(idRequest: number){

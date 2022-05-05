@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/auth.service';
 import { RoleEnum } from 'src/app/roles.enum';
 import { TeamDTO } from '../DTO/teamDTO';
+import { UpdateTeamDTO } from '../DTO/update-teamDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class TeamService {
     return this.http.post<any>("http://localhost:3000/api/teams/setas_captain", { idPlayer : idPlayer});
   }
 
-  updateTeam(teamDTO: TeamDTO) {
+  updateTeam(teamDTO: UpdateTeamDTO) {
     return this.http.put<any>("http://localhost:3000/api/teams/modify",teamDTO);
 
   }

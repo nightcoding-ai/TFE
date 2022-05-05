@@ -4,11 +4,34 @@ div.player {
     height: 70px;
     width: 500px;
     color: var(--notPureWhite);
+    background-color: var(--firstColorDarker);
+    margin: 5px;
+    border-radius: 15px;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: ease-in-out .3s;
 }
+
+div.player:hover {
+    background-color: var(--firstColor);
+    cursor: pointer;
+}
+
+div.player:focus {
+    border: 2px solid var(--secondColor)
+}
+
+div.player:first-child {
+    margin-top: 0;
+}
+
+
 
 .playerPp {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
 }
 
 .ranksIcon {
@@ -21,9 +44,7 @@ div.player {
     height: 25px;
 }
 
-.discordAccount {
-    font-size: 25px;
-}
+
 
 .icon {
     color: var(--yellowColor);
@@ -31,4 +52,10 @@ div.player {
 
 #lolIcon {
     filter: invert(66%) sepia(51%) saturate(285%) hue-rotate(358deg) brightness(87%) contrast(87%);
+}
+
+div.socials {
+    font-size: 1.12em;
+    border-left: 1px solid var(--secondColor);
+    padding-left: 10px;
 }

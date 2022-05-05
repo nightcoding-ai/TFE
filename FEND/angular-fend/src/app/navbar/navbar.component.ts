@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { faBars, faBell, faEnvelope, faGear, faScrewdriverWrench, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faEnvelope, faGear, faScrewdriverWrench, faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../auth/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
@@ -26,12 +26,13 @@ export class NavbarComponent implements OnInit {
   faBell = faBell;
   faXmark = faXmark;
   faAdmin= faScrewdriverWrench;
+  faEnveloppe = faEnvelope;
+  faUser = faUser;
 
   helper = new JwtHelperService();
   tokenDecoded : any;
   player: PlayerDTO;
   playerTeam: any;
-  faEnveloppe = faEnvelope;
   updatePlayerSubject: Subscription;
   notifications : any;
  

@@ -1,13 +1,16 @@
-div.joinTeam{
+div.parent {
     display: flex;
     flex-direction: column;
-
+    color: var(--notPureWhite);
+    padding: 15px;
 }
 
-div.buttons{
-    margin-top: 10px;
+div.btns {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
-button{
-    margin-right: 10px;
+small {
+    opacity: .6;
 }

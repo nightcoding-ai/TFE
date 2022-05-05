@@ -10,23 +10,20 @@ import { CreateTeamDTO } from '../DTO/create-teamDTO';
 export class CreateTeamFormService {
 
   readonly baseAPIUrl = "http://localhost:3000/api";
-
-
   auth_token: any;
 
-  constructor(private http: HttpClient, private authService: AuthenticationService, private router: Router) {
-
+  constructor(
+    private http: HttpClient, 
+    private authService: AuthenticationService, 
+    private router: Router
+  ) {
     this.auth_token = this.authService.getToken();
    }
-
-  
-
-  
 
   createTeam(teamDTO: CreateTeamDTO){
     this.http.post<any>(this.baseAPIUrl + "/teams", teamDTO).subscribe(
       (res) => {
-        console.log(res);
+        console.log("équipe créée");
         this.router.navigate(['/teams', res])
       }
     )

@@ -1,46 +1,30 @@
-<div *ngIf="user">
+<div *ngIf="user" class="container">
     <div class="title">
-        <span>Quitter l'équipe</span>
+        <h1>Quitter l'<span> équipe</span></h1>
     </div>
     <div class="content">
         <div *ngIf="!user.isCaptain">
             <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
-            <div class="buttons">
-                <button class="confirm" (click)="leaveTeam();"><fa-icon [icon]="faCheck"></fa-icon>Confirmer</button>
-                <a  (click)="close()"><fa-icon [icon]="faXmark"></fa-icon>Annuler</a>
+            <div class="btns">
+                <ndls-confirm-button (click)="leaveTeam();"></ndls-confirm-button>
+                <ndls-cancel-button (click)="close()"></ndls-cancel-button>
             </div>
         </div>
-
-        <div *ngIf="user.isCaptain === true && team.players.length > 2">
-
-                <form [formGroup]="setAsCaptain" (ngSubmit)="onSubmit()" id="ngForm">
-                    <small>En tant que capitaine, vous devez nommer un nouveau capitaine avant de pouvoir quitter l'équipe</small>
-                    <select formControlName="newCaptain" class="select">
-
-                    <option  *ngFor="let player of playersWithoutCaptain"  value="{{ player.id }}" [selected]="player">
-                    {{ player.name | uppercase}}
-                    </option>
-
-                    </select>
-                    <br>
-                    
-
-                </form>
-
-                <div class="buttons">
-                <button form="ngForm" class="confirm" type="submit"><fa-icon [icon]="faCheck"></fa-icon>Confirmer</button>
-                <a  mat-button mat-dialog-close><fa-icon [icon]="faXmark"></fa-icon>Annuler</a>
-                </div>
-    
+        <div *ngIf="user.isCaptain && team.players.length > 2">
+            <h2>Nommer le nouveau capitaine</h2>
+            <ndls-player-element *ngFor="let player of playersWithoutCaptain" (click)="getSelectedPlayer(player)" [player]="player"></ndls-player-element>
+            <div class="btns">
+                <ndls-confirm-button (click)="onSetNewCaptain(selectedPlayer.id)" ></ndls-confirm-button>
+                <ndls-cancel-button mat-dialog-close></ndls-cancel-button>
+            </div>
         </div>
-        <div *ngIf="user.isCaptain === true && team.players.length === 2 && playersWithoutCaptain.length === 1">
-            <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
-            {{playersWithoutCaptain[0].name | uppercase }} sera le nouveau capitaine de l'équipe.
-
-            <button form="ngForm" class="confirm" type="submit" (click)="leaveTeamWithOnlyOneOtherPlayer(playersWithoutCaptain[0].id)"><fa-icon [icon]="faCheck"></fa-icon>Confirmer</button>
-            <a   mat-button mat-dialog-close><fa-icon [icon]="faXmark"></fa-icon>Annuler</a>
+        <div *ngIf="user.isCaptain && team.players.length === 2 && playersWithoutCaptain.length === 1">
+            <span id="newCaptain">{{playersWithoutCaptain[0].name | uppercase }} sera le nouveau capitaine de l'équipe.</span>
+            <div class="btns between">
+                <ndls-confirm-button (click)="leaveTeamWithOnlyOneOtherPlayer(playersWithoutCaptain[0].id)"></ndls-confirm-button>
+                <ndls-cancel-button mat-dialog-close></ndls-cancel-button>
+            </div>
         </div>
     </div>
-
 </div> 
     

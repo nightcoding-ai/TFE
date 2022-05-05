@@ -160,6 +160,10 @@ export class JoinRequestService {
                 dto.id = req.id;
                 dto.playerId = req.player.id;
                 dto.playerName = req.player.name;
+                dto.playerRank = req.player.profile.rank;
+                dto.playerRole = req.player.profile.role;
+                dto.playerDiscord = req.player.profile.discord;
+                dto.playerIGN = req.player.profile.inGameName;
                 if(req.player.profile.profilPicture) {
                     dto.playerProfilePicture = req.player.profile.profilPicture;
                 }

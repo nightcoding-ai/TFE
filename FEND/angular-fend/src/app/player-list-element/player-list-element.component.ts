@@ -12,6 +12,8 @@ export class PlayerListElementComponent implements OnInit {
 
   @Input()
   player: Player;
+  @Input()
+  first: any;
 
   rankEnum = RankEnum;
   faDiscord = faDiscord;
@@ -19,7 +21,5 @@ export class PlayerListElementComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.player);
   }
-
 }

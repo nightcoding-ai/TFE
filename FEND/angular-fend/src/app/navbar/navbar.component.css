@@ -9,7 +9,6 @@ nav{
 
 nav.color-navbar a{
     color: #fff;
-    text-transform: uppercase;
     justify-content: baseline;
 
 }
@@ -32,17 +31,16 @@ nav.color-navbar a:hover{
 }
 
 div.col div div.dropdownmenu{
-    background-color:#e9e9e9;
-    border: solid 2px var(--secondColor);
+    background-color:var(--firstColorDarker);
 }
 
 a.dropdown-item:hover{
-    background-color: var(--firstColor);
-    color:#fff !important;
+    color:var(--yellowColor) !important;
 }
 
 a.dropdown-item{
-    color:var(--secondColor) !important;
+    color:var(--notPureWhite) !important;
+    transition: ease-in-out .3s;
 
 }
 
@@ -79,13 +77,8 @@ a.inscr:hover{
 }
 
 .profile{
-
     margin-right: 15px;
-
-
     text-align: center;
-
-
 }
 
 .profile img{
@@ -95,14 +88,14 @@ a.inscr:hover{
 }
 
 div.profile div.dropdownmenu{
-    background-color:#e9e9e9;
-    border: solid 2px var(--secondColor);
+    background-color: var(--firstColorDarker);
     height: fit-content;
+    color: var(--yellowColor);
 }
 
 div.profile div.dropdownmenu  a.dropdown-item:hover{
-    background-color: var(--firstColor);
-    color:#fff !important;
+    color: var(--yellowColor) !important;
+    background-color: none !important;
 }
 
 

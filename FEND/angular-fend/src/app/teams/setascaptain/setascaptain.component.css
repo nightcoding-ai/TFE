@@ -1,8 +1,13 @@
-.buttons{
-    padding: 4px;
-    margin-top: 15px;
+div.parent {
+    padding: 15px;
 }
 
-button{
-    margin-right: 10px;
+.btns {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+}
+
+span { 
+    color: var(--notPureWhite);
 }

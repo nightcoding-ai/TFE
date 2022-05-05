@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { faCrown, faGear, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Player } from '../../../../interfaces/player.interface';
@@ -35,25 +36,29 @@ export class PlayerComponent implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass;
 
   constructor(
+    private router: Router,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    console.log(this.player)
   }
 
   onOpenDialogDeletePlayer(idPlayer: any, playerName: any): void {
     this.dialog.open(BanplayerComponent, { data : {
       id: idPlayer,
       name: playerName
-    }});
+    }}).afterClosed().subscribe(
+      () => this.reloadCurrentRoute()
+    );
   }
 
   onOpenDialogSetAsCaptain(idPlayer: any, playerName: any): void {
     this.dialog.open(SetascaptainComponent, { data: {
       id: idPlayer,
       name: playerName
-    }})
+    }}).afterClosed().subscribe(
+      () => this.reloadCurrentRoute()
+    );
   }
 
   onOpenDialogJoinRequest(){
@@ -68,5 +73,12 @@ export class PlayerComponent implements OnInit {
       role: role,
       teamID: this.team.id
     }});
+  }
+
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
   }
 }

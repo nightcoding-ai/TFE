@@ -1,12 +1,14 @@
-<div *ngIf="player" class="profile" >
+<div *ngIf="player" class="profile" style="background-image: url({{player.profilPicture}})">
     <div class="crucials" (click)="onChangeProfile()" >
-        <div class="profilPicture">
-            <img src="{{player.profilPicture}}" alt="pp" id="pp" *ngIf="player.profilPicture">
-            <img src="../../assets/ndls_white_face.png" alt="pp" id="pp" class="noPp" *ngIf="!player.profilPicture">
-        </div>
+        <!--
+
+            <div class="profilPicture">
+                <img src="{{player.profilPicture}}" alt="pp" id="pp" *ngIf="player.profilPicture">
+                <img src="../../assets/ndls_white_face.png" alt="pp" id="pp" class="noPp" *ngIf="!player.profilPicture">
+            </div>
+        -->
         <div class="pseudo">
             <span id="pseudo">{{ player.name | uppercase }}</span>
-            <span id="email">{{ player.mail }}</span>
         </div>
     </div>
     <div class="lolInfos">
@@ -44,4 +46,5 @@
             <fa-icon [icon]="faDiscord" class="discordIcon"></fa-icon>
             <div class="discordName"><span>{{player.discord | uppercase}}</span></div>
         </div>
+        <span id="email">{{ player.mail }}</span>
 </div>

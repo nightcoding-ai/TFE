@@ -18,7 +18,7 @@
             <div *ngIf="player.teamId" class="teamButtons">
                 <ng-container *ngIf="player && team && player.teamId === team.id"> 
                     <ng-container *ngIf="player.isCaptain === true">
-                        <a (click)="onOpenDialogPlayersWantingToJoin()" class="teamLinks joinRequests" *ngIf="joinRequests" [matBadge]="joinRequests.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"><fa-icon [icon]="faUserCheck"></fa-icon>Demandes d'adhésion</a>
+                        <a (click)="onOpenDialogPlayersWantingToJoin()" class="teamLinks joinRequests" *ngIf="joinRequests && joinRequests.length > 0" [matBadge]="joinRequests.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"><fa-icon [icon]="faUserCheck"></fa-icon>Demandes d'adhésion</a>
                         <a (click)="onOpenDialogUpdateTeamInfo()" class="teamLinks modifButton"><fa-icon [icon]="faPenLine"></fa-icon>Modifier</a>
                     </ng-container>
                     <ng-container *ngIf="team.players.length > 1">

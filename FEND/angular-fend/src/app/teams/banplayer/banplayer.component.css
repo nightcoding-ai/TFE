@@ -1,14 +1,15 @@
 div.banPlayer{
     display: flex;
     flex-direction: column;
-
+    padding: 15px;
 }
 
-.buttons{
-    margin-top: 10px;
-    
+div span {
+    color: var(--notPureWhite);
 }
 
-button{
-    margin-right: 8px;
+.btns{
+    padding: 15px; 
+    display: flex;
+    justify-content: space-evenly;   
 }

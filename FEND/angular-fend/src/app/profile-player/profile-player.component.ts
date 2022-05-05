@@ -35,7 +35,8 @@ export class ProfilePlayerComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private profilePlayerService: ProfilePlayerService,
-    private dialog: MatDialog  ) { }
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     let token = this.authService.getToken();
@@ -53,14 +54,14 @@ export class ProfilePlayerComponent implements OnInit {
       this.tokenDecoded = this.helper.decodeToken(tokenToDecode);
       return this.tokenDecoded;
       
-    } catch(err) {
+    } 
+    catch(err) {
       return null;
     }
   }
 
   onChangeProfile(): void {
     this.dialog.open(ModifyProfileComponent, { data: this.player});
-    
   }
 
 }
