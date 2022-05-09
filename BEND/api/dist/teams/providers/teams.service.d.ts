@@ -1,0 +1,35 @@
+import { DeleteResult, UpdateResult } from "typeorm";
+import { Player } from "../../players/models/player/player.entity";
+import { PlayerRepository } from "../../players/repository/player/player.repository";
+import { TournamentRepository } from "../../tournaments/repositories/tournament.repository";
+import { TournamentMatchRepository } from "../../tournaments/repositories/tournamentMatch.repositoy";
+import { TournamentParticipationRepository } from "../../tournaments/repositories/tournamentParticipation.repository";
+import { CreateTeamDTO } from "../DTO/createTeamDTO";
+import { FullTeamDTO } from "../DTO/fullTeamDTO";
+import { NotFullTeamDTO } from "../DTO/notFullTeamDTO";
+import { TeamDTO } from "../DTO/teamDTO";
+import { TeamWithLogoDTO } from "../DTO/teamWithLogoDTO";
+import { Team } from "../models/teams.entity";
+import { TeamRepository } from "../repository/teams.repository";
+export declare class TeamsService {
+    private readonly TeamRepository;
+    private readonly PlayerRepository;
+    private readonly TournamentRepo;
+    private readonly TournamentParticipationRepository;
+    private readonly TournamentMatchRepository;
+    constructor(TeamRepository: TeamRepository, PlayerRepository: PlayerRepository, TournamentRepo: TournamentRepository, TournamentParticipationRepository: TournamentParticipationRepository, TournamentMatchRepository: TournamentMatchRepository);
+    create(idPlayer: number, teamDTO: CreateTeamDTO): Promise<number>;
+    getAll(adminId: number): Promise<TeamDTO[] | null>;
+    getAllWithLogos(): Promise<TeamWithLogoDTO[] | null>;
+    getNumberOfTeams(): Promise<number>;
+    getNumberOfTournamentsWon(teamId: number): Promise<number>;
+    getFullTeams(): Promise<FullTeamDTO[] | null>;
+    getNotFullTeams(): Promise<NotFullTeamDTO[] | null>;
+    getTeamsWithPrecisedNumberOfPlayers(nbr: string): Promise<Team[] | null>;
+    getTeamsWithPrecisedFreePlaces(nbr: string): Promise<Team[] | null>;
+    getTeam(idTeam: number): Promise<TeamDTO | undefined>;
+    updateTeam(idPlayer: number, teamDTO: TeamDTO): Promise<UpdateResult>;
+    deleteTeam(idPlayer: number): Promise<DeleteResult>;
+    banPlayer(idCaptain: number, idPlayer: number): Promise<void>;
+    setAsCaptain(idOldCaptain: number, idNewCaptain: number): Promise<Player>;
+}

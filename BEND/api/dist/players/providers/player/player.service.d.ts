@@ -1,0 +1,36 @@
+import { UnauthorizedException } from '@nestjs/common';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { TournamentRepository } from '../../../tournaments/repositories/tournament.repository';
+import { TournamentMatchRepository } from '../../../tournaments/repositories/tournamentMatch.repositoy';
+import { TournamentParticipationRepository } from '../../../tournaments/repositories/tournamentParticipation.repository';
+import { CreatePlayerDTO } from '../../DTO/player/createPlayerDTO';
+import { FreePlayerDTO } from '../../DTO/player/freePlayerDTO';
+import { PlayerDTO } from '../../DTO/player/playerDTO';
+import { PlayerProfileDTO } from '../../DTO/player/playerProfileDTO';
+import { UpdatePlayerDTO } from '../../DTO/player/updatePlayerDTO';
+import { UpdatePlayerProfileDTO } from '../../DTO/player/updatePlayerProfileDTO';
+import { RoleEnum } from '../../enum/role.enum';
+import { Player } from '../../models/player/player.entity';
+import { PlayerRepository } from '../../repository/player/player.repository';
+import { ProfileRepository } from '../../repository/profil/profile.repository';
+export declare class PlayersService {
+    private readonly PlayerRepo;
+    private readonly ProfileRepo;
+    private readonly TournamentMatchRepo;
+    private readonly TournamentParticipationRepo;
+    private readonly TournamentRepo;
+    constructor(PlayerRepo: PlayerRepository, ProfileRepo: ProfileRepository, TournamentMatchRepo: TournamentMatchRepository, TournamentParticipationRepo: TournamentParticipationRepository, TournamentRepo: TournamentRepository);
+    createAPlayer(newPlayer: CreatePlayerDTO): Promise<Player>;
+    delete(adminId: number, idPlayer: number): Promise<DeleteResult | UnauthorizedException>;
+    getOne(idPlayer: number): Promise<PlayerDTO | undefined>;
+    myProfile(idPlayer: number): Promise<PlayerProfileDTO | undefined>;
+    getOneByName(playerName: string): Promise<Player | undefined>;
+    getAllPlayers(): Promise<PlayerDTO[] | undefined>;
+    getAllFree(): Promise<FreePlayerDTO[] | undefined>;
+    getAllByRoleAndFree(roleOfPlayer: RoleEnum): Promise<PlayerDTO[] | undefined>;
+    getNumberOfPlayer(): Promise<number | null>;
+    updatePlayerProfile(idAsker: number, idPlayer: number, updatePlayerProfileDTO: UpdatePlayerProfileDTO): Promise<UpdateResult | UnauthorizedException>;
+    updatePlayer(idAsker: number, idPlayer: number, updatePlayerDTO: UpdatePlayerDTO): Promise<UpdateResult | UnauthorizedException>;
+    leaveTeam(idPlayer: number): Promise<Player>;
+    deleteProfilePicture(playerId: number): Promise<DeleteResult | null>;
+}

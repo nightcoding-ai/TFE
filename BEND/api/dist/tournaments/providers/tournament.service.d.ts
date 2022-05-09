@@ -1,0 +1,38 @@
+import { UnauthorizedException } from "@nestjs/common";
+import { DeleteResult } from "typeorm";
+import { PlayerRepository } from "../../players/repository/player/player.repository";
+import { TeamRepository } from "../../teams/repository/teams.repository";
+import { createTournamentDTO } from "../DTO/createTournamentDTO";
+import { TournamentDTO } from "../DTO/tournamentDTO";
+import { TournamentMatchDTO } from "../DTO/tournamentMatchDTO";
+import { TournamentParticipantsDTO } from "../DTO/tournamentParticipantsDTO";
+import { TournamentMatch } from "../models/tournamentMatch.entity";
+import { TournamentParticipation } from "../models/tournamentParticipation.entity";
+import { Tournament } from "../models/tournaments.entity";
+import { TournamentRepository } from "../repositories/tournament.repository";
+import { TournamentMatchRepository } from "../repositories/tournamentMatch.repositoy";
+import { TournamentParticipationRepository } from "../repositories/tournamentParticipation.repository";
+export declare class TournamentService {
+    private tournamentRepository;
+    private playerRepository;
+    private teamRepository;
+    private tournamentParticipationRepository;
+    private tournamentMatchRepository;
+    constructor(tournamentRepository: TournamentRepository, playerRepository: PlayerRepository, teamRepository: TeamRepository, tournamentParticipationRepository: TournamentParticipationRepository, tournamentMatchRepository: TournamentMatchRepository);
+    createOne(adminId: number, createTournamentDTO: createTournamentDTO): Promise<Tournament | UnauthorizedException>;
+    startTournament(adminId: number, tournamentId: number): Promise<Tournament | UnauthorizedException>;
+    addParticipantAsAdmin(adminId: number, tournamentParticipation: any): Promise<TournamentParticipation | UnauthorizedException>;
+    addParticipantAsCaptain(captainId: number, tournamentParticipation: any): Promise<TournamentParticipation | UnauthorizedException>;
+    getTournament(tournamentId: number): Promise<Tournament | undefined>;
+    getAllTournaments(): Promise<TournamentDTO[] | null>;
+    getTournamentMatches(tournamentId: number): Promise<TournamentMatch[] | null>;
+    getMatchesByRound(tournamentId: number, round: number): Promise<TournamentMatch[] | null>;
+    getAllPartcipations(): Promise<TournamentParticipation[] | null>;
+    getAllOfATournament(tournamentId: number): Promise<TournamentParticipantsDTO[] | null>;
+    getAllOfMyTeam(askerId: number, teamId: number): Promise<TournamentDTO[] | null | UnauthorizedException>;
+    getAllMatchesOfTeam(teamId: number): Promise<TournamentMatchDTO[] | null>;
+    updateMatchScore(adminId: number, tournamentId: number, matchId: number, newMatchScore: any): Promise<any>;
+    deleteAParticpantAsAdmin(adminId: number, tournamentParticipationId: number): Promise<DeleteResult>;
+    leaveTournament(captainId: number, tournamentParticipationId: number): Promise<DeleteResult>;
+    filterNextMatch(previousMatch: TournamentMatch, nextMatch: TournamentMatch): boolean;
+}
