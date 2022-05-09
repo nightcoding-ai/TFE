@@ -22,7 +22,7 @@ export class TeamsService {
     constructor(
         private readonly TeamRepository: TeamRepository,
         private readonly PlayerRepository: PlayerRepository,
-        private readonly TournamentRepository: TournamentRepository,
+        private readonly TournamentRepo: TournamentRepository,
         private readonly TournamentParticipationRepository: TournamentParticipationRepository,
         private readonly TournamentMatchRepository: TournamentMatchRepository,
     ) {}
@@ -58,7 +58,7 @@ export class TeamsService {
      * @returns {TeamDTO[] | null} la liste des équipes de la base de données, sinon {null} si aucune équipe existe.
      */
     async getAll(adminId: number): Promise<TeamDTO[] | null> {
-        try{
+        try {
             const admin = await this.PlayerRepository.getOne(adminId);
             if(admin.userType !== UserType.ADMIN){
                 throw new UnauthorizedException('Access denied, admin ressources');
@@ -98,7 +98,7 @@ export class TeamsService {
     * @returns {teamWithLogoDTO[] | null}
     */
     async getAllWithLogos(): Promise<TeamWithLogoDTO[] | null>{
-        try{
+        try {
            const result =  await this.TeamRepository.getAllWithLogos();
            if(!result) {
                return null;
@@ -123,10 +123,20 @@ export class TeamsService {
      * @returns {number} le nombre d'équipe, peut être 0, si aucune équipe n'existe.
      */
     async getNumberOfTeams(): Promise<number> {
-        try{
+        try {
             return await this.TeamRepository.getNumberOfTeams();
         }
         catch(err){
+            throw err;
+        }
+    }
+
+    async getNumberOfTournamentsWon(teamId: number): Promise<number> {
+        try  {
+            const result =  await this.TournamentRepo.getTournamentsWonByTeam(teamId);
+            return result.length;
+        }
+        catch(err) {
             throw err;
         }
     }
@@ -136,7 +146,7 @@ export class TeamsService {
      * @returns {FullTeamDTO[] | null} la liste des équipes qui sont complètes, sinon null, si aucune équipe n'est complète.
      */
     async getFullTeams(): Promise<FullTeamDTO[] | null> {
-        try{
+        try {
             const result = await this.TeamRepository.getAllFullTeams();
             if(!result) {
                 return null;
@@ -161,7 +171,7 @@ export class TeamsService {
      * @returns {NotFullTeamDTO[] | null} la liste des équipes incomplètes avec les rôles libres, sinon null si toutes les équipes sont complètes.
      */
     async getNotFullTeams(): Promise<NotFullTeamDTO[] | null> {
-        try{
+        try {
             const roles = [
                 "Toplaner",
                 "Jungler",
@@ -206,8 +216,8 @@ export class TeamsService {
      * @param {number} nbr - le nombre de joueurs que doit compter l'équipe
      * @returns {TeamInterface[] | null} la liste des équipes qui ont le nombre de joueurs équivalent au pramaètre.
      */
-    async getTeamsWithPrecisedNumberOfPlayers(nbr: string): Promise<TeamInterface[] | null> {
-        try{
+    async getTeamsWithPrecisedNumberOfPlayers(nbr: string): Promise<Team[] | null> {
+        try {
             const result = await this.TeamRepository.getTeamsWithPrecisedNumberOfPlayers(parseInt(nbr));
             if(!result) {
                 return null;
@@ -224,8 +234,8 @@ export class TeamsService {
      * @param {number} nbr - le nombre de places libre que doit compter l"équipe.
      * @returns {TeamInterface[] | null} -la liste des équipes correspondant au critère sinon {null} si aucune équipe ne correspond au critère.
      */
-    async getTeamsWithPrecisedFreePlaces(nbr: string): Promise<TeamInterface[] | null> {
-        try{
+    async getTeamsWithPrecisedFreePlaces(nbr: string): Promise<Team[] | null> {
+        try {
             const result =  await this.TeamRepository.getTeamsWithPrecisedFreePlaces(parseInt(nbr));
             if(!result) {
                 return null;
@@ -243,7 +253,7 @@ export class TeamsService {
      * @returns {TeamInterface | undefined} - renvoie l'équipe, sinon {undefined} si elle n'existe pas.
      */
     async getTeam(idTeam: number): Promise<TeamDTO | undefined> {
-        try{
+        try {
             const result = await this.TeamRepository.getTeam(idTeam);
             if(!result) { 
                 return undefined;
@@ -286,10 +296,8 @@ export class TeamsService {
      * @returns {UpdateResult} l'équipe modifiée.
      */
     async updateTeam(idPlayer: number, teamDTO: TeamDTO): Promise<UpdateResult> {
-        try{
-
+        try {
             const player = await this.PlayerRepository.getOne(idPlayer);
-
             if(!player.team || player.team === null || player.profile.isCaptain === false) {
                 throw new UnauthorizedException();
             }
@@ -314,7 +322,7 @@ export class TeamsService {
      * @returns {DeleteResult} renvoie l'équipe supprimée.
      */
     async deleteTeam(idPlayer: number): Promise<DeleteResult> {
-        try{
+        try {
             const player = await this.PlayerRepository.getOne(idPlayer);
             if(player.profile.isCaptain !== true || player.team === null || player.team === undefined) {
                 throw new UnauthorizedException();
@@ -339,7 +347,7 @@ export class TeamsService {
      * @param {number} idPlayer  - l'id du joueur qu'il faut retirer de son équipe.
      */
     async banPlayer(idCaptain: number, idPlayer: number): Promise<void> {
-        try{
+        try {
             const captain = await this.PlayerRepository.getOne(idCaptain);
             const player = await this.PlayerRepository.getOne(idPlayer);
             const allMatchesOfTeam = await this.TournamentMatchRepository.getAllMatchesOfATeam(player.team.id);
@@ -363,7 +371,7 @@ export class TeamsService {
                     }
                     await this.TournamentMatchRepository.saveOne(match);
                     for (const participation of allTournamentsOfTeam) {
-                        let tournament = await this.TournamentRepository.getOneWithMatches(participation.tournament.id);
+                        let tournament = await this.TournamentRepo.getOneWithMatches(participation.tournament.id);
                         let nextMatchForWinner: TournamentMatch = tournament.matches.find(nm => nm.round === match.round + 1 && nm.order === Math.ceil(match.order/2));
                         if(nextMatchForWinner.teamA === null && nextMatchForWinner.teamB === null) {
                             nextMatchForWinner.teamA = match.winner;
@@ -392,7 +400,7 @@ export class TeamsService {
      * @returns {Player} le nouveau capitaine
      */
     async setAsCaptain(idOldCaptain: number, idNewCaptain: number): Promise<Player> {
-        try{
+        try {
             const oldCaptain = await this.PlayerRepository.getOne(idOldCaptain);
             const newCaptain = await this.PlayerRepository.getOne(idNewCaptain);
             if(!oldCaptain || !newCaptain || oldCaptain.profile.isCaptain === false || newCaptain.profile.isCaptain === true || oldCaptain.team.id !== newCaptain.team.id || oldCaptain.id === newCaptain.id){

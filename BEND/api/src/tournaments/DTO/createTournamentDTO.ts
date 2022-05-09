@@ -5,10 +5,13 @@ export class createTournamentDTO {
 
     id?: number;
     name: string;
-    isFinished: Date;
     seed: number;
+    areInscriptionsClosed?: boolean;
     startDate: Date;
-    endDate: Date;
-    participants?: Team;
-    matches?: TournamentMatch;
+    endDate?: Date;
+    participants?: Team[];
+    matches?: TournamentMatch[];
+    winner?: Team;
 }
+
+

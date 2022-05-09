@@ -4,6 +4,7 @@ import { Player } from "../../players/models/player/player.entity";
 import { TeamInvitation } from "../../team-invitation/models/teamInvitation.entity";
 import { TournamentMatch } from "../../tournaments/models/tournamentMatch.entity";
 import { TournamentParticipation } from "../../tournaments/models/tournamentParticipation.entity";
+import { Tournament } from "../../tournaments/models/tournaments.entity";
 
 
 
@@ -41,6 +42,9 @@ export class Team {
 
     @OneToMany( () => JoinRequest, joinRequest => joinRequest.team, {nullable: true})
     joinRequestsReceived: JoinRequest[];
+
+    @OneToMany(() => Tournament, tournament => tournament.winner)
+    tournamentWins: Tournament;
 
     @DeleteDateColumn()
     deletedAt?: Date;

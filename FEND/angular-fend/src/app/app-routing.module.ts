@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { NewsComponent } from './news/news.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { ProfilePlayerComponent } from './profile-player/profile-player.component';
+import { RoleItemComponent } from './role-item/role-item.component';
 import { SignupComponent } from './signup/signup.component';
 import { CreateTeamFormComponent } from './teams/create-team-form/create-team-form.component';
 import { TeamComponent } from './teams/team/team.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'tournaments', component: TournamentComponent},
   { path: 'tournaments/now', component: CurrentTournamentComponent},
   { path: 'tournaments/create', component: CreateTournamentFormComponent},
+  { path: 'component', component: RoleItemComponent}, // Uniquement pour tester le visuel d'un composant en particulier, généralement des composants particuliers
   { path: '**', component: PagenotfoundComponent }
 ];
 

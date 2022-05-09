@@ -33,7 +33,7 @@ export class TournamentService {
      * @param {createTournamentDTO} createTournamentDTO - L'objet représentant un nouveau tournoi.
      * @returns {Tournament | UnauthorizedException} le nouveau tournoi ou une erreur 401 si la personne n'est pas administrateur.
      */
-    async createOne(adminId: number, createTournamentDTO: TournamentInterface): Promise<Tournament | UnauthorizedException> {
+    async createOne(adminId: number, createTournamentDTO: createTournamentDTO): Promise<Tournament | UnauthorizedException> {
         try {
             const admin = await this.playerRepository.getOne(adminId);
             if(admin.userType !== UserType.ADMIN) {
@@ -311,7 +311,6 @@ export class TournamentService {
                 return new UnauthorizedException();
             }
             const result = await this.tournamentParticipationRepository.getAllOfATeam(+teamId);
-            console.log(result[0].id);
             let dtoArray: TournamentDTO[] = [];
             if(!result) {
                 return null;

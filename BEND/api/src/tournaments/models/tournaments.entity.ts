@@ -1,4 +1,5 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Team } from "../../teams/models/teams.entity";
 import { SeedEnum } from "../enum/seed.enum";
 import { TournamentMatch } from "./tournamentMatch.entity";
 import { TournamentParticipation } from "./tournamentParticipation.entity";
@@ -29,5 +30,8 @@ export class Tournament {
 
     @OneToMany(() => TournamentMatch, tournamentMatch => tournamentMatch.tournament)
     matches : TournamentMatch[];
+
+    @ManyToOne(() => Team, team => team.tournamentWins)
+    winner: Team;
  
 }

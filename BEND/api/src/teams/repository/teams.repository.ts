@@ -8,12 +8,12 @@ import { CreateTeamDTO } from "../DTO/createTeamDTO";
 
 export class TeamRepository extends Repository<Team> {
 
-    async addTeam(teamDTO: CreateTeamDTO): Promise<TeamInterface> {
+    async addTeam(teamDTO: CreateTeamDTO): Promise<Team> {
         const teamRepo = getRepository(Team);
         return await teamRepo.save(teamDTO);
     }
     
-    async getAll(): Promise<TeamInterface[]> {
+    async getAll(): Promise<Team[]> {
         const teamRepo = getRepository(Team);
         return await teamRepo.find({
             withDeleted: true,
@@ -21,7 +21,7 @@ export class TeamRepository extends Repository<Team> {
         });
     }
 
-    async getAllWithLogos(): Promise<TeamInterface[]> {
+    async getAllWithLogos(): Promise<Team[]> {
         const teamRepo = getRepository(Team);
         return await teamRepo.find({
             select: ["id", "name", "logo"],
@@ -36,10 +36,10 @@ export class TeamRepository extends Repository<Team> {
         return await teamRepo.count();
     }
 
-    async getAllFullTeams(): Promise<TeamInterface[]> {
+    async getAllFullTeams(): Promise<Team[]> {
         const teamRepo = getRepository(Team);
-        const teams = await teamRepo.find({ select: ["id", "name"]});
-        const fullTeams : TeamInterface[] = [];
+        const teams: Team[] = await teamRepo.find({ select: ["id", "name"]});
+        const fullTeams : Team[] = [];
         for (const team of teams) {
             if(team.players.length === 5){
                 fullTeams.push(team);
@@ -48,11 +48,11 @@ export class TeamRepository extends Repository<Team> {
         return fullTeams;
     }
 
-    async getAllNotFullTeams(): Promise<TeamInterface[]> {
+    async getAllNotFullTeams(): Promise<Team[]> {
         const teamRepo = getRepository(Team);
         
-        const teams = await teamRepo.find({ select: ["id", "name"]});
-        const notFullTeams : TeamInterface[] = [];
+        const teams: Team[] = await teamRepo.find({ select: ["id", "name"]});
+        const notFullTeams : Team[] = [];
         for (const team of teams) {
             if(team.players.length < 5){
                 notFullTeams.push(team);
@@ -61,12 +61,12 @@ export class TeamRepository extends Repository<Team> {
         return notFullTeams;
     }
 
-    async getTeamsWithPrecisedNumberOfPlayers(nbr: number): Promise<TeamInterface[]> {
+    async getTeamsWithPrecisedNumberOfPlayers(nbr: number): Promise<Team[]> {
         const teamRepo = getRepository(Team);
         const teams = await teamRepo.find({ 
             select: ["id", "name"]
         });
-        const notFullTeams : TeamInterface[] = [];
+        const notFullTeams : Team[] = [];
         for (const team of teams) {
             if(team.players.length === nbr){
                 notFullTeams.push(team);
@@ -75,12 +75,12 @@ export class TeamRepository extends Repository<Team> {
         return notFullTeams;
     }
 
-    async getTeamsWithPrecisedFreePlaces(nbr: number): Promise<TeamInterface[]> {
+    async getTeamsWithPrecisedFreePlaces(nbr: number): Promise<Team[]> {
         const teamRepo = getRepository(Team);
         const teams = await teamRepo.find({ 
             select: ["id", "name"]
         });
-        const teamsWithFreePlaces : TeamInterface[] = [];
+        const teamsWithFreePlaces : Team[] = [];
         for (const team of teams) {
             if(team.players.length === (5-nbr)){
                 teamsWithFreePlaces.push(team);

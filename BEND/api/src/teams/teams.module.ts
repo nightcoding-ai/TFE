@@ -25,7 +25,8 @@ import { TeamRepository } from './repository/teams.repository';
             Profile, 
             TeamInvitation, 
             TournamentMatch, 
-            TournamentParticipation, 
+            TournamentParticipation,
+            Tournament, 
             JoinRequest
         ]),
     ],

@@ -1,38 +1,36 @@
-<div class="title">
-    <span> Modifier les informations</span>
-    <small id="small">Ne modifiez que vous voulez changer...</small>
-    </div>
-    <form [formGroup]="updatePlayerForm" (ngSubmit)="onSubmit()" class="updatePlayer">
-        
-        <mat-form-field>
-            <mat-label for="name">Nouveau pseudonyme</mat-label>
-            <input matInput type="text" formControlName="name" >
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label for="abbreviation">Nouvelle adresse e-mail</mat-label>
-            <input matInput type="email" formControlName="email">
-        </mat-form-field>
-        <label for="logo">Nouvelle image de profil</label>
-        <input type="file" class="form-control"   accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
-        <mat-form-field>
-            <mat-label>Nouveau Role</mat-label>
-            <mat-select formControlName="role">
-                <mat-option *ngFor="let role of roles" value="{{role.name}}">{{ role.name }}</mat-option>
-            </mat-select> 
-        </mat-form-field>
-        <small *ngIf="verifyMates(updatePlayerForm.get('role').value)">Ce rôle est déjà pris dans votre équipe.</small>
+<mat-dialog-content>
+    <form [formGroup]="updatePlayerForm" (ngSubmit)="onSubmit()" class="updatePlayer">  
+        <input  type="text" formControlName="name" maxlength="20" placeholder="Pseudonyme"> 
+        <input  type="mail" formControlName="email" placeholder="Email">  
+        <input  type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
+        <div class="roleAndRank">
+            <div class="role">
+                <ndls-role-item *ngFor="let role of roles" [role]="role.name" (click)="setNewRole(role.name)"></ndls-role-item>
+            </div>
+            <div class="rank">
+                <ndls-rank-item *ngFor="let rank of ranks" [rank]="rank.name" (click)="setNewRank(rank.name)"></ndls-rank-item>
+            </div>
+        </div>
+            
+            <div class="btns">
+                <button  type="submit" [disabled]="verifyMates(updatePlayerForm.get('role').value)"><fa-icon [icon]="faPenSquare"></fa-icon>Modifier</button>
+                <a  (click)="close()"><fa-icon id="cancel" [icon]="faXmark"></fa-icon>Annuler</a>
+            </div>
+    </form>
 
-        <mat-form-field>
-            <mat-label>Nouveau Rang</mat-label>
-            <mat-select formControlName="rank">
-                <mat-option *ngFor="let rank of ranks" value="{{rank.name}}">{{ rank.name }}</mat-option>
-            </mat-select>
-        </mat-form-field>
+</mat-dialog-content>
 
+<!--
+
+    <form [formGroup]="updatePlayerForm" (ngSubmit)="onSubmit()" class="updateTeam">
+        <input  type="text" formControlName="name" maxlength="3" placeholder="Pseudonyme"> 
+        <input  type="mail" formControlName="email" placeholder="Email">  
+        <input  type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
 
         <div class="btns">
-            <button  type="submit" [disabled]="verifyMates(updatePlayerForm.get('role').value)"><fa-icon [icon]="faPenSquare"></fa-icon>Modifier</button>
-            <a  (click)="close()"><fa-icon id="cancel" [icon]="faXmark"></fa-icon>Annuler</a>
+            <button  type="submit"><fa-icon [icon]="faPenSquare"></fa-icon>Modifier</button>
+            <ndls-cancel-button (click)="close()"></ndls-cancel-button>
         </div>
-
     </form>
+-->
+    

@@ -69,6 +69,9 @@ import { TeamMatchComponent } from './teams/team/team-match/team-match.component
 import { PlayerListElementComponent } from './player-list-element/player-list-element.component';
 import { CancelButtonComponent } from './cancel-button/cancel-button.component';
 import { ConfirmButtonComponent } from './confirm-button/confirm-button.component';
+import { RoleItemComponent } from './role-item/role-item.component';
+import { RankItemComponent } from './rank-item/rank-item.component';
+import { PlayerFormComponent } from './player-form/player-form.component';
 
 
 export function tokenGetter() {
@@ -110,6 +113,9 @@ export function tokenGetter() {
     PlayerListElementComponent,
     CancelButtonComponent,
     ConfirmButtonComponent,
+    RoleItemComponent,
+    RankItemComponent,
+    PlayerFormComponent,
 
   ],
   entryComponents: [

@@ -9,7 +9,9 @@ export class ProfilePlayerService {
 
   readonly baseAPIUrl = "http://localhost:3000/api";
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getUserInfos(idPlayer: number) {
     return this.http.get<any>(`${this.baseAPIUrl}/players/single/${idPlayer}`);
@@ -29,8 +31,10 @@ export class ProfilePlayerService {
   }
 
   deleteOldPlayerPp(filePath: string) {
-    console.log("suppression de l'ancienne pp frontend")
-    console.log(filePath);
     return this.http.delete<any>(`${this.baseAPIUrl}/players/images/${filePath}`);
+  }
+
+  getTournamentsWon(teamId: number) {
+    return this.http.get<any>(`${this.baseAPIUrl}/teams/${teamId}/tournaments_won`);
   }
 }

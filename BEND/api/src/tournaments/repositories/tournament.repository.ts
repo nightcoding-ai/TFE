@@ -1,12 +1,13 @@
 import { matches } from "class-validator";
 import { getRepository, Repository } from "typeorm";
+import { createTournamentDTO } from "../DTO/createTournamentDTO";
 import { TournamentInterface } from "../interfaces/tournament.interface";
 import { TournamentMatch } from "../models/tournamentMatch.entity";
 import { Tournament } from "../models/tournaments.entity";
 
 export class TournamentRepository extends Repository<Tournament> {
 
-    createOne(createTournamentDTO: TournamentInterface): Promise<Tournament> { 
+    createOne(createTournamentDTO: createTournamentDTO): Promise<Tournament> { 
         const tournamentRepo = getRepository(Tournament);
         return  tournamentRepo.save(createTournamentDTO);
     }
@@ -29,6 +30,12 @@ export class TournamentRepository extends Repository<Tournament> {
     getAll(): Promise<Tournament[]> {
         const tournamentRepo = getRepository(Tournament);
         return tournamentRepo.find({ relations: ["matches"]});
+    }
+
+    getTournamentsWonByTeam(teamId: number): Promise<any[]> {
+        const tournamentRepo = getRepository(Tournament);
+        const result = tournamentRepo.find({ where: { winner: {id: teamId}}})
+        return result
     }
 
     async getOneOnlyMatches(tournamentId: number): Promise<TournamentMatch[]> {

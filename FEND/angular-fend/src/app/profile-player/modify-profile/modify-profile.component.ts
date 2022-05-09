@@ -41,6 +41,7 @@ export class ModifyProfileComponent implements OnInit {
     {name: RoleEnum.ADC, abbrev: "ADC"},
     {name: RoleEnum.Support, abbrev: "Support"},
   ];
+  roleEnum = RoleEnum;
 
   updatePlayerForm: FormGroup = new FormGroup({
     name: new FormControl(''),
@@ -89,7 +90,6 @@ export class ModifyProfileComponent implements OnInit {
     profileDTO.rank = this.updatePlayerForm.get('rank').value;
     if(this.newPp) {
       let oldFileName = this.player.profilPicture.split('/').pop();
-      console.log(oldFileName)
       this.playerProfileService.deleteOldPlayerPp(oldFileName).subscribe(
         () => true
       )
@@ -106,6 +106,16 @@ export class ModifyProfileComponent implements OnInit {
     this.playerProfileService.updatePlayerProfile(this.player.id, profileDTO).subscribe(
       () => this.close()
     )
+  }
+
+  setNewRole(role: RoleEnum) {
+    this.updatePlayerForm.patchValue({ role: role});
+    console.log(this.updatePlayerForm.get('role').value);
+  }
+
+  setNewRank(rank: RankEnum) {
+    this.updatePlayerForm.patchValue({ rank: rank});
+    console.log(this.updatePlayerForm.get('rank').value);
   }
 
   initializeForm() {

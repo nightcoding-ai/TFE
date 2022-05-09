@@ -1,5 +1,13 @@
 <div class="parent">
-    <div *ngFor="let player of freePlayers" (click)="onInvitePlayer(player.id,player.teamId, player.role); player.invited = true">
-        <ndls-player-element [player]="player" [ngStyle]="{'opacity': player.invited ? .2 : 1}" [ngClass]="{'hover': true}"></ndls-player-element>
-    </div>
+    <ng-container *ngIf="freePlayers.length >= 1">
+        <h3>Cliquer pour inviter le joueur.</h3>
+        <div *ngFor="let player of freePlayers" (click)="onInvitePlayer(player.id,player.teamId, player.role); player.invited = true" >
+            <ndls-player-element [player]="player" [ngStyle]="{'opacity': player.invited ? .2 : 1}" [ngClass]="{'hover': true}"></ndls-player-element>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!freePlayers || freePlayers.length < 1">
+        <div class="noPlayer">
+            Aucun joueur disponible pour ce poste.
+        </div>
+    </ng-container>
 </div>

@@ -52,6 +52,11 @@ export class TeamsController {
         return this.TeamService.getAll(req.user.playerID);
     }
 
+    @Get(':id/tournaments_Won')
+    getNumberOfTournamentsWon(
+        @Param('id') id: number): Promise<number> {
+        return this.TeamService.getNumberOfTournamentsWon(id);
+    }
 
     @Get('count_teams')
     getNumberOfTeams(): Promise<number> {
@@ -70,12 +75,12 @@ export class TeamsController {
 
     @Get('with/:nbr')
     getTeamsWithPrecisedNumberOfPlayer(
-        @Param('nbr') nbr: string): Promise<TeamInterface[] | null>{
+        @Param('nbr') nbr: string): Promise<Team[] | null>{
         return this.TeamService.getTeamsWithPrecisedNumberOfPlayers(nbr);
     }
     @Get('free_slots/:nbr')
     getTeamsWithPrecisedFreePlaces(
-        @Param('nbr') nbr: string): Promise<TeamInterface[] | null>{
+        @Param('nbr') nbr: string): Promise<Team[] | null>{
         return this.TeamService.getTeamsWithPrecisedFreePlaces(nbr);
     }
 
@@ -98,9 +103,4 @@ export class TeamsController {
         @Req() req:any): Promise<DeleteResult> {
         return this.TeamService.deleteTeam(req.user.playerID);
     }
-
-
-
-
-    
 }

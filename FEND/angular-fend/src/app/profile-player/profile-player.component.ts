@@ -5,7 +5,7 @@ import { ProfilePlayerService } from './profile-player.service';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { RoleEnum } from '../roles.enum';
 import { RankEnum } from '../ranks.enum';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faAt, faPenToSquare, faTriangleExclamation, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 import { ModifyProfileComponent } from './modify-profile/modify-profile.component';
 
@@ -20,6 +20,7 @@ export class ProfilePlayerComponent implements OnInit {
   tokenDecoded : any;
   faDiscord= faDiscord;
   player: any;
+  tournamentsWon: number = 0;
   faTriangle = faTriangleExclamation;
   roles = [
     RoleEnum.Toplaner, 
@@ -31,6 +32,9 @@ export class ProfilePlayerComponent implements OnInit {
   rankEnum = RankEnum;
   idTeam: number;
   roleEnum = RoleEnum;
+  faAt = faAt;
+  faPenToSquare = faPenToSquare;
+  faTrophy = faTrophy;
 
   constructor(
     private authService: AuthenticationService,
@@ -44,6 +48,14 @@ export class ProfilePlayerComponent implements OnInit {
     this.profilePlayerService.getPlayerProfile().subscribe(
       (res) => {
         this.player = res;
+        console.log(this.player.profilPicture)
+
+        if(this.player.teamId) {
+          this.profilePlayerService.getTournamentsWon(this.player.teamId).subscribe(
+            res => this.tournamentsWon = res
+          )
+        }
+
       }
     )
   }

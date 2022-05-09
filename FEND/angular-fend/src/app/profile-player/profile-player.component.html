@@ -1,50 +1,56 @@
-<div *ngIf="player" class="profile" style="background-image: url({{player.profilPicture}})">
-    <div class="crucials" (click)="onChangeProfile()" >
-        <!--
-
+<div *ngIf="player" class="profile" style="background-image: url(../../assets/ndls_white.png)">
+        <fa-icon [icon]="faPenToSquare" id="modif" (click)="onChangeProfile()" ></fa-icon>
+        <div class="crucials">
             <div class="profilPicture">
                 <img src="{{player.profilPicture}}" alt="pp" id="pp" *ngIf="player.profilPicture">
                 <img src="../../assets/ndls_white_face.png" alt="pp" id="pp" class="noPp" *ngIf="!player.profilPicture">
             </div>
-        -->
-        <div class="pseudo">
-            <span id="pseudo">{{ player.name | uppercase }}</span>
-        </div>
-    </div>
-    <div class="lolInfos">
-        <div class="role" (click)="onChangeProfile()">
-            <div [ngSwitch]="player.role" id="role" >
-                <img src="../../../assets/Top_icon.png" alt="role" *ngSwitchCase="roleEnum.Toplaner" class="rolesIcon">                  
-                <img src="../../../assets/Jungle_icon.png" alt="role" *ngSwitchCase="roleEnum.Jungler" class="rolesIcon">                    
-                <img src="../../../assets/Middle_icon.png" alt="role" *ngSwitchCase="roleEnum.Midlaner" class="rolesIcon">                    
-                <img src="../../../assets/Bottom_icon.png" alt="role" *ngSwitchCase="roleEnum.ADC" class="rolesIcon">                   
-                <img src="../../../assets/Support_icon.png" alt="role" *ngSwitchCase="roleEnum.Support" class="rolesIcon">                  
-                <fa-icon [icon]="faTriangle" *ngSwitchDefault></fa-icon>      
+            <div class="pseudo">
+                <span id="pseudo">{{ player.name | uppercase }}</span>
             </div>
-            <div class="roleName"><span>{{player.role | uppercase}}</span></div>
-        </div>
-        <div class="rank" (click)="onChangeProfile()">
-            <div  [ngSwitch]="player.rank">
-                <img src="../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">                
-                <img src="../../../assets/grandmaster.png" alt="rank" *ngSwitchCase="rankEnum.GrandMaitre" class="ranksIcon">          
-                <img src="../../../assets/master.png" alt="rank" *ngSwitchCase="rankEnum.Maitre" class="ranksIcon">            
-                <img src="../../../assets/diamond.png" alt="rank" *ngSwitchCase="rankEnum.Diamant" class="ranksIcon">            
-                <img src="../../../assets/platine.png" alt="rank" *ngSwitchCase="rankEnum.Platine" class="ranksIcon">           
-                <img src="../../../assets/gold.png" alt="rank" *ngSwitchCase="rankEnum.Or" class="ranksIcon">            
-                <img src="../../../assets/silver.png" alt="rank" *ngSwitchCase="rankEnum.Argent" class="ranksIcon">            
-                <img src="../../../assets/bronze.png" alt="rank" *ngSwitchCase="rankEnum.Bronze" class="ranksIcon">            
-                <img src="../../../assets/iron.png" alt="rank" *ngSwitchCase="rankEnum.Fer" class="ranksIcon">            
-                <img src="../../../assets/unranked.png" alt="rank" id="unranked" *ngSwitchDefault class="ranksIcon">
+            <div class="tournamentsWon">
+                <fa-icon [icon]="faTrophy"></fa-icon>
+                <span>{{ tournamentsWon }}</span>
             </div>
-            <div class="rankName" ><span>{{player.rank | uppercase}}</span></div>
         </div>
-        <div class="ign" (click)="onChangeProfile()">
-            <img src="../../assets/lol_icon_svg.svg" alt=" lolIcon" class="lolIcon">
-            <div class="igName"><span>{{player.ign | uppercase}}</span></div>
+        <div class="lolInfos">
+            <div class="role" >
+                <div [ngSwitch]="player.role" id="role" >
+                    <img src="../../assets/top_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Toplaner" class="rolesIcon">                  
+                    <img src=".//../../assets/jungle_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Jungler" class="rolesIcon">                    
+                    <img src="../../assets/mid_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Midlaner" class="rolesIcon">                    
+                    <img src="../../assets/bottom_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.ADC" class="rolesIcon">                   
+                    <img src="../../assets/support_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Support" class="rolesIcon">                  
+                    <fa-icon [icon]="faTriangle" *ngSwitchDefault></fa-icon>      
+                    <div class="roleName"><span>{{player.role | uppercase}}</span></div>
+                </div>
+            </div>
+            <div class="rank">
+                <div  [ngSwitch]="player.rank">
+                    <img src="../../../assets/challenger.png" alt="rank" *ngSwitchCase="rankEnum.Challenger" class="ranksIcon">                
+                    <img src="../../../assets/grandmaster.png" alt="rank" *ngSwitchCase="rankEnum.GrandMaitre" class="ranksIcon">          
+                    <img src="../../../assets/master.png" alt="rank" *ngSwitchCase="rankEnum.Maitre" class="ranksIcon">            
+                    <img src="../../../assets/diamond.png" alt="rank" *ngSwitchCase="rankEnum.Diamant" class="ranksIcon">            
+                    <img src="../../../assets/platine.png" alt="rank" *ngSwitchCase="rankEnum.Platine" class="ranksIcon">           
+                    <img src="../../../assets/gold.png" alt="rank" *ngSwitchCase="rankEnum.Or" class="ranksIcon">            
+                    <img src="../../../assets/silver.png" alt="rank" *ngSwitchCase="rankEnum.Argent" class="ranksIcon">            
+                    <img src="../../../assets/bronze.png" alt="rank" *ngSwitchCase="rankEnum.Bronze" class="ranksIcon">            
+                    <img src="../../../assets/iron.png" alt="rank" *ngSwitchCase="rankEnum.Fer" class="ranksIcon">            
+                    <img src="../../../assets/unranked.png" alt="rank" id="unranked" *ngSwitchDefault class="ranksIcon">
+                    <div class="rankName" ><span>{{player.rank | uppercase}}</span></div>
+                </div>
+            </div>
+            <div class="ign" >
+                <div><img src="../../assets/lol_icon_svg.svg" alt=" lolIcon" class="lolIcon"></div>
+                <div class="igName"><span>{{player.ign | uppercase}}</span></div>
+            </div>
+            <div class="discord" >
+                <fa-icon [icon]="faDiscord" class="discordIcon"></fa-icon>
+                <div class="discordName"><span>{{player.discord | uppercase}}</span></div>
+            </div>
+            <div class="mail">
+                <fa-icon [icon]="faAt" class="mailIcon"></fa-icon>
+                <span id="email">{{ player.mail }}</span>
+            </div>
         </div>
-        <div class="discord" (click)="onChangeProfile()">
-            <fa-icon [icon]="faDiscord" class="discordIcon"></fa-icon>
-            <div class="discordName"><span>{{player.discord | uppercase}}</span></div>
-        </div>
-        <span id="email">{{ player.mail }}</span>
 </div>
