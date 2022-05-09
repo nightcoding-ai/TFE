@@ -1,0 +1,13 @@
+div.parent {
+    padding: 15px;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+}
+
+span { 
+    color: var(--notPureWhite);
+}

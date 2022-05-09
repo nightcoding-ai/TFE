@@ -1,0 +1,15 @@
+div.banPlayer{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+div span {
+    color: var(--notPureWhite);
+}
+
+.btns{
+    padding: 15px; 
+    display: flex;
+    justify-content: space-evenly;   
+}

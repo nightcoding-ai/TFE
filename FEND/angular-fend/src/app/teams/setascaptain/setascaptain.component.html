@@ -1,0 +1,9 @@
+<div class="parent">
+    <span>
+        Etes-vous sûr de vouloir nommer {{ data.name | uppercase }} comme capitaine de l'équipe ?
+    </span>
+    <div class="btns">
+        <ndls-confirm-button (click)="setAsCaptain(data.id)"></ndls-confirm-button>
+        <ndls-cancel-button (click)="close()"></ndls-cancel-button>
+    </div>
+</div>

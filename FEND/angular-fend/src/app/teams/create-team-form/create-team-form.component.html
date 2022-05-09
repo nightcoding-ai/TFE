@@ -1,0 +1,12 @@
+
+    <form [formGroup]="teamForm" (ngSubmit)="onSubmit()" class="teamForm">
+            <h1>Creer une <span>equipe</span> </h1>
+                <input  matInput placeholder="Nom d'équipe..." formControlName="name" >
+
+                <input matInput placeholder="Abbreviation..." formControlName="abbreviation" id="abb">
+                <small style="color: var(--notPureWhite); text-align: left;">Max. 3 caractères</small>
+
+            <input type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
+
+            <button type="submit"><fa-icon [icon]="faCirclePlus"></fa-icon>Creer</button>
+    </form>

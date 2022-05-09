@@ -1,0 +1,30 @@
+<div *ngIf="user" class="container">
+    <div class="title">
+        <h1>Quitter l'<span> équipe</span></h1>
+    </div>
+    <div class="content">
+        <div *ngIf="!user.isCaptain">
+            <span>Etes-vous sûr de vouloir quitter l'équipe ?</span><br>
+            <div class="btns">
+                <ndls-confirm-button (click)="leaveTeam();"></ndls-confirm-button>
+                <ndls-cancel-button (click)="close()"></ndls-cancel-button>
+            </div>
+        </div>
+        <div *ngIf="user.isCaptain && team.players.length > 2">
+            <h2>Nommer le nouveau capitaine</h2>
+            <ndls-player-element *ngFor="let player of playersWithoutCaptain" (click)="getSelectedPlayer(player)" [player]="player"></ndls-player-element>
+            <div class="btns">
+                <ndls-confirm-button (click)="onSetNewCaptain(selectedPlayer.id)" ></ndls-confirm-button>
+                <ndls-cancel-button mat-dialog-close></ndls-cancel-button>
+            </div>
+        </div>
+        <div *ngIf="user.isCaptain && team.players.length === 2 && playersWithoutCaptain.length === 1">
+            <span id="newCaptain">{{playersWithoutCaptain[0].name | uppercase }} sera le nouveau capitaine de l'équipe.</span>
+            <div class="btns between">
+                <ndls-confirm-button (click)="leaveTeamWithOnlyOneOtherPlayer(playersWithoutCaptain[0].id)"></ndls-confirm-button>
+                <ndls-cancel-button mat-dialog-close></ndls-cancel-button>
+            </div>
+        </div>
+    </div>
+</div> 
+    

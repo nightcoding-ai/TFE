@@ -1,0 +1,7 @@
+<div class="banPlayer">    
+    <span> Etes-vous sûr(e) de vouloir expulser {{ player.name | uppercase }} de votre équipe ? </span>
+    <div class="btns">
+        <ndls-confirm-button (click)="banPlayer(player.id)"></ndls-confirm-button>
+        <ndls-cancel-button (click)="close()"></ndls-cancel-button>
+    </div>
+</div>

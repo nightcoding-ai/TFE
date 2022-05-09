@@ -1,0 +1,9 @@
+<div class="parent">
+    Voulez-vous proposer votre candidature pour cette équipe ? {{ data.team.name | uppercase }}
+    <small>Vous pouvez poser votre candidature à plusieurs équipes simultanément...</small>
+
+    <div class="btns">
+        <ndls-confirm-button (click)="joinTeamRequest(data.user.id, data.team.id, data.user.role)" ></ndls-confirm-button>
+        <ndls-cancel-button (click)="close()" ></ndls-cancel-button>
+    </div>
+</div>

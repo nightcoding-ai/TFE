@@ -1,0 +1,16 @@
+div.parent {
+    display: flex;
+    flex-direction: column;
+    color: var(--notPureWhite);
+    padding: 15px;
+}
+
+div.btns {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+small {
+    opacity: .6;
+}

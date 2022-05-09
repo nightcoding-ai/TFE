@@ -1,0 +1,36 @@
+<mat-dialog-content>
+    <form [formGroup]="updatePlayerForm" (ngSubmit)="onSubmit()" class="updatePlayer">  
+        <input  type="text" formControlName="name" maxlength="20" placeholder="Pseudonyme"> 
+        <input  type="mail" formControlName="email" placeholder="Email">  
+        <input  type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
+        <div class="roleAndRank">
+            <div class="role">
+                <ndls-role-item *ngFor="let role of roles" [role]="role.name" (click)="setNewRole(role.name)"></ndls-role-item>
+            </div>
+            <div class="rank">
+                <ndls-rank-item *ngFor="let rank of ranks" [rank]="rank.name" (click)="setNewRank(rank.name)"></ndls-rank-item>
+            </div>
+        </div>
+            
+            <div class="btns">
+                <button  type="submit" [disabled]="verifyMates(updatePlayerForm.get('role').value)"><fa-icon [icon]="faPenSquare"></fa-icon>Modifier</button>
+                <a  (click)="close()"><fa-icon id="cancel" [icon]="faXmark"></fa-icon>Annuler</a>
+            </div>
+    </form>
+
+</mat-dialog-content>
+
+<!--
+
+    <form [formGroup]="updatePlayerForm" (ngSubmit)="onSubmit()" class="updateTeam">
+        <input  type="text" formControlName="name" maxlength="3" placeholder="Pseudonyme"> 
+        <input  type="mail" formControlName="email" placeholder="Email">  
+        <input  type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)">
+
+        <div class="btns">
+            <button  type="submit"><fa-icon [icon]="faPenSquare"></fa-icon>Modifier</button>
+            <ndls-cancel-button (click)="close()"></ndls-cancel-button>
+        </div>
+    </form>
+-->
+    

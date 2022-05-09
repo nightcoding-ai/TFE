@@ -1,0 +1,40 @@
+   
+<div class="players">
+    <mat-form-field>
+        <input (keyup)="applyFilter($event)" matInput placeholder="Rechercher..." >
+    </mat-form-field>
+    
+    <mat-table [dataSource]="dataSourceArray" matSort >
+        <ng-container matColumnDef="id">
+            <mat-header-cell  *matHeaderCellDef matSortHeader mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let player"> {{player.id}} </mat-cell>
+        </ng-container> 
+        <ng-container matColumnDef="name">
+            <mat-header-cell  *matHeaderCellDef mat-sort-header> Nom </mat-header-cell>
+            <mat-cell *matCellDef="let player"> {{player.name}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="inGameName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> IGN </mat-header-cell>
+            <mat-cell *matCellDef="let player"> {{player.inGameName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="role">
+            <mat-header-cell  *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+            <mat-cell *matCellDef="let player"> {{player.role}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="rank">
+            <mat-header-cell  *matHeaderCellDef mat-sort-header> Rang </mat-header-cell>
+            <mat-cell *matCellDef="let player"> {{player.rank}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="team">
+            <mat-header-cell  *matHeaderCellDef mat-sort-header> Equipe </mat-header-cell>
+            <mat-cell *matCellDef="let player">
+                <ng-container *ngIf="player.team">{{player.team | uppercase}}</ng-container>
+             </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5,10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+   
+    

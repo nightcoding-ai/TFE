@@ -1,0 +1,92 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-top: 50px;
+    background-color: var(--secondColorDarker);
+    border-radius: 15px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+}
+
+form h1 {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+form h1 span {
+    color: var(--secondColor);
+}
+
+
+
+input::placeholder {
+    color: var(--notPureWhite);
+    opacity: 0.55;
+    margin-left: 10px;
+}
+
+input {
+    color: var(--notPureWhite);
+    padding: 10px;
+    background-color: var(--firstColorDarker);
+    border: none;
+    border-radius: 25px;
+    margin-bottom: 15px;
+}
+
+#abb {
+    margin-bottom: 0;
+}
+
+small {
+    margin-top: 0;
+    margin-left: 10px;
+}
+
+input:focus{
+    outline: var(--secondColor) 1px solid;
+}
+
+input[type="file"] {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: calc(100% - 50px);
+    border-radius: 5px;
+    padding: 15px;
+
+}
+
+form button {
+    padding: 15px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 25px;
+    background-color: var(--firstColorDarker);
+    color: var(--notPureWhite);
+    text-transform: capitalize;
+    font-weight: 500;
+    border: none;
+    transition: ease-in-out .3s;
+    margin-top: 50px;
+
+}
+
+form button:hover {
+    color: var(--yellowColor);
+}
+
+@media only screen and (max-width: 990px){
+
+    form {
+        width: calc(100% - 80px);
+    }
+
+}

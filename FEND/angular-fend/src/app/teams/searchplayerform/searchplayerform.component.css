@@ -1,0 +1,28 @@
+div.parent {
+    padding: 30px;
+    padding: 0;
+    margin: 20px;
+    text-align: center;
+}
+
+.hover:hover{
+    border: 4px solid green;
+}
+
+h3 {
+    margin-bottom: 0;
+    background-color: var(--firstColorDarker);
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    color: var(--notPureWhite);
+    border-radius: 15px 15px 0 0;
+}
+
+div.noPlayer {
+    background-color: var(--firstColorDarker);
+    padding: 10px;
+    color: var(--notPureWhite);
+    border-radius:15px;
+}

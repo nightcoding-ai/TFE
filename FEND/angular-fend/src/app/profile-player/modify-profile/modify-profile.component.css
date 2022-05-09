@@ -1,0 +1,98 @@
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+}
+
+form h1 {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--notPureWhite);
+}
+
+form h1 span {
+    color: var(--secondColor);
+}
+
+input::placeholder {
+    color: var(--notPureWhite);
+    opacity: 0.55;
+    margin-left: 10px;
+}
+
+input {
+    color: var(--notPureWhite);
+    padding: 10px;
+    background-color: var(--firstColorDarker);
+    border: none;
+    border-radius: 25px;
+    margin-bottom: 15px;
+}
+
+input:focus {
+    outline: var(--secondColor) 1px solid;
+}
+
+input[type="file"] {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: calc(100% - 50px);
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 0.88em;
+}
+
+div.btns {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+button {
+    padding: 15px;
+    width: fit-content;
+    border-radius: 25px;
+    background-color: var(--firstColorDarker);
+    color: var(--notPureWhite);
+    text-transform: capitalize;
+    font-weight: 500;
+    border: none;
+    transition: ease-in-out .3s;
+    margin-top: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+button:hover {
+    color: var(--yellowColor);
+}
+
+div.roleAndRank {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+div.rank {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+div.role {
+    display: flex;
+    flex-direction: column;
+}
+

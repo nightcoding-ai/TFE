@@ -1,0 +1,22 @@
+button {
+    padding: 15px;
+    width: fit-content;
+    border-radius: 25px;
+    background-color: var(--firstColorDarker);
+    color: var(--notPureWhite);
+    text-transform: capitalize;
+    font-weight: 500;
+    border: none;
+    transition: ease-in-out .3s;
+    margin-top: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+button#confirm {
+    background-color: var(--firstColorDarker);
+}
+
+button#confirm:hover {
+    color: var(--yellowColor);
+}

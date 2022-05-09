@@ -1,0 +1,56 @@
+form{
+    display: grid;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid var(--secondColor);
+    color: var(--secondColor);
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ececec;
+}
+
+mat-label{
+    color:var(--secondColor);
+}
+
+mat-select{
+    color: blueviolet !important;
+}
+
+mat-select mat-label{
+    padding: 4px;
+}
+
+
+.hint{
+    color:var(--secondColor);
+}
+
+.img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--secondColor);
+    margin-top: 10px;
+}
+
+.signUpButton{
+    background-color: var(--secondColor);
+    padding: 5px;
+    color:white;
+    border: none;
+    border-radius: 5px;
+}
+
+.signUpButton:hover{
+    background-color: var(--secondColorDarker);
+    transition: ease-in-out 0.3s;
+}

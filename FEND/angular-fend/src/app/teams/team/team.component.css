@@ -1,0 +1,309 @@
+
+img {
+    width: 90px;
+    height: 90px;
+}
+
+div.logo {
+    display: flex;
+    align-items: center;
+}
+
+.playersContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+#abb {
+    text-transform: lowercase;
+    font-size: 0.66em;
+    text-orientation: sideways;
+    opacity: 0.5;
+}
+
+
+
+div.logo img{
+    border-radius: 50%;
+}
+
+.teamInformationsContainer {
+    height: 130px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 25px;
+    
+    margin-bottom: 50px;
+}
+
+.playerComponent {
+    width: 20%;
+}
+
+div.teamName {
+    position: relative;
+    width: calc(100% - 5px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 3em;
+    color: var(--notPureWhite);
+    letter-spacing: 6px;
+    align-items: center;
+}
+
+div.player {
+    width: 18%;
+}
+div.teamName:first-child {
+    color: var(--firstColor);
+}
+
+div.teamName span {
+    margin: 7px;
+}
+
+div.teamButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+div.teamButtons a {
+    display: flex;
+    padding: 4px;
+    margin: 6px;
+    background-color: var(--firstColorDarker);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+div.teamButtons a:hover {
+    background-color: #d3d3d3;
+    color: var(--secondColor);
+    border-radius: 5px;
+    transition: all ease-in-out 0.3s;
+}
+
+.modifButton {
+    color: var(--notPureWhite);
+}
+
+a.deleteButton, a.leaveButton {
+    color: var(--redColor);
+}
+
+
+
+.team, .matches {
+    width: calc(100% - 10px);
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+.profilePicture {
+    border-radius: 50%;
+    border: solid 3px var(--secondColor);
+    background-color: var(--firstColorDarker);
+}
+
+#name {
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--firstColorDarker);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.player {
+    position: relative;
+    background-color: #e2e2e2;
+    width: 20%;
+    padding: 25px;
+    border: 2px solid var(--secondColor);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    border-collapse: collapse;
+
+}
+
+.captain {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--firstColorDarker);
+
+}
+
+#banBtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--redColor);
+    color: white;
+    border: none;
+}
+
+#banBtn:hover {
+    background-color: var(--redColorDarker);
+    transition: ease-in-out 0.2s;
+}
+
+div.crown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 5px;
+    color: var(--secondColor);
+}
+
+div.info {
+    color: var(--firstColorDarker);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.rolesIcon {
+    margin-top: auto;
+    width:32px;
+    height: 32px;
+}
+
+#lolIcon {
+    width: 1em;
+    height: 1em;
+}
+
+#inviteBtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--greenColor);
+    color: white;
+    border: none;
+
+}
+.playerOfRosterMissing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.noPlayer {
+    background-color: var(--firstColorDarker);
+    border-radius: 50%;
+}
+
+.joinRequests {
+    width: max-content;
+    color: var(--notPureWhite);
+}
+
+.playerOfRosterMissing span {
+    text-transform: uppercase;
+    color: var(--firstColorDarker);
+    margin-top: 20px;
+}
+
+.matches {
+    display: grid;
+    background-color: var(--firstColorDarker);
+}
+
+.match {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--secondColor);
+    padding: 10px;
+    align-items: center;
+
+}
+
+.matches img {
+    width: 50px;
+    height: 50px;
+}
+
+.VS {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.won {
+    background-color: var(--firstColorLighter);
+}
+
+.teamNameMatch {
+    width: 80px;
+    overflow: hidden;
+}
+
+
+#score {
+    font-weight: 600;
+}
+
+
+@media only screen and (max-width: 990px){
+
+    a {
+        font-size: 0.66em;
+    }
+
+    .playersContainer {
+        margin-top: 150px;
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .playersContainer:first-child {
+        margin-top: 50px;
+    }
+
+    .teamInformationsContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    div.logo {
+        width: fit-content;
+        margin-top: 115px;
+        margin-bottom: 15px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    div.teamName {
+        padding: 15px;
+    }
+
+    .playerComponent {
+        width: calc(100% - 100px);
+    }
+
+    ndls-player {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 25px;
+        align-items: center;
+    }
+
+}

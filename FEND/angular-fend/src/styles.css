@@ -1,0 +1,86 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Roboto:wght@400;500&display=swap');
+
+:root{
+    --teamHover : #c4a55f;
+    --orangeWarning : #c09e4d;
+    --orangeWarningHover : #e9345b;
+    --orangeAttention : #e4c17067;
+    --redWarning: #8b2828;
+    --redWarningHover: #701f1f;
+    --greenColor: #65c957;
+    --redColor: #e04b4b;
+    --yellowColor: #b99b6c;
+    --firstColor: #191970;
+    --secondColor: #884DA7;
+    --notPureWhite: #cfcfcf;
+    --firstColorDarker: #0e0e41;
+    --firstColorHover: #0a0a2c;
+    --secondColorDarker: #49295a;
+    --redColorDarker: #be4040;
+    --firstColorLighter: #1f1f8b;
+    --secondColorLighter: #a05ac5;
+    --navColor : #191970;
+    --bodyColor : #0b0b3f;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
+}
+
+html {
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.ranksIcon {
+    width: 400px;
+    height: 400px;
+}
+
+.lolIcon {
+    font-size: 60px;
+}
+
+a:hover{
+    cursor: pointer;
+}
+
+body{
+    color: var(--notPureWhite);
+    background: rgb(12,12,75) ;
+    background: linear-gradient(0deg, rgba(12,12,75,1) 0%, rgba(6,6,37,1) 100%) ;
+    background-size: 100% 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    height: 100%; 
+    background-attachment: fixed;
+}
+
+
+fa-icon{
+    margin-right: 4px;
+}
+
+
+.mat-dialog-container{
+    padding: 0px !important;
+    background-color: var(--secondColorDarker) !important;
+    border-radius: 15px !important;
+}
+
+
+
+.mat-dialog-container::-webkit-scrollbar-thumb{
+    border-radius: 5px !important;
+}
+

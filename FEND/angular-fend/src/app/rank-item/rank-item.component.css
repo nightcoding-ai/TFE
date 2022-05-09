@@ -1,0 +1,15 @@
+div.rank {
+    background-color: var(--firstColorDarker);
+    border-radius: 15px;
+    width: 150px;
+    color: var(--notPureWhite);
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.ranksIcon {
+    height: 50px;
+    width: 50px;
+    margin-right: 7px;
+}

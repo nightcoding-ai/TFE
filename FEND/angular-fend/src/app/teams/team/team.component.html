@@ -1,0 +1,43 @@
+
+<div class="teamInformationsContainer" >
+    <div class="logo" *ngIf="team && team.logo">
+        <img src="{{ team.logo }}" alt="logo" id="teamLogo">
+    </div>
+    <div class="teamName" *ngIf="team && team.logo">
+        <span id="abb">{{ team.abbreviation | uppercase }}</span>
+        <span>{{ team.name | uppercase }}</span>
+    </div>           
+    <div  class="logo" *ngIf=" team && !team.logo">
+        <img src="../../../assets/ndls_white_face.png" alt="logo" id="teamLogo">
+    </div>
+    <div class="teamName" *ngIf=" team && !team.logo" >
+        <span>{{ team.abbreviation | uppercase }}</span>
+        <span>{{team.name | uppercase}}</span>
+    </div>
+        <ng-container *ngIf="player">
+            <div *ngIf="player.teamId" class="teamButtons">
+                <ng-container *ngIf="player && team && player.teamId === team.id"> 
+                    <ng-container *ngIf="player.isCaptain === true">
+                        <a (click)="onOpenDialogPlayersWantingToJoin()" class="teamLinks joinRequests" *ngIf="joinRequests && joinRequests.length > 0" [matBadge]="joinRequests.length" matBadgeSize="small" matBadgeColor="warn" overlap="false"><fa-icon [icon]="faUserCheck"></fa-icon>Demandes d'adhésion</a>
+                        <a (click)="onOpenDialogUpdateTeamInfo()" class="teamLinks modifButton"><fa-icon [icon]="faPenLine"></fa-icon>Modifier</a>
+                    </ng-container>
+                    <ng-container *ngIf="team.players.length > 1">
+                        <a (click)="onOpenDialogLeaveTeam()" class="teamLinks leaveButton"><fa-icon [icon]="faArrowRight" ></fa-icon>Quitter</a>
+                    </ng-container>
+                    <ng-container *ngIf="player.isCaptain === true">
+                        <a (click)="onOpenDialogDeleteTeam()" class="teamLinks deleteButton"><fa-icon [icon]="faTrashCan" ></fa-icon>Supprimer</a>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-container>
+</div>
+
+    <div *ngIf="team" class="playersContainer">
+        <ndls-player [player]="this.getPlayerByRole(role)" [team]="team" [role]="role" [user]="player" *ngFor="let role of roles" class="playerComponent"></ndls-player>
+    </div>
+<!--
+
+    <div *ngIf="matches" class="teamMatches">
+        <ndls-match [match]="match" *ngFor="let match of matches" class="matchComponent"></ndls-match>
+    </div>
+-->

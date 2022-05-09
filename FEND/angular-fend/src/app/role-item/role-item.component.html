@@ -1,0 +1,9 @@
+<div class="role" [ngSwitch]="role" tabindex="0">
+    <img src="../../assets/top_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Toplaner" class="rolesIcon">                  
+    <img src=".//../../assets/jungle_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Jungler" class="rolesIcon">                    
+    <img src="../../assets/mid_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Midlaner" class="rolesIcon">                    
+    <img src="../../assets/bottom_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.ADC" class="rolesIcon">                   
+    <img src="../../assets/support_icon_svg.svg" alt="role" *ngSwitchCase="roleEnum.Support" class="rolesIcon">                  
+    <fa-icon [icon]="faTriangle" *ngSwitchDefault></fa-icon>
+    <span>{{ role | uppercase}}</span>      
+</div>

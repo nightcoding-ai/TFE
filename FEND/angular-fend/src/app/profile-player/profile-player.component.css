@@ -1,0 +1,121 @@
+div.profile {
+    width: calc(100% - 100px);
+    height: 650px;
+    margin-top: 50px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: var(--firstColorDarker);
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    
+}
+
+div.crucials {
+    background-color: var(--secondColorDarker);
+    height: 100%;
+    width: 200px;
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: rgb(136,77,167);
+    background: radial-gradient(circle, rgba(136,77,167,1) 0%, rgba(73,41,90,1) 100%);
+    position: relative;
+}
+
+div.tournamentsWon {
+    position: absolute;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    bottom: 10px;
+}
+
+div.tournamentsWon fa-icon {
+    margin-bottom: 0;
+    color: var(--yellowColor);
+    font-size: larger;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.lolInfos {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 3;
+    justify-content: space-evenly;
+    padding-bottom: 100px;
+}
+
+div.role, div.rank, div.ign, div.discord, div.mail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    text-align: center;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+div.crucials div.profilPicture img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 1px solid var(--notPureWhite);
+ 
+}
+
+
+.lolIcon {
+    filter: invert(66%) sepia(51%) saturate(285%) hue-rotate(358deg) brightness(87%) contrast(87%);
+    width: 68px;
+    width: 68px;
+}
+
+.discordIcon, .mailIcon {
+    color: var(--yellowColor);
+}
+
+.mailIcon, .discordIcon {
+    font-size: 68px;
+}
+
+span#pseudo {
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-top: 50px;
+}
+
+img, fa-icon {
+    margin-bottom: 10px;
+}
+
+#modif {
+    font-size: 1.44em;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: var(--firstColorDarker);
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    align-items: center;
+    border-radius: 50%;
+    transition: ease-in-out .3s;
+}
+
+#modif:hover {
+    cursor: pointer;
+    background-color: var(--firstColor);
+}
+
+.ranksIcon {
+    width: 120px;
+    height: 120px;
+}

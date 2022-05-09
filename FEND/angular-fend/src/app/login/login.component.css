@@ -1,0 +1,60 @@
+.container{ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+form{
+    display: grid;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid var(--secondColor);
+    color: var(--secondColor);
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ececec;
+
+}
+
+mat-label{
+    color:var(--secondColor);
+}
+
+
+input{
+    padding: 5px;
+    margin-top: 5px;
+}
+
+input:focus{
+    border: none;
+}
+
+button{
+    margin-top: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--secondColor);
+    color: white;
+}
+
+a{
+    margin-right: auto;
+    margin-left: auto;
+    color: var(--secondColor);
+}
+
+a:hover{
+    color: var(--secondColorDarker);
+    transition: ease-in-out 0.3s;
+}
+
+div.error{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    color: var(--redColor);
+}

@@ -1,0 +1,15 @@
+div.role {
+    background-color: var(--firstColorDarker);
+    border-radius: 15px;
+    width: 150px;
+    padding: 10px;
+    color: var(--notPureWhite);
+    display: flex;
+    align-items: center;
+}
+
+.rolesIcon {
+    height: 30px;
+    width: 30px;
+    margin-right: 7px;
+}

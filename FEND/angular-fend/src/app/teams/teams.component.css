@@ -1,0 +1,104 @@
+.listOfTeams{
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.teamContainer{
+    margin: 0 13px;
+}
+
+div.teamInfo{
+    display: flex;
+    color: var(--notPureWhite);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 26px;
+    width: 258px;
+    height: 258px;
+    border-radius: 15px;
+    background-color: var(--secondColorDarker);
+    transition: ease-in-out 0.3s;
+    font-weight: 500;
+
+}
+
+div.teamInfo{
+    margin-top: auto;
+}
+
+div.teamInfo:hover{
+    background-color: var(--secondColor);
+    cursor: pointer;
+    color: var(--firstColorDarker);
+}
+
+
+
+div.teamInfo a img{
+    width: 0.5em;
+    height: 0.5em;
+    margin-right: 7px;
+}
+
+
+
+#teamLogo{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 25px;
+    border-radius: 50%;
+
+}
+
+.ndls {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    height: 60%;
+    opacity: 0.1;
+}
+
+div.noTeam {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+div.noTeam span {
+    position: absolute;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 2.5em;
+    bottom: 50%;
+}
+
+
+
+@media only screen and (max-width: 990px){
+
+    div.listOfTeams{
+        display: grid;
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+    }
+
+    div.noTeam span {
+        position: absolute;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: large;
+        bottom: 50%;
+    }
+    
+
+}

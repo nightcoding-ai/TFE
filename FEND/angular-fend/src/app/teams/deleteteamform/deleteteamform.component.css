@@ -1,0 +1,17 @@
+div.parent {
+    padding: 15px;
+}
+span {
+    color: var(--notPureWhite);
+    padding: 10px;
+    text-align: center;
+}
+div.btns {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+span#irr {
+    margin-bottom: 15px;
+}

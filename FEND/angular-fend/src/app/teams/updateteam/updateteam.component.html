@@ -1,0 +1,10 @@
+<form [formGroup]="updateTeamForm" (ngSubmit)="onSubmit()" class="updateTeam">
+    <h1>Modifier les informations de l'<span> equipe</span></h1>
+    <input matInput type="text" formControlName="name" placeholder="Nom">  
+    <input matInput type="text" formControlName="abbreviation" maxlength="3" placeholder="Abbreviation"> 
+    <input type="file" class="form-control"  accept=".png, .jpg, .jpeg" (change)="handleUpload($event)"> 
+    <div class="btns">
+        <button  type="submit"><fa-icon [icon]="faPenSquare"></fa-icon>Modifier</button>
+        <ndls-cancel-button (click)="close()"></ndls-cancel-button>
+    </div>
+</form>
